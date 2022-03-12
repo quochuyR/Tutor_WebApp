@@ -1,0 +1,21 @@
+.text-small {
+    font-size: 0.9rem;
+}
+
+a.link-footer {
+    
+    text-decoration: none !important;
+    transition: all 0.3s;
+    color: #fff !important;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+}
+
+
+
+footer {
+    background: #1D2A35;
+}

@@ -1,0 +1,44 @@
+body {
+    background-color: #ecf2f5;
+    margin-top: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+
+
+.avatar-sm {
+    height: 4.5rem;
+    width: 4.5rem;
+}
+
+.img-thumbnail {
+    padding: .25rem;
+    background-color: #ecf2f5;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.font-13 {
+    font-size: 0.85rem !important;
+}
+
+.font-16 {
+    font-size: 1rem !important;
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+}
+
+.me-2 {
+    margin-right: .75rem !important;
+}
+
+.avatar-md {
+    height: 3.5rem;
+    width: 3.5rem;
+}
