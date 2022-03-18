@@ -1,5 +1,7 @@
 <?php
-
+namespace Ajax;
+use Helpers\Format;
+use Classes\SavedTutor;
 $filepath  = realpath(dirname(__FILE__));
 
 // include_once($filepath . "../../lib/session.php");
@@ -16,7 +18,7 @@ if (isset($_POST["userId"]) && isset($_POST["tutorId"])) {
     $tutorId = Format::validation($_POST["tutorId"]);
     $save_tutor = new SavedTutor();
 
-    $result = $save_tutor->deleteTutorSavedByUserId($userId, $tutorId);
+    $result = $save_tutor->deleteTutorSaved($userId, $tutorId);
 
     header("location:../pages/saved_tutors.php");
         exit;

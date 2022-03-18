@@ -1,18 +1,26 @@
 <?php
+namespace Classes;
+
+use Library\Session, Library\Database;
+use Helpers\Format;
+use Classes\UserRole;
 
 $filepath  = realpath(dirname(__FILE__));
 include_once($filepath."../../lib/session.php");
 Session::checkLogin();
 include_once($filepath."../../lib/database.php");
 include_once($filepath."../../helpers/format.php");
+include_once($filepath."../../classes/appuserroles.php");
 
 
 class AdminLogin{
 
     private $db;
+    private $user_role;
     public function __construct()
     {
         $this->db = new Database();
+        $this->user_role = new UserRole();
     }
 
     public function login_admin($username, $password)
@@ -33,8 +41,11 @@ class AdminLogin{
             if($result){
                 $value = $result->fetch_assoc();
 
+                $roles = $this->user_role->getRoleByUserId($value["id"])->fetch_all(MYSQLI_ASSOC);
+                // print_r($roles);
                 Session::set("login", true);
                 Session::set("userId", $value["id"]);
+                Session::set("roles", $roles);
 
                 Session::set("username", $value["username"]);
                 Session::set("lastname", $value["lastname"]);

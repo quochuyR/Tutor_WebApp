@@ -2,8 +2,12 @@
 <html lang="en">
 
 <?php 
+$filepath  = realpath(dirname(__FILE__));
+
+
+
 $title = "404 NOT FOUND";
-include "../inc/head.php" 
+include_once($filepath . "./../../inc/head.php");
 
 ?>
 
@@ -328,7 +332,7 @@ include "../inc/head.php"
             </div>
         </div>
     </a>
-    <?php include "../inc/script.php" ?>
+    <?php include_once($filepath . "../.././inc/script.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 

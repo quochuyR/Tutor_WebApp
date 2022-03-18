@@ -1,5 +1,7 @@
 <?php
-
+namespace Classes;
+use stdClass;
+use Library\Database;
 $filepath  = realpath(dirname(__FILE__));
 
 include_once($filepath."../../lib/database.php");

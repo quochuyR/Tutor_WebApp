@@ -166,6 +166,7 @@ a:focus {
 
     .ftco-navbar-light .navbar-nav>.nav-item>.nav-link:hover {
         color: #fff;
+        background-color: #01d28e;
     }
 }
 
@@ -253,4 +254,38 @@ a:focus {
 
 .ftco-navbar-light .navbar-toggler:focus {
     outline: none !important;
+}
+
+.w-350{
+    width: 350px;
+    max-width: 350px;
+}
+
+.dropdown-menu{
+    border: 0 !important;
+    background-color: #fff;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1),opacity .2s cubic-bezier(.4,0,.2,1)!important;
+    cursor: pointer;
+}
+
+.list-group-item{
+    border-bottom: 1px solid rgba(27, 26, 26, 0.125) !important;
+    border-radius: 0 !important;
+}
+
+.avatar-sm-notification {
+    width: 36px!important;
+    height: 36px!important;
+    font-size: .875rem;
+}
+.avatar-notification {
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border-radius: 50rem;
+    height: 48px;
+    width: 48px;
 }

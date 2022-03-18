@@ -1,7 +1,17 @@
+<?php
+namespace Views;
+use Helpers\Util, Helpers\Format;
+use Library\Session;
+use Classes\Tutor, Classes\Subject, Classes\Day, 
+    Classes\DayOfWeek, Classes\TeachingTime, Classes\SavedTutor;
+
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <?php
+
+
 $title = "Thông tin gia sư";
 include "../inc/head.php";
 
@@ -117,8 +127,8 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
                                             <?php
                                                 $hasTutor = $saved_tutor->countTutorSavedByUserId(Session::get("userId"), $id)->fetch_assoc();
                                             ?>
-                                            <button type="button" class="btn btn-primary" id="save-tutor"><?= $hasTutor["hasTutor"] > 0 ? "Đã lưu" : "Lưu"?></button>
-                                            <button type="button" class="btn btn-primary">Đăng ký</button>
+                                            <button type="button" class="btn btn-primary <?= !empty($_SESSION) ? "" : "d-none"  ?>" id="save-tutor"><?= $hasTutor["hasTutor"] > 0 ? "Đã lưu" : "Lưu"?></button>
+                                            <button type="button" class="btn btn-primary <?= !empty($_SESSION) ? "" : "d-none"  ?>">Đăng ký</button>
                                         </li>
                                     </ul>
                                 </div>

@@ -1,5 +1,6 @@
 <?php
-
+namespace Ajax;
+use Library\Session;
 $filepath  = realpath(dirname(__FILE__));
 
 include_once($filepath . "../../lib/session.php");

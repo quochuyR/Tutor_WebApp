@@ -7,7 +7,7 @@ $filepath  = realpath(dirname(__FILE__));
 include_once($filepath."../../lib/database.php");
 // include_once($filepath."../../helpers/format.php");
 
-class Topic 
+class Roles 
 {
     private $db;
     // private $fm;
@@ -17,10 +17,12 @@ class Topic
         // $this->fm = new Format();
     }
 
-    public function getAll()
+    public function getTutorByUserId($userId)
     {
-        $query = "SELECT * FROM `subjecttopics` ORDER BY id ASC";
-        $result = $this->db->select($query);
+        $query = "SELECT `tutors`.`id` FROM `tutors` WHERE `tutors`.`userId` = ?;";
+
+        $result = $this->db->p_statement($query, "s", [$userId]);
         return $result;
     }
+
 }

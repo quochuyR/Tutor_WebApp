@@ -1,0 +1,6 @@
+RewriteEngine On
+
+RewriteRule ^(lib/|classes/|inc/|helpers/|config/|admin/) - [F,L,NC]
+
+
+

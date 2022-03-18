@@ -1,5 +1,8 @@
 <?php
 
+namespace Library;
+use mysqli;
+
 $filepath  = realpath(dirname(__FILE__));
 include_once($filepath."../../config/config.php");
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);

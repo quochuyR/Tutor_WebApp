@@ -1,5 +1,5 @@
 <?php
-
+namespace Library;
 class Session
 {
     public static function init()
@@ -43,9 +43,26 @@ class Session
     {
         self::init();
 
-        if (self::get("login") == true) {
+        if (self::get("login") == true ) {
             return true;
         }
+        return false;
+    }
+    public static function checkRoles($role_allow)
+    {
+        self::checkLogin();
+        $roles = array();
+        foreach(self::get("roles") as $value){ // nhớ lưu ý key và value của mảng
+           array_push($roles, $value["name"]);
+        }
+        if(count(array_diff($role_allow, $roles)) > 0){
+            return false;
+        }
+        // print_r($roles);
+        // print_r($role_allow);
+
+        
+        return true;
     }
 
     public static function destroy()

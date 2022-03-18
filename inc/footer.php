@@ -1,4 +1,6 @@
-
+<?php
+    namespace Inc;
+?>
   <!-- FOOTER -->
     
         <div class="container py-4">

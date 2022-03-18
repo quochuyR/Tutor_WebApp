@@ -528,6 +528,8 @@ $(document).ready(function () {
                 logout(); // khi đăng nhập xong mới hiện logout nên để logout ở đây
                 console.log(data, "data")
                 console.log($("#username-field").val(), "Tài khoản")
+                if(window.location.pathname.includes("tutor_details"))
+                    location.reload();
             },
             error: function (xhr, status, error) {
                 console.log(xhr, error, status, "Lỗi");
@@ -557,7 +559,8 @@ $(document).ready(function () {
                                 .addClass("d-none"); // đăng xuất thì ẩn đăng nhập thành công
                     $("#signup-signin").replaceWith(data);
                     if(window.location.pathname.includes("saved_tutors"))
-                        location.href = "../pages/list_Tutor.php";
+                        location.href = "../pages/list_Tutor";
+                    else location.reload();
                     console.log(data, "data")
                 },
                 error: function (xhr, status, error) {

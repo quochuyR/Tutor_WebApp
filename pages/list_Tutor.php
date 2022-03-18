@@ -1,7 +1,12 @@
+<?php
+namespace Views;
+use Classes\Tutor, Classes\Subject, Classes\SubjectTopic;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <?php
+
 $title = "Danh sách gia sư";
 include "../inc/head.php";
 
@@ -226,9 +231,7 @@ include_once "../classes/paginator.php";
                         <div class="container py-3">
                             <div class="row">
                                 <div class="col-12 pb-4  g-0 d-flex justify-content-end">
-                                    <div class=" d-flex align-items-center views"> <span class="btn text-success me-3"> <span class="fas fa-th px-md-2 px-1 "></span><span>Dạng lưới</span> </span> <span class="green-label px-md-2 px-2 ">
-
-                                    </div>
+                                    
                                     <nav aria-label="Page navigation example " id="pagination-nav" class="mt-3">
 
                                     </nav>

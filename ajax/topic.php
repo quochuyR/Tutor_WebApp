@@ -1,5 +1,7 @@
 <?php
-
+namespace Ajax;
+use Helpers\Format;
+use Classes\SubjectTopic;
 $filepath  = realpath(dirname(__FILE__));
 
 include_once($filepath."../../classes/subjecttopics.php");

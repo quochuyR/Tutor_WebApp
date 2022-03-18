@@ -1,4 +1,7 @@
 <?php
+namespace Inc;
+use Helpers\Util;
+
 $filepath  = realpath(dirname(__FILE__));
 include_once($filepath."../../helpers/utilities.php");
 ?>

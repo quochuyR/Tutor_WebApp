@@ -1,9 +1,16 @@
 <?php
+namespace Inc;
+use Helpers\Util, Helpers\Format;
+use Library\Session;
+use Classes\Notification;
+
 $filepath  = realpath(dirname(__FILE__));
 
 
 include_once($filepath . "../../lib/session.php");
 include_once($filepath . "../../classes/adminlogin.php");
+include_once($filepath . "../../classes/notifications.php");
+
 include_once($filepath . "../../helpers/utilities.php");
 Session::init();
 ?>
@@ -19,6 +26,10 @@ header("Cache-Control: max-age=2592000"); //30days (60sec * 60min * 24hours * 30
 
 
 <?php
+$notification = new Notification();
+
+
+
 if (isset($_POST["action"]) && $_POST["action"] === "logout") {
     if (session_id() !== '' || isset($_SESSION) || session_status() !== PHP_SESSION_NONE) {
         // session isn't started
@@ -60,25 +71,85 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
 
                 </ul>
 
-                <div class=" <?= !empty($_SESSION) ? "d-flex justify-content-center align-items-center" : "d-none"  ?>" id="login">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class=" <?= !empty($_SESSION) ? "d-flex justify-content-center align-items-center" : "d-none"  ?>" id="login">
+                        <div class="dropdown-notification">
+                            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-bell fa-lg position-relative">
+                                    <span class="position-absolute top-0 start-100 translate-middle  p-2 bg-danger border border-light rounded-circle">
+
+                                        <span class="visually-hidden">New alerts</span>
+                                    </span>
+                                </i>
+                            </button>
+                            <div class="dropdown-menu  py-0" aria-labelledby="dropdownMenuButton">
+                                <div class="card border-0 mb-0">
+                                    <h5 class="card-header text-info">Thông báo</h5>
+                                    <div class="card-body p-0 px-2">
+                                        <div class="list-group">
+
+                                            <?php
+                                            if (Session::checkLogin()) {
+                                                $fetch_notification = $notification->getNotificationByUserId(Session::get("userId"));
+
+                                                while ($notifi = $fetch_notification->fetch_assoc()) {
+                                                    $sender = $notification->getUserBySenderId($notifi["SenderId"])->fetch_assoc();
+
+                                            ?>
+                                                    <div class="d-flex">
+                                                        <div class="my-auto">
+                                                            <img src="../<?= $sender["imagepath"] ?>" class="avatar-notification avatar-sm-notification  ">
+                                                        </div>
+                                                        <div class="">
+                                                            <a href="#" class="list-group-item list-group-item-action border-0 text-small">
+                                                                <b><?= $sender["firstname"] ?></b> <?= $notifi["notification_text"] ?>
+
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="card-footer text-muted p-0 border-0">
+                                        <a href="#" class="list-group-item border-0 list-group-item-action  py-3 text-center">
+                                            <b>Xem thêm</b>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!--  -->
+
+                    <div class=" <?= !empty($_SESSION) ? "d-flex justify-content-center align-items-center" : "d-none"  ?>" id="login">
                     <div class="dropdown">
                         <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="">
-                                <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../". Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md rounded-circle" alt="Hình avatar">
+                                <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md rounded-circle" alt="Hình avatar">
                             </span>
 
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="#">
                                 <i class="far fa-calendar-alt"></i>
                                 <span class="ms-2">Quản lí lịch dạy</span>
-                            </a>    
-                        
-                        <a class="dropdown-item" href="<?= Format::validation("./saved_tutors.php?limit=3&page=1") ?>">
+                            </a>
+
+                            <a class="dropdown-item" href="<?= Format::validation("./saved_tutors.php?limit=3&page=1") ?>">
                                 <i class="fas fa-heart text-danger"></i>
                                 <span class="ms-2">Gia sư đã lưu</span>
                             </a>
-                            
+
 
                             <a class="dropdown-item logout" href-action="logout">
                                 <i class="fa-solid fa-right-from-bracket"></i>
@@ -100,6 +171,10 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
 
                 </div>
                 <!-- Button trigger modal -->
+                </div>
+
+
+                
 
 
 

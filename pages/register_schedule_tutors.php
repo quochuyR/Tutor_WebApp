@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php 
+<?php
 $title = "Đăng ký lịch dạy";
-include "inc/head.php" 
+include "inc/head.php"
 
 ?>
 
@@ -15,9 +15,7 @@ include "inc/head.php"
                     <div class="card-body">
 
                         <div class="d-flex align-items-start">
-                            <img src="images/175337396_2917917531830460_8008229113997594091_n.jpg"
-                                class="rounded-circle avatar-lg img-thumbnail" alt="profile-image"
-                                onclick="ShowImg(this.src);">
+                            <img src="images/175337396_2917917531830460_8008229113997594091_n.jpg" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
                             <div class="w-100 ms-3 align-self-end">
                                 <h4 class="my-1">Nguyễn Quốc Huy</h4>
                                 <p class="text-muted">@id: huy2k1</p>
@@ -34,14 +32,12 @@ include "inc/head.php"
                             <p class="text-muted mb-2 font-13"><strong>Họ và tên: </strong> <span class="ms-2">Nguyễn
                                     Quốc Huy</span></p>
 
-                            <p class="text-muted mb-2 font-13"><strong>Giới tính: </strong> <span
-                                    class="ms-2">Nam</span></p>
+                            <p class="text-muted mb-2 font-13"><strong>Giới tính: </strong> <span class="ms-2">Nam</span></p>
 
                             <p class="text-muted mb-2 font-13"><strong>Số điện thoại: </strong><span class="ms-2">038
                                     614 4385 (zalo)</span></p>
 
-                            <p class="text-muted mb-2 font-13"><strong>Email: </strong> <span
-                                    class="ms-2">nhokbaby0246@gmail.com</span></p>
+                            <p class="text-muted mb-2 font-13"><strong>Email: </strong> <span class="ms-2">nhokbaby0246@gmail.com</span></p>
 
                             <p class="text-muted mb-2 font-13"><strong>Hiện tại là: </strong> <span class="ms-2">Sinh
                                     viên</span></p>
@@ -69,8 +65,7 @@ include "inc/head.php"
                                             <div class="col-md-4 ">
                                                 <div class="form-group">
 
-                                                    <select class="form-select select-subject"
-                                                        onchange="CheckSameOptionSubject(event);">
+                                                    <select class="form-select select-subject" onchange="CheckSameOptionSubject(event);">
                                                         <option value="0">-- Môn học --</option>
                                                         <option value="Toán">Toán</option>
                                                         <option value="Vật lý">Vật lý</option>
@@ -87,8 +82,7 @@ include "inc/head.php"
                                                             <div class="col-md-3 p-1">
                                                                 <div class="form-group">
 
-                                                                    <select class="form-select select-DOW"
-                                                                        onchange="CheckSameOptionDOW(event);">
+                                                                    <select class="form-select select-DOW" onchange="CheckSameOptionDOW(event);">
                                                                         <option value="-1">-- Thứ --</option>
                                                                         <option value="1">Thứ 2</option>
                                                                         <option value="2">Thứ 3</option>
@@ -144,15 +138,14 @@ include "inc/head.php"
                                                 </div>
 
                                                 <div class="col-auto mt-3 me-1 ms-auto">
-                                                    <button type="button" class="btn btn-outline-primary"
-                                                        onclick="AddNewDOW(event);">Thêm buổi dạy</button>
+                                                    <button type="button" class="btn btn-outline-primary" onclick="AddNewDOW(event);">Thêm buổi dạy</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <!--  -->
-<!-- 
+                                    <!-- 
                                     <div class="container border p-2">
                                         <div class="row g-0 ">
                                             <div class="col-md-4 ">
@@ -330,39 +323,34 @@ include "inc/head.php"
     <?php include "inc/script.php" ?>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
-            $("#form-submit").on('submit', function (e) {
-
-                /*   var subjects = $("#firstName").val();
-                   var lastName = $("#lastName").val();
-                   var email = $("#email").val();
-                   var message = $("#message").val();
-   
-                   if (firstName == '' || lastName == '' || email == '' || message == '') {
-                       alert("Please fill all fields.");
-                       return false;
-                   }*/
+            $("#form-submit").on('submit', function(e) {
                 e.preventDefault();
-                let test = { "subjects": [] };
-                let i = -1, j = -1;
+                let test = {
+                    "subjects": []
+                };
+                let i = -1,
+                    j = -1;
                 $(".container").find("select").each((idx, select) => {
                     if ($(select).hasClass("select-subject")) {
 
-                        test.subjects.push(
-                            {"subject": $(select).val(),
-                             "dayofweeks": [] });
+                        test.subjects.push({
+                            "subject": $(select).val(),
+                            "dayofweeks": []
+                        });
 
                         i++;
                         j = -1;
                     }
 
                     if ($(select).hasClass("select-DOW")) {
-                        test.subjects[i].dayofweeks.push({ 
+                        test.subjects[i].dayofweeks.push({
                             "dayofweek": $(select).val(),
-                             "morning": null, 
-                             "afternoon": null, 
-                             "evening": null });
+                            "morning": null,
+                            "afternoon": null,
+                            "evening": null
+                        });
                         j++;
 
 
@@ -418,10 +406,10 @@ include "inc/head.php"
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(test),
                     cache: false,
-                    success: function (data) {
+                    success: function(data) {
                         console.log(data);
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.error(xhr);
                     }
                 });

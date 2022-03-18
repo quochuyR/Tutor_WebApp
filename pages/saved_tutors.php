@@ -1,7 +1,16 @@
+<?php
+namespace Views;
+use Helpers\Util, Helpers\Format;
+use Library\Session;
+use Classes\SavedTutor, Classes\Subject;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <?php
+
+
+
 $title = "Gia sư đã lưu";
 include "../inc/head.php";
 include "../classes/savedtutors.php";
@@ -11,9 +20,14 @@ include "../helpers/format.php";
 include_once "../helpers/utilities.php";
 
 
-if (Session::checkLogin() !== true) {
-    header("location:404.php");
+
+
+if (Session::checkRoles(["tutor", "user"]) !== true) {
+    header("location: errors/404"); 
 }
+
+// echo in_array( ["user"], Session::get("roles")[0]);
+
 ?>
 
 <body>

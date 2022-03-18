@@ -10,7 +10,7 @@ include_once($filepath."../../classes/paginator.php");
 
 // include_once($filepath."../../helpers/format.php");
 
-class SavedTutor
+class RegisterUser
 {
     private $db;
     private $paginator;
@@ -22,36 +22,37 @@ class SavedTutor
         // $this->fm = new Format();
     }
 
-    public function createTutorSaved($userId, $tutorId)
+    public function createRegisterUser($userId, $tutorId, $TopicId)
     {
-        $query = "INSERT INTO `savetutors` (`id`, `userId`, `tutorId`, `saveddate`) VALUES (NULL, ?, ?, NOW());";
-        $results = $this->db->p_statement($query, "ss", [$userId, $tutorId]);
+        $query = "INSERT INTO `registeredusers` (`id`, `userId`, `tutorId`, `topicId`, `RegistrationDate`, `status`) VALUES (NULL, ?, ?, ?, NOW(), b'0')";
+        $results = $this->db->p_statement($query, "sss", [$userId, $tutorId, $TopicId]);
 
         return $results ? $results : false;
     }
-    public function deleteTutorSaved($userId, $tutorId)
+    public function deleteRegisterUser($userId, $tutorId, $register_userID)
     {
-        $query = "DELETE FROM `savetutors` WHERE `savetutors`.`userId` = ? AND `savetutors`.`tutorId` = ? ;";
-        $results = $this->db->p_statement($query, "ss", [$userId, $tutorId]);
+        $query = "DELETE FROM `registeredusers` WHERE `registeredusers`.`userId` = ?  AND `registeredusers`.`tutorId` = ? AND `registeredusers`.`id`  = ? ;";
+        $results = $this->db->p_statement($query, "ssi", [$userId, $tutorId, $register_userID]);
 
         return $results ? $results : false;
     }
 
     // bao gồm phân trang luôn
-    public function getTutorSavedByUserId($userId, $request_method)
+    
+    public function getRegisterUserByTutorId($tutorId, $request_method)
     {
         $query = "SELECT DISTINCT `tutors`.`id`, `appusers`.`firstname`, `appusers`.`lastname`, `tutors`.`teachingarea`, `appusers`.`job`, `appusers`.`imagepath`, `savetutors`.`saveddate`
-                    FROM ((`tutors` INNER JOIN `appusers` ON `tutors`.`userId` = `appusers`.`id`)
+                    FROM ((`tutors` INNER JOIN `appusers` ON `tutors`.`tutorId` = `appusers`.`id`)
                           INNER JOIN `savetutors` ON `savetutors`.`tutorId` = `tutors`.`id`)
                     WHERE `tutors`.`id` IN (
                                             SELECT`savetutors`.`tutorId`
                                             FROM   `savetutors` 
-                                            WHERE `savetutors`.`userId` = ?)";
+                                            WHERE `savetutors`.`tutorId` = ?)";
          $limit      = (isset($request_method['limit']))  ? Format::validation($request_method['limit']) : 3;
          $page       = (isset($request_method['page'])) ?  Format::validation($request_method['page']) : 1;
  
  
-         $this->paginator->constructor($query, "s", [$userId]);
+         $this->paginator->constructor($query, "s", [$tutorId]);
  
          $results  = $this->paginator->getData( $limit,$page );
         
