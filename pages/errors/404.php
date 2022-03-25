@@ -2,6 +2,7 @@
 <html lang="en">
 
 <?php 
+use Helpers\Util;
 $filepath  = realpath(dirname(__FILE__));
 
 
@@ -12,7 +13,7 @@ include_once($filepath . "./../../inc/head.php");
 ?>
 
 <body>
-    <a target="_blank" href="https://codepen.io/uiswarup/full/jOaxQWP">
+   
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-12 mt-5 mb-5">
@@ -331,9 +332,11 @@ include_once($filepath . "./../../inc/head.php");
                 </div>
             </div>
         </div>
-    </a>
+    
     <?php include_once($filepath . "../.././inc/script.php") ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="<?= Util::getRootURL() . '/Tutor_WebApp/' . 'js/animation.js' ?>" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
 
 </html>

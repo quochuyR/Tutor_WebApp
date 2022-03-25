@@ -1,11 +1,17 @@
 <?php
+
 namespace Views;
+
 use Helpers\Util, Helpers\Format;
 use Library\Session;
-use Classes\Tutor, Classes\Subject, Classes\Day, 
-    Classes\DayOfWeek, Classes\TeachingTime, Classes\SavedTutor;
+use Classes\Tutor,
+    Classes\Subject,
+    Classes\Day,
+    Classes\DayOfWeek,
+    Classes\TeachingTime,
+    Classes\SavedTutor;
 
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +33,7 @@ include_once "../helpers/format.php";
 <?php
 
 if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
-    echo "Không có trang này";
+    header("location:./errors/404");
 } else {
     $id = Format::validation($_GET["id"]);
 }
@@ -35,24 +41,25 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
 ?>
 
 <body>
+    <!-- Hiển thị hình ảnh rõ hơn khi click -->
+
+    <div class="img-float text-center d-none">
+        <img src="" alt="" srcset="">
+        <div class="full-height"></div>
+
+    </div>
     <div class="container-fluid">
         <header class="row g-0 m-0">
 
-            <?php 
-                $nav_tutor_active = "active";
-                include "../inc/header.php" 
-            
+            <?php
+            $nav_tutor_active = "active";
+            include "../inc/header.php"
+
             ?>
 
         </header>
-        <div id="main" class="container ">
-            <!-- Hiển thị hình ảnh rõ hơn khi click -->
+        <div id="main" class="container pt-2">
 
-            <div class="img-float text-center d-none">
-                <img src="" alt="" srcset="">
-                <div class="full-height"></div>
-
-            </div>
 
             <!-- Main -->
             <div class="container">
@@ -73,11 +80,11 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
 
                     ?>
                         <div class="col-xl-4 col-md-5">
-                            <div class="card card-detail position-sticky" style="top: 0">
+                            <div class="card card-detail position-sticky" style="top: 1rem">
                                 <div class="card-body">
 
                                     <div class="d-flex align-items-start">
-                                        <img src="<?= Util::getCurrentURL() ."/../". $result["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
+                                        <img src="<?= Util::getCurrentURL() . "/../" . $result["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image" >
                                         <div class="w-100 ms-3 align-self-end">
                                             <h4 class="my-1"><?= $result["lastname"] . ' ' . $result["firstname"]; ?></h4>
                                             <p class="text-muted">@id: <?= $result["username"]; ?></p>
@@ -125,9 +132,9 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
 
                                         <li class="list-inline-item postion-absolute">
                                             <?php
-                                                $hasTutor = $saved_tutor->countTutorSavedByUserId(Session::get("userId"), $id)->fetch_assoc();
+                                            $hasTutor = $saved_tutor->countTutorSavedByUserId(Session::get("userId"), $id)->fetch_assoc();
                                             ?>
-                                            <button type="button" class="btn btn-primary <?= !empty($_SESSION) ? "" : "d-none"  ?>" id="save-tutor"><?= $hasTutor["hasTutor"] > 0 ? "Đã lưu" : "Lưu"?></button>
+                                            <button type="button" class="btn btn-primary <?= !empty($_SESSION) ? "" : "d-none"  ?>" id="save-tutor"><?= $hasTutor["hasTutor"] > 0 ? "Đã lưu" : "Lưu" ?></button>
                                             <button type="button" class="btn btn-primary <?= !empty($_SESSION) ? "" : "d-none"  ?>">Đăng ký</button>
                                         </li>
                                     </ul>
@@ -258,13 +265,13 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                   
+
                                                 <?php } ?>
                                             </ul>
                                         </div>
 
                                     <?php } ?>
-                                   
+
                                 </div>
 
                             </div>
@@ -289,7 +296,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
     include "../inc/script.php"
     ?>
 
-<script>
+    <script>
         $(document).ready(function() {
             $("#save-tutor").on('click', (e) => {
                 const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -304,17 +311,17 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
                     type: "post",
                     url: "../ajax/savetutor.php",
                     data: {
-                        userId: "<?= Session::get("userId") ?>" ,
+                        userId: "<?= Session::get("userId") ?>",
                         tutorId: tutorId
                     },
                     cache: false,
-                    success: function (data) {
+                    success: function(data) {
 
                         $("#save-tutor").replaceWith(data);
 
                         console.log(data, "data")
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.log(xhr, error, status, "Lỗi");
                     }
                 });

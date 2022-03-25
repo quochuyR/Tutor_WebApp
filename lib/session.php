@@ -57,6 +57,7 @@ class Session
         }
         if(count(array_diff($role_allow, $roles)) > 0){
             return false;
+        //    print_r(array_diff($role_allow, $roles));
         }
         // print_r($roles);
         // print_r($role_allow);

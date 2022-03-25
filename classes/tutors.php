@@ -151,7 +151,7 @@ class Tutor
         $limit      = (isset($request_method['limit']))  ? Format::validation($request_method['limit']) : 3;
         $page       = (isset($request_method['page'])) ?  Format::validation($request_method['page']) : 1;
 
-
+       
         $this->paginator->constructor($this->query, $types, $vars);
 
         $results  = $this->paginator->getData($limit, $page);

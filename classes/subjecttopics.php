@@ -55,4 +55,39 @@ class SubjectTopic
         $result = $this->db->select($query);
         return $result;
     }
+
+    // 
+
+    public function getTopic_TutoringSchedule($tutorId, $status)
+    {
+        $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName`
+        FROM ((`scheduletutors` INNER JOIN `subjecttopics` ON `scheduletutors`.`topicId` = `subjecttopics`.`id`)
+              INNER JOIN `registeredusers` ON `scheduletutors`.`RegisteredId` = `registeredusers`.`id`)
+        WHERE `registeredusers`.`tutorId` = ? AND 	`registeredusers`.`status` = ?
+        ORDER BY `subjecttopics`.`id` ASC;";
+       $results = $this->db->p_statement($query, "si", [$tutorId, $status]);
+
+       return $results ? $results : false;
+    }
+    public function getTopic_registerUser($tutorId, $userId)
+    {
+        $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName`
+        FROM `registeredusers` INNER JOIN `subjecttopics` ON `registeredusers`.`topicId` = `subjecttopics`.`id`             
+        WHERE `registeredusers`.`tutorId` = ? AND `registeredusers`.`userId` = ?  
+        ORDER BY `subjecttopics`.`id` ASC;";
+       $results = $this->db->p_statement($query, "si", [$tutorId, $userId]);
+
+       return $results ? $results : false;
+    }
+
+    public function getTopic_registerUser_ByStatus($tutorId, $userId, $status)
+    {
+        $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName` , (SELECT COUNT(*) FROM `scheduletutors` WHERE `scheduletutors`.`registeredId` = `registeredusers`.`id`) AS approval
+        FROM `registeredusers` INNER JOIN `subjecttopics` ON `registeredusers`.`topicId` = `subjecttopics`.`id`             
+        WHERE `registeredusers`.`tutorId` = ? AND `registeredusers`.`userId` = ? AND `registeredusers`.`status` = ?
+        ORDER BY `subjecttopics`.`id` ASC;";
+       $results = $this->db->p_statement($query, "sii", [$tutorId, $userId, $status]);
+
+       return $results ? $results : false;
+    }
 }

@@ -3,7 +3,7 @@
 }
 
 a.link-footer {
-    
+
     text-decoration: none !important;
     transition: all 0.3s;
     color: #fff !important;
@@ -18,4 +18,5 @@ a:focus {
 
 footer {
     background: #1D2A35;
+    
 }

@@ -39,11 +39,11 @@ include_once "../classes/paginator.php";
                         <li class="breadcrumb-item active" aria-current="page">Danh sách gia sư</li>
                     </ol>
                 </nav>
-                <div class="d-md-flex align-items-md-center">
-                    <div class="h3">Danh sách gia sư</div>
+                <div class="d-md-flex  bg-success align-items-center">
+                    <div class="h4 p-2 text-white">DANH SÁCH GIA SƯ</div>
 
                 </div>
-                <div class="d-lg-flex align-items-lg-center">
+                <!-- <div class="d-lg-flex align-items-lg-center">
                     <div class="form-inline d-flex align-items-center my-2 mr-lg-2 radio bg-light border">
                         <label class="options">Xem nhiều nhất
                             <input type="radio" name="radio" checked>
@@ -67,7 +67,7 @@ include_once "../classes/paginator.php";
 
 
 
-                </div>
+                </div> -->
                 <!-- Chổ lọc -->
                 <div class="d-sm-flex align-items-sm-center pt-2 clear" id="filter">
                     <div class="text-muted filter-label">Lọc theo:</div>
@@ -152,6 +152,7 @@ include_once "../classes/paginator.php";
                     </div>
 
                 </div>
+                
                 <!-- Lọc trên web -->
                 <div class="content py-md-0 py-3">
                     <section id="sidebar">

@@ -11,6 +11,7 @@ Session::checkLogin();
 include_once($filepath."../../lib/database.php");
 include_once($filepath."../../helpers/format.php");
 include_once($filepath."../../classes/appuserroles.php");
+include_once($filepath."../../classes/appuserroles.php");
 
 
 class AdminLogin{
@@ -42,11 +43,12 @@ class AdminLogin{
                 $value = $result->fetch_assoc();
 
                 $roles = $this->user_role->getRoleByUserId($value["id"])->fetch_all(MYSQLI_ASSOC);
+                $tutor = $this->user_role->getTutorIdByRoles([2,3], $value["id"])->fetch_assoc();
                 // print_r($roles);
                 Session::set("login", true);
                 Session::set("userId", $value["id"]);
                 Session::set("roles", $roles);
-
+                if($tutor) Session::set("tutorId", $tutor["id"]);
                 Session::set("username", $value["username"]);
                 Session::set("lastname", $value["lastname"]);
                 Session::set("firstname", $value["firstname"]);

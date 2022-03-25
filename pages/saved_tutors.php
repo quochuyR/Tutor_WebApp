@@ -22,8 +22,9 @@ include_once "../helpers/utilities.php";
 
 
 
-if (Session::checkRoles(["tutor", "user"]) !== true) {
+if (Session::checkRoles(["user"]) !== true) {
     header("location: errors/404"); 
+    // print_r(Session::get("roles"));
 }
 
 // echo in_array( ["user"], Session::get("roles")[0]);

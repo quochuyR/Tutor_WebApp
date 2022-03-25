@@ -17,11 +17,11 @@ class Roles
         // $this->fm = new Format();
     }
 
-    public function getTutorByUserId($userId)
+    public function getAll()
     {
-        $query = "SELECT `tutors`.`id` FROM `tutors` WHERE `tutors`.`userId` = ?;";
+        $query = "SELECT `approles`.`name` FROM `approles`;";
 
-        $result = $this->db->p_statement($query, "s", [$userId]);
+        $result = $this->db->select($query);
         return $result;
     }
 

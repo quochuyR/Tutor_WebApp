@@ -1,246 +1,483 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php 
+<?php
+
+use Classes\TutoringSchedule,
+  Classes\AppUser,
+  Classes\DayOfWeek,
+  Classes\SubjectTopic,
+  Classes\Time;
+use Library\Session;
+
 $title = "Lịch dạy";
-include "inc/head.php" 
+include "../inc/head.php";
+include "../lib/session.php";
+include_once "../helpers/utilities.php";
+include "../classes/tutoringschedule.php";
+include "../classes/appusers.php";
+include "../classes/dayofweeks.php";
+include "../classes/subjecttopics.php";
+include "../classes/times.php";
+?>
+
+<?php
+
+if (Session::checkRoles(["tutor"]) !== true) {
+  header("location: errors/404");
+}
+
+$_tutoring_schedule = new TutoringSchedule();
+$_user = new AppUser();
+$_dayofweek = new DayOfWeek();
+$_subjecttopic = new SubjectTopic();
+$_time = new Time();
+
+
 ?>
 
 <body>
+  <div class="container-fluid">
+    <header class="row g-0 m-0">
 
-    <div class="container">
-       <section>
+      <?php
+      $nav_tutor_active = "active";
+      include "../inc/header.php"
+      ?>
+
+    </header>
+    <div id="main" class="container-lg mt-4">
+
+      <section>
         <form action="" id="filter-schedule">
-            <div class="row">
-                <div class="col-md-3 col-6">
-                    <div class="form-group">
-                        <div class="mb-3">
-                            <label for="select-DOW" class="form-label">Thứ</label>
-                            <select class="form-select select-DOW" name="dayofweek" id="select-DOW">  
-                                <option value="0">-- Tất cả --</option>                          
-                                <option value="1">Thứ 2</option>
-                                <option value="2">Thứ 3</option>
-                                <option value="3">Thứ 4</option>
-                                <option value="4">Thứ 5</option>
-                                <option value="5">Thứ 6</option>
-                                <option value="6">Thứ 7</option>
-                                <option value="0">Chủ nhật</option>
-                            </select>
-                          </div>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="form-group">
-                        <div class="mb-3">
-                            <label for="select-subject" class="form-label">Môn học</label>
-                            <select class="form-select select-subject" name="subject" id="select-subject" >
-                                <option value="0">-- Tất cả --</option>  
-                                <option value="Toán">Toán</option>
-                                <option value="Vật lý">Vật lý</option>
-                                <option value="Hoá học">Hoá học</option>
-                            </select>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-    
-                    <div class="form-group">
-                        <div class="mb-3">
-                            <label for="time-start" class="form-label">Thời gian bắt đầu</label>
-                            <input class="form-control" type="datetime-local" name="time-start" id="time-start">
-                        </div>
-    
-                        
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="form-group">
-    
-                        <div class="form-group">
-                            <div class="mb-3">
-                                <label for="time-end" class="form-label">Thời gian kết thúc</label>
-                                <input class="form-control" type="datetime-local" name="time-end" id="time-end">
-                            </div>
-        
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-           </form>
-       </section>
+          <div class="row">
+            <div class="col-md-3 col-6">
+              <div class="card">
+                <div class="form-group">
+                  <div class="py-2 px-3">
+                    <label for="select-DOW" class="form-label">Thứ</label>
+                    <select class="form-select select-DOW" id="dayofweek">
+                      <option value="all">-- Tất cả --</option>
+                      <?php
 
-       <section>
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <div class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <div class="d-flex align-items-start">
-                        <img src="images/144185147_462103764917452_5125494602597852051_n.jpg"
-                            class="rounded-circle avatar-sm img-thumbnail" alt="profile-image"
-                            onclick="ShowImg(this.src);">
-                        <div class="w-100 ms-3 align-self-end">
-                            <h5 class="my-1">Nguyễn Minh Đăng</h5>
-                            <p class="text-muted">@id: dangit</p>
+                      $get_DoW = $_dayofweek->GetDayOfWeek_TutoringSchedule(Session::get("tutorId"), 1);
+                      if ($get_DoW) {
+                        while ($dayofweek = $get_DoW->fetch_assoc()) {
+                      ?>
+                          <option value="<?= $dayofweek["id"] ?>"><?= $dayofweek["day"] ?></option>
 
-                        </div>
-                    </div>
-                </button>
-              </div>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <div class="accordion-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Thứ</th>
-                                    <th scope="col">Thời gian</th>
-                                    <th scope="col">Môn học</th>
-                                   
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <th scope="row">Hai</th>
-                                    <td>07:30 - 09:00</td>
-                                    <td>Toán</td>
-                                    
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Ba</th>
-                                    <td>13:30 - 15:00</td>
-                                    <td>Lý</td>
-                                   
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Tư</th>
-                                    <td >18:30 - 20:00</td>
-                                    <td>Hoá</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                          </div>
-                    </div>
+
+                      <?php
+                        }
+                      }
+                      ?>
+                    </select>
+                  </div>
                 </div>
+
+
               </div>
             </div>
-            <div class="accordion-item">
-              <div class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    <div class="d-flex align-items-start">
-                        <img src="images/175337396_2917917531830460_8008229113997594091_n.jpg"
-                            class="rounded-circle avatar-sm img-thumbnail" alt="profile-image"
-                            onclick="ShowImg(this.src);">
-                        <div class="w-100 ms-3 align-self-end">
-                            <h5 class="my-1">Nguyễn Quốc Huy</h5>
-                            <p class="text-muted">@id: huy2k1</p>
+            <div class="col-md-3 col-6">
 
-                        </div>
-                    </div>
-                </button>
+              <div class="card">
+                <div class="form-group">
+                  <div class="py-2 px-3">
+                    <label for="select-subject" class="form-label">Môn học</label>
+                    <select class="form-select select-subject" id="subject-topic">
+                      <option value="all">-- Tất cả --</option>
+                      <?php
+
+                      // SbT stand for subject topic
+                      $get_SbT = $_subjecttopic->getTopic_TutoringSchedule(Session::get("tutorId"), 1);
+                      if ($get_SbT) {
+                        while ($subjecttopic = $get_SbT->fetch_assoc()) {
+                      ?>
+                          <option value="<?= $subjecttopic["id"] ?>"><?= $subjecttopic["topicName"] ?></option>
+
+
+                      <?php
+                        }
+                      }
+                      ?>
+
+
+                    </select>
+                  </div>
+                </div>
+
               </div>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <div class="table-responsive">
-                        <table class="table ">
-                            <thead>
-                              <tr>
-                                <th scope="col">Thứ</th>
-                                <th scope="col">Thời gian</th>
-                                <th scope="col">Môn học</th>
-                               
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">Hai</th>
-                                <td>07:30 - 09:00</td>
-                                <td>Toán</td>
-                                
-                              </tr>
-                              <tr>
-                                <th scope="row">Ba</th>
-                                <td>13:30 - 15:00</td>
-                                <td>Lý</td>
-                               
-                              </tr>
-                              <tr>
-                                <th scope="row">Tư</th>
-                                <td >18:30 - 20:00</td>
-                                <td>Hoá</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                      </div>
+
+            </div>
+            <div class="col-md-3 col-6">
+
+
+              <div class="card">
+                <div class="form-group">
+                  <div class="py-2 px-3">
+                    <label for="time-start" class="form-label">Thời gian bắt đầu</label>
+                    <select class="form-select select-subject" id="time-start">
+                      <option value="all">-- Tất cả --</option>
+                      <?php
+
+
+                      $get_time = $_time->getTimes_TutoringSchedule(Session::get("tutorId"), 1);
+                      if ($get_time) {
+                        while ($time = $get_time->fetch_assoc()) {
+                      ?>
+                          <option value="<?= $time["id"] ?>"><?= $time["time"] ?></option>
+
+
+                      <?php
+                        }
+                      }
+                      ?>
+
+
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="accordion-item">
-              <div class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    <div class="d-flex align-items-start">
-                        <img src="images/270571222_1426358357761639_675267433749402851_n.jpg"
-                            class="rounded-circle avatar-sm img-thumbnail" alt="profile-image"
-                            onclick="ShowImg(this.src);">
-                        <div class="w-100 ms-3 align-self-end">
-                            <h5 class="my-1">Nguyễn Khánh</h5>
-                            <p class="text-muted">@id: khanhalone</p>
 
-                        </div>
-                    </div>
-                </button>
-              </div>
-              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <div class="accordion-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Thứ</th>
-                                    <th scope="col">Thời gian</th>
-                                    <th scope="col">Môn học</th>
-                                   
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <th scope="row">Hai</th>
-                                    <td>07:30 - 09:00</td>
-                                    <td>Toán</td>
-                                    
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Ba</th>
-                                    <td>13:30 - 15:00</td>
-                                    <td>Lý</td>
-                                   
-                                  </tr>
-                                  <tr>
-                                    <th scope="row">Tư</th>
-                                    <td >18:30 - 20:00</td>
-                                    <td>Hoá</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                          </div>
-                    </div>
-                </div>
-              </div>
+
+
+
             </div>
-          </div>
-       </section>
+            <div class="col-md-3 col-6">
+
+              <div class="card">
+                <div class="form-group">
+                  <div class="py-2 px-3">
+                    <label for="time-end" class="form-label">Thời gian kết thúc</label>
+                    <select class="form-select select-subject" id="time-end">
+                      <option value="all">-- Tất cả --</option>
+                      <?php
+
+
+                      $get_time = $_time->getTimes_TutoringSchedule(Session::get("tutorId"), 1);
+                      if ($get_time) {
+                        while ($time = $get_time->fetch_assoc()) {
+                      ?>
+                          <option value="<?= $time["id"] ?>"><?= $time["time"] ?></option>
+
+
+                      <?php
+                        }
+                      }
+                      ?>
+
+
+                    </select>
+                  </div>
+                </div>
+
+
+
+              </div>
+
+            </div>
+        </form>
+      </section>
+
+      <section id="tutoring-schedule">
+
+
+      </section>
+      <!-- START Pagination -->
+      <!-- <nav aria-label="Page navigation">
+          <?php //$_tutoring_schedule->getPaginatorTutoringSchedule($_GET) 
+          ?>
+        </nav> -->
+      <!-- END Pagination -->
     </div>
+  </div>
+  <footer class="row g-0 m-0 w-100 py-4 px-2 flex-shrink-0">
+
+    <?php include '../inc/footer.php' ?>
+
+  </footer>
 
 
-    <?php include "inc/script.php" ?>
+  </div>
 
-        <script>
-            console.log(new FormData(document.getElementById("filter-schedule")).get("dayofweek"))
-        </script>
+
+  <?php include "../inc/script.php" ?>
+
+  <script>
+    (function() {
+      let hasFirstFilter = true; // biến toàn cục dùng để kiểm tra load thứ lần đầu tiên
+      let th_id = null; // biến toàn cục dùng để lưu id
+      let container_schedule = null; // biến toàn cục dùng để lưu nơi chứa thông tin dạy kèm
+      let td_day = null; // biến toàn cục dùng để lưu thư trước khi update mục địch trả về trạng thái thứ còn trống khi đã cập nhật thứ khác
+      let td_time = null; // biến toàn cục dùng để lưu thời gian trước khi update  mục địch trả về trạng thái thời gian còn trống khi đã cập nhật thời gian khác
+      let td_topic_name = null; // biến toàn cục dùng để lưu chủ đề trước khi update  mục địch trả về trạng thái chủ đề còn trống khi đã cập nhật chủ đề khác
+
+      $(document).ready(() => {
+        filer_data_tutoringSchedule();
+        $(".form-select").on('change', (e) => {
+          filer_data_tutoringSchedule();
+        });
+
+        function page_paginator() {
+
+          $(".link-ajax").on('click', (e) => {
+            e.preventDefault();
+            filer_data_tutoringSchedule(e);
+          });
+        }
+
+
+        // lọc dữ liệu
+        function filer_data_tutoringSchedule(e = null) {
+          $("#tutoring-schedule").html(`<div class="spinner-border text-primary d-flex mx-auto" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>`);
+          const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+          });
+          // get uid param
+          // dùng để lấy lịch dạy của một user duy nhất
+          let uid = params.uid; // "some_value"
+
+          let url = $(e?.target).attr('href') ? $(e.target).attr('href') : "3&1"; // check có thẻ a chưa 
+          let [limit, page] = url.split("&");
+          console.log(limit, page, url)
+          let day = null;
+
+          if (hasFirstFilter) {
+            if ($(`#dayofweek option[value="${ new Date().getDay()}"]`).prop("selected", true).length === 0)
+              day = 8; // không có ngày thứ 8 mục đích là trả về "không có lịch dạy hôm nay."
+            hasFirstFilter = false;
+          }
+          //    console.log($(`#dayofweek option[value="${ 3}"]`).prop("selected", true), "dayofweek");
+          if (!hasFirstFilter) {
+            day = $("#dayofweek").val();
+
+          }
+          let subjectTopic = $("#subject-topic").val();
+          let startTime = $("#time-start").val();
+          let endTime = $("#time-end").val();
+          console.log([day, subjectTopic, startTime, endTime], "get value ")
+
+
+          $.ajax({
+            type: "post",
+            url: "../ajax/schedule.php",
+            data: {
+              day,
+              subjectTopic,
+              startTime,
+              endTime,
+              uid,
+              limit,
+              page,
+            },
+            cache: false,
+            success: function(data) {
+
+              $("#tutoring-schedule").html(data);
+              page_paginator();
+              OnchangeSelectDoW();
+              console.log(data)
+              /**/
+              onClickBtnEdit();
+
+              /* */
+
+              onClickUpdateSchedule();
+
+
+              /* */
+
+              /* */
+              onClickDeleteSchedule();
+              /* */
+              console.log($(".container-schedule"), "container-schedule")
+            },
+            error: function(xhr, status, error) {
+              console.error(xhr);
+            }
+          });
+
+        }
+
+        function onClickUpdateSchedule() {
+          $(".btn-modal-save").on('click', (e) => {
+
+            let main_body_modal = $(e.target).closest(".modal-footer").prev(".modal-body");
+            let dayofweek = $(main_body_modal).find("select").eq(0).val();
+            let time = $(main_body_modal).find("select").eq(1).val();
+            let subjecttopic = $(main_body_modal).find("select").eq(2).val();
+            /* Update lịch dạy ở đây */
+
+            // console.log([td_day ,dayofweek , $(td_time).attr("data-value") , time , td_topic_name , subjecttopic])
+            // if(td_day !== dayofweek || $(td_time).attr("data-value") !== time || td_topic_name !== subjecttopic)
+
+            updateScheduleTutor(th_id, dayofweek, time, subjecttopic, $(td_day).attr("data-value"), $(td_time).attr("data-value"));
+
+            /* */
+          });
+        }
+
+        function onClickDeleteSchedule() {
+          $(".delete-schedule").on('click', (e) => {
+            let container_schedule = $(e.target).closest(".container-schedule");
+            let th_id = container_schedule.children(".th-id").attr("data-value");
+
+            $(container_schedule).remove();
+            /* Update lịch dạy ở đây */
+            $.ajax({
+              type: "post",
+              url: "../ajax/deleteschudule.php",
+              data: {
+                id: th_id
+
+              },
+              cache: false,
+              success: function(data) {
+
+                if (data.action === "success")
+                  $(container_schedule).remove();
+                // console.log($(td_options).html());
+
+                // page_paginator();
+
+                console.log(data)
+              },
+              error: function(xhr, status, error) {
+                console.error(xhr);
+              }
+            });
+
+            /* */
+          });
+        }
+
+        function referenceDataFromTableToModal(e) {
+          container_schedule = $(e.target).closest(".container-schedule");
+          th_id = container_schedule.children(".th-id").attr("data-value");
+          td_day = container_schedule.children(".td-day");
+          td_time = container_schedule.children(".td-time");
+          td_topic_name = container_schedule.children(".td-topic-name");
+        }
+
+        function onClickBtnEdit() {
+          $(".edit-schedule").on('click', (e) => {
+            referenceDataFromTableToModal(e);
+            getDaySchedule(e);
+            let id_modal = $(e.target).attr("data-bs-target");
+            $(id_modal).find(`select option[value="${-1}"]`).eq(0).prop("selected", true); // select teaching day in modal
+            $(id_modal).find("select").eq(1).html(`<option value="0">-- Buổi học --</option> <option value="${$(td_time).attr("data-value")}" selected> ${$(td_time).text()} </option>`); // select teaching time in modal
+            $(id_modal).find("select").eq(2).val($(td_topic_name).attr("data-value")); // select teaching subject topic in modal
+
+          });
+
+
+        }
+
+
+
+
+
+        function updateScheduleTutor(id, dayofweek, time, subject_topic, dayofweek_prev, time_prev) {
+          $.ajax({
+            type: "post",
+            url: "../ajax/updateschedule.php",
+            data: {
+              id,
+              dayofweek,
+              time,
+              subject_topic,
+              dayofweek_prev,
+              time_prev
+
+            },
+            cache: false,
+            success: function(data) {
+
+              let td_options = $(container_schedule).children(".td-options");
+              // console.log($(td_options).html());
+              // $(container_schedule).html(`${data} <td scope="row" class="text-start td-options">${$(td_options).html()}</td>`);
+              // page_paginator();
+              [...data].forEach(row => {
+                $(td_day).attr("data-value", row.dayofweekId);
+                $(td_day).text(row.day);
+                $(td_time).attr("data-value", row.timeId);
+                $(td_time).text(row.time);
+                $(td_topic_name).attr("data-value", row.subject_topicId);
+                $(td_topic_name).text(row.topicName);
+              })
+              console.log(data)
+            },
+            error: function(xhr, status, error) {
+              console.error(xhr);
+            }
+          });
+        }
+
+        function OnchangeSelectDoW() {
+          $(".teaching-day").on('change', (e) => {
+
+            getTimeFromDay(e);
+          });
+        }
+
+
+
+        function getTimeFromDay(e) {
+
+          let dayofweek = $(e.target).val();
+          let index = $(".teaching-day").index(e.target);
+
+          $.ajax({
+            type: "post",
+            url: "../ajax/getTimeFromDay.php",
+            data: {
+              dayofweek,
+
+            },
+            cache: false,
+            success: function(data) {
+
+              $(".teaching-time").eq(index).html(data);
+
+              console.log(data)
+            },
+            error: function(xhr, status, error) {
+              console.error(xhr);
+            }
+          });
+        }
+
+        function getDaySchedule(e) {
+          let id_modal = $(e.target).attr("data-bs-target");
+          let dayofweek = $(id_modal).find(`select`).eq(0);
+
+
+          $.ajax({
+            type: "post",
+            url: "../ajax/getdayschedule.php",
+            data: {
+              action: "getDay",
+
+            },
+            cache: false,
+            success: function(data) {
+
+              dayofweek.html(data);
+
+              console.log(data)
+            },
+            error: function(xhr, status, error) {
+              console.error(xhr);
+            }
+          });
+        }
+
+
+      });
+    })();
+  </script>
 </body>
 
 </html>

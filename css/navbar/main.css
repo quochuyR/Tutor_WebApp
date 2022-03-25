@@ -257,7 +257,7 @@ a:focus {
 }
 
 .w-350{
-    width: 350px;
+    width: 350px !important;
     max-width: 350px;
 }
 
@@ -288,4 +288,16 @@ a:focus {
     border-radius: 50rem;
     height: 48px;
     width: 48px;
+}
+
+.w-250{
+    width: 250px !important;
+}
+
+.w-20{
+    width: 20% !important;
+}
+
+.w-80{
+    width: 80% !important;
 }

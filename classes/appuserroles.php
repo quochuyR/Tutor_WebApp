@@ -32,4 +32,30 @@ class UserRole{
 
         return false;
     }
+
+    public function getTutorIdByRoles($RoleId, $userId)
+    {
+        $vars = array();
+        $types= "";
+        $typeCount = count($RoleId);
+        // create a array with question marks
+        $typeMarks = array_fill(0, $typeCount, '?');
+        $typeMarks = implode(",", $typeMarks);
+        $dataTypes = str_repeat('i', $typeCount);
+        $types .= $dataTypes; // bind param roleID
+        $types .= 's'; // bind param UserID
+
+        $vars = array_merge($RoleId, [$userId]);
+
+        // print_r($vars);
+        // print_r($types);
+        $query = "SELECT DISTINCT `tutors`.`id`
+        FROM ((`appusers` INNER JOIN `appuserroles` ON `appusers`.`id` = `appuserroles`.`userId`)
+          INNER JOIN `tutors` ON `tutors`.`userId` = `appusers`.`id`)
+         WHERE `appuserroles`.`roleId` IN ($typeMarks) AND `appusers`.`id` = ?;";
+        $results = $this->db->p_statement($query, $types, $vars);
+        // $results = $this->db->p_statement($query, "is", [$RoleId, $UserId]);
+
+        return $results ? $results : false;
+    }
 }

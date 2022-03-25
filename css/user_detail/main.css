@@ -139,32 +139,40 @@ li+.postion-absolute {
     position: absolute;
     height: 100vh;
     width: 100vw;
-    background: rgb(12, 12, 12);
-    z-index: 100;
-    opacity: 80%;
+   
     cursor: pointer;
 }
 
 .img-float {
+    top: 0;
     display: block;
-    position: absolute;
+    position: sticky;
     height: 100vh;
     width: 100vw;
+    background-color: rgba(63, 63, 63, 0.9);
     opacity: 100%;
-
+    z-index: 1100;
+    
 
 }
 
-.img-float>img {
+.img-float> .img-container {
     display: block;
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 30rem;
-    height: 30rem;
+    width: 70vh;
+    /* height: 70vw; */
     transform: translate(-50%, -50%);
-    z-index: 999;
+    z-index: 1200;
+    border-radius: 5px;
 
+}
+
+.img-container > img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
 }
 
 /* Custom scrollbar */

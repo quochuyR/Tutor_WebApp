@@ -1,5 +1,7 @@
 <?php
+
 namespace Inc;
+
 use Helpers\Util, Helpers\Format;
 use Library\Session;
 use Classes\Notification;
@@ -82,7 +84,7 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
                                     </span>
                                 </i>
                             </button>
-                            <div class="dropdown-menu  py-0" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-menu w-350 py-0" aria-labelledby="dropdownMenuButton">
                                 <div class="card border-0 mb-0">
                                     <h5 class="card-header text-info">Thông báo</h5>
                                     <div class="card-body p-0 px-2">
@@ -132,49 +134,59 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
                     <!--  -->
 
                     <div class=" <?= !empty($_SESSION) ? "d-flex justify-content-center align-items-center" : "d-none"  ?>" id="login">
-                    <div class="dropdown">
-                        <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="">
-                                <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md rounded-circle" alt="Hình avatar">
-                            </span>
+                        <div class="dropdown">
+                            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="">
+                                    <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md rounded-circle" alt="Hình avatar">
+                                </span>
 
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">
-                                <i class="far fa-calendar-alt"></i>
-                                <span class="ms-2">Quản lí lịch dạy</span>
-                            </a>
+                            </button>
+                            <div class="dropdown-menu w-250" aria-labelledby="dropdownMenuButton">
+                                <?php if (Session::checkRoles(["tutor"])) { ?>
+                                    <a class="dropdown-item py-1" href="../pages/registered_users.php">
 
-                            <a class="dropdown-item" href="<?= Format::validation("./saved_tutors.php?limit=3&page=1") ?>">
-                                <i class="fas fa-heart text-danger"></i>
-                                <span class="ms-2">Gia sư đã lưu</span>
-                            </a>
+                                        <i class="fa-solid fa-user-pen fa-lg w-20"></i>
+
+                                        <span class=" w-80">Người dùng đăng ký</span>
+                                    </a>
+
+                                    <a class="dropdown-item   py-1" href="../pages/schedule_tutors.php">
+                                        <i class="far fa-calendar-alt fa-lg w-20"></i>
+                                        <span class=" w-80">Quản lí lịch dạy</span>
+                                    </a>
+                                <?php } ?>
 
 
-                            <a class="dropdown-item logout" href-action="logout">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                <span class="ms-2">Đăng xuất</span>
-                            </a>
+                                <a class="dropdown-item   py-1" href="<?= Format::validation("./saved_tutors.php?limit=3&page=1") ?>">
+                                    <i class="fas fa-heart text-danger fa-lg w-20"></i>
+                                    <span class=" w-80">Gia sư đã lưu</span>
+                                </a>
+
+
+                                <a class="dropdown-item  logout py-1" href-action="logout">
+                                    <i class="fa-solid fa-right-from-bracket fa-lg w-20 "></i>
+                                    <span class=" w-80">Đăng xuất</span>
+                                </a>
+                            </div>
                         </div>
+                        <span class="font-weight-600 ">
+                            <?= Session::get("firstname") . ' ' . Session::get("lastname") ?>
+                        </span>
+
                     </div>
-                    <span class="font-weight-600 ">
-                        <?= Session::get("firstname") . ' ' . Session::get("lastname") ?>
-                    </span>
 
+
+                    <div class="<?= empty($_SESSION) ?  "d-block" : "d-none"   ?>" id="signup-signin">
+                        <span data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer">
+                            Đăng nhập/Đăng kí
+                        </span>
+
+                    </div>
+                    <!-- Button trigger modal -->
                 </div>
 
 
-                <div class="<?= empty($_SESSION) ?  "d-block" : "d-none"   ?>" id="signup-signin">
-                    <span data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer">
-                        Đăng nhập/Đăng kí
-                    </span>
 
-                </div>
-                <!-- Button trigger modal -->
-                </div>
-
-
-                
 
 
 

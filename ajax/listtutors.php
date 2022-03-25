@@ -18,6 +18,7 @@ $subjects = new Subject();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST) && !empty($_POST)) {
         $tutorOfTopic =  $TTtopic->getFilter($_POST);
+        
 
         ?>
          <div class="col-12 pt-md-0 pb-2">
@@ -41,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
                     <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details.php?id=" . $result['id']  ?> '; ">
-                        <div class=" card-img-top img-teacher pt-2 text-center">
+                        <div class=" card-img-top img-teacher text-center">
                             <img src=" <?= Util::getCurrentURL() . " /../" . (isset($result['imagepath']) ? $result['imagepath'] : "") ?>" class="rounded" alt="" srcset="">
                         </div>
                         <div class="card-body">
