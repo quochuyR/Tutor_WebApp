@@ -35,4 +35,16 @@ class Time
 
         return $results ? $results : false;
     }
+
+    public function getTimes_UserSchedule($userId, $status)
+    {
+        $query = "SELECT `times`.`id`, `times`.`time`
+        FROM ((`scheduletutors` INNER JOIN `times` ON `scheduletutors`.`timeId` = `times`.`id`)
+              INNER JOIN `registeredusers` ON `scheduletutors`.`RegisteredId` = `registeredusers`.`id`)
+        WHERE `registeredusers`.`userId` = ? AND 	`registeredusers`.`status` = ?
+        ORDER BY `times`.`id` ASC;";
+        $results = $this->db->p_statement($query, "si", [$userId, $status]);
+
+        return $results ? $results : false;
+    }
 }

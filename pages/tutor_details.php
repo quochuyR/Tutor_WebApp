@@ -84,7 +84,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
                                 <div class="card-body">
 
                                     <div class="d-flex align-items-start">
-                                        <img src="<?= Util::getCurrentURL() . "/../" . $result["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image" >
+                                        <img src="<?= Util::getCurrentURL() . "/../public/" . $result["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image" >
                                         <div class="w-100 ms-3 align-self-end">
                                             <h4 class="my-1"><?= $result["lastname"] . ' ' . $result["firstname"]; ?></h4>
                                             <p class="text-muted">@id: <?= $result["username"]; ?></p>
@@ -309,7 +309,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
                 console.log("<?= Session::get("userId") ?>")
                 $.ajax({
                     type: "post",
-                    url: "../ajax/savetutor.php",
+                    url: "../api/savetutor.php",
                     data: {
                         userId: "<?= Session::get("userId") ?>",
                         tutorId: tutorId

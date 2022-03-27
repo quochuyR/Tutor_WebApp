@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                         ?>
 
                                             <div class="d-flex align-items-start">
-                                                <img src="<?= Util::getCurrentURL() . "/../" . $user["imagepath"]; ?>" class="rounded-circle avatar-sm img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
+                                                <img src="<?= Util::getCurrentURL() . "/../public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-sm img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
                                                 <div class="w-100 ms-3 align-self-end">
                                                     <h6 class="my-1"><?= $user["lastname"] . ' ' . $user["firstname"]; ?></h6>
                                                     <p class="text-muted">@id: <?= $user["username"]; ?></p>
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                     <div class="accordion-body">
 
                                         <div class="table-responsive">
-                                            <table class="table table-striped">
+                                            <table class="table table-striped table-schedule-tutor">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">ID</th>
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $get_schedule = $_tutoring_schedule->GetTutoringSchedule(Session::get("tutorId"), $tutoring_schedule["userId"], 1, $_POST);
+                                                    $get_schedule = $_tutoring_schedule->GetTutoringSchedule_Tutor(Session::get("tutorId"), $tutoring_schedule["userId"], 1, $_POST);
                                                     if ($get_schedule) {
                                                         while ($schedule = $get_schedule->fetch_assoc()) {
 
@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                                                                             <div class="card ">
                                                                                 <div class="d-flex align-items-start p-2">
-                                                                                    <img src="<?= Util::getCurrentURL() . "/../" . $user["imagepath"]; ?>" class="rounded-circle avatar-sm img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
+                                                                                    <img src="<?= Util::getCurrentURL() . "/../public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-sm img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
                                                                                     <div class="w-100 ms-3 align-self-end">
                                                                                         <h6 class="my-1"><?= $user["lastname"] . ' ' . $user["firstname"]; ?></h6>
                                                                                         <p class="text-muted">@id: <?= $user["username"]; ?></p>

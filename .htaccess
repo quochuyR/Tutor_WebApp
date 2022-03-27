@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteRule ^(lib/|classes/|inc/|helpers/|config/|admin/) - [F,L,NC]
+RewriteRule ^(lib/|classes/|inc/|helpers/|config/|admin/|model/) - [F,L,NC]
 
 
 

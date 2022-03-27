@@ -36,3 +36,12 @@
     height: 3.5rem;
     width: 3.5rem;
 }
+
+
+
+.table-schedule-tutor td{
+    width: 20% !important;
+}
+.table-schedule-user td{
+    width: 25% !important;
+}

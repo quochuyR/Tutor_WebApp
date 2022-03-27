@@ -26,7 +26,8 @@ class Notification{
         if(!empty($userId)){
             $query = "SELECT `notifications`.`SenderId`, `notifications`.`notification_subject`, `notifications`.`notification_text`
             FROM `notifications` 
-            WHERE`notifications`.`userID` = ?;";
+            WHERE`notifications`.`userID` = ?
+            ORDER BY `notifications`.`id` DESC";
 
             $result = $this->db->p_statement($query, "s", [$userId]);
             return $result;

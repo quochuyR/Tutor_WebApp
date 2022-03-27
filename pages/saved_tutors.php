@@ -36,7 +36,7 @@ if (Session::checkRoles(["user"]) !== true) {
         <header class="row g-0 m-0">
 
             <?php
-            $nav_tutor_active = "active";
+            
             include "../inc/header.php"
             ?>
 
@@ -188,7 +188,7 @@ if (Session::checkRoles(["user"]) !== true) {
                 console.log(tutorId,  $(e.target).attr("data-href"));
                 $.ajax({
                     type: "post",
-                    url: "../ajax/unsaved_tutors.php",
+                    url: "../api/unsaved_tutors.php",
                     data: {
                         userId: "<?= Session::get("userId") ?>" ,
                         tutorId: tutorId

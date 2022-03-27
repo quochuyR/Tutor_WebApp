@@ -64,7 +64,7 @@ class Database
 
         //INSERT, SELECT, UPDATE và DELETE có 6 kí tự, you can
         //validate it using substr() below for better and faster performance
-        if (strtolower(substr($query, 0, 6)) === "select") {
+        if (strtolower(substr($query, 0, 6)) === "select" || strtolower(substr($query, 0, 4)) === "call") {
             $result = $stm->get_result();
         } else {
             $result = $stm->affected_rows;

@@ -172,7 +172,7 @@
             // thêm subject filter
             $.ajax({
                 type: "post",
-                url: "../ajax/Topic.php",
+                url: "../api/Topic.php",
                 data: {
                     subject: $(e.currentTarget).attr('subject-id') // lấy giá trị của thuộc tính subject-id
                 },
@@ -226,7 +226,7 @@
             console.log($(".topic:checked"), "get value ")
             $.ajax({
                 type: "post",
-                url: "../ajax/listtutors.php",
+                url: "../api/listtutors.php",
                 data: {
                     subject: subject,
                     topic: topic,
@@ -257,7 +257,7 @@
             let password = $("#password-field").val();
             $.ajax({
                 type: "post",
-                url: "../ajax/login.php",
+                url: "../api/login.php",
                 data: {
                     username,
                     password,
@@ -292,7 +292,7 @@
                 console.log($(".logout").attr("href-action"), `$(".logout").attr("href")`);
                 $.ajax({
                     type: "post",
-                    url: "../ajax/logout.php",
+                    url: "../api/logout.php",
                     data: {
                         action: $(".logout").attr("href-action")
                     },
@@ -339,7 +339,7 @@
 
 
 
-        //     let url = "../ajax/listtutors.php" + ($(e?.currentTarget).attr('href') ? $(e.currentTarget).attr('href') :"?limit=3&page=1"); // check có thẻ a chưa 
+        //     let url = "../api/listtutors.php" + ($(e?.currentTarget).attr('href') ? $(e.currentTarget).attr('href') :"?limit=3&page=1"); // check có thẻ a chưa 
         //     console.log(url)
         //     $.ajax({
         //         type: "get",
@@ -360,7 +360,7 @@
 
             // $.ajax({
             //     type: "get",
-            //     url: '../ajax/listtutors.php',
+            //     url: '../api/listtutors.php',
             //     dataType: 'text',
             //     cache: false,
             //     success: function (data) {

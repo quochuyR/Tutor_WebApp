@@ -64,7 +64,7 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
                             <a class="dropdown-item" href="#">Page 1</a>
                             <a class="dropdown-item" href="#">Page 2</a>
                             <a class="dropdown-item" href="#">Page 3</a>
-                            <a class="dropdown-item" href="list_Tutor.php">Danh sách gia sư</a>
+                            <a class="dropdown-item" href="list_Tutor">Danh sách gia sư</a>
                         </div>
                     </li>
                     <li class="nav-item"><a href="#" class="nav-link">Môn học</a></li>
@@ -100,7 +100,7 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
                                             ?>
                                                     <div class="d-flex">
                                                         <div class="my-auto">
-                                                            <img src="../<?= $sender["imagepath"] ?>" class="avatar-notification avatar-sm-notification  ">
+                                                            <img src="../public/<?= $sender["imagepath"] ?>" class="avatar-notification avatar-sm-notification  ">
                                                         </div>
                                                         <div class="">
                                                             <a href="#" class="list-group-item list-group-item-action border-0 text-small">
@@ -137,27 +137,41 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
                         <div class="dropdown">
                             <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="">
-                                    <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md rounded-circle" alt="Hình avatar">
+                                    <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../public/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md rounded-circle" alt="Hình avatar">
                                 </span>
 
                             </button>
                             <div class="dropdown-menu w-250" aria-labelledby="dropdownMenuButton">
                                 <?php if (Session::checkRoles(["tutor"])) { ?>
-                                    <a class="dropdown-item py-1" href="../pages/registered_users.php">
+                                    <a class="dropdown-item py-1" href="../pages/registered_users">
 
                                         <i class="fa-solid fa-user-pen fa-lg w-20"></i>
 
                                         <span class=" w-80">Người dùng đăng ký</span>
                                     </a>
 
-                                    <a class="dropdown-item   py-1" href="../pages/schedule_tutors.php">
+                                    <a class="dropdown-item   py-1" href="../pages/schedule_tutors">
                                         <i class="far fa-calendar-alt fa-lg w-20"></i>
                                         <span class=" w-80">Quản lí lịch dạy</span>
                                     </a>
                                 <?php } ?>
 
+                                <?php if (Session::checkRoles(["user"])) { ?>
+                                    <a class="dropdown-item py-1" href="../pages/registered_tutors">
 
-                                <a class="dropdown-item   py-1" href="<?= Format::validation("./saved_tutors.php?limit=3&page=1") ?>">
+                                        <i class="fa-solid fa-user-pen fa-lg w-20"></i>
+
+                                        <span class=" w-80">Gia sư đã đăng ký</span>
+                                    </a>
+
+                                    <a class="dropdown-item   py-1" href="../pages/schedule_user">
+                                        <i class="far fa-calendar-alt fa-lg w-20"></i>
+                                        <span class=" w-80">Lịch học của bạn</span>
+                                    </a>
+                                <?php } ?>
+
+
+                                <a class="dropdown-item   py-1" href="<?= Format::validation("./saved_tutors?limit=3&page=1") ?>">
                                     <i class="fas fa-heart text-danger fa-lg w-20"></i>
                                     <span class=" w-80">Gia sư đã lưu</span>
                                 </a>

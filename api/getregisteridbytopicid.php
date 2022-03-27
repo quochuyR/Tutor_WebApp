@@ -24,9 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
      && (isset($_POST['status']) && is_numeric($_POST['status']))) {
 
         $userId = Format::validation($_POST["id"]);
-        $topId = Format::validation($_POST["topicId"]);
+        $topicId = Format::validation($_POST["topicId"]);
         $status = Format::validation($_POST["status"]);
-        $get_register = $_register_user->GetRegisterIdByTopicId($userId, Session::get("tutorId"), $topId, $status);
+        $get_register = $_register_user->GetRegisterIdByTopicId($userId, Session::get("tutorId"), $topicId, $status);
         if ($get_register) {
 
             $register = $get_register->fetch_assoc();

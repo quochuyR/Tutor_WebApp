@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="dropdown">
                         <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="">
-                                <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md rounded-circle" alt="Hình avatar">
+                                <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../public/"  . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md rounded-circle" alt="Hình avatar">
                             </span>
 
                         </button>
@@ -132,6 +132,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                 </a>
                             <?php } ?>
 
+                            <?php if (Session::checkRoles(["user"])) { ?>
+                                    <a class="dropdown-item py-1" href="../pages/registered_tutors">
+
+                                        <i class="fa-solid fa-user-pen fa-lg w-20"></i>
+
+                                        <span class=" w-80">Gia sư đã đăng ký</span>
+                                    </a>
+
+                                    <a class="dropdown-item   py-1" href="../pages/schedule_user">
+                                        <i class="far fa-calendar-alt fa-lg w-20"></i>
+                                        <span class=" w-80">Lịch học của bạn</span>
+                                    </a>
+                                <?php } ?>
 
                             <a class="dropdown-item   py-1" href="<?= Format::validation("./saved_tutors.php?limit=3&page=1") ?>">
                                 <i class="fas fa-heart text-danger fa-lg w-20"></i>

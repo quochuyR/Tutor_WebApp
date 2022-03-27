@@ -24,20 +24,14 @@ class RegisterUser
         // $this->fm = new Format();
     }
 
-    public function AddRegisterUser($userId, $tutorId, $TopicId)
+    public function AddOrDeleteRegisterTutor($action, $userId, $tutorId, $TopicId)
     {
-        $query = "INSERT INTO `registeredusers` (`id`, `userId`, `tutorId`, `topicId`, `RegistrationDate`, `status`) VALUES (NULL, ?, ?, ?, NOW(), b'0')";
-        $results = $this->db->p_statement($query, "sss", [$userId, $tutorId, $TopicId]);
+        $query = "CALL add_delete_register_tutor(?, ?, ?, ?)";
+        $results = $this->db->p_statement($query, "issi", [$action, $userId, $tutorId, $TopicId]);
 
-        return $results ? $results : false;
+        return $results->num_rows > 0 ? $results : false;
     }
-    public function deleteRegisteredUser($userId, $tutorId, $register_userID)
-    {
-        $query = "DELETE FROM `registeredusers` WHERE `registeredusers`.`userId` = ?  AND `registeredusers`.`tutorId` = ? AND `registeredusers`.`id`  = ? ;";
-        $results = $this->db->p_statement($query, "ssi", [$userId, $tutorId, $register_userID]);
-
-        return $results ? $results : false;
-    }
+   
 
     // bao gồm phân trang luôn
     public function getRegisteredUserByTutorId($tutorId, $request_method)
@@ -67,7 +61,7 @@ class RegisterUser
         return $this->paginator->createLinks($links, 'pagination justify-content-center');
     }
 
-    // đếm xem có gia sư hay không
+    // đếm xem có user hay không
     public function countRegisteredUserByTutorId($tutorId)
     {
         $query = "SELECT COUNT(DISTINCT(`registeredusers`.`userId`)) as sum_register_user
@@ -116,5 +110,46 @@ class RegisterUser
         $results = $this->db->p_statement($query, "ssii", [$userId, $tutorId, $topicId, $status]);
 
         return $results ? $results : false;
+    }
+
+    /* user */
+
+    // đếm xem có gia sư hay không
+    public function countRegisteredTutorByUserId($userId)
+    {
+        $query = "SELECT COUNT(DISTINCT(`registeredusers`.`tutorId`)) as sum_register_tutor
+        FROM `registeredusers`
+        WHERE `registeredusers`.`userId` = ?;";
+        $results = $this->db->p_statement($query, "s", [$userId]);
+
+        return $results ? $results : false;
+    }
+
+    // bao gồm phân trang luôn
+    public function getRegisteredTutorByUserId($userId, $request_method)
+    {
+        $query = "SELECT `appusers`.`id`, `tutors`.`id` as tutorId, `appusers`.`lastname`, `appusers`.`firstname`, `appusers`.`imagepath`, `tutors`.`currentjob`
+        FROM `appusers` INNER JOIN `tutors` ON `appusers`.`id` = `tutors`.`userId`
+        WHERE `tutors`.`id` IN (
+            SELECT `registeredusers`.`tutorId`
+            FROM `registeredusers`
+            WHERE `registeredusers`.`userId` = ?)";
+        $limit = (isset($request_method['limit'])) ? Format::validation($request_method['limit']) : 3;
+        $page = (isset($request_method['page'])) ? Format::validation($request_method['page']) : 1;
+
+        $this->paginator->constructor($query, "s", [$userId]);
+
+        $results = $this->paginator->getData($limit, $page);
+
+        return $results;
+    }
+
+    // tạo link phân trang
+    public function getPaginatorRegisteredTutor($request_method)
+    {
+        // paginator
+        // echo $this->query;
+        $links = (isset($request_method['links'])) ? Format::validation($request_method['links']) : 3;
+        return $this->paginator->createLinks($links, 'pagination justify-content-center');
     }
 }

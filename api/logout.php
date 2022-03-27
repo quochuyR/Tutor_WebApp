@@ -9,9 +9,6 @@ Session::checkRoles(['user','tutor']);
 //     header("location: ../pages/errors/404.php");
 // }
 
-
-
-
 if (isset($_POST["action"]) && $_POST["action"] === "logout") {
     if (session_id() !== '' || isset($_SESSION) || session_status() !== PHP_SESSION_NONE) {
         // session isn't started
@@ -30,13 +27,3 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
     }
 }
 
-
-
-
-
-
-
-
-// 
-
-// 

@@ -69,6 +69,7 @@ class SubjectTopic
 
        return $results ? $results : false;
     }
+
     public function getTopic_registerUser($tutorId, $userId)
     {
         $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName`
@@ -90,4 +91,42 @@ class SubjectTopic
 
        return $results ? $results : false;
     }
+
+    /* User */
+
+    public function getTopic_UserSchedule($userId, $status)
+    {
+        $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName`
+        FROM ((`scheduletutors` INNER JOIN `subjecttopics` ON `scheduletutors`.`topicId` = `subjecttopics`.`id`)
+              INNER JOIN `registeredusers` ON `scheduletutors`.`RegisteredId` = `registeredusers`.`id`)
+        WHERE `registeredusers`.`userId` = ? AND 	`registeredusers`.`status` = ?
+        ORDER BY `subjecttopics`.`id` ASC;";
+       $results = $this->db->p_statement($query, "si", [$userId, $status]);
+
+       return $results ? $results : false;
+    }
+
+    // lấy chủ đề mà người dùng đã đăng ký hay chưa đăng ký
+    public function getTopic_registeredUser($tutorId, $userId, $status)
+    {
+        $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName` 
+        FROM `teachingsubjects` INNER JOIN `subjecttopics` ON `subjecttopics`.`id` = `teachingsubjects`.`topicId`
+        WHERE  `teachingsubjects`.`tutorId` = ? 
+        AND `teachingsubjects`.`topicId`  NOT IN (SELECT `registeredusers`.`topicId` 
+                                                   FROM `registeredusers`
+                                                   WHERE `registeredusers`.`userId` = ? 
+                                                   AND `registeredusers`.`tutorId` = ?)
+        ORDER BY `subjecttopics`.`id` ASC;";
+
+        if($status == 1){
+            $query = str_replace("NOT IN", "IN", $query);
+        }
+        
+        // print_r($query);
+       $results = $this->db->p_statement($query, "sss", [$tutorId, $userId, $tutorId]);
+
+       return $results ? $results : false;
+    }
+
+
 }

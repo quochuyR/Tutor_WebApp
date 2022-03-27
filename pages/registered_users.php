@@ -61,7 +61,7 @@ $_day_of_week = new DayOfWeek();
         <header class="row g-0 m-0">
 
             <?php
-            $nav_tutor_active = "active";
+           
             include "../inc/header.php";
             ?>
 
@@ -102,7 +102,7 @@ $_day_of_week = new DayOfWeek();
                                                 <div class="job-box d-md-flex align-items-center justify-content-between mb-30  position-relative <?= $status_approval["status"] === 1 ? "bg-approval" : "" ?>">
                                                     <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                                         <div class="img-holder mx-2 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                                            <img src="<?= Util::getCurrentURL() . "/../" . $_register_user["imagepath"] ?>" alt="." class="rounded">
+                                                            <img src="<?= Util::getCurrentURL() . "/../public/"  . $_register_user["imagepath"] ?>" alt="." class="rounded">
                                                         </div>
                                                         <div class="job-content">
                                                             <h5 class="text-xs-center text-md-left fw-bold"><?= $_register_user["lastname"] . ' ' . $_register_user["firstname"] ?></h5>
@@ -284,7 +284,7 @@ $_day_of_week = new DayOfWeek();
                                                                             <div class="card-body">
 
                                                                                 <div class="d-flex align-items-start">
-                                                                                    <img src="<?= Util::getCurrentURL() . "/../" . $user["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+                                                                                    <img src="<?= Util::getCurrentURL() . "/../public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
                                                                                     <div class="w-100 ms-3 align-self-end">
                                                                                         <h4 class="my-1"><?= $user["lastname"] . ' ' . $user["firstname"]; ?></h4>
                                                                                         <p class="text-muted">@id: <?= $user["username"]; ?></p>
@@ -463,7 +463,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../ajax/getstatusregisteruser.php",
+                        url: "../api/getstatusregisteruser.php",
                         data: {
                             id,
 
@@ -495,7 +495,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../ajax/getregisteridbytopicid.php",
+                        url: "../api/getregisteridbytopicid.php",
                         data: {
                             id,
                             topicId,
@@ -525,7 +525,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../ajax/getTimeFromDay.php",
+                        url: "../api/getTimeFromDay.php",
                         data: {
                             dayofweek,
 
@@ -550,7 +550,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../ajax/getdayschedule.php",
+                        url: "../api/getdayschedule.php",
                         data: {
                             action: "getDay",
 
@@ -577,7 +577,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../ajax/getsubjectregisteruser.php",
+                        url: "../api/getsubjectregisteruser.php",
                         data: {
                             userId,
                             status
@@ -608,7 +608,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../ajax/addscheduleuser.php",
+                        url: "../api/addscheduleuser.php",
                         data: {
                             id,
                             status,

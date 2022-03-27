@@ -3,11 +3,11 @@
 
 <?php
 
-use Classes\TutoringSchedule,
-  Classes\AppUser,
-  Classes\DayOfWeek,
-  Classes\SubjectTopic,
-  Classes\Time;
+use Classes\AppUser;
+use Classes\DayOfWeek;
+use Classes\SubjectTopic;
+use Classes\Time;
+use Classes\TutoringSchedule;
 use Library\Session;
 
 $title = "Lịch dạy";
@@ -23,7 +23,7 @@ include "../classes/times.php";
 
 <?php
 
-if (Session::checkRoles(["tutor"]) !== true) {
+if (!Session::checkRoles(["user"])) {
   header("location: errors/404");
 }
 
@@ -33,7 +33,6 @@ $_dayofweek = new DayOfWeek();
 $_subjecttopic = new SubjectTopic();
 $_time = new Time();
 
-
 ?>
 
 <body>
@@ -41,7 +40,6 @@ $_time = new Time();
     <header class="row g-0 m-0">
 
       <?php
-      
       include "../inc/header.php"
       ?>
 
@@ -60,7 +58,7 @@ $_time = new Time();
                       <option value="all">-- Tất cả --</option>
                       <?php
 
-                      $get_DoW = $_dayofweek->GetDayOfWeek_TutoringSchedule(Session::get("tutorId"), 1);
+                      $get_DoW = $_dayofweek->GetDayOfWeek_UserSchedule(Session::get("userId"), 1);
                       if ($get_DoW) {
                         while ($dayofweek = $get_DoW->fetch_assoc()) {
                       ?>
@@ -89,7 +87,7 @@ $_time = new Time();
                       <?php
 
                       // SbT stand for subject topic
-                      $get_SbT = $_subjecttopic->getTopic_TutoringSchedule(Session::get("tutorId"), 1);
+                      $get_SbT = $_subjecttopic->getTopic_UserSchedule(Session::get("userId"), 1);
                       if ($get_SbT) {
                         while ($subjecttopic = $get_SbT->fetch_assoc()) {
                       ?>
@@ -120,8 +118,7 @@ $_time = new Time();
                       <option value="all">-- Tất cả --</option>
                       <?php
 
-
-                      $get_time = $_time->getTimes_TutoringSchedule(Session::get("tutorId"), 1);
+                      $get_time = $_time->getTimes_UserSchedule(Session::get("userId"), 1);
                       if ($get_time) {
                         while ($time = $get_time->fetch_assoc()) {
                       ?>
@@ -153,8 +150,7 @@ $_time = new Time();
                       <option value="all">-- Tất cả --</option>
                       <?php
 
-
-                      $get_time = $_time->getTimes_TutoringSchedule(Session::get("tutorId"), 1);
+                      $get_time = $_time->getTimes_UserSchedule(Session::get("userId"), 1);
                       if ($get_time) {
                         while ($time = $get_time->fetch_assoc()) {
                       ?>
@@ -185,7 +181,7 @@ $_time = new Time();
       </section>
       <!-- START Pagination -->
       <!-- <nav aria-label="Page navigation">
-          <?php //$_tutoring_schedule->getPaginatorTutoringSchedule($_GET) 
+          <?php //$_tutoring_schedule->getPaginatorTutoringSchedule($_GET)
           ?>
         </nav> -->
       <!-- END Pagination -->
@@ -237,23 +233,29 @@ $_time = new Time();
           });
           // get uid param
           // dùng để lấy lịch dạy của một user duy nhất
-          let uid = params.uid; // "some_value"
+          let tuid = params.tuid; // "some_value"
 
-          let url = $(e?.target).attr('href') ? $(e.target).attr('href') : "3&1"; // check có thẻ a chưa 
+          let url = $(e?.target).attr('href') ? $(e.target).attr('href') : "3&1"; // check có thẻ a chưa
           let [limit, page] = url.split("&");
           console.log(limit, page, url)
           let day = null;
 
-          if (hasFirstFilter) {
-            if ($(`#dayofweek option[value="${ new Date().getDay()}"]`).prop("selected", true).length === 0)
-              day = 8; // không có ngày thứ 8 mục đích là trả về "không có lịch dạy hôm nay."
-            hasFirstFilter = false;
-          }
-          //    console.log($(`#dayofweek option[value="${ 3}"]`).prop("selected", true), "dayofweek");
-          if (!hasFirstFilter) {
-            day = $("#dayofweek").val();
+          // có nhiệm vụ xem lịch học khi chọn ở trang gia sư đã đăng ký
+          if (params.day) {
+            day = params.day
+          } else {
+            if (hasFirstFilter) {
+              if ($(`#dayofweek option[value="${ new Date().getDay()}"]`).prop("selected", true).length === 0)
+                day = 8; // không có ngày thứ 8 mục đích là trả về "không có lịch dạy hôm nay."
+              hasFirstFilter = false;
+            }
+            //    console.log($(`#dayofweek option[value="${ 3}"]`).prop("selected", true), "dayofweek");
+            if (!hasFirstFilter) {
+              day = $("#dayofweek").val();
 
+            }
           }
+
           let subjectTopic = $("#subject-topic").val();
           let startTime = $("#time-start").val();
           let endTime = $("#time-end").val();
@@ -262,14 +264,13 @@ $_time = new Time();
 
           $.ajax({
             type: "post",
-            url: "../api/schedule_tutor.php"
-            ,
+            url: "../api/schedule_user.php",
             data: {
               day,
               subjectTopic,
               startTime,
               endTime,
-              uid,
+              tuid,
               limit,
               page,
             },
@@ -278,22 +279,13 @@ $_time = new Time();
 
               $("#tutoring-schedule").html(data);
               page_paginator();
-              OnchangeSelectDoW();
+
               console.log(data)
               /**/
-              onClickBtnEdit();
-
-              /* */
-
-              onClickUpdateSchedule();
 
 
               /* */
 
-              /* */
-              onClickDeleteSchedule();
-              /* */
-              console.log($(".container-schedule"), "container-schedule")
             },
             error: function(xhr, status, error) {
               console.error(xhr);
@@ -301,180 +293,6 @@ $_time = new Time();
           });
 
         }
-
-        function onClickUpdateSchedule() {
-          $(".btn-modal-save").on('click', (e) => {
-
-            let main_body_modal = $(e.target).closest(".modal-footer").prev(".modal-body");
-            let dayofweek = $(main_body_modal).find("select").eq(0).val();
-            let time = $(main_body_modal).find("select").eq(1).val();
-            let subjecttopic = $(main_body_modal).find("select").eq(2).val();
-            /* Update lịch dạy ở đây */
-
-            // console.log([td_day ,dayofweek , $(td_time).attr("data-value") , time , td_topic_name , subjecttopic])
-            // if(td_day !== dayofweek || $(td_time).attr("data-value") !== time || td_topic_name !== subjecttopic)
-
-            updateScheduleTutor(th_id, dayofweek, time, subjecttopic, $(td_day).attr("data-value"), $(td_time).attr("data-value"));
-
-            /* */
-          });
-        }
-
-        function onClickDeleteSchedule() {
-          $(".delete-schedule").on('click', (e) => {
-            let container_schedule = $(e.target).closest(".container-schedule");
-            let th_id = container_schedule.children(".th-id").attr("data-value");
-
-            $(container_schedule).remove();
-            /* Update lịch dạy ở đây */
-            $.ajax({
-              type: "post",
-              url: "../api/deleteschudule.php",
-              data: {
-                id: th_id
-
-              },
-              cache: false,
-              success: function(data) {
-
-                if (data.action === "success")
-                  $(container_schedule).remove();
-                // console.log($(td_options).html());
-
-                // page_paginator();
-
-                console.log(data)
-              },
-              error: function(xhr, status, error) {
-                console.error(xhr);
-              }
-            });
-
-            /* */
-          });
-        }
-
-        function referenceDataFromTableToModal(e) {
-          container_schedule = $(e.target).closest(".container-schedule");
-          th_id = container_schedule.children(".th-id").attr("data-value");
-          td_day = container_schedule.children(".td-day");
-          td_time = container_schedule.children(".td-time");
-          td_topic_name = container_schedule.children(".td-topic-name");
-        }
-
-        function onClickBtnEdit() {
-          $(".edit-schedule").on('click', (e) => {
-            referenceDataFromTableToModal(e);
-            getDaySchedule(e);
-            let id_modal = $(e.target).attr("data-bs-target");
-            $(id_modal).find(`select option[value="${-1}"]`).eq(0).prop("selected", true); // select teaching day in modal
-            $(id_modal).find("select").eq(1).html(`<option value="0">-- Buổi học --</option> <option value="${$(td_time).attr("data-value")}" selected> ${$(td_time).text()} </option>`); // select teaching time in modal
-            $(id_modal).find("select").eq(2).val($(td_topic_name).attr("data-value")); // select teaching subject topic in modal
-
-          });
-
-
-        }
-
-
-
-
-
-        function updateScheduleTutor(id, dayofweek, time, subject_topic, dayofweek_prev, time_prev) {
-          $.ajax({
-            type: "post",
-            url: "../api/updateschedule.php",
-            data: {
-              id,
-              dayofweek,
-              time,
-              subject_topic,
-              dayofweek_prev,
-              time_prev
-
-            },
-            cache: false,
-            success: function(data) {
-
-              let td_options = $(container_schedule).children(".td-options");
-              // console.log($(td_options).html());
-              // $(container_schedule).html(`${data} <td scope="row" class="text-start td-options">${$(td_options).html()}</td>`);
-              // page_paginator();
-              [...data].forEach(row => {
-                $(td_day).attr("data-value", row.dayofweekId);
-                $(td_day).text(row.day);
-                $(td_time).attr("data-value", row.timeId);
-                $(td_time).text(row.time);
-                $(td_topic_name).attr("data-value", row.subject_topicId);
-                $(td_topic_name).text(row.topicName);
-              })
-              console.log(data)
-            },
-            error: function(xhr, status, error) {
-              console.error(xhr);
-            }
-          });
-        }
-
-        function OnchangeSelectDoW() {
-          $(".teaching-day").on('change', (e) => {
-
-            getTimeFromDay(e);
-          });
-        }
-
-
-
-        function getTimeFromDay(e) {
-
-          let dayofweek = $(e.target).val();
-          let index = $(".teaching-day").index(e.target);
-
-          $.ajax({
-            type: "post",
-            url: "../api/getTimeFromDay.php",
-            data: {
-              dayofweek,
-
-            },
-            cache: false,
-            success: function(data) {
-
-              $(".teaching-time").eq(index).html(data);
-
-              console.log(data)
-            },
-            error: function(xhr, status, error) {
-              console.error(xhr);
-            }
-          });
-        }
-
-        function getDaySchedule(e) {
-          let id_modal = $(e.target).attr("data-bs-target");
-          let dayofweek = $(id_modal).find(`select`).eq(0);
-
-
-          $.ajax({
-            type: "post",
-            url: "../api/getdayschedule.php",
-            data: {
-              action: "getDay",
-
-            },
-            cache: false,
-            success: function(data) {
-
-              dayofweek.html(data);
-
-              console.log(data)
-            },
-            error: function(xhr, status, error) {
-              console.error(xhr);
-            }
-          });
-        }
-
 
       });
     })();
