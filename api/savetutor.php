@@ -6,7 +6,7 @@ use Classes\SavedTutor;
 $filepath  = realpath(dirname(__FILE__));
 
 include_once($filepath . "../../lib/session.php");
-if(!Session::checkRoles(['user','tutor'])){
+if(!Session::checkRoles(['user', 'tutor'])){
         header("location:../pages/errors/404.php");
     }
 include_once($filepath . "../../classes/savedtutors.php");

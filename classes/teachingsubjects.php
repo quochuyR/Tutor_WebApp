@@ -17,6 +17,16 @@ class TeachingSubject
         // $this->fm = new Format();
     }
 
+    public function insertTeachingSubjects($tutorId, $subjectId)
+    {
+        $query = "INSERT INTO `teachingsubjects` 
+        VALUES (NULL, ?, ?);";
+
+        $results =  $this->db->p_statement($query, "si", [$tutorId, $subjectId]);
+
+        return $results ? $results : false;
+    }
+
     public function getTopicByTutorId($tutorId)
     {
         $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName`

@@ -1,6 +1,12 @@
+
+ErrorDocument 404 /tutor_webapp/pages/errors/404.php
 RewriteEngine On
 
-RewriteRule ^(lib/|classes/|inc/|helpers/|config/|admin/|model/) - [F,L,NC]
+
+
+RewriteRule ^(lib/|classes/|inc/|helpers/|config/|model/) - [F,L,NC]
+
+
 
 
 

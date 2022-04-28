@@ -22,7 +22,7 @@ include_once "../helpers/utilities.php";
 
 
 
-if (Session::checkRoles(["user"]) !== true) {
+if (!Session::checkRoles(["user", "tutor"])) {
     header("location: errors/404"); 
     // print_r(Session::get("roles"));
 }
@@ -47,7 +47,7 @@ if (Session::checkRoles(["user"]) !== true) {
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb ">
                             <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                            <li class="breadcrumb-item" aria-current="page"><a href="./list_Tutor.php">Danh sách gia sư</a></li>
+                            <li class="breadcrumb-item" aria-current="page"><a href="./list_Tutor">Danh sách gia sư</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Gia sư đã lưu</li>
                         </ol>
                     </nav>
@@ -92,14 +92,13 @@ if (Session::checkRoles(["user"]) !== true) {
                                             <div class="job-box d-md-flex align-items-center justify-content-between mb-30  position-relative">
                                                 <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                                     <div class="img-holder mx-2 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                                        <img src="<?=  Util::getCurrentURL() ."/../" . $tutor["imagepath"] ?>" alt=".">
+                                                        <img src="<?=  Util::getCurrentURL() ."/../public/" . $tutor["imagepath"] ?>" alt=".">
                                                     </div>
                                                     <div class="job-content">
-                                                        <h5 class="text-xs-center text-md-left"><?= $tutor["lastname"] . ' ' . $tutor["firstname"] ?></h5>
-                                                        <!-- <div class="text-muted ms-5 mt-3 mt-md-0"></div>
-                                            <div class="text-muted ms-5">Sinh viên</div> -->
+                                                        <h5 class="text-xs-center text-md-left fw-bold"><?= $tutor["lastname"] . ' ' . $tutor["firstname"] ?></h5>
+                                                        
                                                         <ul class="d-md-flex flex-md-column flex-wrap my-md-2 ff-open-sans p-0">
-                                                            <li class="text-sub">
+                                                            <li class="text-sub text-muted">
                                                                 <?= $tutor["teachingarea"] ?> | <?php $subjectTutors = "";
                                                                                                 $subjectList = $subjects->getByTutorId($tutor['id']);
                                                                                                 while ($resultSB = $subjectList->fetch_assoc()) {
@@ -109,7 +108,7 @@ if (Session::checkRoles(["user"]) !== true) {
                                                                                                 echo $subjectTutors = substr($subjectTutors, 0, strlen(trim($subjectTutors)) - 1);
                                                                                                 ?>
                                                             </li>
-                                                            <li>
+                                                            <li class="text-muted">
                                                                 <?= $tutor["job"] ?>
                                                             </li>
 
@@ -119,7 +118,7 @@ if (Session::checkRoles(["user"]) !== true) {
 
                                                 <div class="d-md-none d-block pb-4 pb-md-0">
                                                     <ul class="d-flex justify-content-end ">
-                                                        <li><a class="text-reset text-decoration-none" href="tutor_details.php?id=<?= Format::validation($tutor["id"])?>"><i class="fas fa-eye me-1"></i> Xem</a></li>
+                                                        <li><a class="text-reset text-decoration-none" href="tutor_details?id=<?= Format::validation($tutor["id"])?>"><i class="fas fa-eye me-1"></i> Xem</a></li>
                                                         <li><a class="ms-3 text-reset text-decoration-none" href="#"><i class="fas fa-heart-broken"></i> Huỷ lưu</a></li>
 
                                                     </ul>
@@ -131,7 +130,7 @@ if (Session::checkRoles(["user"]) !== true) {
                                                             <i class="fas fa-ellipsis-v"></i>
                                                         </button>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                            <li><a class="dropdown-item tutor-detail-link"  href="tutor_details.php?id=<?= Format::validation($tutor["id"])?>"><i class="fas fa-eye me-1"></i> Xem</a>
+                                                            <li><a class="dropdown-item tutor-detail-link"  href="tutor_details?id=<?= Format::validation($tutor["id"])?>"><i class="fas fa-eye me-1"></i> Xem</a>
                                                             </li>
                                                             <li><a class="dropdown-item unsave-tutor" data-href="<?= Format::validation($tutor["id"])?>"><i class="fas fa-heart-broken me-1"></i> Huỷ
                                                                     lưu</a></li>
@@ -188,7 +187,7 @@ if (Session::checkRoles(["user"]) !== true) {
                 console.log(tutorId,  $(e.target).attr("data-href"));
                 $.ajax({
                     type: "post",
-                    url: "../api/unsaved_tutors.php",
+                    url: "../api/unsaved_tutors",
                     data: {
                         userId: "<?= Session::get("userId") ?>" ,
                         tutorId: tutorId

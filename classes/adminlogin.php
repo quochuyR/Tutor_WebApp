@@ -43,8 +43,10 @@ class AdminLogin{
                 $value = $result->fetch_assoc();
 
                 $roles = $this->user_role->getRoleByUserId($value["id"])->fetch_all(MYSQLI_ASSOC);
+
+                
                 $tutor = $this->user_role->getTutorIdByRoles([2,3], $value["id"])->fetch_assoc();
-                // print_r($roles);
+                
                 Session::set("login", true);
                 Session::set("userId", $value["id"]);
                 Session::set("roles", $roles);
@@ -54,6 +56,7 @@ class AdminLogin{
                 Session::set("firstname", $value["firstname"]);
                 Session::set("imagepath", $value["imagepath"]);
                 // header("location:.././inc/header.php");
+               
                 return true;
                 
                 // echo "đăng nhập thành công";

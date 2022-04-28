@@ -23,8 +23,8 @@ if (isset($_POST["userId"]) && isset($_POST["tutorId"])) {
     $save_tutor = new SavedTutor();
 
     $result = $save_tutor->deleteTutorSaved($userId, $tutorId);
-
-    header("location:../pages/saved_tutors.php");
-        exit;
+    if($result)
+        header("location:../pages/saved_tutors");
+    exit;
 }
 

@@ -5,11 +5,12 @@ namespace Views;
 use Helpers\Util, Helpers\Format;
 use Library\Session;
 use Classes\Tutor,
-    Classes\Subject,
+    Classes\TeachingSubject,
     Classes\Day,
     Classes\DayOfWeek,
     Classes\TeachingTime,
-    Classes\SavedTutor;
+    Classes\SavedTutor,
+    Classes\RegisterUser;
 
 ?>
 <!DOCTYPE html>
@@ -22,11 +23,12 @@ $title = "Thông tin gia sư";
 include "../inc/head.php";
 
 include_once "../classes/tutors.php";
-include_once "../classes/subjects.php";
+include_once "../classes/teachingsubjects.php";
 include_once "../classes/dayofweeks.php";
 include_once "../classes/days.php";
 include_once "../classes/teachingtimes.php";
 include_once "../classes/savedtutors.php";
+include_once "../classes/registerusers.php";
 include_once "../helpers/format.php";
 ?>
 
@@ -67,11 +69,12 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
 
                     <?php
                     $tutors = new Tutor();
-                    $subjects = new Subject();
+                    $teaching_subjects = new TeachingSubject();
                     $dayofweeks = new DayOfWeek();
                     $days = new Day();
                     $teachingtimes = new TeachingTime();
                     $saved_tutor = new SavedTutor();
+                    $register_user = new RegisterUser();
 
                     $detail_tutor = $tutors->getTutorDetail($id)->fetch_all(MYSQLI_ASSOC);
 
@@ -84,7 +87,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
                                 <div class="card-body">
 
                                     <div class="d-flex align-items-start">
-                                        <img src="<?= Util::getCurrentURL() . "/../public/" . $result["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image" >
+                                        <img src="<?= Util::getCurrentURL() . "/../public/" . $result["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
                                         <div class="w-100 ms-3 align-self-end">
                                             <h4 class="my-1"><?= $result["lastname"] . ' ' . $result["firstname"]; ?></h4>
                                             <p class="text-muted">@id: <?= $result["username"]; ?></p>
@@ -133,14 +136,48 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
                                         <li class="list-inline-item postion-absolute">
                                             <?php
                                             $hasTutor = $saved_tutor->countTutorSavedByUserId(Session::get("userId"), $id)->fetch_assoc();
+                                            $get_registered_tutor = $register_user->countRegisteredUsersWithTutor(Session::get("userId"), $id)->fetch_assoc();
                                             ?>
                                             <button type="button" class="btn btn-primary <?= !empty($_SESSION) ? "" : "d-none"  ?>" id="save-tutor"><?= $hasTutor["hasTutor"] > 0 ? "Đã lưu" : "Lưu" ?></button>
-                                            <button type="button" class="btn btn-primary <?= !empty($_SESSION) ? "" : "d-none"  ?>">Đăng ký</button>
+                                            <button type="button" class="btn btn-primary btn-register-show <?= !empty($_SESSION) ? "" : "d-none"  ?> " data-bs-toggle="modal" data-bs-target="#exampleModal"><?= $get_registered_tutor["registered_tutor"] > 0 ? "Đã đăng ký" : "Đăng ký" ?></button>
                                         </li>
                                     </ul>
                                 </div>
                             </div> <!-- end card -->
 
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Đăng ký môn học</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row g-0 ">
+
+                                                        <div class="col-8 px-1">
+                                                            <div class="form-group">
+
+                                                                <select class="form-select teaching-subject">
+                                                                    <option value="0">-- Môn học --</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                                            <button type="button" class="btn btn-primary btn-register-add">Đăng ký</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
 
@@ -152,13 +189,13 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
 
                         <div class="col-xl-8 col-md-7">
                             <div class="card card-detail">
-                                <div class="card-body text-center">
+                                <div class="card-body">
                                     <div class="row">
                                         <div class="col-12 border-end border-light">
                                             <h5 class="mt-1 mb-2 fw-normal fw-bold text-start border-bottom pb-2">Giới thiệu chung
                                                 và kinh nghiệm gia
                                                 sư</h5>
-                                            <p class="mb-0 fw-normal font-16 text-start"><?= $result["introduction"]; ?></p>
+                                           <?= html_entity_decode($result["introduction"]) ?>
                                         </div>
 
                                     </div>
@@ -187,15 +224,15 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
                                                             <div class="w-100 ms-3 d-flex flex-row flex-wrap">
                                                                 <?php
 
-                                                                $subjectList = $subjects->getByTutorId($result['id']);
-                                                                while ($resultSB = $subjectList->fetch_assoc()) {
+                                                                $topicList = $teaching_subjects->getTopicByTutorId($result['id']);
+                                                                while ($resultTopic = $topicList->fetch_assoc()) {
 
 
                                                                 ?>
                                                                     <div class="mt-1 mx-1 text-start ">
                                                                         <div class="mb-1">
                                                                             <span class="badge bg-primary">
-                                                                                <?= $resultSB["subject"] ?>
+                                                                                <?= $resultTopic["topicName"] ?>
                                                                             </span>
                                                                         </div>
                                                                     </div>
@@ -239,7 +276,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
                                                     $teachingTime_list = $teachingtimes->getAll($id, $resultDOW["id"], $resultDay["id"]);
 
                                                 ?>
-                                                    <li class="<?= ($teachingTime_list !== false) ? "calendar-active" : "calendar-normal" ?>" data-toggle="<?= ($teachingTime_list !== false) ? "collapse" : "" ?>" data-target="#collapse<?= $resultDOW["id"] . 'T' . $resultDay["id"] ?>" aria-expanded="false" aria-controls="collapseExample">
+                                                    <li class="<?= ($teachingTime_list !== false) ? "calendar-active" : "calendar-normal" ?>" data-bs-toggle="<?= ($teachingTime_list !== false) ? "collapse" : "" ?>" data-bs-target="#collapse<?= $resultDOW["id"] . 'T' . $resultDay["id"] ?>" aria-expanded="false" aria-controls="collapseExample">
                                                         <?= $resultDay["dayname"] ?>
 
                                                     </li>
@@ -298,6 +335,98 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
 
     <script>
         $(document).ready(function() {
+            onClickToShowModalRegister();
+
+            function onClickToShowModalRegister() {
+                $(".btn-register-show").on('click', (e) => {
+
+                    getSubjectRegisterUser(e);
+                    onClickToAddRegister();
+                });
+            }
+
+            function onClickToAddRegister() {
+                $(".btn-register-add").on('click', (e) => {
+                    addRegisterTutor(e);
+                });
+            }
+
+            function getSubjectRegisterUser(e) {
+                const params = new Proxy(new URLSearchParams(window.location.search), {
+                    get: (searchParams, prop) => searchParams.get(prop),
+                });
+                // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+                let tuId = params.id; // "some_value"
+                let id_approval = $(e.currentTarget).attr("data-bs-target");
+                let subject = $(id_approval).find(`.teaching-subject`);
+
+                let status = 0; // trạng thái đã duyệt môn học hay chưa
+
+                // console.log([tuId, id_approval, subject, status])
+                $.ajax({
+                    type: "post",
+                    url: "../api/getsubjecttutor",
+                    data: {
+                        tuId,
+                        status
+
+                    },
+                    cache: false,
+                    success: function(data) {
+
+                        subject.html(data);
+
+                        console.log(data)
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr);
+                    }
+                });
+            }
+
+            function addRegisterTutor(e) {
+                const params = new Proxy(new URLSearchParams(window.location.search), {
+                    get: (searchParams, prop) => searchParams.get(prop),
+                });
+                // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+                let tuId = params.id; // "some_value"
+
+                let action = 1;
+                let topicId = $(e.currentTarget).closest(".modal-content").find("select");
+
+                console.log([action, tuId, topicId, e.currentTarget])
+
+                $.ajax({
+                    type: "post",
+                    url: "../api/addordeleteregistertutor",
+                    data: {
+                        tuId,
+                        action,
+                        topicId: $(topicId).val(),
+
+                    },
+                    cache: false,
+                    success: function(data) {
+
+                        if (data.insert === 'successful') {
+                            alert(`Đăng ký môn học ${data.topicName } thành công. Hãy chờ gia sư liên hệ với bạn.`)
+                            window.location.href = "./registered_tutors";
+                            
+                        } 
+
+
+                        console.log(data, "insert3")
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr);
+                    }
+                });
+            }
+
+            /* Lưu gia sư */
+
+
+
             $("#save-tutor").on('click', (e) => {
                 const params = new Proxy(new URLSearchParams(window.location.search), {
                     get: (searchParams, prop) => searchParams.get(prop),
@@ -309,7 +438,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
                 console.log("<?= Session::get("userId") ?>")
                 $.ajax({
                     type: "post",
-                    url: "../api/savetutor.php",
+                    url: "../api/savetutor",
                     data: {
                         userId: "<?= Session::get("userId") ?>",
                         tutorId: tutorId

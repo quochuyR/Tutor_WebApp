@@ -262,7 +262,7 @@ $_time = new Time();
 
           $.ajax({
             type: "post",
-            url: "../api/schedule_tutor.php"
+            url: "../api/schedule_tutor"
             ,
             data: {
               day,
@@ -322,14 +322,19 @@ $_time = new Time();
 
         function onClickDeleteSchedule() {
           $(".delete-schedule").on('click', (e) => {
+
+            if(confirm("Bạn có chắn chắn muốn xoá?") === false)
+              return 0
+
+
             let container_schedule = $(e.target).closest(".container-schedule");
             let th_id = container_schedule.children(".th-id").attr("data-value");
 
             $(container_schedule).remove();
-            /* Update lịch dạy ở đây */
+            /* Xoá lịch dạy ở đây */
             $.ajax({
               type: "post",
-              url: "../api/deleteschudule.php",
+              url: "../api/deleteschudule",
               data: {
                 id: th_id
 
@@ -383,7 +388,7 @@ $_time = new Time();
         function updateScheduleTutor(id, dayofweek, time, subject_topic, dayofweek_prev, time_prev) {
           $.ajax({
             type: "post",
-            url: "../api/updateschedule.php",
+            url: "../api/updateschedule",
             data: {
               id,
               dayofweek,
@@ -432,7 +437,7 @@ $_time = new Time();
 
           $.ajax({
             type: "post",
-            url: "../api/getTimeFromDay.php",
+            url: "../api/getTimeFromDay",
             data: {
               dayofweek,
 
@@ -457,7 +462,7 @@ $_time = new Time();
 
           $.ajax({
             type: "post",
-            url: "../api/getdayschedule.php",
+            url: "../api/getdayschedule",
             data: {
               action: "getDay",
 

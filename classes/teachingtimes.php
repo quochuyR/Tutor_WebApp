@@ -17,6 +17,15 @@ class TeachingTime
         // $this->fm = new Format();
     }
 
+    public function insertTeachingTime($tutorId, $dayofweekId, $timeId)
+    {
+        $query = "INSERT INTO `teachingtimes` 
+        VALUES (NULL, ?, ?, ?, b'0')";
+
+        $result = $this->db->p_statement($query, "sii", [$tutorId, $dayofweekId, $timeId]);
+        return $result ? $result : false;
+    }
+
     public function getAll($tutorId, $dayofweekId, $dayId)
     {
         $query = "SELECT `teachingtimes`.`dayofweekId`, `times`.`time`, `days`.`dayname`
@@ -49,5 +58,7 @@ class TeachingTime
         $result = $this->db->p_statement($query, "siiii", [$tutorId, $dayofweekId, $timeId, $dayofweekId_prev, $timeId_prev]);
         return $result;
     }
+
+    
 
 }

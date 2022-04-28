@@ -73,8 +73,8 @@ $_teaching_subject = new TeachingSubject();
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 mx-auto mb-2 mt-2">
-                        <div class="section-title text-start bg-success p-2">
-                            <h4 class="top-c-sep text-white">DANH SÁCH GIA SƯ ĐĂNG KÝ</h4>
+                        <div class="section-title text-start p-2">
+                            <h4 class="top-c-sep ">DANH SÁCH GIA SƯ ĐĂNG KÝ</h4>
                         </div>
                     </div>
                 </div>
@@ -148,13 +148,13 @@ $_teaching_subject = new TeachingSubject();
                                                         <div class="d-md-none d-block pb-4 pb-md-0">
                                                             <ul class="d-flex justify-content-end align-items-center">
                                                                 <li>
-                                                                    <a class="mx-sm-1 mx-3 text-reset" href="../pages/tutor_details.php?id=<?= $_register_user["tutorId"] ?>"><i class="fas fa-eye me-1 fa-lg"></i> </a>
+                                                                    <a class="mx-sm-1 mx-3 text-reset" href="../pages/tutor_details?id=<?= $_register_user["tutorId"] ?>"><i class="fas fa-eye me-1 fa-lg"></i> </a>
                                                                 </li>
                                                                 <li>
                                                                     <div class="mx-sm-1  approval-register-user" data-id="<?= $user["id"] ?>" data-bs-toggle="modal" data-bs-target="#approval-register-<?= $user["username"]; ?>" style="cursor: pointer; padding: 0.25rem 1rem !important;"><i class="fa-solid fa-user-check fa-lg"></i> </div>
                                                                 </li>
                                                                 <li>
-                                                                    <a class="mx-sm-1 text-reset" href="./schedule_user.php?tuid=<?= $_register_user["tutorId"] ?>&day=all" style="padding: 0.25rem 1rem !important;"><i class="fa-solid fa-calendar-days fa-lg"></i> </a>
+                                                                    <a class="mx-sm-1 text-reset" href="./schedule_user?tuid=<?= $_register_user["tutorId"] ?>&day=all" style="padding: 0.25rem 1rem !important;"><i class="fa-solid fa-calendar-days fa-lg"></i> </a>
                                                                 </li>
 
                                                             </ul>
@@ -167,11 +167,11 @@ $_teaching_subject = new TeachingSubject();
                                                                 </button>
                                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                                     <li class="py-1">
-                                                                        <a class="dropdown-item" href="../pages/tutor_details.php?id=<?= $_register_user["tutorId"] ?>"><i class="fas fa-eye pe-2"></i> Xem</a>
+                                                                        <a class="dropdown-item" href="../pages/tutor_details?id=<?= $_register_user["tutorId"] ?>"><i class="fas fa-eye pe-2"></i> Xem</a>
                                                                     </li>
 
 
-                                                                    <li class="py-1"><a class="dropdown-item" href="./schedule_user.php?tuid=<?= $_register_user["tutorId"] ?>&day=all"><i class="fa-solid fa-calendar-days pe-3"></i>Lịch học</a></li>
+                                                                    <li class="py-1"><a class="dropdown-item" href="./schedule_user?tuid=<?= $_register_user["tutorId"] ?>&day=all"><i class="fa-solid fa-calendar-days pe-3"></i>Lịch học</a></li>
                                                                     <li class="py-1">
                                                                         <div class="dropdown-item register-unregister-tutor" data-id="<?= $_register_user["tutorId"]; ?>" data-bs-toggle="modal" data-bs-target="#approval-register-<?= $user["username"]; ?>"><i class="fa-solid fa-user-plus pe-2"></i>Đăng ký/Huỷ đăng ký</div>
                                                                     </li>
@@ -335,25 +335,25 @@ $_teaching_subject = new TeachingSubject();
 
                 function onClickAddOrDel(event_approval) {
                     $(".btn-register-add-del").on('click', (e) => {
-                       
-                        addOrDelRegisterTutor(event_approval, e);
+                        if(confirm("Bạn có chắn chắn muốn " + $(e.target).text().trim()) === true)
+                            addOrDelRegisterTutor(event_approval, e);
                     });
                 }
 
                
                 function getSubjectRegisterUser(e) {
-                    let tutorId = $(e.currentTarget).attr("data-id");
+                    let tuId = $(e.currentTarget).attr("data-id");
                     let id_approval = $(e.currentTarget).attr("data-bs-target");
                     let subject = $(id_approval).find(`.teaching-subject`);
 
                     let status = $(id_approval).find(".show-topic-register.form-check-input").prop("checked") ? 1 : 0; // trạng thái đã duyệt môn học hay chưa
 
-                    console.log([tutorId, id_approval, subject, status])
+                    console.log([tuId, id_approval, subject, status])
                     $.ajax({
                         type: "post",
-                        url: "../api/getsubjecttutor.php",
+                        url: "../api/getsubjecttutor",
                         data: {
-                            tutorId,
+                            tuId,
                             status
 
                         },
@@ -380,7 +380,7 @@ $_teaching_subject = new TeachingSubject();
 
                     $.ajax({
                         type: "post",
-                        url: "../api/addordeleteregistertutor.php",
+                        url: "../api/addordeleteregistertutor",
                         data: {
                             tuId,
                             action,
@@ -389,6 +389,10 @@ $_teaching_subject = new TeachingSubject();
                         },
                         cache: false,
                         success: function(data) {
+
+                            if(data.added === 'added'){
+                                alert(`Môn học ${data.topicName } đã đăng ký rồi. Hãy chọn môn học khác.`)
+                            }
                            
                             if (data.insert === 'successful'){
                                 alert(`Đăng ký môn học ${data.topicName } thành công. Hãy chờ gia sư liên hệ với bạn.`)

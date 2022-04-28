@@ -1,13 +1,15 @@
 <?php
+
 namespace Classes;
 
 use Library\Database;
+
 $filepath  = realpath(dirname(__FILE__));
 
-include_once($filepath."../../lib/database.php");
+include_once($filepath . "../../lib/database.php");
 // include_once($filepath."../../helpers/format.php");
 
-class SubjectTopic 
+class SubjectTopic
 {
     private $db;
     // private $fm;
@@ -65,9 +67,9 @@ class SubjectTopic
               INNER JOIN `registeredusers` ON `scheduletutors`.`RegisteredId` = `registeredusers`.`id`)
         WHERE `registeredusers`.`tutorId` = ? AND 	`registeredusers`.`status` = ?
         ORDER BY `subjecttopics`.`id` ASC;";
-       $results = $this->db->p_statement($query, "si", [$tutorId, $status]);
+        $results = $this->db->p_statement($query, "si", [$tutorId, $status]);
 
-       return $results ? $results : false;
+        return $results ? $results : false;
     }
 
     public function getTopic_registerUser($tutorId, $userId)
@@ -76,9 +78,9 @@ class SubjectTopic
         FROM `registeredusers` INNER JOIN `subjecttopics` ON `registeredusers`.`topicId` = `subjecttopics`.`id`             
         WHERE `registeredusers`.`tutorId` = ? AND `registeredusers`.`userId` = ?  
         ORDER BY `subjecttopics`.`id` ASC;";
-       $results = $this->db->p_statement($query, "si", [$tutorId, $userId]);
+        $results = $this->db->p_statement($query, "si", [$tutorId, $userId]);
 
-       return $results ? $results : false;
+        return $results ? $results : false;
     }
 
     public function getTopic_registerUser_ByStatus($tutorId, $userId, $status)
@@ -87,9 +89,9 @@ class SubjectTopic
         FROM `registeredusers` INNER JOIN `subjecttopics` ON `registeredusers`.`topicId` = `subjecttopics`.`id`             
         WHERE `registeredusers`.`tutorId` = ? AND `registeredusers`.`userId` = ? AND `registeredusers`.`status` = ?
         ORDER BY `subjecttopics`.`id` ASC;";
-       $results = $this->db->p_statement($query, "sii", [$tutorId, $userId, $status]);
+        $results = $this->db->p_statement($query, "sii", [$tutorId, $userId, $status]);
 
-       return $results ? $results : false;
+        return $results ? $results : false;
     }
 
     /* User */
@@ -101,9 +103,9 @@ class SubjectTopic
               INNER JOIN `registeredusers` ON `scheduletutors`.`RegisteredId` = `registeredusers`.`id`)
         WHERE `registeredusers`.`userId` = ? AND 	`registeredusers`.`status` = ?
         ORDER BY `subjecttopics`.`id` ASC;";
-       $results = $this->db->p_statement($query, "si", [$userId, $status]);
+        $results = $this->db->p_statement($query, "si", [$userId, $status]);
 
-       return $results ? $results : false;
+        return $results ? $results : false;
     }
 
     // lấy chủ đề mà người dùng đã đăng ký hay chưa đăng ký
@@ -118,15 +120,36 @@ class SubjectTopic
                                                    AND `registeredusers`.`tutorId` = ?)
         ORDER BY `subjecttopics`.`id` ASC;";
 
-        if($status == 1){
+        if ($status == 1) {
             $query = str_replace("NOT IN", "IN", $query);
         }
-        
-        // print_r($query);
-       $results = $this->db->p_statement($query, "sss", [$tutorId, $userId, $tutorId]);
 
-       return $results ? $results : false;
+        // print_r($query);
+        $results = $this->db->p_statement($query, "sss", [$tutorId, $userId, $tutorId]);
+
+        return $results ? $results : false;
     }
 
 
+    public function getSubjectByQuery($method, $subId)
+    {
+        $query = "SELECT  `subjects`.`id` as subId, `subjecttopics`.`id` as topicId, `subjecttopics`.`topicName`,  `subjects`.`subject`  
+        FROM `subjecttopics` INNER JOIN `subjects` ON `subjecttopics`.`subjectId` = `subjects`.`id`";
+        $q = "";
+        $results = null;
+        if (isset($method['q']) && !empty($method['q'])) {
+
+            $q = $method["q"];
+            $results = $this->db->select($query);
+        }
+        if (isset($method['num']) && !empty($method['num'])) {
+            $query .= " WHERE `subjecttopics`.`topicName` LIKE  CONCAT('%',?,'%') AND `subjecttopics`.`subjectId` = ?";
+            $query .= " ORDER BY `subjects`.`id` ASC;";
+            $results = $this->db->p_statement($query, "si", [$q, $subId]);
+        }
+
+
+
+        return $results ? $results : false;
+    }
 }

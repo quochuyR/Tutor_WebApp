@@ -39,8 +39,20 @@
 
 
 
-.table-schedule-tutor td{
-    width: 20% !important;
+.table-schedule-tutor td:not(:first-child){
+    width: 26.666666666667% !important;
+}
+.table-schedule-tutor td:not(:last-child){
+    width: 26.666666666667% !important;
+}
+
+/* cột đầu tiên */
+.table-schedule-tutor td:first-child:last-child{
+    width: 10% !important;
+}
+/* cột đầu tiên */
+.table-schedule-tutor td:last-child{
+    width: 10% !important;
 }
 .table-schedule-user td{
     width: 25% !important;

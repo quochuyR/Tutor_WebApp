@@ -55,78 +55,79 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 ?>
                 <div class=" <?= !empty($_SESSION) ? "d-flex justify-content-center align-items-center" : "d-none"  ?>" id="login">
-                    <div class="dropdown-notification">
-                        <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-bell fa-lg position-relative">
-                                <span class="position-absolute top-0 start-100 translate-middle  p-2 bg-danger border border-light rounded-circle">
+                <div class="dropdown dropdown-notification">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButtonNoti" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="far fa-bell fa-lg position-relative">
+                            <span class="position-absolute top-0 start-100 translate-middle  p-2 bg-danger border border-light rounded-circle">
 
-                                    <span class="visually-hidden">New alerts</span>
-                                </span>
-                            </i>
-                        </button>
-                        <div class="dropdown-menu w-350  py-0" aria-labelledby="dropdownMenuButton">
-                            <div class="card border-0 mb-0">
-                                <h5 class="card-header text-info">Thông báo</h5>
-                                <div class="card-body p-0 px-2">
-                                    <div class="list-group">
+                                <span class="visually-hidden">New alerts</span>
+                            </span>
+                        </i>
+                    </button>
+                    <div class="dropdown-menu w-350 dropdown-menu-start " aria-labelledby="dropdownMenuButtonNoti">
+                        <div class="card border-0 mb-0">
+                            <h5 class="card-header text-info">Thông báo</h5>
+                            <div class="card-body p-0 px-2 overflow-y-scroll" style="max-height:40vh">
+                                <div class="list-group">
 
-                                        <?php
-                                        if (Session::checkLogin()) {
-                                            $fetch_notification = $notification->getNotificationByUserId(Session::get("userId"));
-                                            while ($notifi = $fetch_notification->fetch_assoc()) {
-                                                $sender = $notification->getUserBySenderId($notifi["SenderId"])->fetch_assoc();
-                                        ?>
-                                                <div class="d-flex">
-                                                    <div class="my-auto">
-                                                        <img src="../<?= $sender["imagepath"] ?>" class="avatar-notification avatar-sm-notification  ">
-                                                    </div>
-                                                    <div class="">
-                                                        <a href="#" class="list-group-item list-group-item-action border-0 text-small">
-                                                            <?= $notifi["notification_text"] ?>
+                                    <?php
+                                    if (Session::checkLogin()) {
+                                        $fetch_notification = $notification->getNotificationByUserId(Session::get("userId"));
 
-                                                        </a>
-                                                    </div>
+                                        while ($notifi = $fetch_notification->fetch_assoc()) {
+                                            $sender = $notification->getUserBySenderId($notifi["SenderId"])->fetch_assoc();
+
+                                    ?>
+                                            <div class="d-flex">
+                                                <div class="my-auto">
+                                                    <img src="../public/<?= $sender["imagepath"] ?>" class="avatar-notification avatar-sm-notification  ">
                                                 </div>
-                                        <?php
-                                            }
+                                                <div class="">
+                                                    <a href="#" class="list-group-item list-group-item-action border-0 text-small">
+                                                        <b><?= $sender["firstname"] ?></b> <?= $notifi["notification_text"] ?>
+
+                                                    </a>
+                                                </div>
+                                            </div>
+                                    <?php
                                         }
-                                        ?>
+                                    }
+                                    ?>
 
-
-                                    </div>
 
                                 </div>
-                                <div class="card-footer text-muted p-0 border-0">
-                                    <a href="#" class="list-group-item border-0 list-group-item-action  py-3 text-center">
-                                        <b>Xem thêm</b>
-                                    </a>
-                                </div>
+
                             </div>
-
+                            <div class="card-footer text-muted p-0 border-0">
+                                <a href="#" class="list-group-item border-0 list-group-item-action  py-3 text-center">
+                                    <b>Xem thêm</b>
+                                </a>
+                            </div>
                         </div>
                     </div>
-
-
                 </div>
+
+
+            </div>
 
                 <div class=" <?= !empty($_SESSION) ? "d-flex justify-content-center align-items-center" : "d-none"  ?>" id="login">
                     <div class="dropdown">
-                        <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn  dropdown-toggle" type="button" id="dropdownMenuAccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="">
                                 <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../public/"  . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md rounded-circle" alt="Hình avatar">
                             </span>
 
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuAccount">
                             <?php if (Session::checkRoles(["tutor"])) { ?>
-                                <a class="dropdown-item py-1" href="../pages/registered_users.php">
+                                <a class="dropdown-item py-1" href="../pages/registered_users">
 
                                     <i class="fa-solid fa-user-pen fa-lg w-20"></i>
 
                                     <span class=" w-80">Người dùng đăng ký</span>
                                 </a>
 
-                                <a class="dropdown-item   py-1" href="../pages/schedule_tutors.php">
+                                <a class="dropdown-item   py-1" href="../pages/schedule_tutors">
                                     <i class="far fa-calendar-alt fa-lg w-20"></i>
                                     <span class=" w-80">Quản lí lịch dạy</span>
                                 </a>
@@ -146,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                     </a>
                                 <?php } ?>
 
-                            <a class="dropdown-item   py-1" href="<?= Format::validation("./saved_tutors.php?limit=3&page=1") ?>">
+                            <a class="dropdown-item   py-1" href="<?= Format::validation("./saved_tutors?limit=3&page=1") ?>">
                                 <i class="fas fa-heart text-danger fa-lg w-20"></i>
                                 <span class=" w-80">Gia sư đã lưu</span>
                             </a>

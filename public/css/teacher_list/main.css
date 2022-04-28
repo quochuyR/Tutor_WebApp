@@ -127,7 +127,9 @@ label {
     height: 18px;
     width: 18px;
     background-color: #f8f8f8;
-    border: 1px solid #ddd;
+    -moz-box-shadow: 0 2px 12px rgb(0 0 0 / 12%);
+    -webkit-box-shadow: 0 2px 12px rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 12%);
     border-radius: 3px
 }
 
@@ -207,7 +209,10 @@ div.text-muted {
 .brand .check {
     background-color: #fff;
     top: 3px;
-    border: 1px solid #666
+    border: 0.5px solid rgba(83, 83, 83, 0.278);
+    -moz-box-shadow: 0 2px 7px rgb(0 0 0 / 12%);
+    -webkit-box-shadow: 0 2px 7px rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 7px rgb(0 0 0 / 12%);
 }
 
 .brand .tick {
@@ -270,7 +275,7 @@ div.text-muted {
 
 .card-body .description.product {
     font-size: 0.78rem;
-    padding-bottom: 8px;
+    /* padding-bottom: 8px; */
 }
 
 div.h6,
@@ -426,3 +431,11 @@ h6 {
     align-items: flex-start;
     overflow: visible;
 } */
+.limit-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+            line-clamp: 3; 
+    -webkit-box-orient: vertical;
+ }

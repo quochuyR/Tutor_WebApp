@@ -124,6 +124,16 @@ class RegisterUser
 
         return $results ? $results : false;
     }
+    // đếm xem có gia sư đăng ký hay chưa
+    public function countRegisteredUsersWithTutor($userId, $tutorId)
+    {
+        $query = "SELECT COUNT(*) as registered_tutor
+                    FROM `registeredusers` 
+                    WHERE  `registeredusers`.`userId` = ? AND `registeredusers`.`tutorId` = ?;";
+        $results = $this->db->p_statement($query, "ss", [$userId, $tutorId]);
+
+        return $results ? $results : false;
+    }
 
     // bao gồm phân trang luôn
     public function getRegisteredTutorByUserId($userId, $request_method)

@@ -32,20 +32,56 @@ class Tutor
         return $result;
     }
 
+    public function getTutorIdByUserId($userID)
+    {
+        $query = "SELECT `tutors`.`id` as tutorId
+        FROM `tutors` 
+        WHERE `tutors`.`userId` = ?";
+
+        // echo $query;
+        $result = $this->db->p_statement($query, "s", [$userID]);
+        return $result;
+    }
+
     public function countAll()
     {
         $query = "SELECT COUNT(*) AS count_tutors FROM `tutors`
-        WHERE `tutors`.`tutor_status` = 1";
+        WHERE 1";
         $result = $this->db->select($query);
         return $result;
     }
-    public function addTutor($Tutor_Model)
+
+    public function countPendingTutors()
     {
-        $query = "INSERT INTO `tutors` (`id`, `userId`, `introduction`, `CURRENTADDRESS`, `college`, `CURRENTJOB`, `teachingform`, `teachingarea`, `linkfacebook`, `linktwitter`, `tutor_status`) 
-        VALUES (UUID(),?,?,?,?,?,?,?,?,?);";
-        // $result = $this->db->p_statement($query, "sssssisss", [$Tutor_Model->_userId, $Tutor_Model->__introduction, $Tutor_Model->_currentAddress, $Tutor_Model->_college, $Tutor_Model->_currentJob, $Tutor_Model->_teachingForm, $Tutor_Model->_teachingArea, $Tutor_Model->_linkFacebook, $Tutor_Model->_linkTwitter]);
-        $result = $this->db->p_statement($query, "sssssisss", $Tutor_Model);
+        $query = "SELECT COUNT(*) AS countPendingTutors FROM `tutors`
+        WHERE `tutors`.`tutor_status` = 0;";
+        $result = $this->db->select($query);
         return $result;
+    }
+
+    public function countApprovedTutors()
+    {
+        $query = "SELECT COUNT(*) AS countApprovedTutors FROM `tutors`
+        WHERE `tutors`.`tutor_status` = 1;";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+    public function countTutorByUserId($userID)
+    {
+        $query = "SELECT COUNT(*) AS countTutor FROM `tutors`
+        WHERE `tutors`.`userId` = ?;";
+        $result = $this->db->p_statement($query, "s", [$userID]);
+        return $result;
+    }
+
+    public function addRegisterTutor($data)
+    {
+        $query = "INSERT INTO `tutors` 
+        VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), b'0')";
+        // $result = $this->db->p_statement($query, "sssssisss", [$Tutor_Model->_userId, $Tutor_Model->__introduction, $Tutor_Model->_currentAddress, $Tutor_Model->_college, $Tutor_Model->_currentJob, $Tutor_Model->_teachingForm, $Tutor_Model->_teachingArea, $Tutor_Model->_linkFacebook, $Tutor_Model->_linkTwitter]);
+        $result = $this->db->p_statement($query, "ssssssissssss", $data);
+        return $result ? $result : false;
     }
 
     public function getFilter($request_method)
@@ -54,10 +90,6 @@ class Tutor
         // Filter
         $types = "";
         $vars = array();
-
-
-
-
 
         // query filter
         $this->query = "SELECT DISTINCT `tutors`.`id`, `appusers`.`firstname`, `appusers`.`lastname`, `tutors`.`CURRENTADDRESS`, `tutors`.`teachingarea`, `tutors`.`introduction`, `tutors`.`linkfacebook`, `tutors`.`linktwitter`, `appusers`.`imagepath`

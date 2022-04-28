@@ -70,8 +70,8 @@ $_day_of_week = new DayOfWeek();
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 mx-auto mb-2 mt-2">
-                        <div class="section-title text-start bg-success p-2">
-                            <h4 class="top-c-sep text-white">DANH SÁCH NGƯỜI DÙNG ĐĂNG KÝ</h4>
+                        <div class="section-title text-start p-2">
+                            <h4 class="top-c-sep">DANH SÁCH NGƯỜI DÙNG ĐĂNG KÝ</h4>
                         </div>
                     </div>
                 </div>
@@ -168,7 +168,7 @@ $_day_of_week = new DayOfWeek();
                                                                     <li class="py-1">
                                                                         <div class="dropdown-item approval-register-user" data-id="<?= $user["id"] ?>" data-bs-toggle="modal" data-bs-target="#approval-register-<?= $user["username"]; ?>"><i class="fa-solid fa-user-check pe-2"></i>Duyệt</div>
                                                                     </li>
-                                                                    <li class="py-1"><a class="dropdown-item" href="./schedule_tutors.php?uid=<?= $user["id"] ?>"><i class="fa-solid fa-calendar-days pe-3"></i>Lịch dạy</a></li>
+                                                                    <li class="py-1"><a class="dropdown-item" href="./schedule_tutors?uid=<?= $user["id"] ?>"><i class="fa-solid fa-calendar-days pe-3"></i>Lịch dạy</a></li>
 
                                                                 </ul>
                                                             </div>
@@ -463,7 +463,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../api/getstatusregisteruser.php",
+                        url: "../api/getstatusregisteruser",
                         data: {
                             id,
 
@@ -495,7 +495,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../api/getregisteridbytopicid.php",
+                        url: "../api/getregisteridbytopicid",
                         data: {
                             id,
                             topicId,
@@ -525,7 +525,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../api/getTimeFromDay.php",
+                        url: "../api/getTimeFromDay",
                         data: {
                             dayofweek,
 
@@ -550,7 +550,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../api/getdayschedule.php",
+                        url: "../api/getdayschedule",
                         data: {
                             action: "getDay",
 
@@ -577,7 +577,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../api/getsubjectregisteruser.php",
+                        url: "../api/getsubjectregisteruser",
                         data: {
                             userId,
                             status
@@ -608,7 +608,7 @@ $_day_of_week = new DayOfWeek();
 
                     $.ajax({
                         type: "post",
-                        url: "../api/addscheduleuser.php",
+                        url: "../api/addscheduleuser",
                         data: {
                             id,
                             status,

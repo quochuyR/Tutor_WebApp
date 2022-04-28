@@ -21,7 +21,7 @@ include_once "../classes/paginator.php";
 <body>
 
 
-    <div class="container-fluid">
+    <div class="container-fluid px-0">
         <header class="row g-0 m-0">
 
             <?php 
@@ -74,10 +74,10 @@ include_once "../classes/paginator.php";
                     <div class="green-label green-label-filter font-weight-bold p-0 px-1 mx-sm-1 mx-0 my-sm-0 my-2" value="Tất cả">Tất cả<span class="px-1 close ">&times;</span> </div>
 
                 </div>
-                <div class="filters"> <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#mobile-filter" aria-expanded="true" aria-controls="mobile-filter">Lọc<span class="px-1 fas fa-filter"></span></button> </div>
+                <div class="filters"> <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#mobile-filter" aria-expanded="false" aria-controls="mobile-filter">Lọc<span class="px-1 fas fa-filter"></span></button> </div>
 
                 <!-- Mobile filter -->
-                <div id="mobile-filter">
+                <div class="collapse" id="mobile-filter">
                     <div class="py-3">
                         <h5 class="font-weight-bold">Môn học</h5>
                         <ul class="list-group" id="filter-subject">

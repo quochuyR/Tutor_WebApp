@@ -32,29 +32,166 @@ $notification = new Notification();
 
 
 
-if (isset($_POST["action"]) && $_POST["action"] === "logout") {
-    if (session_id() !== '' || isset($_SESSION) || session_status() !== PHP_SESSION_NONE) {
-        // session isn't started
-        Session::destroy();
-        exit;
-    }
-}
+// if (isset($_POST["action"]) && $_POST["action"] === "logout") {
+//     if (session_id() !== '' || isset($_SESSION) || session_status() !== PHP_SESSION_NONE) {
+//         // session isn't started
+//         Session::destroy();
+//         exit;
+//     }
+// }
 ?>
+<section class="p-0" id="top-header">
+    <div class="container-lg d-flex  justify-content-between align-items-center">
+
+        <div class="d-flex align-items-center">
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation" aria-haspopup="true">
+                <span class="fa-solid fa-bars fa-xl"></span>
+            </button>
+            <a class="ms-4" href="/"><img src="https://www.bootdey.com/img/Content/avatar/avatar7.png" class="avatar-md rounded-circle" alt="Logo">
+            </a>
+        </div>
+        <div class="d-flex justify-content-center align-items-center pe-3">
+            <div class=" <?= !empty($_SESSION) ? "d-flex justify-content-center align-items-center" : "d-none"  ?>" id="login">
+                <div class="dropdown dropdown-notification">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButtonNoti" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="far fa-bell fa-lg position-relative">
+                            <span class="position-absolute top-0 start-100 translate-middle  p-2 bg-danger border border-light rounded-circle">
+
+                                <span class="visually-hidden">New alerts</span>
+                            </span>
+                        </i>
+                    </button>
+                    <div class="dropdown-menu w-350 dropdown-menu-start " aria-labelledby="dropdownMenuButtonNoti">
+                        <div class="card border-0 mb-0">
+                            <h5 class="card-header text-info">Thông báo</h5>
+                            <div class="card-body p-0 px-2 overflow-y-scroll" style="max-height:40vh">
+                                <div class="list-group">
+
+                                    <?php
+                                    if (Session::checkLogin()) {
+                                        $fetch_notification = $notification->getNotificationByUserId(Session::get("userId"));
+
+                                        while ($notifi = $fetch_notification->fetch_assoc()) {
+                                            $sender = $notification->getUserBySenderId($notifi["SenderId"])->fetch_assoc();
+
+                                    ?>
+                                            <div class="d-flex">
+                                                <div class="my-auto">
+                                                    <img src="../public/<?= $sender["imagepath"] ?>" class="avatar-notification avatar-sm-notification  ">
+                                                </div>
+                                                <div class="">
+                                                    <a href="#" class="list-group-item list-group-item-action border-0 text-small">
+                                                        <b><?= $sender["firstname"] ?></b> <?= $notifi["notification_text"] ?>
+
+                                                    </a>
+                                                </div>
+                                            </div>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+
+
+                                </div>
+
+                            </div>
+                            <div class="card-footer text-muted p-0 border-0">
+                                <a href="#" class="list-group-item border-0 list-group-item-action  py-3 text-center">
+                                    <b>Xem thêm</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--  -->
+
+            <div class=" <?= !empty($_SESSION) ? "d-flex justify-content-center align-items-center" : "d-none"  ?>" id="login">
+                <div class="dropdown">
+                    <button class="btn  dropdown-toggle" type="button" id="dropdownMenuAccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="">
+                            <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../public/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md avatar rounded-circle" alt="Hình avatar">
+                        </span>
+
+                    </button>
+                    <div class="dropdown-menu w-250" aria-labelledby="dropdownMenuAccount">
+                        <?php if (Session::checkRoles(["tutor"])) { ?>
+                            <a class="dropdown-item py-1" href="../pages/registered_users">
+
+                                <i class="fa-solid fa-user-pen fa-lg w-20"></i>
+
+                                <span class=" w-80">Người dùng đăng ký</span>
+                            </a>
+
+                            <a class="dropdown-item   py-1" href="../pages/schedule_tutors">
+                                <i class="far fa-calendar-alt fa-lg w-20"></i>
+                                <span class=" w-80">Quản lí lịch dạy</span>
+                            </a>
+                        <?php } ?>
+
+                        <?php if (Session::checkRoles(["user"])) { ?>
+                            <a class="dropdown-item py-1" href="../pages/registered_tutors">
+
+                                <i class="fa-solid fa-user-pen fa-lg w-20"></i>
+
+                                <span class=" w-80">Gia sư đã đăng ký</span>
+                            </a>
+
+                            <a class="dropdown-item   py-1" href="../pages/schedule_user">
+                                <i class="far fa-calendar-alt fa-lg w-20"></i>
+                                <span class=" w-80">Lịch học của bạn</span>
+                            </a>
+                        <?php } ?>
+
+
+                        <a class="dropdown-item   py-1" href="<?= Format::validation("./saved_tutors?limit=3&page=1") ?>">
+                            <i class="fas fa-heart text-danger fa-lg w-20"></i>
+                            <span class=" w-80">Gia sư đã lưu</span>
+                        </a>
+
+
+                        <a class="dropdown-item  logout py-1" href-action="logout">
+                            <i class="fa-solid fa-right-from-bracket fa-lg w-20 "></i>
+                            <span class=" w-80">Đăng xuất</span>
+                        </a>
+                    </div>
+                </div>
+                <span class="font-weight-600 d-md-block d-none">
+                    <?= Session::get("firstname") . ' ' . Session::get("lastname") ?>
+                </span>
+
+            </div>
+
+
+            <div class="<?= empty($_SESSION) ?  "d-block" : "d-none"   ?>" id="signup-signin">
+                <span data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer">
+                    Đăng nhập/Đăng kí
+                </span>
+
+            </div>
+            <!-- Button trigger modal -->
+        </div>
+    </div>
+</section>
+
 <section class="p-0" id="header">
 
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
-        <div class="container h-100">
-            <a class="me-4" href="/"><img src="https://www.bootdey.com/img/Content/avatar/avatar7.png" class="avatar-md rounded-circle" alt="Logo"></a>
+    <nav class="navbar navbar-expand-lg p-0 navbar-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
+        <div class="container-lg h-100  px-2 ">
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation" aria-haspopup="true">
+
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation" aria-haspopup="true">
                 <span class="fa-solid fa-bars fa-2xl"></span>
-            </button>
+            </button> -->
 
 
 
 
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav me-auto">
+            <div class="collapse h-100  navbar-collapse " id="ftco-nav">
+                <ul class="navbar-nav h-100  me-auto align-items-lg-center">
                     <li class="nav-item <?php //$nav_intro_active 
                                         ?>"><a href="#" class="nav-link">Giới thiệu</a></li>
                     <li class="nav-item dropdown <?php if (isset($nav_tutor_active)) echo $nav_tutor_active;
@@ -64,146 +201,14 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
                             <a class="dropdown-item" href="#">Page 1</a>
                             <a class="dropdown-item" href="#">Page 2</a>
                             <a class="dropdown-item" href="#">Page 3</a>
-                            <a class="dropdown-item" href="list_Tutor">Danh sách gia sư</a>
+                            <a class="dropdown-item" href="list_tutor">Danh sách gia sư</a>
                         </div>
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link">Môn học</a></li>
+                    <li class="nav-item"><a href="tutor_registration_form" class="nav-link">Trở thành gia sư</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">Bài viết</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">Liên hệ</a></li>
 
                 </ul>
-
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class=" <?= !empty($_SESSION) ? "d-flex justify-content-center align-items-center" : "d-none"  ?>" id="login">
-                        <div class="dropdown-notification">
-                            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="far fa-bell fa-lg position-relative">
-                                    <span class="position-absolute top-0 start-100 translate-middle  p-2 bg-danger border border-light rounded-circle">
-
-                                        <span class="visually-hidden">New alerts</span>
-                                    </span>
-                                </i>
-                            </button>
-                            <div class="dropdown-menu w-350 py-0" aria-labelledby="dropdownMenuButton">
-                                <div class="card border-0 mb-0">
-                                    <h5 class="card-header text-info">Thông báo</h5>
-                                    <div class="card-body p-0 px-2">
-                                        <div class="list-group">
-
-                                            <?php
-                                            if (Session::checkLogin()) {
-                                                $fetch_notification = $notification->getNotificationByUserId(Session::get("userId"));
-
-                                                while ($notifi = $fetch_notification->fetch_assoc()) {
-                                                    $sender = $notification->getUserBySenderId($notifi["SenderId"])->fetch_assoc();
-
-                                            ?>
-                                                    <div class="d-flex">
-                                                        <div class="my-auto">
-                                                            <img src="../public/<?= $sender["imagepath"] ?>" class="avatar-notification avatar-sm-notification  ">
-                                                        </div>
-                                                        <div class="">
-                                                            <a href="#" class="list-group-item list-group-item-action border-0 text-small">
-                                                                <b><?= $sender["firstname"] ?></b> <?= $notifi["notification_text"] ?>
-
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                            <?php
-                                                }
-                                            }
-                                            ?>
-
-
-                                        </div>
-
-                                    </div>
-                                    <div class="card-footer text-muted p-0 border-0">
-                                        <a href="#" class="list-group-item border-0 list-group-item-action  py-3 text-center">
-                                            <b>Xem thêm</b>
-                                        </a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <!--  -->
-
-                    <div class=" <?= !empty($_SESSION) ? "d-flex justify-content-center align-items-center" : "d-none"  ?>" id="login">
-                        <div class="dropdown">
-                            <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="">
-                                    <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../public/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md rounded-circle" alt="Hình avatar">
-                                </span>
-
-                            </button>
-                            <div class="dropdown-menu w-250" aria-labelledby="dropdownMenuButton">
-                                <?php if (Session::checkRoles(["tutor"])) { ?>
-                                    <a class="dropdown-item py-1" href="../pages/registered_users">
-
-                                        <i class="fa-solid fa-user-pen fa-lg w-20"></i>
-
-                                        <span class=" w-80">Người dùng đăng ký</span>
-                                    </a>
-
-                                    <a class="dropdown-item   py-1" href="../pages/schedule_tutors">
-                                        <i class="far fa-calendar-alt fa-lg w-20"></i>
-                                        <span class=" w-80">Quản lí lịch dạy</span>
-                                    </a>
-                                <?php } ?>
-
-                                <?php if (Session::checkRoles(["user"])) { ?>
-                                    <a class="dropdown-item py-1" href="../pages/registered_tutors">
-
-                                        <i class="fa-solid fa-user-pen fa-lg w-20"></i>
-
-                                        <span class=" w-80">Gia sư đã đăng ký</span>
-                                    </a>
-
-                                    <a class="dropdown-item   py-1" href="../pages/schedule_user">
-                                        <i class="far fa-calendar-alt fa-lg w-20"></i>
-                                        <span class=" w-80">Lịch học của bạn</span>
-                                    </a>
-                                <?php } ?>
-
-
-                                <a class="dropdown-item   py-1" href="<?= Format::validation("./saved_tutors?limit=3&page=1") ?>">
-                                    <i class="fas fa-heart text-danger fa-lg w-20"></i>
-                                    <span class=" w-80">Gia sư đã lưu</span>
-                                </a>
-
-
-                                <a class="dropdown-item  logout py-1" href-action="logout">
-                                    <i class="fa-solid fa-right-from-bracket fa-lg w-20 "></i>
-                                    <span class=" w-80">Đăng xuất</span>
-                                </a>
-                            </div>
-                        </div>
-                        <span class="font-weight-600 ">
-                            <?= Session::get("firstname") . ' ' . Session::get("lastname") ?>
-                        </span>
-
-                    </div>
-
-
-                    <div class="<?= empty($_SESSION) ?  "d-block" : "d-none"   ?>" id="signup-signin">
-                        <span data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer">
-                            Đăng nhập/Đăng kí
-                        </span>
-
-                    </div>
-                    <!-- Button trigger modal -->
-                </div>
-
-
-
-
-
-
 
 
 

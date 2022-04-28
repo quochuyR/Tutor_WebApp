@@ -264,7 +264,7 @@ $_time = new Time();
 
           $.ajax({
             type: "post",
-            url: "../api/schedule_user.php",
+            url: "../api/schedule_user",
             data: {
               day,
               subjectTopic,

@@ -51,19 +51,32 @@ class Session
     public static function checkRoles($role_allow)
     {
         self::checkLogin();
-        $roles = array();
-        foreach(self::get("roles") as $value){ // nhớ lưu ý key và value của mảng
-           array_push($roles, $value["name"]);
+       
+        if(!empty(self::get("roles"))){
+            $roles = array();
+            foreach(self::get("roles") as $value){ // nhớ lưu ý key và value của mảng
+                array_push($roles, $value["name"]);
+             }
+             if(count($roles) <=1){
+                 if(count(array_intersect( $roles ,  $role_allow)) === count($roles)){
+                     return true;
+                 //    print_r(array_diff($role_allow, $roles));
+                 }
+             }
+             else{
+                 if(count(array_intersect( $roles,  $role_allow )) === count($role_allow)){
+                     return true;
+                 //    print_r(array_diff($role_allow, $roles));
+                 }
+             }
         }
-        if(count(array_diff($role_allow, $roles)) > 0){
-            return false;
-        //    print_r(array_diff($role_allow, $roles));
-        }
+        
+        
         // print_r($roles);
         // print_r($role_allow);
 
         
-        return true;
+        return false;
     }
 
     public static function destroy()

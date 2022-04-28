@@ -30,15 +30,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($ins_or_del_register_tutor) {
              // chỉ có topicName
             $result = $ins_or_del_register_tutor->fetch_assoc();
-            if ($action == 1) {
+            // print_r($result);
+            if(isset($result["added"]) && $result["added"] == "added"){
                 header('Content-Type: application/json; charset=utf-8');
-                echo json_encode(["insert" => "successful", "topicName" => $result["topicName"]]);
-            } else {
-
-
-                header('Content-Type: application/json; charset=utf-8');
-                echo json_encode(["delete" => "successful", "topicName" => $result["topicName"]]);
+                echo json_encode(["added" => "added", "topicName" => $result["topicName"]]);
             }
+            else{
+                if ($action == 1) {
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode(["insert" => "successful", "topicName" => $result["topicName"]]);
+                } else {
+    
+    
+                    header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode(["delete" => "successful", "topicName" => $result["topicName"]]);
+                }
+            }
+            
         }
     }
 }

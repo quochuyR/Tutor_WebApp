@@ -27,4 +27,13 @@ class AppUser
         return $result;
     }
 
+    public function countAll(){
+        $query = "SELECT  count(*) as num_user
+        FROM  `appusers` 
+        WHERE 1";
+
+        $result = $this->db->select($query);
+        return $result;
+    }
+
 }

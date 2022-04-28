@@ -41,12 +41,12 @@ class SavedTutor
     public function getTutorSavedByUserId($userId, $request_method)
     {
         $query = "SELECT DISTINCT `tutors`.`id`, `appusers`.`firstname`, `appusers`.`lastname`, `tutors`.`teachingarea`, `appusers`.`job`, `appusers`.`imagepath`, `savetutors`.`saveddate`
-                    FROM ((`tutors` INNER JOIN `appusers` ON `tutors`.`userId` = `appusers`.`id`)
-                          INNER JOIN `savetutors` ON `savetutors`.`tutorId` = `tutors`.`id`)
-                    WHERE `tutors`.`id` IN (
-                                            SELECT`savetutors`.`tutorId`
-                                            FROM   `savetutors` 
-                                            WHERE `savetutors`.`userId` = ?)";
+        FROM ((`tutors` INNER JOIN `appusers` ON `tutors`.`userId` = `appusers`.`id`)
+              INNER JOIN `savetutors` ON `savetutors`.`tutorId` = `tutors`.`id`)
+        WHERE  EXISTS (
+                                SELECT DISTINCT `savetutors`.`tutorId`
+                                FROM   `savetutors` 
+                                WHERE `savetutors`.`tutorId` = `tutors`.`id` AND `tutors`.`id` = `savetutors`.`tutorId`) AND  `savetutors`.`userId` = ?";
          $limit      = (isset($request_method['limit']))  ? Format::validation($request_method['limit']) : 3;
          $page       = (isset($request_method['page'])) ?  Format::validation($request_method['page']) : 1;
  
