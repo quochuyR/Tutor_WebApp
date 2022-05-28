@@ -1,0 +1,176 @@
+/* font */
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.fw-regular {
+  font-weight: 500;
+}
+
+/* end font */
+
+/* width */
+.w-36 {
+  width: 36px !important;
+}
+
+.w-24 {
+  width: 24px !important;
+}
+
+/* end width */
+
+/* padding */
+.p-l-55 {
+  padding-left: 55px;
+}
+
+.p-l-45 {
+  padding-left: 45px;
+}
+
+.p-r-55 {
+  padding-right: 55px;
+}
+
+.p-l-30 {
+  padding-left: 30px;
+}
+
+.p-r-30 {
+  padding-right: 30px;
+}
+
+.p-t-80 {
+  padding-top: 80px;
+}
+
+.p-b-30 {
+  padding-bottom: 30px;
+}
+
+.p-b-37 {
+  padding-bottom: 37px;
+}
+
+.p-t-57 {
+  padding-top: 57px;
+}
+
+
+.p-b-20 {
+  padding-bottom: 20px;
+}
+
+.p-b-112 {
+  padding-bottom: 112px;
+}
+
+.p-b-90 {
+  padding-bottom: 90px;
+}
+
+/* end padding */
+
+/* margin */
+.m-l-10 {
+  margin-left: 10px;
+}
+
+.m-l-5 {
+  margin-left: 5px;
+}
+
+.m-b-20 {
+  margin-bottom: 20px;
+}
+
+.m-b-25 {
+  margin-bottom: 25px;
+}
+
+.m-b-35 {
+  margin-bottom: 35px;
+}
+
+/* end margin */
+
+/* display */
+.flex-c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+}
+
+/* end display */
+
+/* opacity */
+
+.opacity-5 {
+  opacity: .5 !important;
+}
+
+/* end opacity */
+
+/* background */
+
+.bg-approval {
+  background-color: #95d4cb !important;
+  color: #fff;
+}
+
+
+.bg-gray-50 {
+  background-color: rgba(241, 241, 241, 0.5) !important;
+}
+
+.bg-cerulean{
+  background-color: #00857c !important;
+  color: #fff !important;
+}
+
+/* end background */
+
+/* alert */
+
+.alert-danger{
+  border: none !important;
+  background-color: #FEF0F0 !important;
+  color: #F76C6C !important;
+}   
+
+.alert {
+  border: none !important;
+}
+
+.el-alert__title {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* end alert */
+
+/* text color */
+
+.text-brown{
+  color: #6d5747 !important;
+}
+
+/* end text color */
+
+/* badge */
+.badge-light-danger {
+  color: #F1416C;
+  background-color: #fbe7ed;
+}
+
+.badge-light-success {
+  color: #50CD89;
+  background-color: #E8FFF3;
+}
+
+/* end badge */

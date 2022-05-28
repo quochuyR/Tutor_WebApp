@@ -10,7 +10,7 @@ $filepath = realpath(dirname(__FILE__));
 
 include_once $filepath . "../../lib/session.php";
 if (!Session::checkRoles(['tutor'])) {
-    header("location:../pages/errors/404.php");
+    header("location:../pages/errors/404");
 }
 include_once $filepath . "../../classes/tutoringschedule.php";
 
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $topicId = Format::validation($_POST["topicId"]);
                 $timeId = Format::validation($_POST["timeId"]);
 
-                $insert_schedule = $_schedule->AddTutoringSchedule($status, $id, $dayofweekId, $topicId, $timeId);
+                $insert_schedule = $_schedule->AddTutoringSchedule($status, $id, $dayofweekId, $topicId, $timeId, Session::get("tutorId"));
                 if ($insert_schedule) {
                     header('Content-Type: application/json; charset=utf-8');
                     echo json_encode(["action" => "successful"]);
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
 
             else{
-                $update_status = $_schedule->AddTutoringSchedule($status, $id, null, null, null);
+                $update_status = $_schedule->AddTutoringSchedule($status, $id, null, null, null, null);
                 if ($update_status) {
                     header('Content-Type: application/json; charset=utf-8');
                     echo json_encode(["status" => $status]);

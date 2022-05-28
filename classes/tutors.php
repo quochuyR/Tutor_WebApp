@@ -43,6 +43,17 @@ class Tutor
         return $result;
     }
 
+    public function getNumTutorByMonth()
+    {
+        $query = "SELECT MONTHNAME(`tutors`.`dateRegister`) AS month, COUNT(*) AS num
+        FROM `tutors`
+        GROUP BY MONTH(`tutors`.`dateRegister`);";
+
+        // echo $query;
+        $result = $this->db->select($query);
+        return $result;
+    }
+
     public function countAll()
     {
         $query = "SELECT COUNT(*) AS count_tutors FROM `tutors`
@@ -128,17 +139,17 @@ class Tutor
         }
 
         if (isset($request_method['status']) &&  !empty($request_method['status'])) {
-            $status = $request_method['status'];
+            $status =  $request_method['status'];
 
-            $statusCount = count($status);
-            // create a array with question marks
-            $statusMarks = array_fill(0, $statusCount, '?');
-            $statusMarks =  implode(",", $statusMarks);
-            $dataTypes = str_repeat('i', $statusCount);
-            $this->query .= " AND `tutors`.`teachingform` IN ($statusMarks)";
+            // $statusCount = count($status);
+            // // create a array with question marks
+            // $statusMarks = array_fill(0, $statusCount, '?');
+            // $statusMarks =  implode(",", $statusMarks);
+            // $dataTypes = str_repeat('i', $statusCount);
+            $this->query .= " AND `tutors`.`teachingform` LIKE CONCAT('%',?,'%') ";
             // bind params
-            $types .= $dataTypes;
-            $vars = array_merge($vars,  $status);
+            $types .= "s";
+            $vars[] = $status;
         }
 
         if (isset($request_method['sex']) &&  !empty($request_method['sex'])) {
@@ -193,12 +204,28 @@ class Tutor
 
     public function getTutorDetail($id)
     {
-        $query = "SELECT `tutors`.`id`, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`username`, `appusers`.`sex`, `appusers`.`phonenumber`, `appusers`.`email`, `tutors`.`CURRENTJOB`, `tutors`.`CURRENTADDRESS`, `tutors`.`teachingarea`, `tutors`.`introduction`, `tutors`.`linkfacebook`, `tutors`.`linktwitter`, `appusers`.`imagepath` 
+        $query = "SELECT `tutors`.`id`, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`username`, `appusers`.`sex`, `tutors`.`currentphonenumber`, `tutors`.`currentemail`, `tutors`.`currentjob`, `tutors`.`currentaddress`, `tutors`.`teachingarea`, `tutors`.`teachingform`, `tutors`.`introduction`, `tutors`.`linkfacebook`, `tutors`.`linktwitter`, `appusers`.`imagepath` 
         FROM `tutors` INNER JOIN `appusers` ON `tutors`.`userId` = `appusers`.`id` 
         WHERE `tutors`.`tutor_status` = 1 and `tutors`.`id` = ?";
 
         // echo $query;
         $result = $this->db->p_statement($query, "s", [$id]);
+        return $result;
+    }
+
+    /**
+     * Lấy thông tin gia sư hiển thị ở trang admin
+     * @return object|bool thông tin gia sư
+     */
+
+    public function getTutorInfoOnAdmin(): object|bool
+    {
+        $query = "SELECT `tutors`.`id`, `appusers`.`firstname`, `appusers`.`lastname`, `tutors`.`currentplace`,  `tutors`.`currentjob`,`tutors`.`teachingarea`, `tutors`.`teachingform`, `appusers`.`imagepath` , `tutors`.`tutor_status`
+        FROM `tutors` INNER JOIN `appusers` ON `tutors`.`userId` = `appusers`.`id` 
+       ORDER BY `tutors`.`dateRegister` DESC LIMIT 5;";
+
+        // echo $query;
+        $result = $this->db->select($query);
         return $result;
     }
 

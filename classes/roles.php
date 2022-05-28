@@ -17,7 +17,11 @@ class Roles
         // $this->fm = new Format();
     }
 
-    public function getAll()
+     /**
+     * Hàm có nhiệm vụ lấy thông tin quyền
+     * @return object thông tin quyền
+     */
+    public function getAll(): object
     {
         $query = "SELECT `approles`.`name` FROM `approles`;";
 

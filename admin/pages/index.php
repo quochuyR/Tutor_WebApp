@@ -1,30 +1,42 @@
 <?php
+
 namespace Admin;
-use Classes\Tutor, Classes\AppUser;
+
+use Classes\Tutor, Classes\AppUser, Classes\TeachingSubject;
+use Library\Session;
+use Helpers\Format;
+
+require_once "../../lib/session.php";
+
+if (!Session::checkRoles(["admin"])) {
+    header("location: ./errors/404");
+}
 //  Classes\Subject, Classes\SubjectTopic;
 ?>
 
-<!DOCTYPE html>
-<html class="no-js" lang="vi">
 <?php
-$title = "Danh sách gia sư";
 include_once "../inc/head.php";
 include_once "../../classes/tutors.php";
 include_once "../../classes/appusers.php";
+include_once "../../classes/teachingsubjects.php";
+include_once "../../helpers/format.php";
 ?>
 
 <?php
-    $_tutor = new Tutor();
-    $_user = new AppUser();
+$_tutor = new Tutor();
+$_user = new AppUser();
+$_teaching_subject = new TeachingSubject();
 ?>
-<body>
-    <section >
-        <?php include_once "../inc/header.php"?>
-    </section>
+
+<?php
+$title = "Trang chủ";
+include_once "../inc/header.php" ?>
+<section>
+
 
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
-        <?php include_once "../inc/sliderbar.php"?>
+        <?php include_once "../inc/sliderbar.php" ?>
     </aside>
     <!-- /#left-panel -->
     <!-- Right Panel -->
@@ -41,11 +53,12 @@ include_once "../../classes/appusers.php";
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-1">
-                                        <i class="pe-7s-cash"></i>
+                                        <img src="<?= htmlspecialchars("../assets/images/icons/teacher_96px.png") ?>" class="w-75" alt="" srcset="">
+
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            
+
                                             <div class="stat-text"><span class="count"><?= $_tutor->countAll()->fetch_assoc()["count_tutors"] ?></span></div>
                                             <div class="stat-heading">Gia sư</div>
                                         </div>
@@ -60,7 +73,8 @@ include_once "../../classes/appusers.php";
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-2">
-                                        <i class="pe-7s-cart"></i>
+                                        <img src="<?= htmlspecialchars("../assets/images/icons/user_menu_female_96px.png") ?>" class="w-75" alt="" srcset="">
+
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
@@ -78,7 +92,7 @@ include_once "../../classes/appusers.php";
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-3">
-                                        <i class="pe-7s-browser"></i>
+                                        <img src="<?= htmlspecialchars("../assets/images/icons/data_pending_96px.png") ?>" class="w-75" alt="" srcset="">
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
@@ -96,7 +110,8 @@ include_once "../../classes/appusers.php";
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-4">
-                                        <i class="pe-7s-users"></i>
+                                        <img src="<?= htmlspecialchars("../assets/images/icons/check_all_96px.png") ?>" class="w-75" alt="" srcset="">
+
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
@@ -115,16 +130,17 @@ include_once "../../classes/appusers.php";
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="box-title">Traffic </h4>
+                                <h4 class="box-title">Số lượng người dùng và gia sư đăng kí theo tháng </h4>
                             </div>
                             <div class="row">
-                                <div class="col-lg-8">
+                                <div class="col-lg-12">
                                     <div class="card-body">
-                                        <!-- <canvas id="TrafficChart"></canvas>   -->
-                                        <div id="traffic-chart" class="traffic-chart"></div>
+
+                                        <canvas id="tutors-chart"></canvas>
+
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <!-- <div class="col-lg-4">
                                     <div class="card-body">
                                         <div class="progress-box progress-1">
                                             <h4 class="por-title">Visits</h4>
@@ -154,8 +170,9 @@ include_once "../../classes/appusers.php";
                                                 <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
-                                    </div> <!-- /.card-body -->
-                                </div>
+                                    </div> 
+                                    card-body
+                                </div> -->
                             </div> <!-- /.row -->
                             <div class="card-body"></div>
                         </div>
@@ -169,102 +186,87 @@ include_once "../../classes/appusers.php";
                         <div class="col-xl-8">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="box-title">Orders </h4>
-                                </div>
-                                <div class="card-body--">
+                                    <h4 class="box-title">Gia sư mới đăng ký </h4>
+
                                     <div class="table-stats order-table ov-h">
-                                        <table class="table ">
-                                            <thead>
-                                                <tr>
-                                                    <th class="serial">#</th>
-                                                    <th class="avatar">Avatar</th>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Product</th>
-                                                    <th>Quantity</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="serial">1.</td>
-                                                    <td class="avatar">
-                                                        <div class="round-img">
-                                                            <a href="#"><img class="rounded-circle" src="images/avatar/1.jpg" alt=""></a>
-                                                        </div>
-                                                    </td>
-                                                    <td> #5469 </td>
-                                                    <td> <span class="name">Louis Stanley</span> </td>
-                                                    <td> <span class="product">iMax</span> </td>
-                                                    <td><span class="count">231</span></td>
-                                                    <td>
-                                                        <span class="badge badge-complete">Complete</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="serial">2.</td>
-                                                    <td class="avatar">
-                                                        <div class="round-img">
-                                                            <a href="#"><img class="rounded-circle" src="images/avatar/2.jpg" alt=""></a>
-                                                        </div>
-                                                    </td>
-                                                    <td> #5468 </td>
-                                                    <td> <span class="name">Gregory Dixon</span> </td>
-                                                    <td> <span class="product">iPad</span> </td>
-                                                    <td><span class="count">250</span></td>
-                                                    <td>
-                                                        <span class="badge badge-complete">Complete</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="serial">3.</td>
-                                                    <td class="avatar">
-                                                        <div class="round-img">
-                                                            <a href="#"><img class="rounded-circle" src="images/avatar/3.jpg" alt=""></a>
-                                                        </div>
-                                                    </td>
-                                                    <td> #5467 </td>
-                                                    <td> <span class="name">Catherine Dixon</span> </td>
-                                                    <td> <span class="product">SSD</span> </td>
-                                                    <td><span class="count">250</span></td>
-                                                    <td>
-                                                        <span class="badge badge-complete">Complete</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="serial">4.</td>
-                                                    <td class="avatar">
-                                                        <div class="round-img">
-                                                            <a href="#"><img class="rounded-circle" src="images/avatar/4.jpg" alt=""></a>
-                                                        </div>
-                                                    </td>
-                                                    <td> #5466 </td>
-                                                    <td> <span class="name">Mary Silva</span> </td>
-                                                    <td> <span class="product">Magic Mouse</span> </td>
-                                                    <td><span class="count">250</span></td>
-                                                    <td>
-                                                        <span class="badge badge-pending">Pending</span>
-                                                    </td>
-                                                </tr>
-                                                <tr class=" pb-0">
-                                                    <td class="serial">5.</td>
-                                                    <td class="avatar pb-0">
-                                                        <div class="round-img">
-                                                            <a href="#"><img class="rounded-circle" src="images/avatar/6.jpg" alt=""></a>
-                                                        </div>
-                                                    </td>
-                                                    <td> #5465 </td>
-                                                    <td> <span class="name">Johnny Stephens</span> </td>
-                                                    <td> <span class="product">Monitor</span> </td>
-                                                    <td><span class="count">250</span></td>
-                                                    <td>
-                                                        <span class="badge badge-complete">Complete</span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th class="min-w-200">Gia sư</th>
+                                                        <th class="min-w-200">Nghề nghiệp</th>
+                                                        <th class="min-w-215">Nơi dạy</th>
+                                                        <th class="min-w-85">Trạng thái</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $getInfoTutor = $_tutor->getTutorInfoOnAdmin();
+                                                    if ($getInfoTutor) :
+
+                                                        while ($InfoTutor = $getInfoTutor->fetch_assoc()) :
+                                                    ?>
+                                                            <tr>
+
+                                                                <td class="avatar ">
+                                                                    <div class="d-flex">
+                                                                        <div class="round-img">
+                                                                            <a href="#"><img class="rounded" src="../../public/<?= $InfoTutor["imagepath"] ?>" alt=""></a>
+                                                                        </div>
+                                                                        <div class="d-flex flex-column">
+                                                                            <span class="text-dark fw-bold d-block"><?= $InfoTutor["lastname"] . ' ' . $InfoTutor["firstname"] ?></span>
+                                                                            <span class="text-muted fs-6 fw-bold limit-text p-t-012"><?= $InfoTutor["currentplace"] ?></span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex flex-column">
+
+                                                                        <span class="text-dark fw-bold d-block"><?= $InfoTutor["currentjob"] ?></span>
+                                                                        <span class="text-muted fs-6 fw-bold limit-text p-t-012">
+                                                                            <?php
+                                                                            $topicTutors = "";
+                                                                            $topicList = $_teaching_subject->getTopicByTutorId($InfoTutor['id']);
+                                                                            while ($resultSB = $topicList->fetch_assoc()) :
+                                                                                $topicTutors .= $resultSB['topicName'] . ', ';
+                                                                            endwhile;
+
+                                                                            echo $topicTutors;
+                                                                            ?>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex flex-column">
+                                                                        <span class="text-dark fw-bold limit-text"><?= $InfoTutor["teachingarea"] ?></span>
+                                                                        <span class="text-muted fs-6 fw-bold limit-text p-t-012">
+                                                                            <?php
+                                                                            foreach (explode(",", $InfoTutor["teachingform"]) as $teachingForm) :
+                                                                                if ($teachingForm == 0)
+                                                                                    echo 'Trực tiếp, ';
+                                                                                else if ($teachingForm == 1)
+                                                                                    echo 'Trực tuyến';
+                                                                            endforeach;
+                                                                            ?>
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="badge <?= $InfoTutor["tutor_status"] == 1 ? "badge-light-success" : "badge-light-danger" ?> d-block"><?= $InfoTutor["tutor_status"] == 1 ? "Đã duyệt" : "Chưa duyệt" ?></span></td>
+                                                            </tr>
+
+                                                    <?php
+                                                        endwhile;
+                                                    endif;
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
                                     </div> <!-- /.table-stats -->
                                 </div>
+
                             </div> <!-- /.card -->
                         </div> <!-- /.col-lg-8 -->
 
@@ -509,14 +511,9 @@ include_once "../../classes/appusers.php";
         <!-- /.content -->
         <div class="clearfix"></div>
         <!-- Footer -->
-       <?php include_once "../inc/footer.php"?>
         <!-- /.site-footer -->
     </div>
     <!-- /#right-panel -->
-
-<?php include_once "../inc/script.php"?>
-
-
-</body>
-
-</html>
+</section>
+<?php include_once "../inc/script.php" ?>
+<?php include_once "../inc/footer.php" ?>

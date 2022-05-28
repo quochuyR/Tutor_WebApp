@@ -1,0 +1,61 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.carouselDanhGiaPhuHuynh .carousel-item {
+    height: 40vh !important;
+}
+
+.carouselTrangChu .carousel-item {
+    max-height: 80vh !important;
+}
+
+
+/* ra small devices (portrait phones, less than 576px) */
+
+@media (max-width: 575.98px) {
+    .carouselTrangChu .carousel-item {
+        height: 20vh !important;
+    }
+    .carouselDanhGiaPhuHuynh .carousel-item {
+        height: 30vh !important;
+    }
+}
+
+
+/* Small devices (landscape phones, less than 768px) */
+
+@media (max-width: 767.98px) {
+    .carouscarouselTrangChuel .carousel-item {
+        height: 20vh !important;
+    }
+    .carouselDanhGiaPhuHuynh .carousel-item {
+        height: 50vh !important;
+    }
+}
+
+
+/* Medium devices (tablets, less than 992px) */
+
+@media (max-width: 991.98px) {
+    .carouselTrangChu .carousel-item {
+        height: 30vh !important;
+    }
+    .carouselDanhGiaPhuHuynh .carousel-item {
+        height: 35vh !important;
+    }
+}
+
+
+/* Large devices (desktops, less than 1200px) */
+
+@media (max-width: 1199.98px) {
+    .carouselTrangChu .carousel-item {
+        max-height: 80vh !important;
+    }
+    .carouselDanhGiaPhuHuynh .carousel-item {
+        max-height: 30vh !important;
+    }
+}

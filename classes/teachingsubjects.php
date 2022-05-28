@@ -17,7 +17,13 @@ class TeachingSubject
         // $this->fm = new Format();
     }
 
-    public function insertTeachingSubjects($tutorId, $subjectId)
+    /**
+     * Hàm có nhiệm vụ thêm chủ đề môn học cho gia sư
+     * @param string $tutorId id gia sư
+     * @param string $subjectId trạng thái gia sư đã duyệt hay chưa (0: chưa duyệt, 1: đã duyệt)
+     * @return object|bool số lượng chủ đề môn học gia sư  được thêm thành công
+     */
+    public function insertTeachingSubjects($tutorId, $subjectId): object|bool
     {
         $query = "INSERT INTO `teachingsubjects` 
         VALUES (NULL, ?, ?);";
@@ -27,7 +33,12 @@ class TeachingSubject
         return $results ? $results : false;
     }
 
-    public function getTopicByTutorId($tutorId)
+    /**
+     * Hàm có nhiệm vụ lấy thông tin chủ đề môn học mà gia sư dạy dựa vào id gia sư
+     * @param string $tutorId id gia sư
+     * @return object|bool  thông tin chủ đề môn học mà gia sư dạy
+     */
+    public function getTopicByTutorId($tutorId): object|bool
     {
         $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName`
         FROM `teachingsubjects` INNER JOIN `subjecttopics` ON `subjecttopics`.`id` = `teachingsubjects`.`topicId`
@@ -38,6 +49,12 @@ class TeachingSubject
         return $results ? $results : false;
     }
     
+    /**
+     * Hàm có nhiệm vụ lấy thông tin chủ đề môn học mà người dùng đăng ký với gia sư
+     * @param string $userId id người dùng
+     * @param string $tutorId id gia sư
+     * @return object|bool  thông tin chủ đề môn học mà người dùng đăng ký với gia sư
+     */
     public function GetRegisteredUserTopic($userId, $tutorId)
     {
         $query = "SELECT DISTINCT `subjecttopics`.`id`, `subjecttopics`.`topicName`, `registeredusers`.`status`

@@ -29,4 +29,9 @@ class Util
         // $currentURL .= dirname($_SERVER["PHP_SELF"]);
         return $currentURL;
     }
+
+    public static function csrf_token(): string
+    {
+        return bin2hex(random_bytes(32));
+    }
 }

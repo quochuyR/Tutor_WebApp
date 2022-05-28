@@ -1,15 +1,19 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('../css/teacher_list/main.css');
 @import url('../css/user_detail/main.css');
 @import url('../css/schedule_tutors/main.css');
 @import url('../css/register_schedule_tutors/main.css');
 @import url('../css/saved_tutors/main.css');
 @import url('../css/login/main.css');
+@import url('../css/signup/main.css');
 @import url('../css/tutor_registration_form/main.css');
 @import url('../css/navbar/main.css');
+@import url('../css/utilities/main.css');
 @import url('../css/footer/main.css');
+@import url('../css/material-icon/main.css');
 @import url('../css/404/main.css');
+@import url('../css/TrangChu/main.css');
 
 
 
@@ -17,6 +21,7 @@
 
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 body {
@@ -28,6 +33,101 @@ body {
     background-color: #F3F3F3 !important;
     scroll-behavior: smooth;
 }
+
+label {
+    display: block;
+    margin: 0 0 4px;
+    color: #0d0c22;
+    font: 500 15px/24px "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* table */
+
+
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #76cbc7c7;
+
+
+}
+
+.table-striped tbody tr:nth-of-type(odd) td {
+    color: #fff;
+
+}
+
+/* đổi màu icon edit khi striped*/
+/* .table-striped tbody tr:nth-of-type(odd) td .edit-schedule, 
+.table-striped tbody tr:nth-of-type(odd) td .delete-schedule { 
+    color: #fff !important;
+    
+} */
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    border-style: none !important;
+}
+
+.table {
+    --bs-table-bg: none !important;
+    --bs-table-accent-bg: none !important;
+    --bs-table-striped-color: none !important;
+    --bs-table-striped-bg: none !important;
+    --bs-table-active-color: none !important;
+    --bs-table-active-bg: none !important;
+    --bs-table-hover-color: none !important;
+    --bs-table-hover-bg: none !important;
+}
+
+.table tr td {
+    border-color: #2EA69A !important;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+
+.table thead th {
+    border-bottom: none;
+    font-weight: 700 !important;
+
+}
+
+/* fixed column */
+
+@media only screen and (max-width: 576px) {
+
+    th:nth-child(2),
+    td:nth-child(2) {
+        position: sticky;
+        left: 0;
+        z-index: 100;
+        background-color: #f2fdff !important;
+
+        color: #0d0c22 !important;
+    }
+}
+
+
+.table-cerulean {
+    --bs-table-bg: #2EA69A;
+    --bs-table-striped-bg: #76cbc7c7;
+    --bs-table-striped-color: #fff;
+    --bs-table-active-bg: #2EA69A;
+    --bs-table-active-color: #fff;
+    --bs-table-hover-bg: #2EA69A;
+    --bs-table-hover-color: #fff;
+    color: #fff;
+    border-color: #2EA69A;
+}
+
+/* end table */
+
+
 
 
 
@@ -50,9 +150,7 @@ body {
     border-radius: .25rem;
 }
 
-.opacity-5 {
-    opacity: .5 !important;
-}
+
 
 a,
 a:hover {
@@ -64,20 +162,14 @@ a:hover {
 
 }
 
-.bg-approval {
-    background-color: #b9ffd7 !important;
-    color: rgb(24, 20, 20);
-}
 
-
-.bg-gray-50 {
-    background-color: rgba(241, 241, 241, 0.5) !important;
-}
 
 .bg-accordion-button {
-    background-color: #0ef3f34d !important;
-    box-shadow: 0 4px 2px -2px rgba(2, 214, 252, 0.301) !important;
+    background-color: #fff !important;
+    box-shadow: 0 3px 5px -2px #76cbc7c7 !important;
 }
+
+
 
 .cursor-pointer {
     cursor: pointer;
@@ -88,7 +180,41 @@ a:hover {
     overflow-x: hidden;
 }
 
+.img-full-screen {
+    width: 50%;
+}
+
+/* pagination bootstrap custom */
+
+.page-link {
+    margin: 0 0.25rem !important;
+    border-radius: 30%;
+    border: none !important;
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 7%) !important;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    margin: 0 0.125rem !important;
+    color: #fff;
+    background-color: #008272 !important;
+    border-color: #008272 !important;
+    border-radius: 30%;
+}
+
+.page-item:first-child .page-link {
+    border-radius: 30% !important;
+}
+
+.page-item:last-child .page-link {
+    border-radius: 30% !important;
+}
+
+/* end pagination bootstrap custom */
+
 /* select2 */
 .select2 {
     width: 100% !important;
 }
+
+/* end select2 */

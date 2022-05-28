@@ -1,5 +1,5 @@
 .text-small {
-    font-size: 0.9rem;
+    font-size: 0.825rem;
 }
 
 a.link-footer {
@@ -18,5 +18,4 @@ a:focus {
 
 footer {
     background: #1D2A35;
-    
 }

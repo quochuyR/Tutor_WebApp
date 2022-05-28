@@ -7,7 +7,7 @@ $filepath  = realpath(dirname(__FILE__));
 
 include_once($filepath . "../../lib/session.php");
 if(!Session::checkRoles(['user','tutor'])){
-    header("location:../pages/errors/404.php");
+    header("location:../pages/errors/404");
 }
 include_once($filepath . "../../classes/savedtutors.php");
 include_once($filepath . "../../helpers/format.php");
@@ -23,8 +23,10 @@ if (isset($_POST["userId"]) && isset($_POST["tutorId"])) {
     $save_tutor = new SavedTutor();
 
     $result = $save_tutor->deleteTutorSaved($userId, $tutorId);
-    if($result)
-        header("location:../pages/saved_tutors");
+    if($result){
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(["delete" => "successful"]);
+    }
     exit;
 }
 

@@ -1,4 +1,5 @@
 <?php
+
 use Helpers\Util, Helpers\Format;
 use Library\Session;
 use Classes\Notification;
@@ -29,21 +30,25 @@ header("Cache-Control: max-age=2592000"); //30days (60sec * 60min * 24hours * 30
 $notification = new Notification();
 
 ?>
-
+<!DOCTYPE html>
+<html class="no-js" lang="vi">
+<?php
+include_once "../inc/head.php";
+?>
 <header id="header" class="header">
-            <div class="top-left">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><img src="https://www.bootdey.com/img/Content/avatar/avatar7.png" class="avatar-md" alt="Logo"></a>
-                    <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
-                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
-                </div>
-            </div>
-            <div class="top-right">
-                <div class="header-menu">
-                    <div class="header-left">
-                        
+    <div class="top-left">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="./"><img src="https://www.bootdey.com/img/Content/avatar/avatar7.png" class="avatar-md" alt="Logo"></a>
+            <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+            <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+        </div>
+    </div>
+    <div class="top-right">
+        <div class="header-menu">
+            <div class="header-left">
 
-                    <div class="dropdown dropdown-notification">
+
+                <div class="dropdown dropdown-notification">
                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButtonNoti" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="far fa-bell fa-lg position-relative">
                             <span class="position-absolute top-0 start-100 translate-middle  p-2 bg-danger border border-light rounded-circle">
@@ -95,23 +100,23 @@ $notification = new Notification();
                     </div>
                 </div>
 
-                        
-                    </div>
 
-                    <div class="user-area dropstart float-right">
-                        <button class="btn dropdown-toggle" id="dropdownMenuAccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../assets/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" alt="User Avatar">
-                        </button>
+            </div>
 
-                        <div class="user-menu dropdown-menu" aria-labelledby="dropdownMenuAccount">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i>Thông tin cá nhân</a>
+            <div class="user-area dropstart float-right">
+                <button class="btn dropdown-toggle" id="dropdownMenuAccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="user-avatar rounded-circle" src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../assets/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" alt="User Avatar">
+                </button>
 
-                            <a class="nav-link" href="#"><i class="fa fa-cog"></i>Cài đặt</a>
+                <div class="user-menu dropdown-menu" aria-labelledby="dropdownMenuAccount">
+                    <a class="nav-link" href="#"><i class="fa fa-user"></i>Thông tin cá nhân</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Đăng xuất</a>
-                        </div>
-                    </div>
+                    <a class="nav-link" href="#"><i class="fa fa-cog"></i>Cài đặt</a>
 
+                    <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Đăng xuất</a>
                 </div>
             </div>
-        </header>
+
+        </div>
+    </div>
+</header>

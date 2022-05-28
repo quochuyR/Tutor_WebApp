@@ -202,17 +202,17 @@ div.text-muted {
 }
 
 .badge-primary {
-    background-color: #01d28e;
-    color: #48b83e
+    background-color: #009688;
+    color: #fff !important;
 }
 
 .brand .check {
     background-color: #fff;
     top: 3px;
     border: 0.5px solid rgba(83, 83, 83, 0.278);
-    -moz-box-shadow: 0 2px 7px rgb(0 0 0 / 12%);
-    -webkit-box-shadow: 0 2px 7px rgb(0 0 0 / 12%);
-    box-shadow: 0 2px 7px rgb(0 0 0 / 12%);
+    -moz-box-shadow: 0 2px 3px rgb(0 0 0 / 12%);
+    -webkit-box-shadow: 0 2px 3px rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 3px rgb(0 0 0 / 12%);
 }
 
 .brand .tick {
@@ -243,7 +243,7 @@ div.text-muted {
 
 .brand .tick input:checked~.check,
 .rating .tick input:checked~.check {
-    background-color: #61b15a
+    background-color: #009688;
 }
 
 #tutors {
@@ -291,16 +291,20 @@ h6 {
     font-size: 0.9rem
 }
 
-.btn.btn-primary {
-    background-color: #48b83e;
-    color: #fff;
-    border: 1px solid #48b83e;
-    border-radius: 10px;
-    font-weight: 800
+.btn-tutor-detail {
+    background-color: #0062C3 !important;
+    color: #fff !important;
+    border: none;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
 }
 
-.btn.btn-primary:hover {
-    background-color: #48b83ee8
+.btn-tutor-detail:hover {
+    background-color: #0353a3 !important
+}
+
+.btn{
+    border-radius: 10px !important;
 }
 
 .img-teacher > img {
@@ -411,7 +415,7 @@ h6 {
 }
 
 .subject-active {
-    background-color: #29BB89 !important;
+    background-color: #35a79c !important;
     color: #fff !important;
 }
 

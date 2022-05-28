@@ -1,3 +1,4 @@
+<section>
 <footer class="site-footer">
     <div class="footer-inner bg-white">
         <div class="row">
@@ -10,3 +11,8 @@
         </div>
     </div>
 </footer>
+</section>
+</div>
+</body>
+
+</html>

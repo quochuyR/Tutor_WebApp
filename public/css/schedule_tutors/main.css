@@ -37,23 +37,45 @@
     width: 3.5rem;
 }
 
-
-
-.table-schedule-tutor td:not(:first-child){
-    width: 26.666666666667% !important;
+.table-schedule-tutor thead tr th:nth-child(2){ /* cột 2 */
+    width: 26.666666666667% ;
+    min-width: 100px !important;
 }
-.table-schedule-tutor td:not(:last-child){
-    width: 26.666666666667% !important;
+
+.table-schedule-tutor thead tr th:nth-child(3){ /* cột 3 */
+    width: 26.666666666667% ;
+    min-width: 150px !important;
+}
+
+.table-schedule-tutor thead tr th:nth-child(4){ /* cột 4 */
+    width: 26.666666666667% ;
+    min-width: 300px;
 }
 
 /* cột đầu tiên */
-.table-schedule-tutor td:first-child:last-child{
+/* .table-schedule-tutor thead tr th:first-child{
     width: 10% !important;
-}
-/* cột đầu tiên */
-.table-schedule-tutor td:last-child{
+    min-width: 100px !important;
+
+} */
+/* cột cuối */
+.table-schedule-tutor thead tr th:last-child{
     width: 10% !important;
+    min-width: 100px !important;
+
 }
-.table-schedule-user td{
+/* table schedule user */
+.table-schedule-user thead tr th:last-child{
     width: 25% !important;
+    min-width: 300px;
+}
+
+
+.table-schedule-user thead tr th:nth-child(2){
+    width: 26.666666666667% ;
+    min-width: 100px !important;
+}
+.table-schedule-user thead tr th:nth-child(3){
+    width: 26.666666666667% ;
+    min-width: 150px !important;
 }

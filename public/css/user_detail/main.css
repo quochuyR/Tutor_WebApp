@@ -94,8 +94,8 @@
 ul.calendar li {
     text-align: center;
     list-style-type: none;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
+    padding: 0.325rem;
+    border-radius: 0.50rem;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     margin-left: 0.5rem;
@@ -103,22 +103,19 @@ ul.calendar li {
 }
 
 li.calendar-normal {
-
+    cursor: not-allowed;
     border: 1px solid #9e9d9d;
     color: #9e9d9d;
 
 }
 
 li.calendar-active {
-
-    border: 1px solid #45bbe0;
-
-    background-color: #45bbe0;
+    cursor: pointer;
+    background-color: #449BED;
     color: #fff;
 }
 
 li.calendar-time {
-
     color: #3bb3bd;
 }
 

@@ -10,7 +10,7 @@ $filepath = realpath(dirname(__FILE__));
 
 include_once $filepath . "../../lib/session.php";
 if (!Session::checkRoles(['tutor'])) {
-    header("location:../pages/errors/404.php");
+    header("location:../pages/errors/404");
 }
 include_once $filepath . "../../classes/registerusers.php";
 

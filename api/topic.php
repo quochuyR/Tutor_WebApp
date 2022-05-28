@@ -23,6 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 class="tick " data-category="' . $result["subjectId"] . '" data-value="' . $result["topicName"] . '">' . $result["topicName"] . '<input
                     type="checkbox" class="topic checkbox-filter" value="' . $result["id"] . '"> <span class="check"></span> </label> </div>';
             }
+        }else{
+             echo "Chọn môn học mới hiện chủ đề.";
         }
     }
     else echo "Chọn môn học mới hiện chủ đề.";

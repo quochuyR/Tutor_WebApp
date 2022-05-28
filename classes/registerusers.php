@@ -24,17 +24,29 @@ class RegisterUser
         // $this->fm = new Format();
     }
 
-    public function AddOrDeleteRegisterTutor($action, $userId, $tutorId, $TopicId)
+    /**
+     * Hàm có nhiệm vụ thêm hoặc xoá người dùng đã đăng ký (chỉ dành cho gia sư)
+     * @param int $action thêm hay xoá (1: thêm, 0: xoá)
+     * @param string $userId id người dùng
+     * @param string $tutorId id gia sư
+     * @return object|bool số lượng người dùng thêm hoặc xoá thành công
+     */
+    public function AddOrDeleteRegisterTutor(int $action, string $userId, string $tutorId, int $TopicId): object| bool
     {
         $query = "CALL add_delete_register_tutor(?, ?, ?, ?)";
         $results = $this->db->p_statement($query, "issi", [$action, $userId, $tutorId, $TopicId]);
 
         return $results->num_rows > 0 ? $results : false;
     }
-   
 
-    // bao gồm phân trang luôn
-    public function getRegisteredUserByTutorId($tutorId, $request_method)
+
+    /**
+     * Hàm có nhiệm vụ lấy thông tin người dùng dựa vào id gia sư (bao gồm phân trang luôn. Chỉ dành cho gia sư)
+     * @param int $tutorId id gia sư
+     * @param string $request_method mảng chứa dữ liệu post phân trang (limit, page)
+     * @return object thông tin người dùng
+     */
+    public function getRegisteredUserByTutorId(string $tutorId, array $request_method): object
     {
         $query = "SELECT `appusers`.`id`, `appusers`.`lastname`, `appusers`.`firstname`, `appusers`.`imagepath`, `appusers`.`job` 
         FROM `appusers`
@@ -52,8 +64,12 @@ class RegisterUser
         return $results;
     }
 
-    // tạo link phân trang
-    public function getPaginatorRegisteredUser($request_method)
+    /**
+     * Hàm có nhiệm vụ tạo link phân trang dựa vào dữ liệu cung cấp từ hàm getRegisteredUserByTutorId
+     * @param array $request_method mảng chứa dữ liệu post phân trang (links)
+     * @return string chuỗi chứa đoạn html phân trang
+     */
+    public function getPaginatorRegisteredUser(array $request_method): string
     {
         // paginator
         // echo $this->query;
@@ -61,8 +77,12 @@ class RegisterUser
         return $this->paginator->createLinks($links, 'pagination justify-content-center');
     }
 
-    // đếm xem có user hay không
-    public function countRegisteredUserByTutorId($tutorId)
+    /**
+     * Hàm có nhiệm vụ đếm số lượng người dùng đăng ký (chỉ dành cho gia sư)
+     * @param string $tutorId id gia sư
+     * @return object số lượng người dùng đăng ký
+     */
+    public function countRegisteredUserByTutorId(string $tutorId): object
     {
         $query = "SELECT COUNT(DISTINCT(`registeredusers`.`userId`)) as sum_register_user
         FROM `registeredusers`
@@ -72,7 +92,13 @@ class RegisterUser
         return $results ? $results : false;
     }
 
-    public function GetRegisteredUserTopic($userId, $tutorId)
+    /**
+     * Hàm có nhiệm vụ lấy thông tin chủ đề môn học mà người dùng đã đăng ký
+     * @param string $userId id người dùng
+     * @param string $tutorId id gia sư
+     * @return object thông tin chủ đề đăng kí 
+     */
+    public function GetRegisteredUserTopic(string $userId, string $tutorId): object
     {
         $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName`, (SELECT COUNT(*) FROM `scheduletutors` WHERE `scheduletutors`.`registeredId` = `registeredusers`.`id`) AS approval
         FROM `registeredusers` INNER JOIN `subjecttopics` ON `registeredusers`.`topicId` = `subjecttopics`.`id`
@@ -82,8 +108,13 @@ class RegisterUser
         return $results ? $results : false;
     }
 
-    // Duyệt dạy kèm người dùng đã đăng ký
-    public function ApprovalRegisteredUser($userId, $tutorId)
+    /**
+     * Hàm có nhiệm vụ đặt trạng thái người dùng là đã được gia sư chấp nhận dạy
+     * @param string $userId id người dùng
+     * @param string $tutorId id gia sư
+     * @return object|bool số lượng trạng thái chấp nhận thành công
+     */
+    public function ApprovalRegisteredUser(string $userId, string $tutorId): object | bool
     {
         $query = "UPDATE `registeredusers` SET `status`= ? WHERE `userId` = ? AND `tutorId` = ?;";
         $results = $this->db->p_statement($query, "iss", [1, $userId, $tutorId]);
@@ -91,8 +122,13 @@ class RegisterUser
         return $results ? $results : false;
     }
 
-    // Lấy người dùng đã duyệt dạy kèm hay chưa
-    public function GetApprovalRegisteredUser($userId, $tutorId)
+    /**
+     * Hàm có nhiệm vụ lấy trạng thái chấp nhận dạy từ người dùng đã đăng ký
+     * @param string $userId id người dùng
+     * @param string $tutorId id gia sư
+     * @return object|bool trạng thái chập nhận dạy hay chưa (0: chưa chấp nhận, 1: đã chấp nhân)
+     */
+    public function GetApprovalRegisteredUser(string $userId, string $tutorId): object | bool
     {
         $query = "SELECT `registeredusers`.`status` FROM `registeredusers` WHERE `userId` = ? AND `tutorId` = ?;";
         $results = $this->db->p_statement($query, "ss", [$userId, $tutorId]);
@@ -100,8 +136,15 @@ class RegisterUser
         return $results ? $results : false;
     }
 
-    // Lấy người id của register ứng với môn học
-    public function GetRegisterIdByTopicId($userId, $tutorId, $topicId, $status)
+    /**
+     * Hàm có nhiệm vụ lấy id của người dùng đăng ký ứng với môn học
+     * @param string $userId id người dùng
+     * @param string $tutorId id gia sư
+     * @param int $topicId id chủ đề
+     * @param int $status trạng thái đã duyệt người dùng đăng kí hay chưa (0: chưa chấp nhận, 1: đã chấp nhân)
+     * @return object|bool id của người đăng ký
+     */
+    public function GetRegisterIdByTopicId(string $userId, string $tutorId, int $topicId, int $status): object | bool
     {
         $query = "SELECT `registeredusers`.`id` 
         FROM `registeredusers`
@@ -114,8 +157,12 @@ class RegisterUser
 
     /* user */
 
-    // đếm xem có gia sư hay không
-    public function countRegisteredTutorByUserId($userId)
+    /**
+     * Hàm có nhiệm vụ đếm xem người dùng có đăng ký gia sư nào hay không
+     * @param string $userId id người dùng
+     * @return object|bool số lượng gia đã sư đăng ký
+     */
+    public function countRegisteredTutorByUserId(string $userId): object | bool
     {
         $query = "SELECT COUNT(DISTINCT(`registeredusers`.`tutorId`)) as sum_register_tutor
         FROM `registeredusers`
@@ -124,7 +171,13 @@ class RegisterUser
 
         return $results ? $results : false;
     }
-    // đếm xem có gia sư đăng ký hay chưa
+    
+    /**
+     * Hàm có nhiệm vụ đếm xem người dùng có đăng ký gia sư nào hay không dựa vào id gia sư
+     * @param string $userId id người dùng
+     * @param string $tutorId id người dùng
+     * @return object|bool số lượng gia sư đã đăng ký
+     */
     public function countRegisteredUsersWithTutor($userId, $tutorId)
     {
         $query = "SELECT COUNT(*) as registered_tutor
@@ -135,7 +188,12 @@ class RegisterUser
         return $results ? $results : false;
     }
 
-    // bao gồm phân trang luôn
+   /**
+     * Hàm có nhiệm vụ lấy thông tin người dùng dựa vào id người dùng (bao gồm phân trang luôn. Chỉ dành cho người dùng)
+     * @param int $userId id người dùng
+     * @param string $request_method mảng chứa dữ liệu post phân trang (limit, page)
+     * @return object thông tin người dùng
+     */
     public function getRegisteredTutorByUserId($userId, $request_method)
     {
         $query = "SELECT `appusers`.`id`, `tutors`.`id` as tutorId, `appusers`.`lastname`, `appusers`.`firstname`, `appusers`.`imagepath`, `tutors`.`currentjob`
@@ -154,7 +212,11 @@ class RegisterUser
         return $results;
     }
 
-    // tạo link phân trang
+    /**
+     * Hàm có nhiệm vụ tạo link phân trang dựa vào dữ liệu cung cấp từ hàm getRegisteredUserByTutorId
+     * @param array $request_method mảng chứa dữ liệu post phân trang (links)
+     * @return string chuỗi chứa đoạn html phân trang
+     */
     public function getPaginatorRegisteredTutor($request_method)
     {
         // paginator

@@ -62,7 +62,7 @@ class SubjectTopic
 
     public function getTopic_TutoringSchedule($tutorId, $status)
     {
-        $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName`
+        $query = "SELECT DISTINCT `subjecttopics`.`id`, `subjecttopics`.`topicName`
         FROM ((`scheduletutors` INNER JOIN `subjecttopics` ON `scheduletutors`.`topicId` = `subjecttopics`.`id`)
               INNER JOIN `registeredusers` ON `scheduletutors`.`RegisteredId` = `registeredusers`.`id`)
         WHERE `registeredusers`.`tutorId` = ? AND 	`registeredusers`.`status` = ?
@@ -85,7 +85,7 @@ class SubjectTopic
 
     public function getTopic_registerUser_ByStatus($tutorId, $userId, $status)
     {
-        $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName` , (SELECT COUNT(*) FROM `scheduletutors` WHERE `scheduletutors`.`registeredId` = `registeredusers`.`id`) AS approval
+        $query = "SELECT DISTINCT `subjecttopics`.`id`, `subjecttopics`.`topicName` , (SELECT COUNT(*) FROM `scheduletutors` WHERE `scheduletutors`.`registeredId` = `registeredusers`.`id`) AS approval
         FROM `registeredusers` INNER JOIN `subjecttopics` ON `registeredusers`.`topicId` = `subjecttopics`.`id`             
         WHERE `registeredusers`.`tutorId` = ? AND `registeredusers`.`userId` = ? AND `registeredusers`.`status` = ?
         ORDER BY `subjecttopics`.`id` ASC;";

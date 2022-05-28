@@ -1,9 +1,15 @@
 (function () {
 
     // URL province api
-   
+
+    let offset = 0, numNotification = 2, responseNotification = true;
+
     $(document).ready(function () {
 
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
 
 
 
@@ -150,7 +156,7 @@
 
         if (checkMobile(/iPhone|iPad|iPod|Android/i)) {
             $(".text-sub").each((i, li) => {
-                li.textContent = li.textContent.substringing(0, 103) + "...";
+                li.textContent = li.textContent.substring(0, 103) + "...";
             })
         }
 
@@ -170,7 +176,7 @@
 
         $("#filter-subject li").on('click', (e) => {
 
-
+            
             // thêm subject filter
             $.ajax({
                 type: "post",
@@ -220,16 +226,18 @@
             let [limit, page] = url.split("&");
             console.log(limit, page, url)
 
+            let token = $("#token").val();
             let subject = $(".category.subject-active").attr("subject-id");
             let topic = get_filter_arr(".topic:checked");
-            let status = get_filter_arr(".teachingForm:checked");
+            let status = get_filter_str(".teachingForm:checked");
             let sex = get_filter_arr(".sex:checked");
             let type = get_filter_arr(".type:checked");
-            console.log($(".topic:checked"), "get value ")
+            console.log(status, token, "get value ")
             $.ajax({
                 type: "post",
                 url: "../api/listtutors",
                 data: {
+                    token,
                     subject: subject,
                     topic: topic,
                     status: status,
@@ -251,129 +259,10 @@
 
         }
 
-        // Đăng nhập
+        
 
-        $(".signin-form").on('submit', (e) => {
-            e.preventDefault();
-            let username = $("#username-field").val();
-            let password = $("#password-field").val();
-            $.ajax({
-                type: "post",
-                url: "../api/login",
-                data: {
-                    username,
-                    password,
-                    "g-recaptcha-response": grecaptcha.getResponse()
-                },
-                cache: false,
-                success: function (data) {
-                    // if(data !== '0')
-                    grecaptcha.reset();
-                    $('#staticBackdrop').modal('hide'); // Tự nhiên cái màn đen che mất tiêu thấy ghét xoá luôn :))
-                    $("#signup-signin").removeClass("d-block").addClass("d-none"); // đăng nhập xong ẩn đăng kí/đăng nhập
-                    $("#login").replaceWith(data);
-
-                    logout(); // khi đăng nhập xong mới hiện logout nên để logout ở đây
-                    console.log(data, "data")
-                    console.log($("#username-field").val(), "Tài khoản")
-                    if (window.location.pathname.includes("tutor_details"))
-                        location.reload();
-                },
-                error: function (xhr, status, error) {
-                    console.log(xhr, error, status, "Lỗi");
-                }
-            });
-        });
-
-        // Đăng xuất
-        function logout() {
-            $(".logout").on('click', (e) => {
-                e.preventDefault();
-                clearForm(); //clear không thôi người ta thấy username and password
-
-                console.log($(".logout").attr("href-action"), `$(".logout").attr("href")`);
-                $.ajax({
-                    type: "post",
-                    url: "../api/logout",
-                    data: {
-                        action: $(".logout").attr("href-action")
-                    },
-                    cache: false,
-                    success: function (data) {
-                        // if(data !== '0')
-                        clearForm(); //clear không thôi người ta thấy username and password
-                        $('#staticBackdrop').modal('hide'); // Tự nhiên cái màn đen che mất tiêu thấy ghét xoá luôn :))
-                        $("#login").removeClass("d-flex justify-content-center align-items-center")
-                            .addClass("d-none"); // đăng xuất thì ẩn đăng nhập thành công
-                        $("#signup-signin").replaceWith(data);
-                        if (window.location.pathname.includes("saved_tutors"))
-                            location.href = "../pages/list_Tutor";
-                        else location.reload();
-                        console.log(data, "data")
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(xhr, error, status, "Lỗi");
-                    }
-                });
-            });
-        }
-
-        function clearForm() {
-            $("#username-field").val('');
-            $("#password-field").val('');
-        }
-
-
-
-        logout();
-
-
-
-
-
-
-
-        // function page_data(e) {
-        //     $("#tutors .row").html(`<div class="spinner-border text-primary mx-auto" role="status">
-        //                         <span class="sr-only">Loading...</span>
-        //                     </div>`);
-
-
-
-
-        //     let url = "../api/listtutors" + ($(e?.currentTarget).attr('href') ? $(e.currentTarget).attr('href') :"?limit=3&page=1"); // check có thẻ a chưa 
-        //     console.log(url)
-        //     $.ajax({
-        //         type: "get",
-        //         url: url,
-        //         dataType: 'text',
-        //         cache: false,
-        //         success: function (data) {
-        //             $("#tutors .row").html(data);
-        //             page_paginator();
-        //             // console.log(data)
-        //         },
-        //         error: function (xhr, status, error) {
-        //             console.error(xhr);
-        //         }
-        //     });
-        // }
         function page_paginator() {
 
-            // $.ajax({
-            //     type: "get",
-            //     url: '../api/listtutors',
-            //     dataType: 'text',
-            //     cache: false,
-            //     success: function (data) {
-            //         $("#tutors .row").html(data);
-
-            //         // console.log(data)
-            //     },
-            //     error: function (xhr, status, error) {
-            //         console.error(xhr);
-            //     }
-            // });
             $(".link-ajax").on('click', (e) => {
                 e.preventDefault();
                 filer_data(e);
@@ -388,11 +277,18 @@
         // dữ liệu trả về sẽ như thế này Toán, Vật lý, Hoá,
         function get_filter_str(className) {
             let data = "";
-            $(className).each((i, val) => {
-                data += $(val).val() + ','
-                // console.log($(val).val(), "val")
-            });
-            return data.trim();
+            if ($(className).length === 1 ) {
+                return ($(className).val() + ",");
+            }
+            
+            else if ($(className).length > 1 ) {
+                $(className).each((i, val) => {
+                    data += $(val).val() + ', '
+                    // console.log($(val).val(), "val")
+                });
+                return data.trim();
+            } 
+           return;
         }
 
         function get_filter_arr(className) {
@@ -405,8 +301,37 @@
         }
 
 
-       
 
+        $("#more-notification").on('click', (e) => {
+
+            
+            offset += 2;
+            // thêm subject filter
+            responseNotification && $.ajax({
+                type: "post",
+                url: "../api/getnotificationmore",
+                data: {
+                    numNotification, // lấy giá trị của thuộc tính subject-id
+                    offset
+                },
+                cache: false,
+                success: function (data) {
+                    console.log(data, "thông báo")
+                    if(!data){
+                        responseNotification = false;
+                        return;
+                    }
+                    $(".list-notification").last().append(data);  
+                    document.querySelector('#end-notification').scrollIntoView({behavior : "smooth",  block: 'nearest', inline: 'start'})
+
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr);
+                }
+            });
+
+
+        });
 
 
 
@@ -452,16 +377,22 @@
     // Xem hình ảnh lớn và rõ hơn
 
     $("img:not(.avatar)").on('click', function (e) {
-        let DIVShowImg = document.querySelector(".img-float");
-        let Img = document.querySelector(".img-container>img");
-        DIVShowImg.className = DIVShowImg.className.replace("d-none", "");
+        let DIVShowImg = $(".img-float");
+        let Img = $(".img-container>img");
+        DIVShowImg.removeClass("d-none");
         console.log(Img)
-        Img.src = e.target.src;
+        console.log(e.target)
+
+        $(Img).prop("src", $(e.target).prop("src"));
         $('body').css("overflow-y", "hidden");
-        document.querySelector(".full-height").addEventListener('click', (e) => {
-            e.target.parentNode.classList.add('d-none');
+        $(".img-float").on('click', (e) => {
+
+            $(e.currentTarget).addClass('d-none');
             $('body').css("overflow-y", "scroll");
 
+        }).on('click', (e) => {
+            e.cancelBubble = true;
+            e.stopPropagation();
         });
 
 

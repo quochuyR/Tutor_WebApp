@@ -16,8 +16,12 @@ class Day
         $this->db = new Database();
         // $this->fm = new Format();
     }
-
-    public function getAll()
+    
+    /**
+     * Hàm có nhiệm vụ lấy thông tin buổi học (sáng, chiều, tối)
+     * @return object thông tin buổi (sáng, chiều, tối)
+     */
+    public function getAll(): object
     {
         $query = "SELECT  * FROM `days`; ";
 

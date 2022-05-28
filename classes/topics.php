@@ -17,7 +17,11 @@ class Topic
         // $this->fm = new Format();
     }
 
-    public function getAll()
+     /**
+     * Hàm có nhiệm vụ lấy thông tin chủ đề môn học
+     * @return object thông tin chủ đề môn học
+     */
+    public function getAll(): object
     {
         $query = "SELECT * FROM `subjecttopics` ORDER BY id ASC";
         $result = $this->db->select($query);

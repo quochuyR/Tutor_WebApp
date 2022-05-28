@@ -10,29 +10,33 @@ class Paginator
 {
 
     private $_db;
-    private $_limit;
-    private $_page;
-    private $_query;
-    private $_total;
+    private int $_limit;
+    private int $_page;
+    private string $_query;
+    private int $_total;
 
-    private $_types;
-    private $_vars;
+    private string $_types;
+    private array $_vars;
 
     public function __construct()
     {
         $this->_db = new Database();
     }
-    public function constructor($query_filter, $types, $vars)
-    {
 
-       
+    public function constructor(string $query_filter, string $types, array $vars)
+    {      
         $this->_query = $query_filter;
         $this->_types = $types;
-        $this->_vars = $vars;
-        
+        $this->_vars = $vars;      
     }
 
-    public function getData($limit = 10, $page = 1)
+    /**
+     * Hàm có nhiệm vụ lấy dữ liệu phần trang
+     * @param int $limit giới hạn số lượng dữ liệu hiển thị (mặc định là 10)
+     * @param int $page thứ tự phân trang (trang 1, 2, 3 ... Mặc định là 1)
+     * @return object dữ liệu phân trang (page, limit, total, data)
+     */
+    public function getData(int $limit = 10, int $page = 1): object
     {
 
         $this->_limit   = mysqli_real_escape_string($this->_db->link, $limit);
@@ -64,7 +68,13 @@ class Paginator
         return $result;
     }
 
-    public function createLinksAjax($links, $list_class)
+     /**
+     * Hàm có nhiệm vụ tạo đoạn html hiển thị ra file html sử dụng ajax
+     * @param int $links số lượng link hiển thị (mặc định là 3)
+     * @param string $list_class tên class của thẻ ul phần trang (sử dụng với bootstrap,...)
+     * @return string chuỗi chứa đoạn html 
+     */
+    public function createLinksAjax(int $links = 3, string $list_class): string
     {
        
         if ($this->_limit == 'all') {
@@ -107,7 +117,13 @@ class Paginator
     }
 
 
-    public function createLinks($links, $list_class)
+    /**
+     * Hàm có nhiệm vụ tạo đoạn html hiển thị ra file html không sử dụng ajax
+     * @param int $links số lượng link hiển thị (mặc định là 3)
+     * @param string $list_class tên class của thẻ ul phần trang (sử dụng với bootstrap,...)
+     * @return string chuỗi chứa đoạn html 
+     */
+    public function createLinks(int $links, string $list_class): string
     {
        
         if ($this->_limit == 'all') {

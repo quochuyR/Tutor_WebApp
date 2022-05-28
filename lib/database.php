@@ -23,7 +23,11 @@ class Database
         $this->connectDB();
     }
 
-    public  function connectDB()
+    /**
+     * Hàm có nhiệm vụ tạo kết nối đến csdl
+     * @return bool kết nối thành công hay không
+     */
+    public function connectDB(): bool
     {
         $this->link =  new mysqli($this->host, $this->user, $this->pass, $this->dbname);
 
@@ -31,9 +35,15 @@ class Database
             $this->error = "Connection fail " . $this->link->connect_error;
             return false;
         }
+
+        return true;
     }
 
-    public function select($query)
+    /**
+     * Hàm có nhiệm vụ truy vấn đến csdl
+     * @return object|bool đối tượng chứa thông tin truy vấn
+     */
+    public function select($query): object | bool
     {
         $result = $this->link->query($query) or die($this->link->error.__LINE__);
 
@@ -44,20 +54,22 @@ class Database
         return false;
     }
 
-    public  function p_statement($query,  $type = "", $vars = [])
+    /**
+     * Hàm có nhiệm vụ truy vấn, thêm, cập nhật, xoá, gọi procedure đến csdl
+     * @return object|bool đối tượng chứa thông tin truy vấn, gọi procedure; số dòng thêm, cập nhật, xoá thành công
+     */
+    public  function p_statement($query,  $type = "", $vars = []): object|bool
     {
 
         $stm = $this->link->prepare($query);        
 
         // type là i: int, d: double, float, s: string, b: blob 
-        array_unshift($vars, $type);
+        array_unshift($vars,  $type);
 
         // thêm tham chiếu vào vì bind param yều cầu các tham số phải là tham chiếu
-        foreach ($vars as $key => $value) {
-            $vars[$key] = &$vars[$key];
-        }
+        
 
-        call_user_func_array(array($stm, 'bind_param'), $vars);
+        call_user_func_array(array($stm, 'bind_param'), $this->refValues($vars));
         $stm->execute() or die($this->link->error.__LINE__);
 
         
@@ -77,5 +89,16 @@ class Database
         return false;
 
         
+    }
+
+    private function refValues($arr){
+        if (strnatcmp(phpversion(),'5.3') >= 0) //Reference is required for PHP 5.3+
+        {
+            $refs = array();
+            foreach($arr as $key => $value)
+                $refs[$key] = &$arr[$key];
+            return $refs;
+        }
+        return $arr;
     }
 }
