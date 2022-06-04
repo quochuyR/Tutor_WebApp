@@ -70,18 +70,18 @@ class Paginator
 
      /**
      * Hàm có nhiệm vụ tạo đoạn html hiển thị ra file html sử dụng ajax
-     * @param int $links số lượng link hiển thị (mặc định là 3)
      * @param string $list_class tên class của thẻ ul phần trang (sử dụng với bootstrap,...)
+     * @param int|string $links số lượng link hiển thị (mặc định là 3)
      * @return string chuỗi chứa đoạn html 
      */
-    public function createLinksAjax(int $links = 3, string $list_class): string
+    public function createLinksAjax( string $list_class, int $links = 3): string
     {
        
         if ($this->_limit == 'all') {
             return '';
         }
 
-        $links =  mysqli_real_escape_string($this->_db->link, $links);
+        $links = intval(mysqli_real_escape_string($this->_db->link, $links));
 
         $last       = ceil($this->_total / $this->_limit);
 
