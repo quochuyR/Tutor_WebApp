@@ -261,7 +261,7 @@ include "../inc/header.php";
                     $content = $row['content'];
                 ?>
                     <div class="col-lg-<?php echo $lenght ?> col-md-<?php echo $lenght ?> col-<?php echo $lenght ?>">
-                        <h3 class='text-center' style='height: 75px;'><?php echo $title; ?></h3>
+                        <h3 class='text-center' style='height: 90px;'><?php echo $title; ?></h3>
                         <?php echo $content ?>
                     </div>
                 <?php
@@ -272,33 +272,33 @@ include "../inc/header.php";
     </section>
     <!-- danh gia cua moi nguoi ve trang gia su day kem  -->
     <section style="background-color: #6a41ed; color: #FFFFFF;">
-        <div id="carouselDanhGiaPhuHuynh" class="carousel slide carouselDanhGiaPhuHuynh" data-ride="carousel">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <h2 class="text-center pt-5">Mọi người nghĩ gì về trang dạy kèm tại nhà?</h2>
             <div class="carousel-inner">
-                <div class="carousel-item active mt-2">
+                <div class="carousel-item active" data-bs-interval="3000">
                     <div class="row d-block w-100 ">
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="<?php echo $link ?>" data-holder-rendered="true">
-                            <h3>Lorem ipsum</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://anhdep123.com/wp-content/uploads/2020/05/anh-gai-che-mat-4.jpg" data-holder-rendered="true">
+                            <h3>Nguyễn Văn A</h3>
+                            <p>Con tôi học rất tệ môn tiếng anh từ khi được dạy kèm ở đây thì giỏi ngữ văn lắm.</p>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item mt-2">
+                <div class="carousel-item" data-bs-interval="3000">
                     <div class="row d-block w-100 ">
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="<?php echo $link ?>" data-holder-rendered="true">
-                            <h3>Lorem ipsum</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://anhdep123.com/wp-content/uploads/2020/05/anh-gai-che-mat-4.jpg" data-holder-rendered="true">
+                            <h3>Cờ rờ u ết hắt</h3>
+                            <p>Con tôi khác yếu Anh Văn nhờ thầy cô dạy kèm ở đây cháu nó có thể lấy 10 điểm môn toán dễ dàng.</p>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item mt-2">
+                <div class="carousel-item" data-bs-interval="3000">
                     <div class="row d-block w-100 ">
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="<?php echo $link ?>" data-holder-rendered="true">
-                            <h3>Lorem ipsum</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://anhdep123.com/wp-content/uploads/2020/05/anh-gai-che-mat-4.jpg" data-holder-rendered="true">
+                            <h3>Huỳnh Lí Thị Bê</h3>
+                            <p>Cháu Diễm Mi nhà tôi mất tích 3 năm rồi từ khi tôi thuê gia sư ở đây thì con bé thấy trai đẹp nên tự mò về.</p>
                         </div>
                     </div>
                 </div>

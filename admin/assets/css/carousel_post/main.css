@@ -1,0 +1,15 @@
+#file-area input[type=file]:valid+#file-dummy .success {
+    display: inline-block !important;
+}
+
+#file-area input[type=file]:valid+#file-dummy .default {
+    display: none !important;
+}
+
+#file-dummy .success {
+    display: none !important;
+}
+
+#file-dummy {
+    background-color: aqua !important;
+}
