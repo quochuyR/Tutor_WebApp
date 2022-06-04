@@ -3,6 +3,6 @@ namespace Configuration;
 define("DB_HOST", "localhost");
 define("DB_USER", "root");
 define("DB_PASS", "");
-define("DB_NAME", "tutorsmanager");
+define("DB_NAME", "Tutors-manager");
 
 
