@@ -1,14 +1,12 @@
 <?php
 
 namespace Library;
-use mysqli;
+use PDO, PDOException;
 
 $filepath  = realpath(dirname(__FILE__));
 include_once($filepath."../../config/config.php");
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-// Change character set to utf8
 
-class Database
+class DatabasePDO
 {
     public  $host = DB_HOST;
     public  $user = DB_USER;
@@ -30,11 +28,14 @@ class Database
      */
     public function connectDB(): bool
     {
-        $this->link =  new mysqli($this->host, $this->user, $this->pass, $this->dbname);
-        $this->link->set_charset("utf8");
-        if (!$this->link) {
-            $this->error = "Connection fail " . $this->link->connect_error;
-            return false;
+        try {
+            $this->link =  new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->user, $this->pass);
+        } catch (PDOException $ex) {
+            if (!$this->link) {
+                print "Error!: " . $ex->getMessage() . "<br/>";
+                die();
+                return false;
+            }
         }
 
         return true;
@@ -46,9 +47,9 @@ class Database
      */
     public function select($query): object | bool
     {
-        $result = $this->link->query($query) or die($this->link->error.__LINE__);
+        $result = $this->link->query($query) or die($this->link->error . __LINE__);
 
-        if($result->num_rows > 0){
+        if ($result->num_rows > 0) {
             return $result;
         }
 

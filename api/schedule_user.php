@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") :
                                         ?>
 
                                             <div class="d-flex align-items-start">
-                                                <img src="<?= Util::getCurrentURL() . "/../public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-sm img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
+                                                <img src="<?= Util::getCurrentURL(1) . "public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-sm img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
                                                 <div class="w-100 ms-3 align-self-end">
                                                     <h6 class="my-1 fw-bold" style="color: #333333 !important;"><?= $user["lastname"] . ' ' . $user["firstname"]; ?></h6>
                                                     <p class="text-muted">@id: <?= $user["username"]; ?></p>

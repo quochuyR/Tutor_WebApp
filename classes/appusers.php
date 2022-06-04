@@ -118,7 +118,7 @@ class AppUser
     {
         $query = "SELECT MONTHNAME(`appusers`.`datecreated`) AS month, COUNT(*) AS num
         FROM `appusers`
-        GROUP BY MONTH(`appusers`.`datecreated`);";
+        GROUP BY MONTHNAME(`appusers`.`datecreated`);";
 
         // echo $query;
         $result = $this->db->select($query);

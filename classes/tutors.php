@@ -2,28 +2,40 @@
 namespace Classes;
 
 use Library\Database;
+use Library\DatabasePDO;
 use Helpers\Format;
 // use Model\Tutor_Model;
 $filepath  = realpath(dirname(__FILE__));
 
 include_once($filepath . "../../lib/database.php");
+include_once($filepath . "../../lib/databasePDO.php");
 include_once($filepath . "../../helpers/format.php");
 include_once($filepath . "../../classes/paginator.php");
 
 class Tutor
 {
     private $db;
+    private $pdo;
     private $fm;
     private $query;
     private $paginator;
     public  function __construct()
     {
         $this->db = new Database();
+        $this->pdo = new DatabasePDO();
         $this->fm = new Format();
         $this->paginator = new Paginator();
     }
 
     public function getAll()
+    {
+        $query = 'SELECT `tutors`.`id`,  `appusers`.`username`, `appusers`.`firstname`, `appusers`.`lastname`, `tutors`.`CURRENTADDRESS`, `tutors`.`teachingarea`, `tutors`.`introduction`, `tutors`.`linkfacebook`, `tutors`.`linktwitter`, `appusers`.`imagepath`
+        FROM `tutors` INNER JOIN `appusers`  ON `tutors`.`userId` = `appusers`.`id`
+        WHERE `tutors`.`tutor_status` = 1 LIMIT 0, 3';
+        $result = $this->db->select($query);
+        return $result;
+    }
+    public function get_all()
     {
         $query = 'SELECT `tutors`.`id`,  `appusers`.`username`, `appusers`.`firstname`, `appusers`.`lastname`, `tutors`.`CURRENTADDRESS`, `tutors`.`teachingarea`, `tutors`.`introduction`, `tutors`.`linkfacebook`, `tutors`.`linktwitter`, `appusers`.`imagepath`
         FROM `tutors` INNER JOIN `appusers`  ON `tutors`.`userId` = `appusers`.`id`
@@ -47,7 +59,7 @@ class Tutor
     {
         $query = "SELECT MONTHNAME(`tutors`.`dateRegister`) AS month, COUNT(*) AS num
         FROM `tutors`
-        GROUP BY MONTH(`tutors`.`dateRegister`);";
+        GROUP BY MONTHNAME(`tutors`.`dateRegister`);";
 
         // echo $query;
         $result = $this->db->select($query);
@@ -92,6 +104,14 @@ class Tutor
         VALUES (UUID(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), b'0')";
         // $result = $this->db->p_statement($query, "sssssisss", [$Tutor_Model->_userId, $Tutor_Model->__introduction, $Tutor_Model->_currentAddress, $Tutor_Model->_college, $Tutor_Model->_currentJob, $Tutor_Model->_teachingForm, $Tutor_Model->_teachingArea, $Tutor_Model->_linkFacebook, $Tutor_Model->_linkTwitter]);
         $result = $this->db->p_statement($query, "ssssssissssss", $data);
+        return $result ? $result : false;
+    }
+
+    public function update_approval_tutor($id)
+    {
+        $query = "CALL update_approval_tutor(?)";
+        // $result = $this->db->p_statement($query, "sssssisss", [$Tutor_Model->_userId, $Tutor_Model->__introduction, $Tutor_Model->_currentAddress, $Tutor_Model->_college, $Tutor_Model->_currentJob, $Tutor_Model->_teachingForm, $Tutor_Model->_teachingArea, $Tutor_Model->_linkFacebook, $Tutor_Model->_linkTwitter]);
+        $result = $this->db->p_statement($query, "s", [$id]);
         return $result ? $result : false;
     }
 
@@ -213,6 +233,17 @@ class Tutor
         return $result;
     }
 
+    public function getTutorDetailForAdmin($id)
+    {
+        $query = "SELECT `tutors`.`id`, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`username`, `appusers`.`sex`, `tutors`.`currentphonenumber`, `tutors`.`currentemail`, `tutors`.`currentjob`, `tutors`.`currentaddress`, `tutors`.`teachingarea`, `tutors`.`teachingform`, `tutors`.`introduction`, `tutors`.`linkfacebook`, `tutors`.`linktwitter`, `appusers`.`imagepath` 
+        FROM `tutors` INNER JOIN `appusers` ON `tutors`.`userId` = `appusers`.`id` 
+        WHERE `tutors`.`id` = ?";
+
+        // echo $query;
+        $result = $this->db->p_statement($query, "s", [$id]);
+        return $result;
+    }
+
     /**
      * Lấy thông tin gia sư hiển thị ở trang admin
      * @return object|bool thông tin gia sư
@@ -236,6 +267,6 @@ class Tutor
         // paginator
         // echo $this->query;
         $links      = (isset($request_method['links'])) ?  Format::validation($request_method['links']) : 3;
-        return $this->paginator->createLinksAjax($links, 'pagination justify-content-center');
+        return $this->paginator->createLinksAjax( 'pagination justify-content-center', $links);
     }
 }
