@@ -38,6 +38,20 @@ class AppUser
         $result = $this->db->p_statement($query, "ssssss", [$username, $email, $password, $last_name, $first_name, $phone_number]);
         return $result;
     }
+    /**
+     * hàm có nhiệm vụ cập nhật thông tin người dùng(dành cho user)
+     * @param string $email tên email của người dùng
+     * @param string $last_name tên người dùng
+     * @return object|bool số lượng hàng thêm thành công
+     */
+    
+    public function update_user_appuser( $id, $email, $last_name, $first_name,  $sex, $phonenumber,$date_of_birth, $address, $job ): object| bool
+    {
+        $query = "UPDATE `appusers` SET `email`=?,`lastname`=?,`firstname`=?,`sex`=?,`phonenumber`=?,`dateofbirth`=?,`address`=?,`job`=? WHERE id=? ;";
+        
+        $result = $this->db->p_statement($query, "sssisssss", [$email, $last_name, $first_name, $sex, $phonenumber, $date_of_birth, $address, $job, $id]);
+        return $result;
+    }
 
     /**
      * Hàm có nhiệm vụ tìm user id bằng username
@@ -77,7 +91,7 @@ class AppUser
 
     public function getInfoByUserId($userId): object
     {
-        $query = "SELECT  `appusers`.`id`, `appusers`.`username`, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`phonenumber`,  `appusers`.`sex`, `appusers`.`job`, `appusers`.`address`,  `appusers`.`email`,  `appusers`.`imagepath`
+        $query = "SELECT  `appusers`.`id`, `appusers`.`username`, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`phonenumber`,  `appusers`.`sex`, `appusers`.`job`, `appusers`.`address`, `appusers`.`dateofbirth`, `appusers`.`email`,  `appusers`.`imagepath`
         FROM  `appusers` 
         WHERE `appusers`.`id` = ?;";
 
