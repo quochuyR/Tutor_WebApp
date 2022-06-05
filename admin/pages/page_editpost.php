@@ -250,9 +250,8 @@ if (
                                                         </div>
                                                         <hr>
                                                         <div class="p-3 pt-0">
-                                                            <div class="d-flex justify-content-between pb-2">
-                                                                <input type="submit" name="savepost" class="btn btn-primary" value="Lưu lại">
-                                                                <input type="button" name="review" class="btn btn-primary" value="Xem trước">
+                                                            <div class="d-flex justify-content-end pb-2">
+                                                                <input type="button" name="review" class="btn btn-primary " value="Xem trước">
                                                             </div>
                                                             <div>
                                                                 <div>
@@ -317,8 +316,8 @@ if (
                                             <div class="border shadow p-1 rounded-2">
                                                 <!-- DOM cái này bằng PHP -->
                                                 <div class="container w-70">
-                                                    <h4 class="text-center">Danh sách bài đăng</h4>
-                                                    <table class="table">
+                                                    <h3 class="text-center"><b>Danh sách bài đăng</b></h3>
+                                                    <table class="table mt-4">
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col">Số thứ tự</th>

@@ -104,13 +104,10 @@ include "../inc/header.php";
                 <?php
                 $result = $db_homepage->showPost();
                 $count = 0;
-                $NumberElement = $result->num_rows; // lấy só lượng phần tử trong đây
-                $lenght = 12 / $NumberElement; // chiều dài chia cột
+
+                $NumberElement = $result->num_rows <= 4 ? $result->num_rows : 4; // lấy só lượng phần tử trong đây
+                $lenght = 12 / ($NumberElement); // chiều dài chia cột
                 while ($row = $result->fetch_assoc()) {
-                    if ($count == 4)
-                        break;
-                    else
-                        $count++;
                     $title = $row['title'];
                     $content = $row['content'];
                 ?>
@@ -119,6 +116,10 @@ include "../inc/header.php";
                         <?php echo $content ?>
                     </div>
                 <?php
+                    if ($count == 3)
+                        break;
+                    else
+                        $count++;
                 }
                 ?>
             </div>

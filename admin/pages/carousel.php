@@ -276,7 +276,7 @@ if (
                                                 <!-- DOM cái này bằng PHP -->
                                                 <div class="container w-70">
                                                     <h4 class="text-center">Danh sách bài đăng</h4>
-                                                    <table class="table">
+                                                    <table class="table  mt-4">
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col">Số thứ tự</th>
