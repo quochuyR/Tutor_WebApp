@@ -27,7 +27,8 @@ class db_homepage
         // truy vấn danh sach carousel image 
         $select = "SELECT * FROM calrouselimg WHERE status = 1 ORDER BY uploaded_on desc";
         // $select = "SELECT * FROM `calrouselimg` ";
-        $imgList = $this->db->select($select);
+        //dùng update thay vì dùng select bởi vì select khi truy vấn nếu không có phần tử nào sẽ trả về kiểu bool xảy ra cảnh báo lỗi
+        $imgList = $this->db->update($select);
         // print_r($imgList);
         if (($imgList->num_rows) > 0) {
             while ($item = $imgList->fetch_assoc()) {

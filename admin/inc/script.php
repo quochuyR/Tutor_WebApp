@@ -16,5 +16,4 @@ include_once($filepath . "../../../helpers/utilities.php");
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script src="<?= Util::getRootURL() . "/tutor_webapp/admin/" . "assets/js/main.js" ?>"></script>
 <!-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> -->
-
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>

@@ -100,7 +100,6 @@ include_once "../inc/head.php";
                     </div>
                 </div>
 
-
             </div>
 
             <div class="user-area dropstart float-right">

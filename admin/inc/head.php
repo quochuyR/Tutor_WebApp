@@ -3,7 +3,7 @@
 use Helpers\Util;
 
 $filepath  = realpath(dirname(__FILE__));
-include_once($filepath."../../../helpers/utilities.php");
+include_once($filepath . "../../../helpers/utilities.php");
 ?>
 
 <head>
@@ -26,9 +26,7 @@ include_once($filepath."../../../helpers/utilities.php");
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>
     <link rel="stylesheet" href="<?= Util::getRootURL() . '/tutor_webapp/admin/' . 'assets/css/style.css' ?>">
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-    
-   
 </head>

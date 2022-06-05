@@ -47,7 +47,7 @@ class db_adminhomepage
             // Upload fiile to server
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
                 // Insert image file name into database
-                $insert = $this->db->select("INSERT into calrouselimg (id, name, file_name, uploaded_on, status) VALUES (NULL,'" . $name . "','" . $fileName . "', NOW(),0)");
+                $insert = $this->db->select("INSERT INTO calrouselimg (id, name, file_name, uploaded_on, status) VALUES (NULL,'" . $name . "','" . $fileName . "', NOW(),0)");
                 if ($insert) {
                     $statusMsg = "The file " . $fileName . " has been uploaded successfully.";
                     $insert = '';
@@ -60,12 +60,90 @@ class db_adminhomepage
         } else {
             $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
         }
-        $statusMsg = '';
+
         $fileName = '';
         $targetFilePath = '';
         $fileType = '';
     }
-}
-#truy van thong tin gia su
 
-#demo link danh gia cua phu huynh
+    function EidtStatus($id, $status)
+    {
+        if ($this->CountNumberImages() < 3 || $status == 0) {
+            $query = "UPDATE `calrouselimg` SET `uploaded_on`= CURRENT_TIME(),`status`='$status' WHERE id = $id";
+            $result = $this->db->update($query);
+        }
+    }
+
+    function Delete($idDelete)
+    {
+        $query = "DELETE FROM calrouselimg WHERE id = $idDelete";
+        $result = $this->db->update($query);
+    }
+
+    //count number images have been done show in homepage
+    function CountNumberImages()
+    {
+        // truy vấn danh sach carousel image 
+        $select = "SELECT * FROM calrouselimg WHERE status = 1 ORDER BY uploaded_on desc";
+        // $select = "SELECT * FROM `calrouselimg` ";
+        $imgList = $this->db->update($select);
+        // return number image have been done show in homepage
+        return $imgList->num_rows;
+    }
+
+    function FillPostToTableResult()
+    {
+        $querySelect = 'SELECT id, title, content, status, time, kind FROM admin_post ORDER BY time DESC';
+        $result = $this->db->select($querySelect);
+        return $result;
+    }
+
+    //truy vấn cơ sở dữ liệu cho post bài viết trong bản
+    function FillPostToTable()
+    {
+        //đường dẫn dành cho trang web post bài Viết
+        $linkPostpageEdit = 'Query/sua.php?idEdit=';
+        // dành cho trang chủ
+        $linkPostpageDelete = 'carousel.php?idDelete='; 
+        $result = $this->FillPostToTableResult();
+        $countNumber = 1;
+        if (($result->num_rows) > 0) {
+            while ($row = $result->fetch_assoc()) {
+?>
+                <tr>
+                    <th scope="row">
+                        <p>
+                            <?php echo $countNumber++ ?>
+                        </p>
+                    </th>
+                    <td>
+                        <?php echo $row['title'] ?>
+                    </td>
+                    <td>
+                        <?php echo $row['time'] ?>
+                    </td>
+                    <td>
+                        <?php echo $row['status'] ?>
+                    </td>
+                    <td>
+                        <?php echo $row['kind'] ?>
+                    </td>
+                    <td>
+                        <!-- Đường dẫn này sẽ có thông tin cơ bản của phương thức get 
+                     -->
+                        <a href="<?php echo $linkPostpageEdit . $row['id'] ?>">Sửa</a>
+                    </td>
+                    <td class="text-center">
+                        <!-- <input class="form-check-input" type="checkbox" value="" id="checkboxPost"> -->
+                        <a href="<?php echo $linkPostpageDelete . $row['id']; ?>">Xóa</a>
+                    </td>
+                </tr>
+<?php
+            }
+        }
+    }
+
+
+    //trang viết bài viết
+
+}
