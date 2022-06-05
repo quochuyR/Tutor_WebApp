@@ -414,6 +414,7 @@ include "../inc/header.php";
             //
 
             function onChangeTopic(event_approval) {
+                $(".teaching-subject").off();
                 $(".teaching-subject").on('change', (event_target) => {
                     getIdRegisterUser(event_approval, event_target);
                 })
@@ -424,6 +425,7 @@ include "../inc/header.php";
 
             // thay đổi hiển thị môn học duyệt hay chưa
             function onChangeStatusApproval(event_approval) {
+                $(".show-status-topic").off();
                 $(".show-status-topic").on('click', () => {
                     getSubjectRegisterUser(event_approval);
                 });
@@ -439,6 +441,7 @@ include "../inc/header.php";
             }
 
             function onChangeFlexSwitch() {
+                $(".allow-schedule.form-check-input").off();
                 $(".allow-schedule.form-check-input").each((i, select) => { // disable input checkbox khi thay đổi
                     if (!$(select).prop("checked")) {
                         $(select).closest(".modal-content").find("select:not(.teaching-subject)").prop("disabled", true) // Tìm nơi chứa select thêm lịch dạy cho người dùng
@@ -461,6 +464,7 @@ include "../inc/header.php";
             }
 
             function onClickSave(event_approval) {
+                $(".btn-save").off();
                 $(".btn-save").on('click', () => {
                     addSchedule(event_approval);
                 });

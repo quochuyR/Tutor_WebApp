@@ -58,12 +58,12 @@
 
 		$("aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle").each(function () {
 			$(this).on('click', (e) => {
-				if($(this).hasClass("show")){
+				if ($(this).hasClass("show")) {
 					console.log($(this).parent().siblings(".menu-item-has-children").removeClass("show"))
 
 					$(this).parent().addClass("show")
 				}
-				
+
 
 			})
 
@@ -170,7 +170,37 @@
 			// document.querySelector('#end-notification').scrollIntoView({behavior : "smooth",  block: 'nearest', inline: 'start'})
 		}
 
+		// Đăng xuất
+		function logout() {
+			$(".logout").on('click', (e) => {
+				e.preventDefault();
+				
 
+				console.log($(".logout").attr("href-action"), `$(".logout").attr("href")`);
+				$.ajax({
+					type: "post",
+					url: "../inc/header.php",
+					data: {
+						action: $(".logout").attr("href-action")
+					},
+					cache: false,
+					success: function (data) {
+						// if(data !== '0')
+						
+					
+						
+						
+						window.location = "/tutor_webapp/pages/login";
+						console.log(data, "data")
+					},
+					error: function (xhr, status, error) {
+						console.log(xhr, error, status, "Lỗi");
+					}
+				});
+			});
+		}
+
+		logout();
 
 
 	});

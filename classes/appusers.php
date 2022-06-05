@@ -41,14 +41,14 @@ class AppUser
     /**
      * hàm có nhiệm vụ cập nhật thông tin người dùng(dành cho user)
      * @param string $email tên email của người dùng
-     * @param string $last_name tên người dùng
-     * @return object|bool số lượng hàng thêm thành công
+     * @param string $last_name họ người dùng
+     * @return object|bool số lượng hàng cập nhật thành công
      */
-    
-    public function update_user_appuser( $id, $email, $last_name, $first_name,  $sex, $phonenumber,$date_of_birth, $address, $job ): object| bool
+
+    public function update_user($id, $email, $last_name, $first_name,  $sex, $phonenumber, $date_of_birth, $address, $job): object| bool
     {
         $query = "UPDATE `appusers` SET `email`=?,`lastname`=?,`firstname`=?,`sex`=?,`phonenumber`=?,`dateofbirth`=?,`address`=?,`job`=? WHERE id=? ;";
-        
+
         $result = $this->db->p_statement($query, "sssisssss", [$email, $last_name, $first_name, $sex, $phonenumber, $date_of_birth, $address, $job, $id]);
         return $result;
     }

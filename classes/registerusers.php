@@ -48,16 +48,33 @@ class RegisterUser
      */
     public function getRegisteredUserByTutorId(string $tutorId, array $request_method): object
     {
+        $types = "";
+        $vars = [];
         $query = "SELECT `appusers`.`id`, `appusers`.`lastname`, `appusers`.`firstname`, `appusers`.`imagepath`, `appusers`.`job` 
         FROM `appusers`
         WHERE `appusers`.`id` IN (
             SELECT `registeredusers`.`userId`
             FROM `registeredusers`
-            WHERE `registeredusers`.`tutorId` = ?)";
+            WHERE `registeredusers`.`tutorId` = ?";
+            // 
+        array_push($vars, $tutorId);
+        $types .= "s";
+
+        if(isset($request_method["uid"]) && !empty($request_method["uid"])){
+            $query .= " AND `registeredusers`.`userId` = ?)";
+            $uid = Format::validation($request_method["uid"]);
+            $uid = $this->db->link->real_escape_string($uid);
+            array_push($vars, $uid);
+            $types .= "s";
+
+        }
+        else{
+            $query .= ")";
+        }
         $limit = (isset($request_method['limit'])) ? Format::validation($request_method['limit']) : 3;
         $page = (isset($request_method['page'])) ? Format::validation($request_method['page']) : 1;
 
-        $this->paginator->constructor($query, "s", [$tutorId]);
+        $this->paginator->constructor($query, $types, $vars);
 
         $results = $this->paginator->getData($limit, $page);
 

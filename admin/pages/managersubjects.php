@@ -8,7 +8,7 @@ use Library\Session;
 require_once "../../lib/session.php";
 
 if (!Session::checkRoles(["admin"])) {
-    header("location: ./errors/404");
+    header("location: ../../pages/login");
 }
 //  Classes\Subject, Classes\SubjectTopic;
 ?>
@@ -21,7 +21,8 @@ include_once "../../classes/subjects.php";
 $_subject = new Subject();
 
 ?>
-<?php include_once "../inc/header.php" ?>
+<?php $title = "Quản lý môn học";
+include_once "../inc/header.php" ?>
 <section>
 
     <!-- Left Panel -->
@@ -662,7 +663,7 @@ $_subject = new Subject();
 
                                                                     </form>`;
                                 }
-                                
+
                                 return data
                             }
                         }, {
@@ -695,6 +696,28 @@ $_subject = new Subject();
                         console.log(settings)
 
                     },
+                    dom: 'Bfrtip',
+                    buttons: ['pageLength', {
+                            extend: 'print',
+                            download: 'open',
+                            exportOptions: {
+                                columns: ':visible'
+                            },
+                            customize: function(win) {
+                                console.log($(win.document.body).find('table').eq(1))
+                                // $(win.document.body)
+                                //     .css('font-size', '10pt')
+                                //     .prepend(
+                                //         '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                //     );
+
+                                $(win.document.body).find('table')
+                                    .addClass('table-bordered').removeClass("table-type-1")
+                            },
+                            messageTop: `<span class="h5 pt-3 d-block">THÔNG TIN CHỦ ĐỀ MÔN HỌC</span>`
+                        },
+                        'colvis'
+                    ],
                     // stateSave: true,
                     responsive: true,
                     aoColumnDefs: [{

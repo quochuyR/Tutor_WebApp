@@ -356,7 +356,7 @@ class TutoringSchedule
         // paginator
         // echo $this->query;
         $links = (isset($request_method['links'])) ? Format::validation($request_method['links']) : 3;
-        return $this->paginator->createLinksAjax($links, 'pagination justify-content-center');
+        return $this->paginator->createLinksAjax('pagination justify-content-center', $links);
     }
 
     // đếm xem có gia sư hay không

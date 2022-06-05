@@ -8,7 +8,7 @@ use Library\Session;
 require_once "../../lib/session.php";
 
 if (!Session::checkRoles(["admin"])) {
-    header("location: ./errors/404");
+    header("location: ../../pages/login");
 }
 //  Classes\Subject, Classes\SubjectTopic;
 ?>
@@ -21,7 +21,8 @@ include_once "../../classes/subjects.php";
 $_subject = new Subject();
 
 ?>
-<?php include_once "../inc/header.php" ?>
+<?php $title = "Quản lý gia sư";
+include_once "../inc/header.php" ?>
 <section>
 
     <!-- Left Panel -->
@@ -56,10 +57,10 @@ $_subject = new Subject();
 
                         <div class="col-12">
                             <div class="table-stats order-table ov-h">
-                                <table id="tutor-table" class="table table-striped table-type-1" style="width: 100% !important">
+                                <table id="tutor-table" class="table table-striped table-borderless table-type-1" style="width: 100% !important">
                                     <thead>
                                         <tr>
-                                            <th scope="col"><input class="form-check-input " id="select-all-subject" type="checkbox"></th>
+                                            <th scope="col"><input class="form-check-input " id="select-all-tutor" type="checkbox"></th>
                                             <th scope="col">Hình</th>
                                             <th scope="col">Họ</th>
                                             <th scope="col">Tên</th>
@@ -248,7 +249,29 @@ $_subject = new Subject();
 
                     // initComplete: function(settings, json) {
                     //     InitLoadSuccess(settings, json);
-                    // },
+                    // },,
+                    dom: 'Bfrtip',
+                    buttons: ['pageLength', {
+                            extend: 'print',
+                            download: 'open',
+                            exportOptions: {
+                                columns: ':visible'
+                            },
+                            customize: function(win) {
+                                console.log($(win.document.body).find('table').eq(1))
+                                // $(win.document.body)
+                                //     .css('font-size', '10pt')
+                                //     .prepend(
+                                //         '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                //     );
+
+                                $(win.document.body).find('table')
+                                    .addClass('table-bordered').removeClass("table-type-1")
+                            },
+                            messageTop: `<span class="h5 pt-3 d-block">THÔNG TIN GIA SƯ</span>`
+                        },
+                        'colvis'
+                    ],
                     stateSave: true,
                     responsive: true,
                     aoColumnDefs: [{
@@ -266,13 +289,13 @@ $_subject = new Subject();
                     }
                 });
 
-                // $('#subject-table').on('page.dt', (e) => {
-                //     $("#select-all-subject").prop("checked", false);
-                //     $("#select-all-subject").removeClass('allChecked');
+                $('#subject-table').on('page.dt', (e) => {
+                    $("#select-all-tutor").prop("checked", false);
+                    $("#select-all-tutor").removeClass('allChecked');
 
-                // })
+                })
 
-                /*
+                
                                 // hàm có tác dụng load dữ liệu bảng thành công mới thực thi hàm
                                 // mỗi lần chuyển trang là load dòng mới nên DOM cần phải load lại
                                 // nếu không load lại nó sẽ vô hiệu
@@ -281,11 +304,11 @@ $_subject = new Subject();
                                 // console.log(settings)
 
                                 // select all
-                                $('#select-all-subject').on('click', function(e) {
+                                $('#select-all-tutor').on('click', function(e) {
                                     // idx++
                                     // console.log("-------------------", idx, "allPage")
 
-                                    let allPages = subject_table.rows().nodes();
+                                    let allPages = tutor_table.rows().nodes();
                                     console.log(allPages)
                                     if ($(this).hasClass('allChecked')) {
                                         $('input[type="checkbox"]', allPages).prop('checked', false);
@@ -297,7 +320,7 @@ $_subject = new Subject();
 
                                     return true;
                                 });
-*/
+
                 function InitLoadSuccess(settings = null, json = null) {
 
                     $("#update-approval-tutor").off();
@@ -467,7 +490,7 @@ $_subject = new Subject();
 
         });
 
-    })(jQuery)
+    })(jQuery);
 </script>
 <?php include_once "../inc/footer.php" ?>
 

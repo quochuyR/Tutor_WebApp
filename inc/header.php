@@ -15,8 +15,6 @@ include_once($filepath . "../../classes/notifications.php");
 include_once($filepath . "../../classes/remember.php");
 
 include_once($filepath . "../../helpers/utilities.php");
-
-include_once($filepath . "../../classes/remember.php");
 include_once($filepath . "../../classes/adminlogin.php");
 
 Session::init();
@@ -128,7 +126,7 @@ include "../inc/head.php";
 
                                                     ?>
 
-                                                            <a href="../pages/<?= htmlspecialchars($notifi["notification_link"]) ?>" class="d-flex list-group-item list-group-item-action border-0 text-small">
+                                                            <a href="<?= Util::getCurrentURL(1) ."pages/". $notifi["notification_link"] ?>" class="d-flex list-group-item list-group-item-action border-0 text-small">
                                                                 <div class="my-auto me-2">
                                                                     <img src="../public/<?= $sender["imagepath"] ?>" class="avatar-notification avatar-sm-notification  ">
                                                                 </div>

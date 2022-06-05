@@ -2,18 +2,21 @@
 
 use Helpers\Util, Helpers\Format;
 use Library\Session;
-use Classes\Notification;
+use Classes\Notification, Classes\Remember;
 
-$filepath  = realpath(dirname(__FILE__));
+$filepath  = realpath(dirname(__FILE__, 2));
 
 
-include_once($filepath . "../../../lib/session.php");
+include_once($filepath . "../../lib/session.php");
 Session::init();
 // include_once($filepath . "../../classes/adminlogin.php");
-include_once($filepath . "../../../classes/notifications.php");
+include_once($filepath . "../../classes/notifications.php");
 
 include_once($filepath . "../../helpers/utilities.php");
+include_once($filepath . "../../classes/remember.php");
 
+
+$remember = new Remember();
 ?>
 
 <?php
@@ -23,6 +26,22 @@ header("Pragma: no-cache"); //HTTP 1.0
 
 //or, if you DO want a file to cache, use:
 header("Cache-Control: max-age=2592000"); //30days (60sec * 60min * 24hours * 30days)
+
+if (isset($_POST["action"]) && $_POST["action"] === "logout") {
+    if (session_id() !== '' || isset($_SESSION) || session_status() !== PHP_SESSION_NONE) {
+        // session isn't started
+
+
+        $remember->delete_user_token(Session::get('userId'));
+
+        if (isset($_COOKIE['remember_me'])) {
+            unset($_COOKIE['remember_me']);
+            setcookie('remember_me', "", time() - 3600, "/", "localhost");
+        }
+        Session::destroy();
+        exit;
+    }
+}
 ?>
 
 <?php
@@ -113,7 +132,7 @@ include_once "../inc/head.php";
 
                     <a class="nav-link" href="#"><i class="fa fa-cog"></i>Cài đặt</a>
 
-                    <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Đăng xuất</a>
+                    <a class="nav-link logout" href-action="logout"><i class="fa fa-power-off " ></i>Đăng xuất</a>
                 </div>
             </div>
 

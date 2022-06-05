@@ -88,35 +88,35 @@ if (!isset($_POST["id"]) || empty($_POST["id"]) || $_POST["id"] === null) {
                                     </div>
                                 </div>
 
-                                <div class="mt-3">
+                                <div class="mt-3 info-detail">
 
                                     <h4 class="font-13 text-uppercase fw-bold">Thông tin cá nhân gia sư:</h4>
                                     <!-- <p class="text-muted font-13 mb-3">
                                 Hi I'm Johnathn Deo,has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
                             </p> -->
-                                    <p class="fw-regular mb-2 font-13"><strong>Họ và tên: </strong>
+                                    <p class="fw-regular font-13"><strong>Họ và tên: </strong>
                                         <span class="ms-2"><?= $result["lastname"] . ' ' . $result["firstname"]; ?></span>
                                     </p>
 
-                                    <p class="fw-regular mb-2 font-13"><strong>Giới tính: </strong> <span class="ms-2"><?= $result["sex"] == 1 ?  "Nam" :  "Nữ"; ?></span></p>
+                                    <p class="fw-regular font-13"><strong>Giới tính: </strong> <span class="ms-2"><?= $result["sex"] == 1 ?  "Nam" :  "Nữ"; ?></span></p>
 
-                                    <p class="fw-regular mb-2 font-13"><strong>Số điện thoại: </strong><span class="ms-2"> <?= $result["currentphonenumber"]; ?> (zalo)</span></p>
+                                    <p class="fw-regular font-13"><strong>Số điện thoại: </strong><span class="ms-2"> <?= $result["currentphonenumber"]; ?> (zalo)</span></p>
 
-                                    <p class="fw-regular mb-2 font-13"><strong>Email: </strong> <span class="ms-2"> <?= $result["currentemail"]; ?></span></p>
+                                    <p class="fw-regular font-13"><strong>Email: </strong> <span class="ms-2"> <?= $result["currentemail"]; ?></span></p>
 
-                                    <p class="fw-regular mb-2 font-13"><strong>Hiện tại là: </strong> <span class="ms-2"> <?= $result["currentjob"]; ?></span></p>
+                                    <p class="fw-regular font-13"><strong>Hiện tại là: </strong> <span class="ms-2"> <?= $result["currentjob"]; ?></span></p>
 
                                     <p class="fw-regular mb-1 font-13"><strong>Nơi ở hiện tại: </strong> <span class="ms-2"><?= $result["currentaddress"]; ?></span></p>
                                 </div>
 
-                                <div class="mt-4">
+                                <div class="mt-4 info-detail" >
 
                                     <h4 class="font-13 text-uppercase fw-bold">Thông tin giảng dạy gia sư:</h4>
 
 
-                                    <p class="fw-regular mb-2 font-13"><strong>Khu vực dạy: </strong> <span class="ms-2"><?= $result["teachingarea"] ?></span></p>
+                                    <p class="fw-regular font-13"><strong>Khu vực dạy: </strong> <span class="ms-2"><?= $result["teachingarea"] ?></span></p>
 
-                                    <p class="fw-regular mb-2 font-13"><strong>Hình thức dạy: </strong><span class="ms-2"> <?php
+                                    <p class="fw-regular font-13"><strong>Hình thức dạy: </strong><span class="ms-2"> <?php
                                                                                                                             foreach (explode(",", $result["teachingform"]) as $teachingForm) :
                                                                                                                                 if ($teachingForm == 0)
                                                                                                                                     echo '<span class="badge text-dark me-1" style="background-color: #d5db8b">trực tiếp </span>';

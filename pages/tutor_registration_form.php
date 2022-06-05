@@ -373,7 +373,7 @@ include "../inc/script.php"
                     let currentEmail = $("#current-email").val();
                     let currentAddress = $("#current-address").val();
                     let currentJob = $("#job").val();
-                    let currentProvince = $("#province").text();
+                    let currentProvince = $("#province option:selected").text()
                     let currentCollage = $("#collage").val();
                     let graduateYear = $("#graduate-year").val();
                     let districts = "";

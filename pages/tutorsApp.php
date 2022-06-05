@@ -78,7 +78,7 @@ $selector=" SELECT * FROM  tutors INNER JOIN appusers ON appusers.id = tutors.us
                         $address = Format::validation($_POST["address"]);
                         $job = Format::validation($_POST["job"]);
                         
-                        $get_info_user = $_user->update_user_appuser(Session::get("userId"), $email, $last_name, $first_name,  $sex, $phonenumber, $date_of_birth, $address, $job);
+                        $get_info_user = $_user->update_user(Session::get("userId"), $email, $last_name, $first_name,  $sex, $phonenumber, $date_of_birth, $address, $job);
                 
                         if ($get_info_user ) {
                            
