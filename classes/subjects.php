@@ -61,32 +61,6 @@ class Subject
         $result = $this->db->p_statement($query, "si", [$subject, $id]);
         return $result;
     }
-
-
-    /**
-     * Hàm có nhiệm vụ thêm thông tin môn học
-     * @param array $subject tên của môn học
-     * @return object|bool sô môn học được thêm thành công
-     */
-    public function add_subject(array $subject): object|bool
-    {
-        $subjectCount = count($subject);
-        // create a array with question marks
-        $subjectMarks = array_fill(0, $subjectCount, '(NULL, ?)');
-        $subjectMarks =  implode(",", $subjectMarks);
-        $dataTypes = str_repeat('s', $subjectCount);
-
-        // print_r($subjectMarks);
-        // print_r($dataTypes);
-        $query = "INSERT INTO `subjects` (`id`, `subject`) VALUES $subjectMarks;";
-
-        // print_r($query);
-        $result = $this->db->p_statement($query, $dataTypes, $subject);
-        return $result;
-    }
-
-
-
     /**
      * Hàm có nhiệm vụ xoá thông tin môn học dựa vào id môn học
      * @param array|int $id id của môn học
@@ -123,59 +97,5 @@ class Subject
         $query = "DELETE FROM `subjects` WHERE `subjects`.`id` IN ($idMarks);";
         $result = $this->db->p_statement($query, $types,  $vars);
         return $result;
-    }
-
-    /**
-     * Hàm có nhiệm vụ lấy thông tin môn học có trong chủ đề môn học (select2)
-     * @param array $method phương thức post $_POST
-     * @return object|bool thông tin buổi (sáng, chiều, tối)
-     */
-    public function getSubjectJoinTopicByQuery($method)
-    {
-        $query = "SELECT DISTINCT  s.`id`, s.`subject`  
-        FROM  `subjects` s INNER JOIN `subjecttopics` st ON s.id = st.subjectId";
-        $q = "";
-        $results = null;
-        if (isset($method['q']) && !empty($method['q'])) {
-
-            $q = $method["q"];
-            $results = $this->db->select($query);
-        }
-        if (isset($method['num']) && !empty($method['num'])) {
-            $query .= " WHERE s.`subject` LIKE  CONCAT('%',?,'%')";
-            $query .= " ORDER BY s.`id` ASC;";
-            $results = $this->db->p_statement($query, "s", [$q]);
-        }
-
-
-
-        return $results ? $results : false;
-    }
-
-    /**
-     * Hàm có nhiệm vụ chỉ lấy thông tin môn học  (select2)
-     * @param array $method phương thức post $_POST
-     * @return object|bool thông tin buổi (sáng, chiều, tối)
-     */
-    public function getSubjectByQuery($method)
-    {
-        $query = "SELECT DISTINCT  s.`id`, s.`subject`  
-        FROM  `subjects` AS s";
-        $q = "";
-        $results = null;
-        if (isset($method['q']) && !empty($method['q'])) {
-
-            $q = $method["q"];
-            $results = $this->db->select($query);
-        }
-        if (isset($method['num']) && !empty($method['num'])) {
-            $query .= " WHERE s.`subject` LIKE  CONCAT('%',?,'%')";
-            $query .= " ORDER BY s.`id` ASC;";
-            $results = $this->db->p_statement($query, "s", [$q]);
-        }
-
-
-
-        return $results ? $results : false;
     }
 }

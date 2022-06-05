@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") :
                 <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
                     <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
                         <div class=" card-img-top img-teacher text-center">
-                            <img src=" <?= Util::getCurrentURL(1) . "public/" . (isset($result['imagepath']) ? $result['imagepath'] : "") ?>" class="rounded" alt="" srcset="">
+                            <img src=" <?= Util::getCurrentURL() . "/../public/" . (isset($result['imagepath']) ? $result['imagepath'] : "") ?>" class="rounded" alt="" srcset="">
                         </div>
                         <div class="card-body">
                             <h6 class="font-weight-bold pt-1"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h6>

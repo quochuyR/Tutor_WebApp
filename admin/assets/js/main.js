@@ -49,24 +49,10 @@
 
 
 		$(".menu-item-has-children.dropdown").each(function () {
-			$(this).one('click', function () {
+			$(this).on('click', function () {
 				var $temp_text = $(this).children('.dropdown-toggle').html();
 				$(this).children('.sub-menu').prepend('<li class="subtitle">' + $temp_text + '</li>');
 			});
-		});
-
-
-		$("aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle").each(function () {
-			$(this).on('click', (e) => {
-				if($(this).hasClass("show")){
-					console.log($(this).parent().siblings(".menu-item-has-children").removeClass("show"))
-
-					$(this).parent().addClass("show")
-				}
-				
-
-			})
-
 		});
 
 
@@ -83,10 +69,10 @@
 
 		// 
 		// var urls = ['/url/one','/url/two'];
-
+		
 		$.ajax({
 			type: "get",
-			url: "../api/home/getnumberuserandtutorbymonth.php",
+			url: "../api/getnumberuserandtutorbymonth.php",
 			data: {
 				// numNotification, // lấy giá trị của thuộc tính subject-id
 				// offset
@@ -95,27 +81,27 @@
 			success: function (group) {
 				console.log(group)
 				callbackDataTutorSuccess(group);
-
+				
 
 			},
 			error: function (xhr, status, error) {
 				console.error(xhr);
 			}
 		});
-
-		function callbackDataTutorSuccess(group) {
+		
+		function callbackDataTutorSuccess(group){
 			console.log(group, "callback");
 			// let month_tutor = group.groupByTutor.map(val =>{
 			// 	return val.month
 			// });
-
-			let num_user = group.groupByUser.map(val => {
+	
+			let num_user = group.groupByUser.map(val =>{
 				return val.num
 			});
-			let num_tutor = group.groupByTutor.map(val => {
+			let num_tutor = group.groupByTutor.map(val =>{
 				return val.num
 			});
-			console.log(num_tutor, "group tutor")
+			console.log( num_tutor, "group tutor")
 			const labels = [
 				'January',
 				'February',
@@ -130,8 +116,8 @@
 				'November',
 				'December'
 			];
-
-
+			
+	
 			const data = {
 				labels: labels,
 				datasets: [{
@@ -148,16 +134,16 @@
 					data: num_tutor,
 					borderWidth: 1
 				}
-				],
-
+			],
+			
 			};
-
+	
 			const config = {
 				type: 'bar',
 				data: data,
-
+				
 			};
-
+	
 			const myChart = new Chart(
 				document.getElementById('tutors-chart'),
 				config
@@ -169,9 +155,9 @@
 			// $(".list-notification").last().append(data);  
 			// document.querySelector('#end-notification').scrollIntoView({behavior : "smooth",  block: 'nearest', inline: 'start'})
 		}
+		
 
-
-
+		
 
 	});
 

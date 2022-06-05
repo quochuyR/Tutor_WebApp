@@ -67,7 +67,7 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
 }
 ?>
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <?php
 
@@ -165,7 +165,7 @@ include "../inc/head.php";
                                 <div class="dropdown">
                                     <button class="btn  dropdown-toggle" type="button" id="dropdownMenuAccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="">
-                                            <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL(1) . "public/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md avatar rounded-circle" alt="Hình avatar">
+                                            <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../public/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md avatar rounded-circle" alt="Hình avatar">
                                         </span>
 
                                     </button>

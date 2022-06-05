@@ -78,7 +78,7 @@ include "../inc/header.php"
                                     <div class="job-box d-md-flex align-items-center justify-content-between mb-30  position-relative">
                                         <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                             <div class="img-holder mx-2 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                                <img src="<?= Util::getCurrentURL(1) . "public/" . $tutor["imagepath"] ?>" alt=".">
+                                                <img src="<?= Util::getCurrentURL() . "/../public/" . $tutor["imagepath"] ?>" alt=".">
                                             </div>
                                             <div class="job-content">
                                                 <h5 class="text-xs-center text-md-left fw-bold"><?= $tutor["lastname"] . ' ' . $tutor["firstname"] ?></h5>

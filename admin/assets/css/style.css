@@ -25,12 +25,7 @@ Googel Fonts  */
 
 @import url("./utilities/main.css");
 @import url("./material-icon/main.css");
-<<<<<<< HEAD
 @import url("./carousel_post/main.css");
-=======
-@import url("./user_detail/main.css");
-
->>>>>>> origin/master
 .avatar-md {
     height: 2.5rem;
     width: 2.5rem;
@@ -491,19 +486,11 @@ body {
 }
 
 p {
-<<<<<<< HEAD
     font-size: 16px;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
     line-height: 24px;
     color: #878787;
-=======
-  font-size: 16px;
-  font-family: "Open Sans", sans-serif;
-  font-weight: 400;
-  line-height: 24px;
-  /* color: #878787; */
->>>>>>> origin/master
 }
 
 p:focus {
@@ -539,15 +526,10 @@ h5 {
     font-size: 1em;
 }
 
-/* ul,
+ul,
 ol {
-<<<<<<< HEAD
     padding-left: 0;
 }
-=======
-  padding-left: 0;
-} */
->>>>>>> origin/master
 
 .btn:focus,
 button:focus {
@@ -565,15 +547,9 @@ img {
     max-width: 100%;
 }
 
-<<<<<<< HEAD
 .modal-header {
     display: block;
 }
-=======
-/* .modal-header {
-  display: block;
-} */
->>>>>>> origin/master
 
 .mb-0 {
     margin-bottom: 0;
@@ -653,28 +629,15 @@ canvas {
     text-align: right;
 }
 
-.order-table #tutor-table tr td:last-child,
-.order-table #tutor-table tr th:last-child {
-  text-align: center;
-
-}
-
 .order-table tr:last-child td {
     border: none;
 }
 
 .order-table .badge {
-<<<<<<< HEAD
     /* color: white; */
     padding: 10px;
     font-size: 0.675rem;
     font-weight: 600;
-=======
-  /* color: white; */
-  padding: 10px;
-  font-size: 0.675rem;
-  font-weight: 600;
->>>>>>> origin/master
 }
 
 .order-table .badge-complete {
@@ -1119,7 +1082,6 @@ aside.left-panel:hover {
     overflow: hidden;
 }
 
-<<<<<<< HEAD
 .open aside.left-panel .navbar .navbar-nav li.menu-item-has-children ul {
     padding-left: 0;
 }
@@ -1151,39 +1113,6 @@ aside.left-panel:hover {
     width: 180px;
     -webkit-box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
     box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
-=======
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle ul {
-  padding-left: 0;
-}
-
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle+.sub-menu {
-  display: block;
-  left: 83px;
-  top: 0;
-}
-
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle+.sub-menu li a {
-  display: block;
-  font-size: 14px;
-  max-width: inherit;
-  padding: 2px 15px 2px 25px;
-  width: 100%;
-}
-
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle+.sub-menu li a .menu-icon {
-  text-align: center;
-}
-
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children.show{
-  overflow: visible !important;
-}
-
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle.show+.sub-menu {
-  position: absolute !important;
-  width: 180px;
-  -webkit-box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
-  box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
->>>>>>> origin/master
 }
 
 .open aside.left-panel .navbar .navbar-nav li span.count {
@@ -1957,16 +1886,9 @@ header .form-inline .search-form.close {
 }
 
 .card .card-footer ul li {
-<<<<<<< HEAD
     display: table-cell;
     padding: 0 1rem;
     text-align: center;
-=======
-  /* display: table-cell; */
-  /* padding: 0 1rem; */
-  /* text-align: center; */
-  line-height: 1.7;
->>>>>>> origin/master
 }
 
 .card .nav-tabs {
@@ -2079,108 +2001,6 @@ header .form-inline .search-form.close {
 
 
 /* Stats Table */
-<<<<<<< HEAD
-=======
-/* table */
-
-
-
-.table-type-1.table-striped tbody tr:nth-of-type(odd) td {
-  /* background-color: rgb(20 184 166); */
-  background-color: rgb(209 250 229);
-
-}
-
-/* .table-type-1.table-striped tbody tr:nth-of-type(odd){
-  box-shadow: 0 0 15px 0 rgb(0 0 0 / 10%);
-
-} */
-/* .table-type-1.table-striped tbody tr:nth-of-type(even) td {
-  background-color: rgb(204 251 241);
-
-} */
-
-/* .table-type-1.table-striped tbody tr:nth-of-type(even){
-  box-shadow: 0 0 15px 0 rgb(0 0 0 / 10%);
-
-}*/
-
-.table-type-1.table-striped tbody tr:nth-of-type(odd) td {
-  /* color: #fff; */
-  color: #000;
-
-
-}
-
-/*
-
-.table-type-1.table-striped tbody tr:nth-of-type(even) td {
-  color: #000;
-}
-*/
-.table-type-1.dataTable.table-striped>tbody>tr.odd>* {
-  box-shadow: none !important;
-}
-
-/* đổi màu icon edit khi striped*/
-/* .table-striped tbody tr:nth-of-type(odd) td .edit-schedule, 
-.table-striped tbody tr:nth-of-type(odd) td .delete-schedule { 
-  color: #fff !important;
-  
-} */
-
-tbody,
-td,
-tfoot,
-th,
-thead,
-tr {
-  border-style: none !important;
-}
-
-.table {
-  --bs-table-bg: none !important;
-  --bs-table-accent-bg: none !important;
-  --bs-table-striped-color: none !important;
-  --bs-table-striped-bg: none !important;
-  --bs-table-active-color: none !important;
-  --bs-table-active-bg: none !important;
-  --bs-table-hover-color: none !important;
-  --bs-table-hover-bg: none !important;
-}
-
-.table-type-1 {
-  /* border-spacing: 0 25px; */
-
-}
-
-/* .table-type-1 tr td {
-  border-color: #2EA69A !important;
-  text-align: left;
-  vertical-align: middle;
-  padding: 0.675rem 0;
-}
-
-.table-type-1 thead tr th:nth-child(2),
-.table-type-1 tbody tr td:nth-child(2) {
-  text-align: center !important;
-  vertical-align: middle;
-
-}
-*/
-.table-type-1 tr td:nth-child(2) {
-  border-radius: 0.5rem 0 0 0.5rem;
-}
-
-.table-type-1 tr td:last-child {
-  border-radius: 0 0.5rem 0.5rem 0;
-}
-
-
-.table-type-1 thead th {
-  border-bottom: none;
-  font-weight: 700 !important;
->>>>>>> origin/master
 
 .table th,
 .table td {
@@ -2205,13 +2025,8 @@ tr {
 /*  */
 
 .table-stats .table thead tr th {
-<<<<<<< HEAD
     font-size: 0.875rem;
     font-weight: 600;
-=======
-  font-size: 0.875rem;
-  font-weight: 600;
->>>>>>> origin/master
 }
 
 .table-stats .table tbody tr td {
@@ -2225,14 +2040,8 @@ tr {
 
 .table-stats .table thead tr th,
 .table-stats .table tbody tr td {
-<<<<<<< HEAD
     color: #868e96;
     padding: 0.875rem 0 0.565rem !important;
-=======
-  color: #868e96;
-
-  padding: 0.875rem 0 0.565rem !important;
->>>>>>> origin/master
 }
 
 .table-stats table th img,
@@ -3774,30 +3583,5 @@ footer.site-footer .footer-inner a {
     border-radius: 30% !important;
 }
 
-<<<<<<< HEAD
 
 /* end pagination bootstrap custom */
-=======
-/* end pagination bootstrap custom */
-
-/* modal */
-
-.modal-header .btn-close {
-  opacity: 1 !important;
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(3px, 3px);
-  background-color: #fff;
-  box-shadow: 0 0 25px 0 rgb(34 41 47 / 17%);
-  transition: all 0.23s ease 0.1s;
-}
-
-.modal-header .btn-close:hover {
-  transform: translate(-3px, 3px);
-}
-
-.modal-body {
-  background-color: #F3F3F3 !important;
-}
->>>>>>> origin/master
