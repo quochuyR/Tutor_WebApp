@@ -19,10 +19,92 @@ class SubjectTopic
         // $this->fm = new Format();
     }
 
+
     public function getAll()
     {
         $query = "SELECT * FROM `subjecttopics` ORDER BY id ASC";
         $result = $this->db->select($query);
+        return $result;
+    }
+
+    /**
+     * Hàm có nhiệm vụ thêm thông tin môn học
+     * @param int $subject_id id của môn học
+     * @param array $subject_name_array tên của chủ đề môn học
+     * @return object|bool sô chủ đề môn học được thêm thành công
+     */
+    public function add_subject_topic($subject_id, $subject_topic_name_array): object|bool
+    {
+        $subjectTopicCount = count($subject_topic_name_array);
+        // create a array with question marks
+        $subjectTopicMarks = array_fill(0, $subjectTopicCount, '(NULL, ?, ?)');
+        $subjectTopicMarks =  implode(",", $subjectTopicMarks);
+        $dataTypes = str_repeat('is', $subjectTopicCount);
+
+        $vars = array();
+
+        foreach($subject_topic_name_array as $topic_name){
+            array_push($vars, $subject_id, $topic_name);
+        }
+        // print_r($subjectTopicMarks);
+        // print_r($vars);
+        // print_r($dataTypes);
+        $query = "INSERT INTO `subjecttopics` (`id`, `subjectId`, `topicName`) VALUES $subjectTopicMarks;";
+
+        // print_r($query);
+        $result = $this->db->p_statement($query, $dataTypes, $vars);
+        return $result;
+        // return false;
+    }
+
+    /**
+     * Hàm có nhiệm vụ cập nhật thông tin chủ đề môn học dựa vào id
+     * @param int $id id của môn học
+     * @param string $subject tên của môn học
+     * @return object|bool sô môn học được cập nhật thành công
+     */
+    public function update_subject_subject($id, $subjectId, $topic_name): object|bool
+    {
+        $query = "UPDATE `subjecttopics` st SET st.subjectId= ?,st.topicName=? WHERE st.id = ?;";
+        $result = $this->db->p_statement($query, "isi", [ $subjectId, $topic_name, $id]);
+        return $result;
+    }
+
+    /**
+     * Hàm có nhiệm vụ xoá chủ đề môn học dựa vào id 
+     * @param array|int $id id của chủ đề môn học
+     * @return object|bool sô môn học đã xoá thành công
+     */
+    public function delete_subject_topic(array|int $id): object|bool
+    {
+        $vars = array();
+        $types = "";
+        $idMarks = null;
+        if (is_array($id)) {
+            $id = array_map(function ($v) {
+                return mysqli_real_escape_string($this->db->link, $v);
+            }, $id);
+
+            $idCount = count($id);
+            // create a array with question marks
+            $idMarks = array_fill(0, $idCount, '?');
+            $idMarks =  implode(",", $idMarks);
+            $dataTypes = str_repeat('i', $idCount);
+            $types .= $dataTypes;
+            $vars = array_merge($vars, $id);
+        }
+
+        if (is_numeric($id)) {
+            $id =  mysqli_real_escape_string($this->db->link, $id);
+
+
+            $types = "i";
+            $vars = array_merge($vars, [$id]);
+            $idMarks = '?';
+        }
+
+        $query = "DELETE FROM `subjecttopics` WHERE `subjecttopics`.`id` IN ($idMarks);";
+        $result = $this->db->p_statement($query, $types,  $vars);
         return $result;
     }
 
@@ -43,7 +125,7 @@ class SubjectTopic
         FROM ((`subjecttopics` INNER JOIN `subjects`
         ON `subjecttopics`.`subjectId` = `subjects`.`id`)
         INNER JOIN `teachingsubjects` on `subjecttopics`.`id` = `teachingsubjects`.`topicId`)
-        GROUP BY subject ORDER BY sum_topic DESC;";
+        GROUP BY `subjectId`, `subject` ORDER BY sum_topic DESC;";
         $result = $this->db->select($query);
         return $result;
     }

@@ -218,8 +218,13 @@ include "../inc/header.php";
 
 
 
+<<<<<<< HEAD
             </section> 
             <!-- tutors Section -->
+=======
+
+            </section> <!-- tutors Section -->
+>>>>>>> origin/master
             <section id="tutors">
                 <div class="container py-3">
                     <div class="row">
@@ -239,4 +244,16 @@ include "../inc/header.php";
 
 include "../inc/script.php"
 ?>
+
+<script>
+    // window.onload = function() {
+        var conn = new WebSocket('ws://localhost:8080');
+        conn.onmessage = function(e) {
+            console.log(e.data);
+        }
+        conn.onopen = function(e) {
+            console.log("Connection established!");
+        }
+    // }
+</script>
 <?php include '../inc/footer.php' ?>

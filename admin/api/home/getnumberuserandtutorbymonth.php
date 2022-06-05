@@ -1,15 +1,15 @@
 <?php
 
-namespace Ajax;
+namespace Api;
 
 use Classes\AppUser;
 use Classes\Tutor;
 // use Helpers\Format;
 use Library\Session;
+// \tutor_webapp
+$filepath = realpath(dirname(__FILE__, 4));
 
-$filepath = realpath(dirname(__FILE__));
-
-include_once $filepath . "../../../lib/session.php";
+include_once $filepath . "../lib/session.php";
 include_once $filepath . "../../classes/tutors.php";
 include_once $filepath . "../../classes/appusers.php";
 

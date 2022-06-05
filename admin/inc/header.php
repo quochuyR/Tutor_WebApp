@@ -104,7 +104,7 @@ include_once "../inc/head.php";
 
             <div class="user-area dropstart float-right">
                 <button class="btn dropdown-toggle" id="dropdownMenuAccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar rounded-circle" src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../assets/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" alt="User Avatar">
+                    <img class="user-avatar rounded-circle" src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL(1) . "assets/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" alt="User Avatar">
                 </button>
 
                 <div class="user-menu dropdown-menu" aria-labelledby="dropdownMenuAccount">

@@ -3,7 +3,7 @@ namespace Helpers;
 
 class Util
 {
-    public static function getCurrentURL()
+    public static function getCurrentURL($level=0)
     {
         $currentURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
         $currentURL .= $_SERVER["SERVER_NAME"];
@@ -13,7 +13,14 @@ class Util
         }
 
         // $currentURL .= $_SERVER["REQUEST_URI"];
-        $currentURL .= dirname($_SERVER["PHP_SELF"]);
+        $path_self_array = preg_split("/\//", dirname($_SERVER["PHP_SELF"]));
+        $path_self = "";
+        for($i=0; $i < count($path_self_array) - $level;$i ++ ){
+            $path_self .= $path_self_array[$i] . "/";
+
+        }
+        
+        $currentURL .= $path_self;
         return $currentURL;
     }
     public static function getRootURL()
