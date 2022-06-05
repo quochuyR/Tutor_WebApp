@@ -47,7 +47,7 @@ class db_homepage
     function showPost()
     {
         $select = "SELECT id, title, content, status, time, kind FROM admin_post WHERE status = 1 ORDER BY time DESC";
-        $result = $this->db->select($select);
+        $result = $this->db->update($select);
         return $result;
     }
 

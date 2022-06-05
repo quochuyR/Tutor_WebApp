@@ -14,7 +14,7 @@ if (!Session::checkRoles(["admin"])) {
 ?>
 
 <?php
-$title = "Tải hình ảnh";
+$title = "Viết bài viết";
 
 include "../../classes/adminhomepage.php";
 $db_adminhomepage  = new db_adminhomepage();
@@ -63,6 +63,46 @@ if (
     $db_adminhomepage->AddPost($Insert);
 }
 
+//chức năng edit
+$id = "";
+$titlepost = "";
+$editor = "";
+$kind = "";
+$statuspost = "";
+
+//điền dữ liệu lên bài viết
+if (isset($_GET['idEditPost'])) {
+    $id = $_GET['idEditPost'];
+    $query = "SELECT * FROM `admin_post` WHERE id = $id";
+    $result = $db_adminhomepage->SearchPost($query);
+    //gán giá trị cho từng biến để dễ truy vấn hơn
+    $row = $result->fetch_assoc();
+    $titlepost = $row['title'];
+    $editor = $row['content'];
+    $kind = $row['kind'];
+    $statuspost = $row['status'];
+}
+
+//chức năng xóa bài viết
+if (isset($_GET['idDeletePost'])) {
+    $idDelete = $_GET['idDeletePost'];
+    $db_adminhomepage->DeletePost($idDelete);
+}
+//lưu lại bài viết
+if (
+    isset($_POST['SavePostEdit'])
+    && isset($_GET['idEditPost'])
+) {
+    $id = $_GET['idEditPost'];
+    $titlepost = $_POST["titlepost"];
+    $editor = $_POST["editor"];
+    $kind = $_POST["radioKind"];
+    $statuspost = (isset($_POST['statuspost'])) ? 1 : 0;
+    $update = "UPDATE `admin_post` SET `title`='$titlepost',`content`='$editor',`status`='$statuspost',`time`= CURRENT_TIMESTAMP(),`kind`='$kind' WHERE id = $id;";
+    $db_adminhomepage->SaveEditPost($update);
+    header('location: ./carousel.php');
+}
+
 ?>
 
 
@@ -84,15 +124,15 @@ if (
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button name="loadimg" class="nav-link active" id="carousel-tab" data-bs-toggle="tab" data-bs-target="#carousel" type="button" role="tab" aria-controls="carousel" aria-selected="true">Tải hình ảnh</button>
+                                <button name="loadimg" class="nav-link active" id="carousel-tab" data-bs-toggle="tab" data-bs-target="#carousel" type="button" role="tab" aria-controls="carousel" aria-selected="false">Tải hình ảnh</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button name="change_post" class="nav-link" id="post-homepage-tab" data-bs-toggle="tab" data-bs-target="#post-homepage" type="button" role="tab" aria-controls="post-homepage" aria-selected="false">Viết bài viết</button>
+                                <button name="change_post" class="nav-link" id="post-homepage-tab" data-bs-toggle="tab" data-bs-target="#post-homepage" type="button" role="tab" aria-controls="post-homepage" aria-selected="true">Viết bài viết</button>
                             </li>
 
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="carousel" role="tabpanel" aria-labelledby="carousel-tab">
+                            <div class="tab-pane fade" id="carousel" role="tabpanel" aria-labelledby="carousel-tab">
                                 <!-- hình ảnh trang chủ  -->
                                 <div class="container">
                                     <h1 id="carousel-h1" class="m-3 text-center"><strong>Tải hình ảnh trang chủ</strong></h1>
@@ -182,18 +222,20 @@ if (
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="post-homepage" role="tabpanel" aria-labelledby="post-homepage-tab">
+                            <div class="tab-pane fade show active" id="post-homepage" role="tabpanel" aria-labelledby="post-homepage-tab">
                                 <!-- Đăng bài viết giới thiệu -->
                                 <div class="container-fluid d-flex justify-content-center text-center">
                                     <form action="" method="POST" id="post-form">
                                         <div class="row container">
                                             <div class="col-8  p-5 mb-4 shadow">
                                                 <div class="row">
-                                                    <input name="titlepost" class="col-12 rounded-3" type="text" placeholder="Thêm tiêu đề" required="required">
+                                                    <input name="titlepost" class="col-12 rounded-3" type="text" placeholder="Thêm tiêu đề" required="required" value="<?php echo $titlepost ?>">
                                                 </div>
                                                 <div class="row mt-3">
                                                     <!-- <div id="editor" class="col-12" name="editor"></div> -->
-                                                    <textarea name="editor" id="editor"></textarea>
+                                                    <textarea name="editor" id="editor">
+                                                        <?php echo $editor ?>
+                                                    </textarea>
                                                 </div>
                                             </div>
                                             <div class="col-4 p-4">
@@ -218,7 +260,7 @@ if (
                                                                         Trạng thái:
                                                                         <b>
                                                                             <snap>
-                                                                                <input type="checkbox" name="statuspost" id="status" value="1">
+                                                                                <input type="checkbox" name="statuspost" id="status" value="1" <?php if ($statuspost == 1) echo 'checked="checked"' ?>>
                                                                                 <label for="status">Hiểu thị ở trang chủ</label>
                                                                             </snap>
                                                                         </b>
@@ -240,7 +282,7 @@ if (
                                                             </div>
                                                             <hr>
                                                             <div class="d-flex justify-content-end">
-                                                                <input type="submit" value="Công bố" name="posts" class="btn btn-success justyfi">
+                                                                <input type="submit" value="Lưu lại" name="SavePostEdit" class="btn btn-success">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -249,23 +291,23 @@ if (
                                                         <hr>
                                                         <ul class="list-unstyled p-3 pt-0">
                                                             <li class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" checked>
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" <?php if ($kind == 'Trích dẫn') echo 'checked' ?>>
                                                                 <label class="form-check-label" for="radioKind1">Trích dẫn</label>
                                                             </li>
                                                             <li class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radioKind" value="Bài viết" id="radioKind2">
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Bài viết" id="radioKind2" <?php if ($kind == 'Bài viết') echo 'checked' ?>>
                                                                 <label class="form-check-label" for="radioKind2">Bài viết</label>
                                                             </li>
                                                             <li class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radioKind" value="Hướng dẫn" id="radioKind3">
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Hướng dẫn" id="radioKind3" <?php if ($kind == 'Hướng dẫn') echo 'checked' ?>>
                                                                 <label class="form-check-label" for="radioKind3">Hướng dẫn</label>
                                                             </li>
                                                             <li class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radioKind" value="Thông tin chung" id="radioKind4">
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Thông tin chung" id="radioKind4" <?php if ($kind == 'Thông tin chung') echo 'checked' ?>>
                                                                 <label class="form-check-label" for="radioKind4">Thông tin chung</label>
                                                             </li>
                                                             <li class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radioKind" value="Giới thiệu" id="radioKind5">
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Giới thiệu" id="radioKind5" <?php if ($kind == 'Giới thiệu') echo 'checked' ?>>
                                                                 <label class="form-check-label" for="radioKind5">Giới thiệu</label>
                                                             </li>
                                                         </ul>
@@ -292,9 +334,9 @@ if (
                                                         <tbody>
                                                             <?php
                                                             //đường dẫn chuyển qua trang chỉnh sửa
-                                                            $linkPostpageEdit = './page_editpost.php?idEditPost=';
+                                                            $linkPostpageEdit = '?idEditPost=';
                                                             // đường dẫn chuyển qua trang xóa
-                                                            $linkPostpageDelete = './page_editpost.php?idDeletePost=';
+                                                            $linkPostpageDelete = '?idDeletePost=';
                                                             $db_adminhomepage->FillPostToTable($linkPostpageEdit, $linkPostpageDelete);
                                                             ?>
                                                         </tbody>
@@ -348,7 +390,7 @@ if (
         $.validator.addMethod("ck_editor", function() {
             var content_length = MyEditor.getData().trim().length;
             return content_length > 0;
-        }, "Please insert content for the page.");       
+        }, "Please insert content for the page.");
 
 
     })(jQuery)

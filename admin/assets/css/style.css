@@ -3583,5 +3583,9 @@ footer.site-footer .footer-inner a {
     border-radius: 30% !important;
 }
 
+#textip {
+    color: red !important;
+}
+
 
 /* end pagination bootstrap custom */

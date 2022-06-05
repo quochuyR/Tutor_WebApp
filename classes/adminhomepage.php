@@ -76,8 +76,8 @@ class db_adminhomepage
 
     function Delete($idDelete)
     {
-        $query = "DELETE FROM calrouselimg WHERE id = $idDelete";
-        $result = $this->db->update($query);
+        $query = "DELETE FROM calrouselimg WHERE id = ?";
+        $result = $this->db->p_statement($query,"i",[$idDelete]);
     }
 
     //count number images have been done show in homepage
@@ -99,12 +99,12 @@ class db_adminhomepage
     }
 
     //truy vấn cơ sở dữ liệu cho post bài viết trong bản
-    function FillPostToTable()
+    function FillPostToTable($linkPostpageEdit,$linkPostpageDelete)
     {
-        //đường dẫn dành cho trang web post bài Viết
-        $linkPostpageEdit = 'Query/sua.php?idEdit=';
-        // dành cho trang chủ
-        $linkPostpageDelete = 'carousel.php?idDelete='; 
+        // //đường dẫn dành cho trang web post bài Viết
+        // $linkPostpageEdit = '?idEdit=';
+        // // dành cho trang chủ
+        // $linkPostpageDelete = '?idDelete='; 
         $result = $this->FillPostToTableResult();
         $countNumber = 1;
         if (($result->num_rows) > 0) {
@@ -145,5 +145,23 @@ class db_adminhomepage
 
 
     //trang viết bài viết
+    function AddPost($query){
+        $result = $this->db->update($query);
+    }
+    //tìm bài viết
+    function SearchPost($query){
+        $result = $this->db->select($query);
+        return $result;
+    }
+    //xóa bài Viết
+    function DeletePost($idDelete){
+        $query = "DELETE FROM admin_post WHERE id = $idDelete ";
+        $result = $this->db->update($query);
+    }
+    //lưu lại chỉnh sửa bài viết
+    function SaveEditPost($query){
+        $result = $this->db->update($query);
+    }
+
 
 }

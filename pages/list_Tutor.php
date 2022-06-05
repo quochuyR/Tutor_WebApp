@@ -218,7 +218,8 @@ include "../inc/header.php";
 
 
 
-            </section> <!-- tutors Section -->
+            </section> 
+            <!-- tutors Section -->
             <section id="tutors">
                 <div class="container py-3">
                     <div class="row">
