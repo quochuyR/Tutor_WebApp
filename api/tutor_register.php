@@ -56,12 +56,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" ) {
         $linkTwit = isset($_POST["linkTwit"]) && !empty($_POST["linkTwit"]) ? Format::validation($_POST["linkTwit"]) : NULL;
         $data = array(Session::get("userId"), $description, $currentPhone, $currentEmail, $currentAddress, $currentCollage, $graduateYear,  $currentJob, $currentProvince, $teachingForm,  $districts, $linkFace, $linkTwit);
 
-        // print_r($teachingForm . "teach");
+        // print_r($currentProvince);
         $numTutor = $_tutor->countTutorByUserId(Session::get("userId"))->fetch_assoc()["countTutor"];
 
         if ($numTutor === 0) {
-            // $insert_register_tutor = $_tutor->addRegisterTutor($data);
-            $insert_register_tutor = false;
+            $insert_register_tutor = $_tutor->addRegisterTutor($data);
+            // $insert_register_tutor = false;
 
             if ($insert_register_tutor) {
                 $tutorId = $_tutor->getTutorIdByUserId(Session::get("userId"))->fetch_assoc()["tutorId"];

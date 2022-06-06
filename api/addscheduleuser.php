@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $topicId = Format::validation($_POST["topicId"]);
                 $timeId = Format::validation($_POST["timeId"]);
 
-                $insert_schedule = $_schedule->AddTutoringSchedule($status, $id, $dayofweekId, $topicId, $timeId, Session::get("tutorId"));
+                $insert_schedule = $_schedule->AddTutoringSchedule($status, $id, $dayofweekId, $topicId, $timeId);
                 if ($insert_schedule) {
                     header('Content-Type: application/json; charset=utf-8');
                     echo json_encode(["action" => "successful"]);

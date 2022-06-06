@@ -96,7 +96,7 @@ include "../inc/header.php";
                                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30  position-relative <?= $status_approval["status"] === 1 ? "bg-approval" : "" ?>">
                                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                                 <div class="img-holder mx-2 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                                    <img src="<?= Util::getCurrentURL() . "/../public/"  . $_register_user["imagepath"] ?>" alt="." class="rounded">
+                                                    <img src="<?= Util::getCurrentURL(1) . "public/"  . $_register_user["imagepath"] ?>" alt="." class="rounded">
                                                 </div>
                                                 <div class="job-content">
                                                     <h5 class="text-xs-center text-md-left fw-bold "><?= $_register_user["lastname"] . ' ' . $_register_user["firstname"] ?></h5>
@@ -322,6 +322,7 @@ include "../inc/script.php"
 
 
             function onChangeActionRadio() {
+                $(`.form-check-input[type="radio"]`).off();
                 $(`.form-check-input[type="radio"]`).on('change', (e) => { // disable input checkbox khi thay đổi
                     if (e.currentTarget.checked) {
                         $(e.currentTarget).closest(".modal-content").find(".btn-register-add-del") // Tìm nơi chứa select thêm lịch dạy cho người dùng
@@ -339,7 +340,7 @@ include "../inc/script.php"
             }
 
             function onChangeShowTopic(event_approval) {
-
+                $(".show-topic-register").off();
                 $(".show-topic-register").on('change', () => {
 
                     getSubjectRegisterUser(event_approval);
@@ -366,6 +367,7 @@ include "../inc/script.php"
             }
 
             function onClickAddOrDel(event_approval) {
+                $(".btn-register-add-del").off();
                 $(".btn-register-add-del").on('click', (e) => {
                     if (confirm("Bạn có chắn chắn muốn " + $(e.target).text().trim()) === true)
                         addOrDelRegisterTutor(event_approval, e);
@@ -406,7 +408,7 @@ include "../inc/script.php"
                 let id_modal = $(event_approval.currentTarget).attr("data-bs-target");
                 let tuId = $(event_approval.currentTarget).attr("data-id");
                 let action = $(event_target.currentTarget).attr("data-action");
-                let topicId = $(id_modal).find(`select`);
+                let topicId = $(id_modal).find(`select`).val();
 
                 console.log([action, tuId, topicId])
 
@@ -416,7 +418,7 @@ include "../inc/script.php"
                     data: {
                         tuId,
                         action,
-                        topicId: $(topicId).val(),
+                        topicId,
 
                     },
                     cache: false,

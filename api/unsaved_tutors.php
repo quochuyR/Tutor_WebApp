@@ -12,17 +12,16 @@ if(!Session::checkRoles(['user','tutor'])){
 include_once($filepath . "../../classes/savedtutors.php");
 include_once($filepath . "../../helpers/format.php");
 // Session::init();
+$save_tutor = new SavedTutor();
 
 
 
 
-
-if (isset($_POST["userId"]) && isset($_POST["tutorId"])) {
-    $userId = Format::validation($_POST["userId"]);
+if (isset($_POST["tutorId"]) && !empty($_POST["tutorId"])) {
     $tutorId = Format::validation($_POST["tutorId"]);
-    $save_tutor = new SavedTutor();
 
-    $result = $save_tutor->deleteTutorSaved($userId, $tutorId);
+
+    $result = $save_tutor->deleteTutorSaved(Session::get("userId"), $tutorId);
     if($result){
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode(["delete" => "successful"]);

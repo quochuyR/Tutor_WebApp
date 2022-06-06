@@ -97,13 +97,13 @@
             if ($(e.currentTarget).attr("type") === 'checkbox' && e.currentTarget.checked === false) {
                 $(`div[data-value="${e.currentTarget.parentNode.firstChild.nodeValue}"`)?.remove();
             }
-
-            $(".close").on('click', (e) => {
+            
+            $(".close").one('click', (e) => {
 
                 let checkBoxValue = $(e.currentTarget.parentNode).attr("data-value");
                 // let LiValue = e.currentTarget.parentNode.getAttribute("value");
                 let checkBoxReset = $(`label[data-value="${checkBoxValue}"]`);
-
+                // console.log(checkBoxReset);
                 // var current = document.querySelectorAll(".subject-active");
 
                 // [...current].map(li => {
@@ -113,9 +113,12 @@
                 // })
 
                 // xoá checked khi xoá filter
-                if (checkBoxReset[0]?.firstElementChild.nodeName === 'INPUT') {
-                    checkBoxReset[0].firstElementChild.checked = false;
-                }
+                console.log()
+                // if (checkBoxReset[0]?.firstElementChild.nodeName === 'INPUT') {
+                //     checkBoxReset[0].firstElementChild.checked = false;
+                // }
+
+                $(checkBoxReset).children("input[type='checkbox']").prop("checked", false)
 
                 // console.log($(".category").first(), "123456");
                 // Xoá hết thì thêm background xanh cho li Tất cả :))

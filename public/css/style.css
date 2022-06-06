@@ -1,5 +1,4 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('../css/teacher_list/main.css');
 @import url('../css/user_detail/main.css');
@@ -15,8 +14,11 @@
 @import url('../css/material-icon/main.css');
 @import url('../css/404/main.css');
 @import url('../css/TrangChu/main.css');
-@import url('../css/admin_carousel_post/main.css');
+
+
+
 * {
+
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
@@ -39,21 +41,22 @@ label {
     font: 500 15px/24px "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-
 /* table */
+
+
 
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: #76cbc7c7;
+
+
 }
 
 .table-striped tbody tr:nth-of-type(odd) td {
     color: #fff;
+
 }
 
-
 /* đổi màu icon edit khi striped*/
-
-
 /* .table-striped tbody tr:nth-of-type(odd) td .edit-schedule, 
 .table-striped tbody tr:nth-of-type(odd) td .delete-schedule { 
     color: #fff !important;
@@ -84,26 +87,31 @@ tr {
     border-color: #2EA69A !important;
     text-align: center;
     vertical-align: middle;
+
 }
+
 
 .table thead th {
     border-bottom: none;
     font-weight: 700 !important;
-}
 
+}
 
 /* fixed column */
 
 @media only screen and (max-width: 576px) {
+
     th:nth-child(2),
     td:nth-child(2) {
         position: sticky;
         left: 0;
         z-index: 100;
         background-color: #f2fdff !important;
+
         color: #0d0c22 !important;
     }
 }
+
 
 .table-cerulean {
     --bs-table-bg: #2EA69A;
@@ -117,8 +125,11 @@ tr {
     border-color: #2EA69A;
 }
 
-
 /* end table */
+
+
+
+
 
 .card,
 .accordion {
@@ -139,6 +150,8 @@ tr {
     border-radius: .25rem;
 }
 
+
+
 a,
 a:hover {
     text-decoration: none !important;
@@ -146,12 +159,17 @@ a:hover {
 
 #main {
     min-height: 65vh;
+
 }
+
+
 
 .bg-accordion-button {
     background-color: #fff !important;
     box-shadow: 0 3px 5px -2px #76cbc7c7 !important;
 }
+
+
 
 .cursor-pointer {
     cursor: pointer;
@@ -165,7 +183,6 @@ a:hover {
 .img-full-screen {
     width: 50%;
 }
-
 
 /* pagination bootstrap custom */
 
@@ -193,15 +210,11 @@ a:hover {
     border-radius: 30% !important;
 }
 
-
 /* end pagination bootstrap custom */
 
-
 /* select2 */
-
 .select2 {
     width: 100% !important;
 }
-
 
 /* end select2 */

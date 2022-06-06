@@ -229,7 +229,7 @@ if (
                                         <div class="row container">
                                             <div class="col-8  p-5 mb-4 shadow">
                                                 <div class="row">
-                                                    <input name="titlepost" class="col-12 rounded-3" type="text" placeholder="Thêm tiêu đề" required="required" value="<?php echo $titlepost ?>">
+                                                    <input name="titlepost" class="col-12 rounded-3 form-control" type="text" placeholder="Thêm tiêu đề" required="required" value="<?php echo $titlepost ?>">
                                                 </div>
                                                 <div class="row mt-3">
                                                     <!-- <div id="editor" class="col-12" name="editor"></div> -->
@@ -290,7 +290,7 @@ if (
                                                         <hr>
                                                         <ul class="list-unstyled p-3 pt-0">
                                                             <li class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" <?php if ($kind == 'Trích dẫn') echo 'checked' ?>>
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" <?php if(($kind != "")){ if ($kind == 'Trích dẫn') {echo 'checked';}} else echo "checked"; ?>>
                                                                 <label class="form-check-label" for="radioKind1">Trích dẫn</label>
                                                             </li>
                                                             <li class="form-check">

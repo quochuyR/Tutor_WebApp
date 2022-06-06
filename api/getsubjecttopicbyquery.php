@@ -9,9 +9,9 @@ use Library\Session;
 $filepath = realpath(dirname(__FILE__));
 
 include_once $filepath . "../../lib/session.php";
-if (!Session::checkRoles(['user', 'tutor'])) {
-    header("location:../pages/errors/404");
-}
+// if (!Session::checkRoles(['user', 'tutor'])) {
+//     header("location:../pages/errors/404");
+// }
 include_once $filepath . "../../classes/subjecttopics.php";
 include_once $filepath . "../../classes/subjects.php";
 

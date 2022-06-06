@@ -27,24 +27,38 @@ class AppUser
      * @param string $phone_number số điện thoại người dùng
      * @param string $username tài khoản người dùng
      * @param string $password mật khẩu người dùng
-     * @return object số lượng hàng thêm thành công
+     * @return object|bool số lượng hàng thêm thành công
      */
 
-    public function create_new_user(string $username, string $email, string $password, string $last_name, string $first_name, string $phone_number): object
+    public function create_new_user(string $username, string $email, string $password, string $last_name, string $first_name, string $phone_number): object|bool
     {
         $query = "INSERT INTO `appusers`
-         VALUES (UUID(), ?, ?, ?, ?, ?, NULL, ?, NULL, NULL, NULL, NULL, current_timestamp());";
+         VALUES (UUID(), ?, ?, ?, ?, ?, NULL, ?, NULL, NULL, NULL, NULL, current_timestamp(), 1);";
 
         $result = $this->db->p_statement($query, "ssssss", [$username, $email, $password, $last_name, $first_name, $phone_number]);
+        return $result;
+    }
+    /**
+     * hàm có nhiệm vụ cập nhật thông tin người dùng(dành cho user)
+     * @param string $email tên email của người dùng
+     * @param string $last_name họ người dùng
+     * @return object|bool số lượng hàng cập nhật thành công
+     */
+
+    public function update_user($id, $email, $last_name, $first_name,  $sex, $phonenumber, $date_of_birth, $address, $job): object| bool
+    {
+        $query = "UPDATE `appusers` SET `email`=?,`lastname`=?,`firstname`=?,`sex`=?,`phonenumber`=?,`dateofbirth`=?,`address`=?,`job`=? WHERE id=? ;";
+
+        $result = $this->db->p_statement($query, "sssisssss", [$email, $last_name, $first_name, $sex, $phonenumber, $date_of_birth, $address, $job, $id]);
         return $result;
     }
 
     /**
      * Hàm có nhiệm vụ tìm user id bằng username
      * @param string $username tài khoản người dùng
-     * @return object id của người dùng tìm được
+     * @return object|bool id của người dùng tìm được
      */
-    public function find_user_id_by_username(string $username): object
+    public function find_user_id_by_username(string $username): object|bool
     {
         $query = "SELECT id
         FROM `appusers` 
@@ -104,7 +118,7 @@ class AppUser
     {
         $query = "SELECT MONTHNAME(`appusers`.`datecreated`) AS month, COUNT(*) AS num
         FROM `appusers`
-        GROUP BY MONTH(`appusers`.`datecreated`);";
+        GROUP BY MONTHNAME(`appusers`.`datecreated`);";
 
         // echo $query;
         $result = $this->db->select($query);

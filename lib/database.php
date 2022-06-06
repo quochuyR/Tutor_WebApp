@@ -1,12 +1,12 @@
 <?php
 
 namespace Library;
-
 use mysqli;
 
 $filepath  = realpath(dirname(__FILE__));
-include_once($filepath . "../../config/config.php");
+include_once($filepath."../../config/config.php");
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+// Change character set to utf8
 
 class Database
 {
@@ -31,7 +31,7 @@ class Database
     public function connectDB(): bool
     {
         $this->link =  new mysqli($this->host, $this->user, $this->pass, $this->dbname);
-
+        $this->link->set_charset("utf8");
         if (!$this->link) {
             $this->error = "Connection fail " . $this->link->connect_error;
             return false;
@@ -46,21 +46,22 @@ class Database
      */
     public function select($query): object | bool
     {
-        $result = $this->link->query($query) or die($this->link->error . __LINE__);
+        $result = $this->link->query($query) or die($this->link->error.__LINE__);
 
-        if ($result->num_rows > 0) {
+        if($result->num_rows > 0){
             return $result;
         }
 
         return false;
     }
+
     /**
-     * Hàm có nhiệm vụ truy vấn ( update - Delete) đến csdl
+     * Hàm có nhiệm vụ truy vấn đến csdl
      * @return object|bool đối tượng chứa thông tin truy vấn
      */
     public function update($query): object | bool
     {
-        $result = $this->link->query($query) or die($this->link->error . __LINE__);
+        $result = $this->link->query($query) or die($this->link->error.__LINE__);
         return $result;
     }
 
@@ -71,18 +72,18 @@ class Database
     public  function p_statement($query,  $type = "", $vars = []): object|bool
     {
 
-        $stm = $this->link->prepare($query);
+        $stm = $this->link->prepare($query);        
 
         // type là i: int, d: double, float, s: string, b: blob 
         array_unshift($vars,  $type);
 
         // thêm tham chiếu vào vì bind param yều cầu các tham số phải là tham chiếu
-
+        
 
         call_user_func_array(array($stm, 'bind_param'), $this->refValues($vars));
-        $stm->execute() or die($this->link->error . __LINE__);
+        $stm->execute() or die($this->link->error.__LINE__);
 
-
+        
 
         //INSERT, SELECT, UPDATE và DELETE có 6 kí tự, you can
         //validate it using substr() below for better and faster performance
@@ -93,18 +94,19 @@ class Database
         }
 
         $stm->close();
-        if ($result)
+        if($result)
             return $result;
 
         return false;
+
+        
     }
 
-    private function refValues($arr)
-    {
-        if (strnatcmp(phpversion(), '5.3') >= 0) //Reference is required for PHP 5.3+
+    private function refValues($arr){
+        if (strnatcmp(phpversion(),'5.3') >= 0) //Reference is required for PHP 5.3+
         {
             $refs = array();
-            foreach ($arr as $key => $value)
+            foreach($arr as $key => $value)
                 $refs[$key] = &$arr[$key];
             return $refs;
         }

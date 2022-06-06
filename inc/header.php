@@ -15,8 +15,6 @@ include_once($filepath . "../../classes/notifications.php");
 include_once($filepath . "../../classes/remember.php");
 
 include_once($filepath . "../../helpers/utilities.php");
-
-include_once($filepath . "../../classes/remember.php");
 include_once($filepath . "../../classes/adminlogin.php");
 
 Session::init();
@@ -67,7 +65,7 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <?php
 
@@ -128,7 +126,7 @@ include "../inc/head.php";
 
                                                     ?>
 
-                                                            <a href="../pages/<?= htmlspecialchars($notifi["notification_link"]) ?>" class="d-flex list-group-item list-group-item-action border-0 text-small">
+                                                            <a href="<?= Util::getCurrentURL(1) ."pages/". $notifi["notification_link"] ?>" class="d-flex list-group-item list-group-item-action border-0 text-small">
                                                                 <div class="my-auto me-2">
                                                                     <img src="../public/<?= $sender["imagepath"] ?>" class="avatar-notification avatar-sm-notification  ">
                                                                 </div>
@@ -165,7 +163,7 @@ include "../inc/head.php";
                                 <div class="dropdown">
                                     <button class="btn  dropdown-toggle" type="button" id="dropdownMenuAccount" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="">
-                                            <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL() . "/../public/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md avatar rounded-circle" alt="Hình avatar">
+                                            <img src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL(1) . "public/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" class="avatar-md avatar rounded-circle" alt="Hình avatar">
                                         </span>
 
                                     </button>
@@ -235,7 +233,7 @@ include "../inc/head.php";
                                         <?php } ?>
 
                                         <li>
-                                            <a class="dropdown-item d-inline-flex py-1" href="<?= Format::validation("#") ?>">
+                                            <a class="dropdown-item d-inline-flex py-1" href="<?= Format::validation("../pages/profile") ?>">
                                                 <span class="material-symbols-rounded">
                                                     manage_accounts
                                                 </span>

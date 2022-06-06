@@ -97,7 +97,7 @@ include "../inc/header.php";
                                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30  position-relative <?= $status_approval["status"] === 1 ? "bg-approval" : "" ?>">
                                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                                 <div class="img-holder mx-2 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                                    <img src="<?= Util::getCurrentURL() . "/../public/"  . $_register_user["imagepath"] ?>" alt="." class="rounded">
+                                                    <img src="<?= Util::getCurrentURL(1) . "public/"  . $_register_user["imagepath"] ?>" alt="." class="rounded">
                                                 </div>
                                                 <div class="job-content">
                                                     <h5 class="text-xs-center text-md-left fw-bold"><?= $_register_user["lastname"] . ' ' . $_register_user["firstname"] ?></h5>
@@ -303,7 +303,7 @@ include "../inc/header.php";
                                                                     <div class="card-body">
 
                                                                         <div class="d-flex align-items-start">
-                                                                            <img src="<?= Util::getCurrentURL() . "/../public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+                                                                            <img src="<?= Util::getCurrentURL(1) . "public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
                                                                             <div class="w-100 ms-3 align-self-end">
                                                                                 <h4 class="my-1"><?= $user["lastname"] . ' ' . $user["firstname"]; ?></h4>
                                                                                 <p class="text-muted">@id: <?= $user["username"]; ?></p>
@@ -414,6 +414,7 @@ include "../inc/header.php";
             //
 
             function onChangeTopic(event_approval) {
+                $(".teaching-subject").off();
                 $(".teaching-subject").on('change', (event_target) => {
                     getIdRegisterUser(event_approval, event_target);
                 })
@@ -424,6 +425,7 @@ include "../inc/header.php";
 
             // thay đổi hiển thị môn học duyệt hay chưa
             function onChangeStatusApproval(event_approval) {
+                $(".show-status-topic").off();
                 $(".show-status-topic").on('click', () => {
                     getSubjectRegisterUser(event_approval);
                 });
@@ -439,6 +441,7 @@ include "../inc/header.php";
             }
 
             function onChangeFlexSwitch() {
+                $(".allow-schedule.form-check-input").off();
                 $(".allow-schedule.form-check-input").each((i, select) => { // disable input checkbox khi thay đổi
                     if (!$(select).prop("checked")) {
                         $(select).closest(".modal-content").find("select:not(.teaching-subject)").prop("disabled", true) // Tìm nơi chứa select thêm lịch dạy cho người dùng
@@ -461,6 +464,7 @@ include "../inc/header.php";
             }
 
             function onClickSave(event_approval) {
+                $(".btn-save").off();
                 $(".btn-save").on('click', () => {
                     addSchedule(event_approval);
                 });
@@ -622,7 +626,7 @@ include "../inc/header.php";
                 let timeId = $(id_modal).find(`select`).eq(1).val();
                 let topicId = $(id_modal).find(`select`).eq(2).val();
 
-                // console.log([id, status, DoW_id, timeId, topicId])
+                console.log([id, status, DoW_id, timeId, topicId])
 
                 $.ajax({
                     type: "post",

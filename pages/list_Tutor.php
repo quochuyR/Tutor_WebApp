@@ -218,14 +218,14 @@ include "../inc/header.php";
 
 
 
-            </section> 
-            <!-- tutors Section -->
+
+            </section> <!-- tutors Section -->
             <section id="tutors">
                 <div class="container py-3">
                     <div class="row">
                         <div class="col-12 pb-4  g-0 d-flex justify-content-end">
 
-                            <nav     aria-label="Page navigation example " id="pagination-nav" class="mt-3">
+                            <nav aria-label="Page navigation example " id="pagination-nav" class="mt-3">
 
                             </nav>
                         </div>

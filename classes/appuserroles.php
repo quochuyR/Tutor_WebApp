@@ -23,7 +23,7 @@ class UserRole
      * Hàm có nhiệm vụ thêm quyền cho người dùng (dành cho cả người dùng, gia sư và người quản trị)
      * @param string $userId id người dùng
      * @param int $roleId id quyền (1: admin, 2: tutor, 3: user)
-     * @return object | bool thêm quyền thành công hay không
+     * @return object|bool thêm quyền thành công hay không
      */
     public function add_user_role(string $userId, int $roleId): object | bool
     {

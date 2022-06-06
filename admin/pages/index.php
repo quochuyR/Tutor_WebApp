@@ -9,13 +9,13 @@ use Helpers\Format;
 require_once "../../lib/session.php";
 
 if (!Session::checkRoles(["admin"])) {
-    header("location: ./errors/404");
+    header("location: ../../pages/login");
 }
 //  Classes\Subject, Classes\SubjectTopic;
 ?>
 
 <?php
-include_once "../inc/head.php";
+
 include_once "../../classes/tutors.php";
 include_once "../../classes/appusers.php";
 include_once "../../classes/teachingsubjects.php";
@@ -32,7 +32,6 @@ $_teaching_subject = new TeachingSubject();
 $title = "Trang chủ";
 include_once "../inc/header.php" ?>
 <section>
-
 
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
@@ -141,37 +140,35 @@ include_once "../inc/header.php" ?>
                                     </div>
                                 </div>
                                 <!-- <div class="col-lg-4">
-                                    <div class="card-body">
-                                        <div class="progress-box progress-1">
-                                            <h4 class="por-title">Visits</h4>
-                                            <div class="por-txt">96,930 Users (40%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                    <div class="card">
+
+
+                                        <div class="card-body">
+                                            <table id="tb_main_title" style="border-collapse: collapse;" name="tb_main_title" width="960" class="table-print-title text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2" style="vertical-align: center;" nowrap="1">
+                                                            <span class="logo_left" nowrap="true">
+                                                                <span style="font-weight:normal;">BỘ GIÁO DỤC VÀ ĐÀO TẠO</span><br>TRƯỜNG ĐẠI HỌC ĐỒNG THÁP
+                                                                <hr class="c50">
+                                                            </span>
+                                                            <br>
+                                                        </th>
+                                                        <th colspan="4" style="vertical-align: center;" nowrap="1">
+                                                            <span class="logo_right" style=" " nowrap="true">
+                                                                CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM<br>Độc lập - Tự do - Hạnh phúc
+                                                                <hr class="c51">
+                                                            </span>
+                                                            <br>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="6" style="vertical-align: center;" class="bold main_title">THÔNG TIN CHỦ ĐỀ MÔN HỌC</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
                                         </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Bounce Rate</h4>
-                                            <div class="por-txt">3,220 Users (24%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Unique Visitors</h4>
-                                            <div class="por-txt">29,658 Users (60%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Targeted Visitors</h4>
-                                            <div class="por-txt">99,658 Users (90%)</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                    card-body
+                                    </div>
                                 </div> -->
                             </div> <!-- /.row -->
                             <div class="card-body"></div>
@@ -194,10 +191,10 @@ include_once "../inc/header.php" ?>
                                                 <thead>
                                                     <tr>
 
-                                                        <th class="min-w-200">Gia sư</th>
-                                                        <th class="min-w-200">Nghề nghiệp</th>
-                                                        <th class="min-w-215">Nơi dạy</th>
-                                                        <th class="min-w-85">Trạng thái</th>
+                                                        <th scope="col" class="min-w-200">Gia sư</th>
+                                                        <th scope="col" class="min-w-200">Nghề nghiệp</th>
+                                                        <th scope="col" class="min-w-215">Nơi dạy</th>
+                                                        <th scope="col" class="min-w-85">Trạng thái</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -509,7 +506,7 @@ include_once "../inc/header.php" ?>
             <!-- .animated -->
         </div>
         <!-- /.content -->
-        <div class="clearfix"></div>
+        <!-- <div class="clearfix"></div> -->
         <!-- Footer -->
         <!-- /.site-footer -->
     </div>

@@ -68,8 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     header("Content-Type: application/json;charset=utf-8");
                     echo json_encode(["login" => "successful", "url" => "../admin/pages"]);
                 } else {
-                    header("Content-Type: application/json;charset=utf-8");
-                    echo json_encode(["login" => "successful", "url" => Session::get('rdrurl')]);
+                    if (isset($_SESSION['rdrurl'])) {
+                        header("Content-Type: application/json;charset=utf-8");
+                        echo json_encode(["login" => "successful", "url" => Session::get('rdrurl')]);
+                    } else {
+                        header("Content-Type: application/json;charset=utf-8");
+                        echo json_encode(["login" => "successful", "url" => "./"]);
+                    }
                 }
 
                 exit;
