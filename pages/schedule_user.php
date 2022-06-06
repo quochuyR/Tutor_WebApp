@@ -56,11 +56,14 @@ include "../inc/header.php"
                 <select class="form-select select-DOW" id="dayofweek">
                   <option value="all">-- Tất cả --</option>
                   <?php
+
                   $get_DoW = $_dayofweek->GetDayOfWeek_UserSchedule(Session::get("userId"), 1);
                   if ($get_DoW):
                     while ($dayofweek = $get_DoW->fetch_assoc()):
                   ?>
                       <option value="<?= $dayofweek["id"] ?>"><?= $dayofweek["day"] ?></option>
+
+
                   <?php
                     endwhile;
                   endif;

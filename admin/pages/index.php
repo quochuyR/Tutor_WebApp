@@ -194,10 +194,10 @@ include_once "../inc/header.php" ?>
                                                 <thead>
                                                     <tr>
 
-                                                        <th scope="col" class="min-w-200">Gia sư</th>
-                                                        <th scope="col" class="min-w-200">Nghề nghiệp</th>
-                                                        <th scope="col" class="min-w-215">Nơi dạy</th>
-                                                        <th scope="col" class="min-w-85">Trạng thái</th>
+                                                        <th class="min-w-200">Gia sư</th>
+                                                        <th class="min-w-200">Nghề nghiệp</th>
+                                                        <th class="min-w-215">Nơi dạy</th>
+                                                        <th class="min-w-85">Trạng thái</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

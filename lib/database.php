@@ -7,7 +7,6 @@ use mysqli;
 $filepath  = realpath(dirname(__FILE__));
 include_once($filepath . "../../config/config.php");
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-// Change character set to utf8
 
 class Database
 {
@@ -32,7 +31,7 @@ class Database
     public function connectDB(): bool
     {
         $this->link =  new mysqli($this->host, $this->user, $this->pass, $this->dbname);
-        $this->link->set_charset("utf8");
+
         if (!$this->link) {
             $this->error = "Connection fail " . $this->link->connect_error;
             return false;
