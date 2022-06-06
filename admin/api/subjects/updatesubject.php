@@ -1,14 +1,15 @@
 <?php
 
-namespace Ajax;
+namespace Api;
 
 use Helpers\Format;
 use Classes\Subject;
 use Library\Session;
 
-$filepath  = realpath(dirname(__FILE__));
+//  \tutor_webapp
+$filepath  = realpath(dirname(__FILE__, 4));
 
-include_once($filepath . "../../../lib/session.php");
+include_once($filepath . "../lib/session.php");
 if (!Session::checkRoles(['admin'])) {
     header("location:../pages/errors/404");
 }

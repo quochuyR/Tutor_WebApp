@@ -1,6 +1,6 @@
 <?php
 
-namespace Views;
+namespace Api;
 
 use Helpers\Util, Helpers\Format;
 use Library\Session;
@@ -12,50 +12,48 @@ use Classes\Tutor,
     Classes\SavedTutor,
     Classes\RegisterUser;
 
-include_once "../classes/tutors.php";
-include_once "../classes/teachingsubjects.php";
-include_once "../classes/dayofweeks.php";
-include_once "../classes/days.php";
-include_once "../classes/teachingtimes.php";
-include_once "../classes/savedtutors.php";
-include_once "../classes/registerusers.php";
-include_once "../helpers/format.php";
-include_once "../lib/session.php";
+$filepath = realpath(dirname(__FILE__, 4));
+
+include_once($filepath . "../lib/session.php");
+include_once($filepath . "../../classes/tutors.php");
+include_once($filepath . "../../classes/teachingsubjects.php");
+include_once($filepath . "../../classes/dayofweeks.php");
+include_once($filepath . "../../classes/days.php");
+include_once($filepath . "../../classes/teachingtimes.php");
+include_once($filepath . "../../classes/savedtutors.php");
+include_once($filepath . "../../classes/registerusers.php");
+include_once($filepath . "../../helpers/format.php");
 
 Session::init();
-Session::set('rdrurl', $_SERVER['REQUEST_URI']);
-if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
+if (!Session::checkRoles(['admin'])) {
+    header("location:../pages/errors/404");
+}
+if (!isset($_POST["id"]) || empty($_POST["id"]) || $_POST["id"] === null) {
     header("location:./errors/404");
 } else {
-    $id = Format::validation($_GET["id"]);
+    $id = Format::validation($_POST["id"]);
 }
 
 
 ?>
-<?php
-$title = "Thông tin gia sư";
-
-$nav_tutor_active = "active";
-include "../inc/header.php"
-
-?>
-<!-- Hiển thị hình ảnh rõ hơn khi click -->
-
-<div class="img-float text-center d-none">
-    <img class="img-full-screen" src="" alt="" srcset="">
-    <div class="full-height"></div>
-
-</div>
-
-
-
-
-
 <div id="main" class="container pt-2">
+
+    <!-- Hiển thị hình ảnh rõ hơn khi click -->
+
+    <div class="img-float text-center d-none">
+        <img class="img-full-screen" src="" alt="" srcset="">
+        <div class="full-height"></div>
+
+    </div>
+
+
+
+
+
 
 
     <!-- Main -->
-    <div class="container">
+    <!-- <div class="container"> -->
         <div class="row">
 
             <?php
@@ -67,7 +65,7 @@ include "../inc/header.php"
             $saved_tutor = new SavedTutor();
             $register_user = new RegisterUser();
 
-            $detail_tutor = $tutors->getTutorDetail($id)->fetch_all(MYSQLI_ASSOC);
+            $detail_tutor = $tutors->getTutorDetailForAdmin($id)->fetch_all(MYSQLI_ASSOC);
             if ($detail_tutor) :
 
                 foreach ($detail_tutor as $result) :
@@ -79,7 +77,7 @@ include "../inc/header.php"
                             <div class="card-body">
 
                                 <div class="d-flex align-items-start">
-                                    <img src="<?= Util::getCurrentURL(1) . "public/" . $result["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+                                    <img src="<?= Util::getCurrentURL(3) . "public/" . $result["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
                                     <div class="w-100 ms-3 align-self-end">
                                         <h4 class="my-1"><?= $result["lastname"] . ' ' . $result["firstname"]; ?></h4>
                                         <p class="text-muted">@id: <?= $result["username"]; ?></p>
@@ -143,12 +141,8 @@ include "../inc/header.php"
                             </li> -->
 
                                     <li class="list-inline-item postion-absolute">
-                                        <?php
-                                        $hasTutor = $saved_tutor->countTutorSavedByUserId(Session::get("userId"), $id)->fetch_assoc();
-                                        $get_registered_tutor = $register_user->countRegisteredUsersWithTutor(Session::get("userId"), $id)->fetch_assoc();
-                                        ?>
-                                        <button type="button" class="btn  btn-tutor-detail <?= !empty($_SESSION) ? "" : "d-none"  ?>" id="save-tutor"><?= $hasTutor["hasTutor"] > 0 ? "Đã lưu" : "Lưu" ?></button>
-                                        <button type="button" class="btn  btn-tutor-detail btn-register-show <?= !empty($_SESSION) ? "" : "d-none"  ?> " data-bs-toggle="modal" data-bs-target="#exampleModal"><?= $get_registered_tutor["registered_tutor"] > 0 ? "Đã đăng ký" : "Đăng ký" ?></button>
+
+                                        <!-- <button type="button" class="btn  btn-tutor-detail <?= !empty($_SESSION) ? "" : "d-none"  ?>" id="save-tutor"><?= $hasTutor["hasTutor"] > 0 ? "Đã lưu" : "Lưu" ?></button> -->
                                     </li>
                                 </ul>
                             </div>
@@ -345,151 +339,5 @@ include "../inc/header.php"
         </div>
         <!-- end row-->
 
-    </div>
+    <!-- </div> -->
 </div>
-
-
-
-
-
-<?php
-include "../inc/script.php"
-?>
-
-<script>
-    $(document).ready(function() {
-        onClickToShowModalRegister();
-
-        function onClickToShowModalRegister() {
-            $(".btn-register-show").on('click', (e) => {
-
-                getSubjectRegisterUser(e);
-                onClickToAddRegister();
-            });
-        }
-
-        function onClickToAddRegister() {
-            $(".btn-register-add").on('click', (e) => {
-                addRegisterTutor(e);
-            });
-        }
-
-        function getSubjectRegisterUser(e) {
-            const params = new Proxy(new URLSearchParams(window.location.search), {
-                get: (searchParams, prop) => searchParams.get(prop),
-            });
-            // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-            let tuId = params.id; // "some_value"
-            let id_approval = $(e.currentTarget).attr("data-bs-target");
-            let subject = $(id_approval).find(`.teaching-subject`);
-
-            let status = 0; // trạng thái đã duyệt môn học hay chưa
-
-            // console.log([tuId, id_approval, subject, status])
-            $.ajax({
-                type: "post",
-                url: "../api/getsubjecttutor",
-                data: {
-                    tuId,
-                    status
-
-                },
-                cache: false,
-                success: function(data) {
-
-                    subject.html(data);
-
-                    console.log(data)
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr);
-                }
-            });
-        }
-
-        function addRegisterTutor(e) {
-            const params = new Proxy(new URLSearchParams(window.location.search), {
-                get: (searchParams, prop) => searchParams.get(prop),
-            });
-            // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-            let tuId = params.id; // "some_value"
-
-            let action = 1;
-            let topicId = $(e.currentTarget).closest(".modal-content").find("select");
-
-            console.log([action, tuId, topicId, e.currentTarget])
-
-            $.ajax({
-                type: "post",
-                url: "../api/addordeleteregistertutor",
-                data: {
-                    tuId,
-                    action,
-                    topicId: $(topicId).val(),
-
-                },
-                cache: false,
-                success: function(data) {
-
-                    if (data.insert === 'successful') {
-                        alert(`Đăng ký môn học ${data.topicName } thành công. Hãy chờ gia sư liên hệ với bạn.`)
-                        window.location.href = "./registered_tutors";
-
-                    }
-
-
-                    console.log(data, "insert3")
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr);
-                }
-            });
-        }
-
-        /* Lưu gia sư */
-
-
-
-        $("#save-tutor").on('click', (e) => {
-            const params = new Proxy(new URLSearchParams(window.location.search), {
-                get: (searchParams, prop) => searchParams.get(prop),
-            });
-            // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-            let tutorId = params.id; // "some_value"
-
-            console.log(tutorId, "save-tutor");
-            $.ajax({
-                type: "post",
-                url: "../api/savetutor",
-                data: {
-                    tutorId: tutorId
-                },
-                cache: false,
-                success: function(data) {
-                    if (data.insert !== "fail")
-                        $("#save-tutor").text(data.data);
-                    else {
-                        Toastify({
-                            text: "Lưu không thành công. Bạn đã lưu gia sư này rồi!",
-                            duration: 5000,
-                            close: true,
-                            gravity: "top", // `top` or `bottom`
-                            position: "right", // `left`, `center` or `right`
-                            stopOnFocus: true, // Prevents dismissing of toast on hover
-                            style: {
-                                background: "linear-gradient(to right, #C73866, #FE676E)",
-                            },
-                            onClick: function() {} // Callback after click
-                        }).showToast();
-                    }
-
-                    console.log(data, "data")
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr, error, status, "Lỗi");
-                }
-            });
-        });
-    });
-</script>
-<?php include '../inc/footer.php' ?>

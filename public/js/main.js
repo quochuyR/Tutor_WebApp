@@ -52,9 +52,10 @@
       // $(".js-data-districts-ajax option[value='']")?.remove();
       select2District(e)
     })
-   
+
 
     function select2District(e) {
+      
       $('.js-data-districts-ajax').select2({
         theme: 'bootstrap-5',
         language: "vi",
@@ -65,21 +66,35 @@
           dataType: 'json',
           delay: 250,
           data: function (params) {
-            var query = {
-              search: params.term
+            return {
+              term: params.term
             }
-            return query;
+
           },
           processResults: function (data, params) {
-            console.log(data)
+            params.term = params.term ? params.term : 'all'
+            console.log(params)
+
             // Transforms the top-level key of the response object from 'items' to 'results'
             return {
-              results: [...data.results.map(val => {
-                return {
-                  id: val.district_id,
-                  text: val.district_name
+              results: $.map(data.results, (val) => {
+                // console.log(val.district_name.toUpperCase().includes(params.term.toUpperCase()), "pấm")
+
+                if (params.term === 'all') {
+                  return {
+                    id: val.district_id,
+                    text: val.district_name
+                  }
                 }
-              })]
+                if (val.district_name.toUpperCase().includes(params.term.toUpperCase())) {
+                  return {
+                    id: val.district_id,
+                    text: val.district_name
+                  }
+                }
+
+
+              }),
             }
           },
           cache: true
