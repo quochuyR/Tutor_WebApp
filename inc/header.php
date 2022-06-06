@@ -233,7 +233,7 @@ include "../inc/head.php";
                                         <?php } ?>
 
                                         <li>
-                                            <a class="dropdown-item d-inline-flex py-1" href="<?= Format::validation("#") ?>">
+                                            <a class="dropdown-item d-inline-flex py-1" href="<?= Format::validation("../pages/profile") ?>">
                                                 <span class="material-symbols-rounded">
                                                     manage_accounts
                                                 </span>

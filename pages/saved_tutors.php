@@ -192,14 +192,13 @@ include "../inc/header.php"
         $(".unsave-tutor").on('click', (e) => {
             e.preventDefault();
 
-            const tutorId = $(e.target).attr("data-href");
+            const tutorId = $(e.currentTarget).attr("data-href");
 
-            console.log(tutorId, $(e.target).attr("data-href"));
+            console.log(tutorId, $(e.currentTarget).attr("data-href"));
             $.ajax({
                 type: "post",
                 url: "../api/unsaved_tutors",
                 data: {
-                    userId: "<?= Session::get("userId") ?>",
                     tutorId: tutorId
                 },
                 cache: false,
