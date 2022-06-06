@@ -3,6 +3,17 @@
 namespace Views;
 
 use Classes\db_homepage;
+use Classes\Tutor, Classes\Subject, Classes\SubjectTopic, Library\Session;
+
+include_once "../classes/topics.php";
+include_once "../classes/subjecttopics.php";
+include_once "../classes/tutors.php";
+include_once "../classes/subjects.php";
+include_once "../classes/paginator.php";
+include_once "../lib/session.php";
+
+Session::init();
+Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 
 include '../classes/queryphp.php';
 $db_homepage  = new db_homepage();
@@ -71,17 +82,22 @@ include "../inc/header.php";
             </div>
         </div>
     </section>
-    <!-- lop gia su hien co moi nhat  -->
-    <section id="tutors">
-        <div class="container py-3">
-            <div class="row">
-                <div class="col-12 pb-4  g-0 d-flex justify-content-end">
 
-                    <nav aria-label="Page navigation example " id="pagination-nav" class="mt-3">
+    <!-- Lọc trên web -->
+    <div class="content py-md-0 py-3">
+        <!-- tutors Section -->
+        <section id="tutors">
+            <div class="container py-3">
+                <div class="row">
+                    <div class="col-12 pb-4  g-0 d-flex justify-content-end">
 
-                    </nav>
-                </div>
-    </section>
+                        <nav aria-label="Page navigation example " id="pagination-nav" class="mt-3">
+
+                        </nav>
+                    </div>
+        </section>
+    </div>
+
     <!-- gioi thieu gia su day kem tai nha la gi -->
     <section class="mt-5 d-flex align-items-center justify-content-center" style="height: 300px; background-color: #A1E3D8;">
         <div class="jumbotron text-center mt-2">
@@ -142,7 +158,7 @@ include "../inc/header.php";
                 <div class="carousel-item" data-bs-interval="3000">
                     <div class="row d-block w-100 ">
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://anhdep123.com/wp-content/uploads/2020/05/anh-gai-che-mat-4.jpg" data-holder-rendered="true">
+                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://i.pinimg.com/originals/f7/a5/48/f7a5489830eef765b2ba8bc77f66e25d.png" data-holder-rendered="true">
                             <h3>Cờ rờ u ết hắt</h3>
                             <p>Con tôi khác yếu Anh Văn nhờ thầy cô dạy kèm ở đây cháu nó có thể lấy 10 điểm môn toán dễ dàng.</p>
                         </div>
@@ -151,7 +167,7 @@ include "../inc/header.php";
                 <div class="carousel-item" data-bs-interval="3000">
                     <div class="row d-block w-100 ">
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://anhdep123.com/wp-content/uploads/2020/05/anh-gai-che-mat-4.jpg" data-holder-rendered="true">
+                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://haycafe.vn/wp-content/uploads/2022/02/Anh-gai-xinh-Viet-Nam.jpg" data-holder-rendered="true">
                             <h3>Huỳnh Lí Thị Bê</h3>
                             <p>Cháu Diễm Mi nhà tôi mất tích 3 năm rồi từ khi tôi thuê gia sư ở đây thì con bé thấy trai đẹp nên tự mò về.</p>
                         </div>
