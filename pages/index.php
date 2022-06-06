@@ -4,6 +4,7 @@ namespace Views;
 
 use Classes\db_homepage;
 use Classes\Tutor, Classes\Subject, Classes\SubjectTopic, Library\Session;
+use Helpers\Util;
 
 include_once "../classes/topics.php";
 include_once "../classes/subjecttopics.php";
@@ -11,12 +12,17 @@ include_once "../classes/tutors.php";
 include_once "../classes/subjects.php";
 include_once "../classes/paginator.php";
 include_once "../lib/session.php";
+include_once("../helpers/utilities.php");
+
 
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 
 include '../classes/queryphp.php';
 $db_homepage  = new db_homepage();
+$db_homepageTutor = new tutor();
+$TTtopic = new Tutor();
+$subjects = new Subject();
 
 $arrayImg = array();
 
@@ -84,26 +90,54 @@ include "../inc/header.php";
     </section>
 
     <!-- Lọc trên web -->
-    <div class="content py-md-0 py-3">
-        <!-- tutors Section -->
-        <section id="tutors">
-            <div class="container py-3">
-                <div class="row">
-                <?php 
+    <section>
+        <div class="row justify-content-around">
+            <?php
+            $result = $db_homepageTutor->getFilter($_POST);
+            $tutorOfTopic =  $TTtopic->getFilter($_POST);
 
-                ?>
-                    <div class="col-12 pb-4  g-0 d-flex justify-content-end">
+            if ($tutorOfTopic->data) :
+                while ($result = $tutorOfTopic->data->fetch_assoc()) :
+            ?>
 
-                        <nav aria-label="Page navigation example " id="pagination-nav" class="mt-3">
 
-                        </nav>
+                    <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
+                        <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
+                            <div class=" card-img-top img-teacher text-center">
+                                <img src=" <?= Util::getCurrentURL() . "/../public/" . (isset($result['imagepath']) ? $result['imagepath'] : "") ?>" class="rounded" alt="" srcset="">
+                            </div>
+                            <div class="card-body">
+                                <h6 class="font-weight-bold pt-1"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h6>
+                                <?php
+                                $subjectTutors = "";
+                                $subjectList = $subjects->getByTutorId($result['id']);
+                                while ($resultSB = $subjectList->fetch_assoc()) :
+                                    $subjectTutors .= $resultSB['subject'] . ', ';
+                                endwhile;
+
+                                $subjectTutors = substr($subjectTutors, 0, strlen(trim($subjectTutors)) - 1);
+                                ?>
+
+                                <div class="text-muted description-intro"><?= $result['teachingarea'] . ' | ' . $subjectTutors ?></div>
+                                <div class="text-start description product limit-text">
+                                    <?= html_entity_decode($result['introduction']) ?>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between pt-1">
+                                    <div class="d-flex flex-row">
+                                        <a href="<?= (isset($result['linkfacebook']) ? $result['linkfacebook'] : "") ?>" class="mx-1 social-list-item text-center border-primary text-primary"><i class="mdi mdi-facebook"></i></i></a>
+                                        <a href="<?= (isset($result['linktwitter']) ? $result['linktwitter'] : "") ?>" class="mx-1 social-list-item text-center border-info text-info"><i class="mdi mdi-twitter"></i></i></a>
+                                    </div>
+                                    <!-- <div class="btn btn-primary">Đăng ký</div> -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <a href="./list_tutor.php"></a>
-                </div>
-        </section>
-    </div>
+            <?php
+                endwhile;
+            endif;
+            ?>
+        </div>
+    </section>
 
     <!-- gioi thieu gia su day kem tai nha la gi -->
     <section class="mt-5 d-flex align-items-center justify-content-center" style="height: 300px; background-color: #A1E3D8;">
