@@ -24,18 +24,18 @@ class TutoringSchedule
         // $this->fm = new Format();
     }
 
-    public function AddTutoringSchedule($status, $registerId, $dayofweekId, $topicId,  $timeId, $tutorId)
+    public function AddTutoringSchedule($status, $registerId, $dayofweekId, $topicId,  $timeId)
     {
         $query = "";
         $types = "";
         $vars = array();
-        if($dayofweekId !== null && $topicId !== null && $timeId !== null && $tutorId !== null){
-            $query = "CALL add_schedule_from_registered_user(?, ?, ?, ?, ?, ?)";
-            $types = "iiiiis";
-            $vars = [$status, $registerId, $dayofweekId, $topicId,  $timeId, $tutorId];
+        if($dayofweekId !== null && $topicId !== null && $timeId !== null){
+            $query = "CALL add_schedule_from_registered_user(?, ?, ?, ?, ?)";
+            $types = "iiiii";
+            $vars = [$status, $registerId, $dayofweekId, $topicId,  $timeId];
         }
         else{
-            $query = "CALL add_schedule_from_registered_user(?, ?, NULL, NULL, NULL, NULL)";
+            $query = "CALL add_schedule_from_registered_user(?, ?, NULL, NULL, NULL)";
             $types = "ii";
             $vars = [$status, $registerId];
         }

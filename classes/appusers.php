@@ -91,7 +91,7 @@ class AppUser
 
     public function getInfoByUserId($userId): object
     {
-        $query = "SELECT  `appusers`.`id`, `appusers`.`username`, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`phonenumber`,  `appusers`.`sex`, `appusers`.`job`, `appusers`.`address`, `appusers`.`dateofbirth`, `appusers`.`email`,  `appusers`.`imagepath`
+        $query = "SELECT  `appusers`.`id`, `appusers`.`username`, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`phonenumber`,  `appusers`.`sex`, `appusers`.`job`, `appusers`.`address`,  `appusers`.`email`,  `appusers`.`imagepath`
         FROM  `appusers` 
         WHERE `appusers`.`id` = ?;";
 

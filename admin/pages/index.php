@@ -139,7 +139,7 @@ include_once "../inc/header.php" ?>
 
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <!-- <div class="col-lg-4">
                                     <div class="card">
 
 
@@ -169,7 +169,7 @@ include_once "../inc/header.php" ?>
                                             </table>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div> <!-- /.row -->
                             <div class="card-body"></div>
                         </div>

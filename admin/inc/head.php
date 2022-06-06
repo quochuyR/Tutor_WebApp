@@ -2,15 +2,19 @@
 // namespace Inc;
 use Helpers\Util;
 
-$filepath  = realpath(dirname(__FILE__));
-include_once($filepath."../../../helpers/utilities.php");
+$filepath = realpath(dirname(__FILE__));
+include_once $filepath . "../../../helpers/utilities.php";
 ?>
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><?php if (isset($title)) echo $title;
-            else echo "Không tiêu đề" ?></title>
+    <title><?php if (isset($title)) {
+    echo $title;
+} else {
+    echo "Không tiêu đề";
+}
+?></title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -32,9 +36,9 @@ include_once($filepath."../../../helpers/utilities.php");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    
-    <link rel="stylesheet" href="<?= Util::getRootURL() . '/tutor_webapp/admin/' . 'assets/css/style.css' ?>">
+
+    <link rel="stylesheet" href="<?=Util::getRootURL() . '/tutor_webapp/admin/' . 'assets/css/style.css'?>">
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-    
-   
+
+
 </head>

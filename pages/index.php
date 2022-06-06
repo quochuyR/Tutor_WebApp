@@ -88,12 +88,16 @@ include "../inc/header.php";
             </div>
         </div>
     </section>
-
+<hr>
     <!-- Lọc trên web -->
-    <section>
+    <section class="container">
+        <div>
+            <h2 class="text-center m-3" >Danh sách gia sư tiêu biểu</h2>
+        </div>
         <div class="row justify-content-around">
             <?php
             $result = $db_homepageTutor->getFilter($_POST);
+            $_POST["limit"] = 8;
             $tutorOfTopic =  $TTtopic->getFilter($_POST);
 
             if ($tutorOfTopic->data) :
@@ -101,10 +105,10 @@ include "../inc/header.php";
             ?>
 
 
-                    <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
+                    <div class="col-lg-3 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
                         <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
                             <div class=" card-img-top img-teacher text-center">
-                                <img src=" <?= Util::getCurrentURL() . "/../public/" . (isset($result['imagepath']) ? $result['imagepath'] : "") ?>" class="rounded" alt="" srcset="">
+                                <img src=" <?= Util::getCurrentURL(1) . "public/" . (isset($result['imagepath']) ? $result['imagepath'] : "") ?>" class="rounded" alt="" srcset="">
                             </div>
                             <div class="card-body">
                                 <h6 class="font-weight-bold pt-1"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h6>

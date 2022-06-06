@@ -626,7 +626,7 @@ include "../inc/header.php";
                 let timeId = $(id_modal).find(`select`).eq(1).val();
                 let topicId = $(id_modal).find(`select`).eq(2).val();
 
-                // console.log([id, status, DoW_id, timeId, topicId])
+                console.log([id, status, DoW_id, timeId, topicId])
 
                 $.ajax({
                     type: "post",
