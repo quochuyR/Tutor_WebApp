@@ -57,8 +57,8 @@ include_once "../inc/header.php" ?>
 
                         <div class="col-12">
                             <div class="table-stats order-table ov-h">
-                                <table id="tutor-table" class="table table-striped table-borderless table-type-1" style="width: 100% !important">
-                                    <thead>
+                                <table id="tutor-table" class="table table-hover table-type-1" style="width: 100% !important">
+                                    <thead class="table-dark">
                                         <tr>
                                             <th scope="col"><input class="form-check-input " id="select-all-tutor" type="checkbox"></th>
                                             <th scope="col">Hình</th>
@@ -88,7 +88,7 @@ include_once "../inc/header.php" ?>
             <div class="modal-dialog modal-dialog-centered modal-fullscreen">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title fw-bold" id="modal-tutor-detailLabel">Thêm môn học</h5>
+                        <h5 class="modal-title fw-bold" id="modal-tutor-detailLabel">Duyệt gia sư</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -158,7 +158,7 @@ include_once "../inc/header.php" ?>
                             render: function(data, type, row) {
                                 if (type === "display") {
                                     return `<div class="round-img">
-                                                <a href="#"><img class="rounded" src="../../public/${row.image}" alt=""></a>
+                                                <a href="#"><img class="rounded" src="${row.image ? "../../public/" + row.image : "https://www.bootdey.com/img/Content/avatar/avatar5.png"}" alt=""></a>
                                             </div>`
                                 }
                                 return data

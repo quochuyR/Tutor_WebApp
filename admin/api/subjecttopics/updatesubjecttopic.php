@@ -16,7 +16,7 @@ if (!Session::checkRoles(['admin'])) {
 include_once($filepath . "../../classes/subjecttopics.php");
 include_once($filepath . "../../helpers/format.php");
 
-
+// print_r($_POST);
 $_subject_topic = new SubjectTopic();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ((isset($_POST['subject_id']) && is_numeric($_POST['subject_id']))

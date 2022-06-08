@@ -91,7 +91,7 @@ class AppUser
 
     public function getInfoByUserId($userId): object
     {
-        $query = "SELECT  `appusers`.`id`, `appusers`.`username`, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`phonenumber`,  `appusers`.`sex`, `appusers`.`job`, `appusers`.`address`,  `appusers`.`email`,  `appusers`.`imagepath`
+        $query = "SELECT  `appusers`.`id`, `appusers`.`username`, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`phonenumber`,  `appusers`.`sex`, `appusers`.`job`, `appusers`.`address`,  `appusers`.`email`,  `appusers`.`imagepath`, `appusers`.`dateofbirth`
         FROM  `appusers` 
         WHERE `appusers`.`id` = ?;";
 
@@ -122,6 +122,25 @@ class AppUser
 
         // echo $query;
         $result = $this->db->select($query);
+        return $result;
+    }
+
+    public function check_column_unique($column, $value)
+    {
+        $query = "SELECT COUNT(*) AS has_unique FROM `appusers` AS u";
+        if($column === "email"){
+            $query .= " WHERE u.email = ?";
+        }
+
+        if($column === "username"){
+            $query .= " WHERE u.username = ?";
+        }
+
+        if($column === "phonenumber"){
+            $query .= " WHERE u.phonenumber = ?";
+        }
+
+        $result = $this->db->p_statement($query, "s", [$value]);
         return $result;
     }
 }

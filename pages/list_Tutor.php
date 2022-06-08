@@ -65,10 +65,19 @@ include "../inc/header.php";
             <div class="green-label green-label-filter font-weight-bold p-0 px-1 mx-sm-1 mx-0 my-sm-0 my-2" value="Tất cả">Tất cả<span class="px-1 close ">&times;</span> </div>
 
         </div>
-        <div class="filters"> <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#mobile-filter" aria-expanded="false" aria-controls="mobile-filter">Lọc<span class="px-1 fas fa-filter"></span></button> </div>
+        <div class="filter">
+
+            <button class="btn btn-success d-inline-flex justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target="#mobile-filter" aria-expanded="false" aria-controls="mobile-filter">
+                <span class="">Lọc</span>
+                <span class="material-symbols-rounded">
+                    filter_alt
+                </span>
+            </button>
+
+        </div>
 
         <!-- Mobile filter -->
-        <div class="collapse" id="mobile-filter">
+        <div class="collapse " id="mobile-filter">
             <div class="py-3">
                 <h5 class="font-weight-bold">Môn học</h5>
                 <ul class="list-group" id="filter-subject">

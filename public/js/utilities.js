@@ -225,7 +225,7 @@
 
 
 
-            let url = $(e?.currentTarget).attr('href') ? $(e.currentTarget).attr('href') : "3&1"; // check có thẻ a chưa 
+            let url = $(e?.currentTarget).attr('href') ? $(e.currentTarget).attr('href') : "9&1"; // check có thẻ a chưa 
             let [limit, page] = url.split("&");
             console.log(limit, page, url)
 

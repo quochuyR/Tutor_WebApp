@@ -1,0 +1,47 @@
+.ico{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.ico-subject-manager {
+    background-image: url("../../images/icons/book_and_pencil_48px.png");
+}
+
+.ico-tutor-manager{
+    background-image: url("../../images/icons/teacher_48px.png");
+
+}
+
+.ico-tutor{
+    background-image: url("../../images/icons/tuition_48px.png");
+
+}
+
+.ico-home-manager{
+    background-image: url("../../images/icons/home_48px.png");
+    
+}
+
+.ico-subject{
+    background-image: url("../../images/icons/open_book_48px.png");
+
+}
+
+.ico-topic{
+    background-image: url("../../images/icons/study_48px.png");
+
+}
+
+.ico-image{
+    background-image: url("../../images/icons/image_48px.png");
+
+}
+
+.ico-post{
+    background-image: url("../../images/icons/billboard_48px.png");
+
+}
