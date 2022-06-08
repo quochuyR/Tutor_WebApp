@@ -34,6 +34,9 @@ $title = "Đăng kí trở thành gia sư";
 
 $nav_tutor_register_form_active = "active";
 include "../inc/header.php";
+
+
+
 ?>
 
 

@@ -5,6 +5,7 @@ namespace Ajax;
 use Helpers\Util, Helpers\Format;
 use Library\Session;
 use Classes\AdminSignUp;
+use Exception;
 
 $filepath  = realpath(dirname(__FILE__));
 include_once($filepath . "../../lib/session.php");
@@ -40,17 +41,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $username =  Format::validation($_POST["username"]);
         $password =  Format::validation($_POST["password"]);
 
+        try{
         $signup_check = $signup->sign_up_admin($first_name, $last_name, $email, $phone_number, $username, $password);
         // $signup_check = false;
         if ($signup_check) {
             header('Content-Type: application/json; charset=UTF-8');
             echo json_encode(array("sign_up" => "successful", "url" => $signup_check));
         }
-        else {
 
-            header('Content-Type: application/json; charset=UTF-8');
-            echo json_encode(array("sign_up" => "fail"));
-        }
+    }catch(Exception $ex){
+
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(array("sign_up" => "fail"));
+    }
+        
+
+        
     }
 
     

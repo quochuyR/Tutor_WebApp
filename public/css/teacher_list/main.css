@@ -414,6 +414,14 @@ h6 {
     }
 }
 
+@media only screen and (min-width: 576px) {
+
+    .card-tutor{
+        min-height: 372px;
+    }
+}
+
+
 .subject-active {
     background-color: #35a79c !important;
     color: #fff !important;

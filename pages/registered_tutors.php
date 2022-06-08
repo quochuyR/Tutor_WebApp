@@ -434,6 +434,9 @@ include "../inc/script.php"
                         } else if (data.delete === 'successful') {
                             alert(`Huỷ đăng ký môn học ${data.topicName } thành công.`);
                             getSubjectRegisterUser(event_approval); // refresh topic when delete success
+                        }else if (data.delete === 'fail') {
+                            alert(data.message);
+                           
                         }
 
 

@@ -97,13 +97,13 @@ include "../inc/header.php";
                                         <div class="job-box d-md-flex align-items-center justify-content-between mb-30  position-relative <?= $status_approval["status"] === 1 ? "bg-approval" : "" ?>">
                                             <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
                                                 <div class="img-holder mx-2 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
-                                                    <img src="<?= Util::getCurrentURL(1) . "public/"  . $_register_user["imagepath"] ?>" alt="." class="rounded">
+                                                    <img src="<?= isset($_register_user["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $_register_user["imagepath"] : "https://bootdey.com/img/Content/avatar/avatar5.png"; ?>" alt="." class="rounded">
                                                 </div>
                                                 <div class="job-content">
-                                                    <h5 class="text-xs-center text-md-left fw-bold"><?= $_register_user["lastname"] . ' ' . $_register_user["firstname"] ?></h5>
+                                                    <h5 class="text-xs-center text-md-left fw-bold mb-md-3"><?= $_register_user["lastname"] . ' ' . $_register_user["firstname"] ?></h5>
                                                     <!-- <div class="text-muted ms-5 mt-3 mt-md-0"></div>
                                             <div class="text-muted ms-5">Sinh viên</div> -->
-                                                    <ul class="d-md-flex flex-md-column flex-wrap my-md-2 ff-open-sans p-0">
+                                                    <ul class="d-md-flex flex-md-column flex-wrap  ff-open-sans p-0">
                                                         <li class="text-sub d-inline-flex">
                                                             <span class="material-symbols-rounded " style="color: #00857c">
                                                                 menu_book
@@ -113,9 +113,10 @@ include "../inc/header.php";
                                                             $RegisterUserSubject = "";
                                                             $subjectList = $register_user->GetRegisteredUserTopic($_register_user["id"], Session::get(("tutorId")));
                                                             while ($resultSubTopic = $subjectList->fetch_assoc()) :
-                                                            ?>
+                                                                // print_r($resultSubTopic);
 
-                                                                <span class="subject-span m-l-10 fw-500 badge <?= $resultSubTopic['approval'] === 1 ? "bg-cerulean" : "bg-secondary" ?>" data-id="<?= $resultSubTopic['id'] ?>"><?= $resultSubTopic['topicName'] ?></span>
+                                                            ?>
+                                                                <span class="subject-span m-l-10 fw-500 badge <?= $resultSubTopic['approval'] == 1 ? "bg-cerulean" : "bg-secondary" ?>" data-id="<?= $resultSubTopic['id'] ?>"><?= $resultSubTopic['topicName'] ?></span>
                                                             <?php
                                                             endwhile;
 
@@ -286,7 +287,7 @@ include "../inc/header.php";
                                         </div>
 
                                         <!-- Modal user detail -->
-
+                                       
                                         <div class="modal fade" id="user-detail-<?= $user["username"]; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                             <div class="modal-dialog">
 
@@ -303,7 +304,7 @@ include "../inc/header.php";
                                                                     <div class="card-body">
 
                                                                         <div class="d-flex align-items-start">
-                                                                            <img src="<?= Util::getCurrentURL(1) . "public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+                                                                            <img src="<?= isset($user["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $user["imagepath"] : "https://bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
                                                                             <div class="w-100 ms-3 align-self-end">
                                                                                 <h4 class="my-1"><?= $user["lastname"] . ' ' . $user["firstname"]; ?></h4>
                                                                                 <p class="text-muted">@id: <?= $user["username"]; ?></p>
@@ -441,8 +442,9 @@ include "../inc/header.php";
             }
 
             function onChangeFlexSwitch() {
-                $(".allow-schedule.form-check-input").off();
+               
                 $(".allow-schedule.form-check-input").each((i, select) => { // disable input checkbox khi thay đổi
+                    console.log(select)
                     if (!$(select).prop("checked")) {
                         $(select).closest(".modal-content").find("select:not(.teaching-subject)").prop("disabled", true) // Tìm nơi chứa select thêm lịch dạy cho người dùng
                         // và disable nó 
@@ -597,6 +599,7 @@ include "../inc/header.php";
 
                 let status = $(id_approval).find(".show-status-topic").prop("checked") ? 1 : 0; // trạng thái đã duyệt môn học hay chưa
 
+                console.log(status)
                 $.ajax({
                     type: "post",
                     url: "../api/getsubjectregisteruser",
@@ -626,6 +629,7 @@ include "../inc/header.php";
                 let timeId = $(id_modal).find(`select`).eq(1).val();
                 let topicId = $(id_modal).find(`select`).eq(2).val();
 
+                console.log($(id_modal).find(`select`));
                 console.log([id, status, DoW_id, timeId, topicId])
 
                 $.ajax({

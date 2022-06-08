@@ -67,6 +67,11 @@ class AdminLogin
                         $this->remember->remember_me($user["id"]);
                     }
                     return true;
+                }else {
+
+                    header('Content-Type: application/json; charset=UTF-8');
+                    echo json_encode(array("login" => "fail-user-pass", "message" => "Tài khoản hoặc mật khẩu không đúng")); // 1001 : ERROR_USERNAME_PASSWORD_INCORRECT
+                    return false;
                 }
             } else {
 

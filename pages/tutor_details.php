@@ -79,7 +79,7 @@ include "../inc/header.php"
                             <div class="card-body">
 
                                 <div class="d-flex align-items-start">
-                                    <img src="<?= isset($result["imagepath"])? Util::getCurrentURL(1) . "public/" . $result["imagepath"]: "https://bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+                                    <img src="<?= isset($result["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $result["imagepath"] : "https://bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
                                     <div class="w-100 ms-3 align-self-end">
                                         <h4 class="my-1"><?= $result["lastname"] . ' ' . $result["firstname"]; ?></h4>
                                         <p class="text-muted">@id: <?= $result["username"]; ?></p>
@@ -141,15 +141,18 @@ include "../inc/header.php"
                                     <!-- <li class="list-inline-item">
                                 <a href="javascript: void(0);" class="social-list-item text-center border-secondary text-secondary"><i class="mdi mdi-github"></i></a>
                             </li> -->
-
-                                    <li class="list-inline-item postion-absolute">
-                                        <?php
+                                    <?php
+                                    if (Session::checkRoles(['user', 'tutor'])) :
                                         $hasTutor = $saved_tutor->countTutorSavedByUserId(Session::get("userId"), $id)->fetch_assoc();
                                         $get_registered_tutor = $register_user->countRegisteredUsersWithTutor(Session::get("userId"), $id)->fetch_assoc();
-                                        ?>
-                                        <button type="button" class="btn  btn-tutor-detail <?= !empty($_SESSION) ? "" : "d-none"  ?>" id="save-tutor"><?= $hasTutor["hasTutor"] > 0 ? "Đã lưu" : "Lưu" ?></button>
-                                        <button type="button" class="btn  btn-tutor-detail btn-register-show <?= !empty($_SESSION) ? "" : "d-none"  ?> " data-bs-toggle="modal" data-bs-target="#exampleModal"><?= $get_registered_tutor["registered_tutor"] > 0 ? "Đã đăng ký" : "Đăng ký" ?></button>
-                                    </li>
+                                    ?>
+                                        <li class="list-inline-item postion-absolute">
+
+                                            <button type="button" class="btn  btn-tutor-detail" id="save-tutor"><?= $hasTutor["hasTutor"] > 0 ? "Đã lưu" : "Lưu" ?></button>
+                                            <button type="button" class="btn  btn-tutor-detail btn-register-show " data-bs-toggle="modal" data-bs-target="#exampleModal"><?= $get_registered_tutor["registered_tutor"] > 0 ? "Đã đăng ký" : "Đăng ký" ?></button>
+                                        </li>
+
+                                    <?php endif; ?>
                                 </ul>
                             </div>
                         </div> <!-- end card -->

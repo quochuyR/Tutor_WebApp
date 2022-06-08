@@ -143,6 +143,12 @@
   color: #F76C6C !important;
 }   
 
+.alert-success{
+  border: none !important;
+  background-color: #dcfce7 !important;
+  color: #15803d !important;
+}  
+
 .alert {
   border: none !important;
 }

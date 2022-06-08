@@ -64,7 +64,7 @@ include "../inc/header.php";
                 <div class="col-4">
                     <div class="row">
                         <div class="col-12"><img class="rounded-circle" alt="Uy tín" src="https://top1quangnam.com/wp-content/uploads/2021/06/UY-TIN-2.png" width="80" height="80"></div>
-                        <div class="col-lg-12 col-12 ml-1">
+                        <div class="col-lg-12 col-12 ml-1 mt-3">
                             <h4>Uy tín</h4>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ include "../inc/header.php";
                 <div class="col-4">
                     <div class="row">
                         <div class="col-12"><img class="rounded-circle" alt="Tận tâm" src="http://cityhomes.net.vn/wp-content/uploads/2019/06/icon-tan-tam.png" width="80" height="80"></div>
-                        <div class="col-lg-12 col-12 ml-1">
+                        <div class="col-lg-12 col-12 ml-1 mt-3">
                             <h4>Tận tâm</h4>
                         </div>
                     </div>
@@ -80,7 +80,7 @@ include "../inc/header.php";
                 <div class="col-4">
                     <div class="row">
                         <div class="col-lg-12 col-12"><img class="rounded-circle" alt="Chuyên nghiệp" src="https://iweb.tatthanh.com.vn/pic/3/service/images/thiet-ke-website-quang-cao(21).png" width="80" height="80"></div>
-                        <div class="col-lg-12 col-12 ml-1">
+                        <div class="col-lg-12 col-12 ml-1 mt-3">
                             <h4>Chuyên nghiệp</h4>
                         </div>
                     </div>
@@ -108,7 +108,7 @@ include "../inc/header.php";
                     <div class="col-lg-3 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
                         <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
                             <div class=" card-img-top img-teacher text-center">
-                                <img src=" <?= Util::getCurrentURL(1) . "public/" . (isset($result['imagepath']) ? $result['imagepath'] : "") ?>" class="rounded" alt="" srcset="">
+                                <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(1) . "public/" . $result['imagepath'] :  "https://bootdey.com/img/Content/avatar/avatar5.png") ?>" class="rounded" alt="" srcset="">
                             </div>
                             <div class="card-body">
                                 <h6 class="font-weight-bold pt-1"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h6>
@@ -191,29 +191,29 @@ include "../inc/header.php";
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <h2 class="text-center pt-5">Mọi người nghĩ gì về trang dạy kèm tại nhà?</h2>
             <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="3000">
+                <div class="carousel-item active" data-bs-interval="4000">
                     <div class="row d-block w-100 ">
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
                             <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://anhdep123.com/wp-content/uploads/2020/05/anh-gai-che-mat-4.jpg" data-holder-rendered="true">
-                            <h3>Nguyễn Văn A</h3>
+                            <h3 class="mt-3">Nguyễn Văn A</h3>
                             <p>Con tôi học rất tệ môn tiếng anh từ khi được dạy kèm ở đây thì giỏi ngữ văn lắm.</p>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item" data-bs-interval="3000">
+                <div class="carousel-item" data-bs-interval="4000">
                     <div class="row d-block w-100 ">
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
                             <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://i.pinimg.com/originals/f7/a5/48/f7a5489830eef765b2ba8bc77f66e25d.png" data-holder-rendered="true">
-                            <h3>Cờ rờ u ết hắt</h3>
+                            <h3 class="mt-3">Huỳnh Bé Nên</h3>
                             <p>Con tôi khác yếu Anh Văn nhờ thầy cô dạy kèm ở đây cháu nó có thể lấy 10 điểm môn toán dễ dàng.</p>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item" data-bs-interval="3000">
+                <div class="carousel-item" data-bs-interval="4000">
                     <div class="row d-block w-100 ">
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
                             <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://haycafe.vn/wp-content/uploads/2022/02/Anh-gai-xinh-Viet-Nam.jpg" data-holder-rendered="true">
-                            <h3>Huỳnh Lí Thị Bê</h3>
+                            <h3 class="mt-3">Lâm Gia Huy</h3>
                             <p>Cháu Diễm Mi nhà tôi mất tích 3 năm rồi từ khi tôi thuê gia sư ở đây thì con bé thấy trai đẹp nên tự mò về.</p>
                         </div>
                     </div>

@@ -19,6 +19,7 @@ Googel Fonts  */
 @import url("./material-icon/main.css");
 @import url("./user_detail/main.css");
 @import url("./carousel_post/main.css");
+@import url("./sliderbar/main.css");
 
 .avatar-md {
   height: 2.5rem;
@@ -925,7 +926,7 @@ aside.left-panel:hover {
 }
 
 .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle+.sub-menu a {
-  padding: 2px 0 2px 30px;
+  padding: 2px 0 2px 0;
 }
 
 .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle+.sub-menu a:before {
@@ -1094,7 +1095,7 @@ aside.left-panel:hover {
   text-align: center;
 }
 
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children.show{
+.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children.show {
   overflow: visible !important;
 }
 
@@ -1994,14 +1995,16 @@ header .form-inline .search-form.close {
 /* table */
 
 
-.table-type-1 table, .table-type-1 td{
+/* .table-type-1 table,
+.table-type-1 td {
 
-  border-style: none ;
-}
+  border-style: none;
+} */
+
 .table-type-1.table-striped tbody tr:nth-of-type(odd) td {
   /* background-color: rgb(20 184 166); */
-  background-color: rgb(209 250 229);
-  
+  background-color: #d1fae5;
+
 
 }
 
@@ -2076,22 +2079,33 @@ tr {
   vertical-align: middle;
 }
 */
+.table-type-1 tr th:nth-child(1){
+  text-align: center;
+}
 .table-type-1 tr td:nth-child(1) {
   background-color: #fff !important;
+  text-align: center;
+
 }
 
-.table-type-1 tr td:nth-child(2) {
+/* .table-type-1 tr td:nth-child(2) {
   border-radius: 0.5rem 0 0 0.5rem;
 }
 
 .table-type-1 tr td:last-child {
   border-radius: 0 0.5rem 0.5rem 0;
-}
+} */
 
 
 .table-type-1 thead th {
-  border-bottom: none;
+  /* border-bottom: none; */
   font-weight: 700 !important;
+
+}
+
+.table-type-1 thead th:nth-child(1) {
+  max-width: 2rem !important;
+  min-width: 2rem !important;
 
 }
 
@@ -2100,14 +2114,14 @@ tr {
   font-family: 'Open Sans';
 }
 
-.table>:not(:first-child) {
+/* .table>:not(:first-child) {
   border-top: none !important;
-}
+} */
 
-.table>tbody>tr>td,
+/* .table>tbody>tr>td,
 .table>tbody>tr>th {
   border-top: none;
-}
+} */
 
 /*  */
 
@@ -2119,16 +2133,16 @@ tr {
 .table-stats .table tbody tr td {
   color: #343a40;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   /* text-transform: capitalize; */
-  border-bottom-width: 2px !important;
+  border-bottom-width: 1px !important;
 
-  vertical-align: middle;
+  vertical-align: middle !important;
 }
 
 .table-stats .table thead tr th,
 .table-stats .table tbody tr td {
-  color: #868e96;
+  /* color: #333; */
 
   padding: 0.875rem 0 0.565rem !important;
 }
@@ -3763,7 +3777,7 @@ footer.site-footer .footer-inner a {
 }
 
 /* tutor manager */
-.info-detail p{
+.info-detail p {
   margin: 0;
-    padding: 0;
+  padding: 0;
 }

@@ -9,26 +9,25 @@ include_once($filepath . "../../helpers/utilities.php");
 class Session
 {
 
-    
+
     /**
      * Hàm có nhiệm vụ tạo mới session
      * @return void
-     */ 
+     */
     public static function init(): void
     {
-       
+
         if (version_compare(phpversion(), '8.2', "<=")) {
             // var_dump(session_id());
             if (empty(session_id())) {
                 session_start();
-                if(!isset($_SESSION["csrf_token"])){
+                if (!isset($_SESSION["csrf_token"])) {
                     self::set("csrf_token", Util::csrf_token());
                 }
             }
         } else {
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
-               
             }
         }
     }
@@ -93,29 +92,47 @@ class Session
      */
     public static function checkRoles($role_allow): bool
     {
+        // print_r($role_allow);
+
 
         // var_dump($_SESSION);
         if (self::checkLogin() && !empty(self::get("roles"))) {
             // if (!empty(self::get("roles"))) {
+            // $roles = array();
             $roles = array();
+
             foreach (self::get("roles") as $value) { // nhớ lưu ý key và value của mảng
+                // print_r($roles[]);
+
                 array_push($roles, $value["name"]);
             }
-            if (count($roles) <= 1) {
-                if (count(array_intersect($roles, $role_allow)) === count($roles)) {
-                    return true;
-                    //    print_r(array_diff($role_allow, $roles));
-                }
-            } else {
-                if (count(array_intersect($roles, $role_allow)) === count($role_allow)) {
-                    return true;
-                    //    print_r(array_diff($role_allow, $roles));
+            if(count(array_intersect($role_allow, ["user", "tutor", "admin"])) !== 0){
+                foreach($roles as $role){
+                
+                    if(in_array($role, $role_allow)){
+                        return true;
+                    }
                 }
             }
+            
+
+            
+            
+            return false;
+            // if (count($roles) <= 1) {
+            //     if (count(array_intersect($roles, $role_allow)) === count($roles)) {
+            //         return true;
+            //         //    print_r(array_diff($role_allow, $roles));
+            //     }
+            // } else {
+            //     if (count(array_intersect($roles, $role_allow)) === count($role_allow)) {
+            //         return true;
+            //         //    print_r(array_diff($role_allow, $roles));
+            //     }
+            // }
         }
 
-        // print_r($roles);
-        // print_r($role_allow);
+
 
         return false;
     }
