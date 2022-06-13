@@ -4,16 +4,16 @@ namespace Classes;
 
 use Library\Session, Library\Database;
 use Helpers\Format;
-use Classes\UserRole, Classes\AppUser, Classes\Remember;
+use Classes\AppUserRole, Classes\AppUser, Classes\Remember;
 
-$filepath  = realpath(dirname(__FILE__));
-include_once($filepath . "../../lib/session.php");
+// $filepath  = realpath(dirname(__FILE__));
+// include_once($filepath . "../../lib/session.php");
 Session::checkLogin();
-include_once($filepath . "../../lib/database.php");
-include_once($filepath . "../../helpers/format.php");
-include_once($filepath . "../../classes/appuserroles.php");
-include_once($filepath . "../../classes/appusers.php");
-include_once($filepath . "../../classes/remember.php");
+// include_once($filepath . "../../lib/database.php");
+// include_once($filepath . "../../helpers/format.php");
+// include_once($filepath . "../../classes/appuserroles.php");
+// include_once($filepath . "../../classes/appusers.php");
+// include_once($filepath . "../../classes/remember.php");
 
 
 class AdminLogin
@@ -26,7 +26,7 @@ class AdminLogin
     public function __construct()
     {
         $this->db = new Database();
-        $this->user_role = new UserRole();
+        $this->user_role = new AppUserRole();
         $this->user = new AppUser();
         $this->remember = new Remember();
     }

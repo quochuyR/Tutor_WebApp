@@ -9,27 +9,22 @@ use Classes\RegisterUser,
     Classes\SubjectTopic,
     Classes\TeachingTime,
     Classes\DayOfWeek;
+require_once(__DIR__ . "../../vendor/autoload.php");
 
-
-$filepath = realpath(dirname(__FILE__));
-include_once $filepath . "../../lib/session.php";
-include_once $filepath . "../../helpers/utilities.php";
-include_once $filepath . "../../helpers/format.php";
-include_once $filepath . "../../classes/registerusers.php";
-include_once $filepath . "../../classes/appusers.php";
-include_once $filepath . "../../classes/dayofweeks.php";
-include_once $filepath . "../../classes/subjecttopics.php";
-include_once $filepath . "../../classes/teachingtimes.php";
+// $filepath = realpath(dirname(__FILE__));
+// include_once $filepath . "../../lib/session.php";
+// include_once $filepath . "../../helpers/utilities.php";
+// include_once $filepath . "../../helpers/format.php";
+// include_once $filepath . "../../classes/registerusers.php";
+// include_once $filepath . "../../classes/appusers.php";
+// include_once $filepath . "../../classes/dayofweeks.php";
+// include_once $filepath . "../../classes/subjecttopics.php";
+// include_once $filepath . "../../classes/teachingtimes.php";
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 if (Session::checkRoles(["tutor"]) !== true) {
     header("location: ./");
 }
-?>
-
-
-<?php
-
 
 $register_user = new RegisterUser();
 $_user = new AppUser();
@@ -37,17 +32,6 @@ $_subjecttopic = new SubjectTopic();
 $_teaching_time = new TeachingTime();
 $_day_of_week = new DayOfWeek();
 
-?>
-
-
-
-<!-- Hiển thị hình ảnh rõ hơn khi click -->
-
-
-<!--  -->
-
-
-<?php
 $title = "Người dùng đăng ký";
 
 include "../inc/header.php";
@@ -415,8 +399,7 @@ include "../inc/header.php";
             //
 
             function onChangeTopic(event_approval) {
-                $(".teaching-subject").off();
-                $(".teaching-subject").on('change', (event_target) => {
+                $(".teaching-subject").off().on('change', (event_target) => {
                     getIdRegisterUser(event_approval, event_target);
                 })
             }
@@ -426,8 +409,8 @@ include "../inc/header.php";
 
             // thay đổi hiển thị môn học duyệt hay chưa
             function onChangeStatusApproval(event_approval) {
-                $(".show-status-topic").off();
-                $(".show-status-topic").on('click', () => {
+                
+                $(".show-status-topic").off().on('change', () => {
                     getSubjectRegisterUser(event_approval);
                 });
             }
@@ -466,8 +449,8 @@ include "../inc/header.php";
             }
 
             function onClickSave(event_approval) {
-                $(".btn-save").off();
-                $(".btn-save").on('click', () => {
+               
+                $(".btn-save").off().on('click', () => {
                     addSchedule(event_approval);
                 });
             }
@@ -487,7 +470,7 @@ include "../inc/header.php";
 
                 $.ajax({
                     type: "post",
-                    url: "../api/getstatusregisteruser",
+                    url: "../api/registeruser/getstatusregisteruser",
                     data: {
                         id,
 
@@ -519,7 +502,7 @@ include "../inc/header.php";
 
                 $.ajax({
                     type: "post",
-                    url: "../api/getregisteridbytopicid",
+                    url: "../api/registeruser/getregisteridbytopicid",
                     data: {
                         id,
                         topicId,
@@ -549,7 +532,7 @@ include "../inc/header.php";
 
                 $.ajax({
                     type: "post",
-                    url: "../api/getTimeFromDay",
+                    url: "../api/time/getTimeFromDay",
                     data: {
                         dayofweek,
 
@@ -574,7 +557,7 @@ include "../inc/header.php";
 
                 $.ajax({
                     type: "post",
-                    url: "../api/getdayschedule",
+                    url: "../api/day/getdayschedule",
                     data: {
                         action: "getDay",
 
@@ -602,7 +585,7 @@ include "../inc/header.php";
                 console.log(status)
                 $.ajax({
                     type: "post",
-                    url: "../api/getsubjectregisteruser",
+                    url: "../api/registeruser/getsubjectregisteruser",
                     data: {
                         userId,
                         status
@@ -634,7 +617,7 @@ include "../inc/header.php";
 
                 $.ajax({
                     type: "post",
-                    url: "../api/addscheduleuser",
+                    url: "../api/scheduleuser/addscheduleuser",
                     data: {
                         id,
                         status,
@@ -651,6 +634,7 @@ include "../inc/header.php";
                         // } else $(id_register).html("@id: không có");
                         if (data.status === '1') {
                             $(id_modal).closest(".job-box").addClass("bg-approval");
+                            
                             // 
                             Toastify({
                                 text: `Duyệt thành công. Bạn đã duyệt thành công môn ${$(id_modal).find(`select option:selected`).eq(2).text()}`,

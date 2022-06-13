@@ -5,15 +5,16 @@ namespace Ajax;
 use Helpers\Format;
 use Classes\TeachingTime;
 use Library\Session;
+require_once(__DIR__ . "../../../vendor/autoload.php");
 
-$filepath  = realpath(dirname(__FILE__));
+// $filepath  = realpath(dirname(__FILE__));
 
-include_once($filepath . "../../lib/session.php");
+// include_once($filepath . "../../lib/session.php");
 if(!Session::checkRoles(['tutor'])){
     header("location:../pages/errors/404");
 }
-include_once($filepath . "../../classes/teachingtimes.php");
-include_once($filepath . "../../helpers/format.php");
+// include_once($filepath . "../../classes/teachingtimes.php");
+// include_once($filepath . "../../helpers/format.php");
 
 
 $_teaching_time = new TeachingTime();

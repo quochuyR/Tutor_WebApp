@@ -6,15 +6,17 @@ use Classes\TutoringSchedule;
 use Helpers\Format;
 use Library\Session;
 
-$filepath = realpath(dirname(__FILE__));
+require_once(__DIR__ . "../../../vendor/autoload.php");
 
-include_once $filepath . "../../lib/session.php";
+// $filepath = realpath(dirname(__FILE__));
+
+// include_once $filepath . "../../lib/session.php";
 if (!Session::checkRoles(['tutor'])) {
     header("location:../pages/errors/404");
 }
-include_once $filepath . "../../classes/tutoringschedule.php";
+// include_once $filepath . "../../classes/tutoringschedule.php";
 
-include_once $filepath . "../../helpers/format.php";
+// include_once $filepath . "../../helpers/format.php";
 
 $_schedule = new TutoringSchedule();
 // print_r($_POST);

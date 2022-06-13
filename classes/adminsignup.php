@@ -4,15 +4,15 @@ namespace Classes;
 
 use Library\Session, Library\Database;
 use Helpers\Format;
-use Classes\UserRole, Classes\AppUser;
+use Classes\AppUserRole, Classes\AppUser;
 
-$filepath  = realpath(dirname(__FILE__));
-include_once($filepath . "../../lib/session.php");
+// $filepath  = realpath(dirname(__FILE__));
+// include_once($filepath . "../../lib/session.php");
 Session::checkLogin();
-include_once($filepath . "../../lib/database.php");
-include_once($filepath . "../../helpers/format.php");
-include_once($filepath . "../../classes/appuserroles.php");
-include_once($filepath . "../../classes/appusers.php");
+// include_once($filepath . "../../lib/database.php");
+// include_once($filepath . "../../helpers/format.php");
+// include_once($filepath . "../../classes/appuserroles.php");
+// include_once($filepath . "../../classes/appusers.php");
 
 
 class AdminSignUp
@@ -24,7 +24,7 @@ class AdminSignUp
     public function __construct()
     {
         $this->db = new Database();
-        $this->user_role = new UserRole();
+        $this->user_role = new AppUserRole();
         $this->user = new AppUser();
     }
 

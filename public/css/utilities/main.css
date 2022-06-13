@@ -1,5 +1,9 @@
 /* font */
 
+.font-36{
+  font-size: 36px !important;
+}
+
 .fw-500 {
   font-weight: 500;
 }
@@ -11,6 +15,9 @@
 /* end font */
 
 /* width */
+.w-fit-content{
+  width: fit-content !important;
+}
 .w-36 {
   width: 36px !important;
 }
@@ -126,6 +133,13 @@
 
 .bg-gray-50 {
   background-color: rgba(241, 241, 241, 0.5) !important;
+}
+
+.bg-gray-700{
+  background-color: #374151 !important;
+}
+.bg-gray-600{
+  background-color: #4b5563 !important;
 }
 
 .bg-cerulean{

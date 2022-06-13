@@ -10,20 +10,22 @@ use Classes\AppUser,
 use Helpers\Util;
 use Library\Session;
 
-$filepath = realpath(dirname(__FILE__));
-include_once $filepath . "../../lib/session.php";
+require_once(__DIR__ . "../../../vendor/autoload.php");
+
+// $filepath = realpath(dirname(__FILE__));
+// include_once $filepath . "../../lib/session.php";
 
 if (!Session::checkRoles(['tutor'])) {
     header("location:../pages/errors/404");
 }
-include_once $filepath . "../../classes/tutoringschedule.php";
-include_once $filepath . "../../classes/appusers.php";
-include_once $filepath . "../../classes/teachingtimes.php";
-include_once $filepath . "../../classes/dayofweeks.php";
-include "../classes/subjecttopics.php";
+// include_once $filepath . "../../classes/tutoringschedule.php";
+// include_once $filepath . "../../classes/appusers.php";
+// include_once $filepath . "../../classes/teachingtimes.php";
+// include_once $filepath . "../../classes/dayofweeks.php";
+// include "../classes/subjecttopics.php";
 
-include_once $filepath . "../../helpers/utilities.php";
-include_once $filepath . "../../helpers/format.php";
+// include_once $filepath . "../../helpers/utilities.php";
+// include_once $filepath . "../../helpers/format.php";
 
 $_tutoring_schedule = new TutoringSchedule();
 $_user = new AppUser();
@@ -60,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") :
                                         ?>
 
                                             <div class="d-flex align-items-start">
-                                                <img src="<?= Util::getCurrentURL(1) . "public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-sm img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
+                                                <img src="<?= Util::getCurrentURL(2) . "public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-sm img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
                                                 <div class="w-100 ms-3 align-self-end">
                                                     <h6 class="my-1 fw-bold" style="color: #333333 !important;"><?= $user["lastname"] . ' ' . $user["firstname"]; ?></h6>
                                                     <p class="text-muted">@id: <?= $user["username"]; ?></p>
@@ -134,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") :
 
                                                                             <div class="card ">
                                                                                 <div class="d-flex align-items-start p-2">
-                                                                                    <img src="<?= Util::getCurrentURL(1) . "public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-sm img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
+                                                                                    <img src="<?= Util::getCurrentURL(2) . "public/"  . $user["imagepath"]; ?>" class="rounded-circle avatar-sm img-thumbnail" alt="profile-image" onclick="ShowImg(this.src);">
                                                                                     <div class="w-100 ms-3 align-self-end">
                                                                                         <h6 class="my-1 fw-regular" style="color: #205072"><?= $user["lastname"] . ' ' . $user["firstname"]; ?></h6>
                                                                                         <p class="text-muted">@id: <?= $user["username"]; ?></p>

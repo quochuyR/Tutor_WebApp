@@ -6,25 +6,20 @@ use Classes\TutoringSchedule,
   Classes\SubjectTopic,
   Classes\Time;
 use Library\Session;
+require_once(__DIR__ . "../../vendor/autoload.php");
 
-include "../lib/session.php";
-include_once "../helpers/utilities.php";
-include "../classes/tutoringschedule.php";
-include "../classes/appusers.php";
-include "../classes/dayofweeks.php";
-include "../classes/subjecttopics.php";
-include "../classes/times.php";
+// include "../lib/session.php";
+// include_once "../helpers/utilities.php";
+// include "../classes/tutoringschedule.php";
+// include "../classes/appusers.php";
+// include "../classes/dayofweeks.php";
+// include "../classes/subjecttopics.php";
+// include "../classes/times.php";
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 if (Session::checkRoles(["tutor"]) !== true) {
   header("location: ./");
 }
-
-
-?>
-
-
-<?php
 
 
 $_tutoring_schedule = new TutoringSchedule();
@@ -34,10 +29,6 @@ $_subjecttopic = new SubjectTopic();
 $_time = new Time();
 
 
-?>
-
-
-<?php
 $title = "Lịch dạy";
 
 include "../inc/header.php"
@@ -217,7 +208,7 @@ include "../inc/header.php"
 
       function page_paginator() {
 
-        $(".link-ajax").on('click', (e) => {
+        $(".link-ajax").off().on('click', (e) => {
           e.preventDefault();
           filer_data_tutoringSchedule(e);
         });
@@ -259,7 +250,7 @@ include "../inc/header.php"
 
         $.ajax({
           type: "post",
-          url: "../api/schedule_tutor",
+          url: "../api/scheduletutor/schedule_tutor",
           data: {
             day,
             subjectTopic,
@@ -299,7 +290,7 @@ include "../inc/header.php"
       }
 
       function onClickUpdateSchedule() {
-        $(".btn-modal-save").on('click', (e) => {
+        $(".btn-modal-save").off().on('click', (e) => {
 
           let main_body_modal = $(e.target).closest(".modal-footer").prev(".modal-body");
           let dayofweek = $(main_body_modal).find("select").eq(0).val();
@@ -317,7 +308,7 @@ include "../inc/header.php"
       }
 
       function onClickDeleteSchedule() {
-        $(".delete-schedule").on('click', (e) => {
+        $(".delete-schedule").off().on('click', (e) => {
 
           if (confirm("Bạn có chắn chắn muốn xoá?") === false)
             return 0
@@ -330,7 +321,7 @@ include "../inc/header.php"
           /* Xoá lịch dạy ở đây */
           $.ajax({
             type: "post",
-            url: "../api/deleteschudule",
+            url: "../api/scheduletutor/deleteschudule",
             data: {
               id: th_id
 
@@ -377,11 +368,11 @@ include "../inc/header.php"
       }
 
       function onClickBtnEdit() {
-        $(".edit-schedule").on('click', (e) => {
+        $(".edit-schedule").off().on('click', (e) => {
           referenceDataFromTableToModal(e);
           getDaySchedule(e);
           let id_modal = $(e.target).attr("data-bs-target");
-          $(id_modal).find(`select option[value="${-1}"]`).eq(0).prop("selected", true); // select teaching day in modal
+          // $(id_modal).find(`select option[value="${-1}"]`).eq(0).prop("selected", true); // select teaching day in modal
           $(id_modal).find("select").eq(1).html(`<option value="0">-- Buổi học --</option> <option value="${$(td_time).attr("data-value")}" selected> ${$(td_time).text()} </option>`); // select teaching time in modal
           $(id_modal).find("select").eq(2).val($(td_topic_name).attr("data-value")); // select teaching subject topic in modal
 
@@ -397,7 +388,7 @@ include "../inc/header.php"
       function updateScheduleTutor(id, dayofweek, time, subject_topic, dayofweek_prev, time_prev) {
         $.ajax({
           type: "post",
-          url: "../api/updateschedule",
+          url: "../api/scheduletutor/updateschedule",
           data: {
             id,
             dayofweek,
@@ -445,7 +436,7 @@ include "../inc/header.php"
       }
 
       function OnchangeSelectDoW() {
-        $(".teaching-day").on('change', (e) => {
+        $(".teaching-day").off().on('change', (e) => {
 
           getTimeFromDay(e);
         });
@@ -460,7 +451,7 @@ include "../inc/header.php"
 
         $.ajax({
           type: "post",
-          url: "../api/getTimeFromDay",
+          url: "../api/time/getTimeFromDay",
           data: {
             dayofweek,
 
@@ -481,11 +472,10 @@ include "../inc/header.php"
       function getDaySchedule(e) {
         let id_modal = $(e.target).attr("data-bs-target");
         let dayofweek = $(id_modal).find(`select`).eq(0);
-
-
+        console.log($(td_day).attr("data-value"), "td day")
         $.ajax({
           type: "post",
-          url: "../api/getdayschedule",
+          url: "../api/day/getdayschedule",
           data: {
             action: "getDay",
 
@@ -494,7 +484,7 @@ include "../inc/header.php"
           success: function(data) {
 
             dayofweek.html(data);
-
+            $(dayofweek).children(`option[value="${$(td_day).attr("data-value")}"]`).prop("selected", true); // When we click the edit button, we can select a data value.
             console.log(data)
           },
           error: function(xhr, status, error) {

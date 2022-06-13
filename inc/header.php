@@ -6,33 +6,29 @@ use Helpers\Util, Helpers\Format;
 use Library\Session;
 use Classes\Notification, Classes\AdminLogin, Classes\Remember;
 
-$filepath  = realpath(dirname(__FILE__));
+require_once(__DIR__ . "../../vendor/autoload.php");
+
+// $filepath  = realpath(dirname(__FILE__));
 
 
-include_once($filepath . "../../lib/session.php");
+// include_once($filepath . "../../lib/session.php");
+// // include_once($filepath . "../../classes/adminlogin.php");
+// include_once($filepath . "../../classes/notifications.php");
+// include_once($filepath . "../../classes/remember.php");
+
+// include_once($filepath . "../../helpers/utilities.php");
 // include_once($filepath . "../../classes/adminlogin.php");
-include_once($filepath . "../../classes/notifications.php");
-include_once($filepath . "../../classes/remember.php");
-
-include_once($filepath . "../../helpers/utilities.php");
-include_once($filepath . "../../classes/adminlogin.php");
 
 Session::init();
-?>
 
-<?php
 header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
 header("Pragma: no-cache"); //HTTP 1.0
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-
 //or, if you DO want a file to cache, use:
 header("Cache-Control: max-age=2592000"); //30days (60sec * 60min * 24hours * 30days)
 header("X-Frame-Options: DENY");
 header("Content-Security-Policy: frame-ancestors 'none'", false);
-?>
 
-
-<?php
 $notification = new Notification();
 $login = new AdminLogin();
 

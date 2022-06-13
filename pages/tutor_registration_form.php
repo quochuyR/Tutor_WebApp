@@ -1,11 +1,12 @@
 <?php
 
 use Classes\DayOfWeek, Classes\Time, Library\Session;
+require_once(__DIR__ . "../../vendor/autoload.php");
 
 
-include_once "../classes/dayofweeks.php";
-include_once "../classes/times.php";
-include_once "../lib/session.php";
+// include_once "../classes/dayofweeks.php";
+// include_once "../classes/times.php";
+// include_once "../lib/session.php";
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 if (Session::checkRoles(["user"]) !== true) {
@@ -470,7 +471,7 @@ include "../inc/script.php"
 
                 $.ajax({
                     type: "post",
-                    url: "../api/tutor_register",
+                    url: "../api/tutor/tutor_register",
                     data: {
                         token,
                         currentPhone,

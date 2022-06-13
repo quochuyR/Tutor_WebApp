@@ -7,15 +7,17 @@ use Classes\Notification;
 use Helpers\Util;
 use Library\Session;
 
-$filepath  = realpath(dirname(__FILE__));
+require_once(__DIR__ . "../../../vendor/autoload.php");
 
-include_once($filepath . "../../lib/session.php");
+// $filepath  = realpath(dirname(__FILE__));
+
+// include_once($filepath . "../../lib/session.php");
 if (!Session::checkRoles(['user', 'tutor'])) {
     header("location:../pages/errors/404");
 }
-include_once $filepath . "../../classes/notifications.php";
+// include_once $filepath . "../../classes/notifications.php";
 
-include_once($filepath . "../../helpers/format.php");
+// include_once($filepath . "../../helpers/format.php");
 
 
 $_notification = new Notification();
@@ -36,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
                 <a href="../pages/<?= htmlspecialchars($notifi["notification_link"]) ?>" class="d-flex list-group-item list-group-item-action border-0 text-small">
                     <div class="my-auto me-2">
-                        <img src="<?= isset($sender["imagepath"]) ? Util::getCurrentURL(1) ."public/" . $sender["imagepath"] : "https://bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="avatar-notification avatar-sm-notification  ">
+                        <img src="<?= isset($sender["imagepath"]) ? Util::getCurrentURL(2) ."public/" . $sender["imagepath"] : "https://bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="avatar-notification avatar-sm-notification  ">
                     </div>
                     <div>
                         <b><?= $sender["firstname"] ?></b> <?= $notifi["notification_text"] ?>

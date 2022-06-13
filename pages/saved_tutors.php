@@ -5,12 +5,13 @@ namespace Views;
 use Helpers\Util, Helpers\Format;
 use Library\Session;
 use Classes\SavedTutor, Classes\Subject;
+require_once(__DIR__ . "../../vendor/autoload.php");
 
-include "../classes/savedtutors.php";
-include "../classes/subjects.php";
-include "../lib/session.php";
-include "../helpers/format.php";
-include_once "../helpers/utilities.php";
+// include "../classes/savedtutors.php";
+// include "../classes/subjects.php";
+// include "../lib/session.php";
+// include "../helpers/format.php";
+// include_once "../helpers/utilities.php";
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 if (!Session::checkRoles(["user", "tutor"])) {
@@ -18,9 +19,6 @@ if (!Session::checkRoles(["user", "tutor"])) {
     // print_r(Session::get("roles"));
 }
 
-?>
-
-<?php
 $title = "Gia sư đã lưu";
 
 include "../inc/header.php"
@@ -104,7 +102,7 @@ include "../inc/header.php"
                                                             work
                                                         </span>
                                                         <span class="text-muted m-l-10 pt-1 fw-500">
-                                                            <?= $tutor["job"] ?>
+                                                            <?= isset($tutor["job"]) ? $tutor["job"]: "Chưa có thông tin"; ?>
                                                         </span>
                                                     </li>
 
@@ -197,7 +195,7 @@ include "../inc/header.php"
             console.log(tutorId, $(e.currentTarget).attr("data-href"));
             $.ajax({
                 type: "post",
-                url: "../api/unsaved_tutors",
+                url: "../api/savedtutor/unsaved_tutors",
                 data: {
                     tutorId: tutorId
                 },

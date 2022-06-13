@@ -7,19 +7,21 @@ use Classes\Tutor, Classes\TeachingTime, Classes\TeachingSubject;
 use Helpers\Format;
 use Library\Session;
 
-$filepath = realpath(dirname(__FILE__));
+require_once(__DIR__ . "../../../vendor/autoload.php");
 
-include_once $filepath . "../../lib/session.php";
+// $filepath = realpath(dirname(__FILE__));
+
+// include_once $filepath . "../../lib/session.php";
 if (Session::checkRoles(['tutor'])) {
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(["author" => "isTutor"]);
     exit();
 }
-include_once $filepath . "../../classes/tutors.php";
-include_once $filepath . "../../classes/teachingtimes.php";
-include_once $filepath . "../../classes/teachingsubjects.php";
+// include_once $filepath . "../../classes/tutors.php";
+// include_once $filepath . "../../classes/teachingtimes.php";
+// include_once $filepath . "../../classes/teachingsubjects.php";
 
-include_once $filepath . "../../helpers/format.php";
+// include_once $filepath . "../../helpers/format.php";
 
 $_tutor = new Tutor();
 $_teaching_time = new TeachingTime();

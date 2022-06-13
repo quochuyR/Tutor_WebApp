@@ -5,16 +5,17 @@ namespace Ajax;
 use Helpers\Format;
 use Classes\DayOfWeek;
 use Library\Session;
+require_once(__DIR__ . "../../../vendor/autoload.php");
 
-$filepath  = realpath(dirname(__FILE__));
+// $filepath  = realpath(dirname(__FILE__));
 
-include_once($filepath . "../../lib/session.php");
+// include_once($filepath . "../../lib/session.php");
 if (!Session::checkRoles(['tutor'])) {
     header("location:../pages/errors/404");
 }
-include_once $filepath . "../../classes/dayofweeks.php";
+// include_once $filepath . "../../classes/dayofweeks.php";
 
-include_once($filepath . "../../helpers/format.php");
+// include_once($filepath . "../../helpers/format.php");
 
 
 $_day_of_week = new DayOfWeek();

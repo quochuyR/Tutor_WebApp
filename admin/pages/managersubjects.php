@@ -5,23 +5,20 @@ namespace Admin;
 use Classes\Subject;
 use Library\Session;
 
-require_once "../../lib/session.php";
+require_once(__DIR__ . "../../../vendor/autoload.php");
+
+// require_once "../../lib/session.php";
 
 if (!Session::checkRoles(["admin"])) {
     header("location: ../../pages/login");
 }
 //  Classes\Subject, Classes\SubjectTopic;
-?>
 
-<?php
-include_once "../../classes/subjects.php";
-?>
+// include_once "../../classes/subjects.php";
 
-<?php
 $_subject = new Subject();
 
-?>
-<?php $title = "Quản lý môn học";
+$title = "Quản lý môn học";
 include_once "../inc/header.php" ?>
 <section>
 
@@ -142,7 +139,7 @@ include_once "../inc/header.php" ?>
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: '../api/subjects/getdatasubjects.php',
+                        url: '../api/subjects/getdatasubjects',
                         dataType: 'json',
                         type: 'get',
                         complete: function(data) {
@@ -316,7 +313,7 @@ include_once "../inc/header.php" ?>
                         console.log($(event.target).serialize())
                         $.ajax({
                             type: "post",
-                            url: "../api/subjects/updatesubject.php",
+                            url: "../api/subjects/updatesubject",
                             data: $(event.target).serialize(),
                             cache: false,
                             success: function(data) {
@@ -354,7 +351,7 @@ include_once "../inc/header.php" ?>
 
                         $.ajax({
                             type: "post",
-                            url: "../api/subjects/deletesubject.php",
+                            url: "../api/subjects/deletesubject",
                             data: {
                                 id_subject
                             },
@@ -397,7 +394,7 @@ include_once "../inc/header.php" ?>
                         console.log(subject_id_list);
                         $.ajax({
                             type: "post",
-                            url: "../api/subjects/deletesubject.php",
+                            url: "../api/subjects/deletesubject",
                             data: {
                                 id_subject: subject_id_list
                             },
@@ -464,7 +461,7 @@ include_once "../inc/header.php" ?>
                     if (confirm("Bạn chắc chắn muốn thêm những môn học này?") === true) {
                         $.ajax({
                             type: "post",
-                            url: "../api/subjects/addsubject.php",
+                            url: "../api/subjects/addsubject",
                             data: $(event.target).serialize(),
                             cache: false,
                             success: function(data) {

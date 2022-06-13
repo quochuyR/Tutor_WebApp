@@ -98,7 +98,7 @@
                 $(`div[data-value="${e.currentTarget.parentNode.firstChild.nodeValue}"`)?.remove();
             }
             
-            $(".close").one('click', (e) => {
+            $(".close").off().on('click', (e) => {
 
                 let checkBoxValue = $(e.currentTarget.parentNode).attr("data-value");
                 // let LiValue = e.currentTarget.parentNode.getAttribute("value");
@@ -183,7 +183,7 @@
             // thêm subject filter
             $.ajax({
                 type: "post",
-                url: "../api/Topic",
+                url: "../api/subjecttopic/topicfilter",
                 data: {
                     subject: $(e.currentTarget).attr('subject-id') // lấy giá trị của thuộc tính subject-id
                 },
@@ -238,7 +238,7 @@
             console.log(status, token, "get value ")
             $.ajax({
                 type: "post",
-                url: "../api/listtutors",
+                url: "../api/tutor/listtutors",
                 data: {
                     token,
                     subject: subject,
@@ -312,7 +312,7 @@
             // thêm subject filter
             responseNotification && $.ajax({
                 type: "post",
-                url: "../api/getnotificationmore",
+                url: "../api/notification/getnotificationmore",
                 data: {
                     numNotification, // lấy giá trị của thuộc tính subject-id
                     offset
@@ -381,7 +381,7 @@
 
     $("img:not(.avatar)").on('click', function (e) {
         let DIVShowImg = $(".img-float");
-        let Img = $(".img-container>img");
+        let Img = $(".img-float>img");
         DIVShowImg.removeClass("d-none");
         console.log(Img)
         console.log(e.target)

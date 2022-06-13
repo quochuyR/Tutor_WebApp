@@ -11,16 +11,17 @@ use Classes\Tutor,
     Classes\TeachingTime,
     Classes\SavedTutor,
     Classes\RegisterUser;
+require_once(__DIR__ . "../../vendor/autoload.php");
 
-include_once "../classes/tutors.php";
-include_once "../classes/teachingsubjects.php";
-include_once "../classes/dayofweeks.php";
-include_once "../classes/days.php";
-include_once "../classes/teachingtimes.php";
-include_once "../classes/savedtutors.php";
-include_once "../classes/registerusers.php";
-include_once "../helpers/format.php";
-include_once "../lib/session.php";
+// include_once "../classes/tutors.php";
+// include_once "../classes/teachingsubjects.php";
+// include_once "../classes/dayofweeks.php";
+// include_once "../classes/days.php";
+// include_once "../classes/teachingtimes.php";
+// // include_once "../classes/savedtutors.php";
+// include_once "../classes/registerusers.php";
+// include_once "../helpers/format.php";
+// include_once "../lib/session.php";
 
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
@@ -36,7 +37,7 @@ if (!isset($_GET["id"]) || empty($_GET["id"]) || $_GET["id"] === null) {
 $title = "Thông tin gia sư";
 
 $nav_tutor_active = "active";
-include "../inc/header.php"
+include "../inc/header.php";
 
 ?>
 <!-- Hiển thị hình ảnh rõ hơn khi click -->
@@ -391,7 +392,7 @@ include "../inc/script.php"
             // console.log([tuId, id_approval, subject, status])
             $.ajax({
                 type: "post",
-                url: "../api/getsubjecttutor",
+                url: "../api/teachingsubject/getsubjecttutor",
                 data: {
                     tuId,
                     status
@@ -424,7 +425,7 @@ include "../inc/script.php"
 
             $.ajax({
                 type: "post",
-                url: "../api/addordeleteregistertutor",
+                url: "../api/registertutor/addordeleteregistertutor",
                 data: {
                     tuId,
                     action,
@@ -463,7 +464,7 @@ include "../inc/script.php"
             console.log(tutorId, "save-tutor");
             $.ajax({
                 type: "post",
-                url: "../api/savetutor",
+                url: "../api/savedtutor/savetutor",
                 data: {
                     tutorId: tutorId
                 },

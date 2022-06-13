@@ -5,23 +5,20 @@ namespace Admin;
 use Classes\Subject;
 use Library\Session;
 
-require_once "../../lib/session.php";
+require_once(__DIR__ . "../../../vendor/autoload.php");
+
+// require_once "../../lib/session.php";
 
 if (!Session::checkRoles(["admin"])) {
     header("location: ../../pages/login");
 }
 //  Classes\Subject, Classes\SubjectTopic;
-?>
 
-<?php
-include_once "../../classes/subjects.php";
-?>
+// include_once "../../classes/subjects.php";
 
-<?php
 $_subject = new Subject();
 
-?>
-<?php $title = "Quản lý gia sư";
+$title = "Quản lý gia sư";
 include_once "../inc/header.php" ?>
 <section>
 
@@ -124,7 +121,7 @@ include_once "../inc/header.php" ?>
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: '../api/tutors/getdatasubjecttopics.php',
+                        url: '../api/tutors/getdatasubjecttopics',
                         dataType: 'json',
                         type: 'get',
                         complete: function(data) {
@@ -330,7 +327,7 @@ include_once "../inc/header.php" ?>
 
                         $.ajax({
                             type: "post",
-                            url: "../api/tutors/gettutordetailsforadmin.php",
+                            url: "../api/tutors/gettutordetailsforadmin",
                             data: {
                                 id
                             },
@@ -359,7 +356,7 @@ include_once "../inc/header.php" ?>
 
                         $.ajax({
                             type: "post",
-                            url: "../api/tutors/updateapprovaltutor.php",
+                            url: "../api/tutors/updateapprovaltutor",
                             data: {
                                 id
                             },
@@ -426,7 +423,7 @@ include_once "../inc/header.php" ?>
                                                     if (confirm("Bạn chắc chắn muốn thêm những môn học này?") === true) {
                                                         $.ajax({
                                                             type: "post",
-                                                            url: "../api/subjects/addsubject.php",
+                                                            url: "../api/subjects/addsubject",
                                                             data: $(event.target).serialize(),
                                                             cache: false,
                                                             success: function(data) {

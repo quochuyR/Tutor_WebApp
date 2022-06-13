@@ -10,15 +10,17 @@ use Vendor\SSP;
 // \tutor_webapp
 $filepath = realpath(dirname(__FILE__, 4));
 
-include_once $filepath . "../lib/session.php";
+require_once($filepath . "/vendor/autoload.php");
+
+// include_once $filepath . "../lib/session.php";
 if (!Session::checkRoles(['admin'])) {
     header("location:../pages/errors/404");
 }
 
-include_once $filepath . "../../config/config.php";
+include_once $filepath . "/config/config.php";
 // include_once($filepath . "../../classes/subjects.php");
 // include_once($filepath . "../../helpers/format.php");
-include_once $filepath . "../../admin/vendor/ssp.class.php";
+include_once $filepath . "/admin/vendor/ssp.class.php";
 // DB table to use
 $table = 'subjecttopics_data_view';
 

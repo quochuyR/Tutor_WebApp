@@ -43,7 +43,7 @@ class SubjectTopic
 
         $vars = array();
 
-        foreach($subject_topic_name_array as $topic_name){
+        foreach ($subject_topic_name_array as $topic_name) {
             array_push($vars, $subject_id, $topic_name);
         }
         // print_r($subjectTopicMarks);
@@ -66,7 +66,7 @@ class SubjectTopic
     public function update_subject_subject($id, $subjectId, $topic_name): object|bool
     {
         $query = "UPDATE `subjecttopics` st SET st.subjectId= ?,st.topicName=? WHERE st.id = ?;";
-        $result = $this->db->p_statement($query, "isi", [ $subjectId, $topic_name, $id]);
+        $result = $this->db->p_statement($query, "isi", [$subjectId, $topic_name, $id]);
         return $result;
     }
 
@@ -130,12 +130,34 @@ class SubjectTopic
         return $result;
     }
 
+    public function CountByTutor()
+    {
+        $query = "SELECT s.id, s.subject, COUNT(DISTINCT ts.tutorId) as sum_tutor
+        FROM (((subjecttopics t INNER JOIN subjects s
+        ON t.subjectId = s.id)
+        INNER JOIN teachingsubjects ts on t.id = ts.topicId)
+		INNER JOIN tutors tu ON ts.tutorId = tu.id)
+        WHERE tu.tutor_status = 1
+        GROUP BY s.id, s.subject ORDER BY sum_tutor DESC;";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
     public function CountAll()
     {
         $query = "SELECT COUNT(*) as sum_all
         FROM ((`subjecttopics` INNER JOIN `subjects`
         ON `subjecttopics`.`subjectId` = `subjects`.`id`)
         INNER JOIN `teachingsubjects` on `subjecttopics`.`id` = `teachingsubjects`.`topicId`)";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+    public function countAllTutorRegisteredTopic()
+    {
+        $query = "SELECT  COUNT(DISTINCT `teachingsubjects`.`tutorId`) as sum_all_tutor
+        FROM `subjecttopics` 
+        INNER JOIN `teachingsubjects` on `subjecttopics`.`id` = `teachingsubjects`.`topicId`;";
         $result = $this->db->select($query);
         return $result;
     }
@@ -196,16 +218,23 @@ class SubjectTopic
         $query = "SELECT `subjecttopics`.`id`, `subjecttopics`.`topicName` 
         FROM `teachingsubjects` INNER JOIN `subjecttopics` ON `subjecttopics`.`id` = `teachingsubjects`.`topicId`
         WHERE  `teachingsubjects`.`tutorId` = ? 
-        AND `teachingsubjects`.`topicId`  NOT IN (SELECT `registeredusers`.`topicId` 
-                                                   FROM `registeredusers`
-                                                   WHERE `registeredusers`.`userId` = ? 
-                                                   AND `registeredusers`.`tutorId` = ?)
-        ORDER BY `subjecttopics`.`id` ASC;";
+        AND `teachingsubjects`.`topicId` ";
 
         if ($status == 1) {
-            $query = str_replace("NOT IN", "IN", $query);
+            $query .= " IN (SELECT `registeredusers`.`topicId` 
+            FROM `registeredusers`
+            WHERE `registeredusers`.`userId` = ? 
+            AND `registeredusers`.`tutorId` = ?)";
+        }
+        if ($status == 0) {
+            $query .= " NOT IN (SELECT `registeredusers`.`topicId` 
+            FROM `registeredusers`
+            WHERE `registeredusers`.`userId` = ? 
+            AND `registeredusers`.`tutorId` = ?)";
         }
 
+        $query .= " ORDER BY `subjecttopics`.`id` ASC;";
+       
         // print_r($query);
         $results = $this->db->p_statement($query, "sss", [$tutorId, $userId, $tutorId]);
 

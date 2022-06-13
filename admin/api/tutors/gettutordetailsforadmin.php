@@ -13,16 +13,17 @@ use Classes\Tutor,
     Classes\RegisterUser;
 
 $filepath = realpath(dirname(__FILE__, 4));
+require_once($filepath . "/vendor/autoload.php");
 
-include_once($filepath . "../lib/session.php");
-include_once($filepath . "../../classes/tutors.php");
-include_once($filepath . "../../classes/teachingsubjects.php");
-include_once($filepath . "../../classes/dayofweeks.php");
-include_once($filepath . "../../classes/days.php");
-include_once($filepath . "../../classes/teachingtimes.php");
-include_once($filepath . "../../classes/savedtutors.php");
-include_once($filepath . "../../classes/registerusers.php");
-include_once($filepath . "../../helpers/format.php");
+// include_once($filepath . "../lib/session.php");
+// include_once($filepath . "../../classes/tutors.php");
+// include_once($filepath . "../../classes/teachingsubjects.php");
+// include_once($filepath . "../../classes/dayofweeks.php");
+// include_once($filepath . "../../classes/days.php");
+// include_once($filepath . "../../classes/teachingtimes.php");
+// include_once($filepath . "../../classes/savedtutors.php");
+// include_once($filepath . "../../classes/registerusers.php");
+// include_once($filepath . "../../helpers/format.php");
 
 Session::init();
 if (!Session::checkRoles(['admin'])) {

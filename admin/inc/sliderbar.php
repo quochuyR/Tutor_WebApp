@@ -8,8 +8,8 @@
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle d-inline-flex align-items-center " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="ico ico-subject-manager me-3"></span><span class="d-block">Quản lí môn học</span></a>
                 <ul class="sub-menu children dropdown-menu">
-                    <li class="d-inline-flex align-items-center"><span class="ico ico-subject me-3"></span><a href="../pages/managersubjects.php">Môn học</a></li>
-                    <li class="d-inline-flex align-items-center"><span class="ico ico-topic me-3"></span><a href="../pages/topicmanager.php">Chủ đề môn học</a></li>
+                    <li class="d-inline-flex align-items-center"><span class="ico ico-subject me-3"></span><a href="../pages/managersubjects">Môn học</a></li>
+                    <li class="d-inline-flex align-items-center"><span class="ico ico-topic me-3"></span><a href="../pages/topicmanager">Chủ đề môn học</a></li>
 
 
 
@@ -18,14 +18,14 @@
             <li class="menu-item-has-children dropdown">
             <a href="#" class="dropdown-toggle d-inline-flex align-items-center " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="ico ico-tutor-manager me-3"></span><span class="d-block">Quản lí gia sư</span></a>
                 <ul class="sub-menu children dropdown-menu">
-                    <li class="d-inline-flex align-items-center"><span class="ico ico-tutor me-3"></span><a href="../pages/tutormanagers.php">Gia sư</a></li>
+                    <li class="d-inline-flex align-items-center"><span class="ico ico-tutor me-3"></span><a href="../pages/tutormanagers">Gia sư</a></li>
                 </ul>
             </li>
             <li class="menu-item-has-children dropdown">
             <a href="#" class="dropdown-toggle d-inline-flex align-items-center " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="ico ico-home-manager me-3"></span><span class="d-block">Quản lí trang chủ</span></a>
                 <ul class="sub-menu children dropdown-menu">
-                    <li class="d-inline-flex align-items-center"><span class="ico ico-image ico-subject me-3"></span><a href="../pages/carousel.php">Hình ảnh</a></li>
-                    <li class="d-inline-flex align-items-center"><span class="ico ico-post me-3"></span><a href="../pages/page_editpost.php">Bài viết</a></li>
+                    <li class="d-inline-flex align-items-center"><span class="ico ico-image ico-subject me-3"></span><a href="../pages/carousel">Hình ảnh</a></li>
+                    <li class="d-inline-flex align-items-center"><span class="ico ico-post me-3"></span><a href="../pages/page_editpost">Bài viết</a></li>
                 </ul>
             </li>
 

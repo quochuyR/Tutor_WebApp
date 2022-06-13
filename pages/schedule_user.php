@@ -6,25 +6,20 @@ use Classes\SubjectTopic;
 use Classes\Time;
 use Classes\TutoringSchedule;
 use Library\Session;
+require_once(__DIR__ . "../../vendor/autoload.php");
 
-include "../lib/session.php";
-include_once "../helpers/utilities.php";
-include "../classes/tutoringschedule.php";
-include "../classes/appusers.php";
-include "../classes/dayofweeks.php";
-include "../classes/subjecttopics.php";
-include "../classes/times.php";
+// include "../lib/session.php";
+// include_once "../helpers/utilities.php";
+// include "../classes/tutoringschedule.php";
+// include "../classes/appusers.php";
+// include "../classes/dayofweeks.php";
+// include "../classes/subjecttopics.php";
+// include "../classes/times.php";
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 if (!Session::checkRoles(["user", "tutor"])) {
   header("location: ./");
 }
-?>
-
-
-<?php
-
-
 
 $_tutoring_schedule = new TutoringSchedule();
 $_user = new AppUser();
@@ -32,11 +27,6 @@ $_dayofweek = new DayOfWeek();
 $_subjecttopic = new SubjectTopic();
 $_time = new Time();
 
-?>
-
-
-
-<?php
 $title = "Lịch dạy";
 
 include "../inc/header.php"
@@ -263,7 +253,7 @@ include "../inc/header.php"
 
         $.ajax({
           type: "post",
-          url: "../api/schedule_user",
+          url: "../api/scheduleuser/schedule_user",
           data: {
             day,
             subjectTopic,

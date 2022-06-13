@@ -4,8 +4,10 @@ use Helpers\Format;
 use Classes\SubjectTopic;
 $filepath  = realpath(dirname(__FILE__));
 
-include_once($filepath."../../classes/subjecttopics.php");
-include_once($filepath."../../helpers/format.php");
+require_once(__DIR__ . "../../../vendor/autoload.php");
+
+// include_once($filepath."../../classes/subjecttopics.php");
+// include_once($filepath."../../helpers/format.php");
 
 $SBtopic = new SubjectTopic();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {

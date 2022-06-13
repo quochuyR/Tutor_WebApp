@@ -6,12 +6,16 @@ use Classes\AppUser;
 use Classes\Tutor;
 // use Helpers\Format;
 use Library\Session;
+
 // \tutor_webapp
 $filepath = realpath(dirname(__FILE__, 4));
 
-include_once $filepath . "../lib/session.php";
-include_once $filepath . "../../classes/tutors.php";
-include_once $filepath . "../../classes/appusers.php";
+require_once($filepath . "/vendor/autoload.php");
+
+
+// include_once $filepath . "../lib/session.php";
+// include_once $filepath . "../../classes/tutors.php";
+// include_once $filepath . "../../classes/appusers.php";
 
 if (!Session::checkRoles(['admin'])) {
     header("location:../pages/errors/404.php");
