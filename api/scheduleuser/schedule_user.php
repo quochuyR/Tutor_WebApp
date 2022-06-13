@@ -9,21 +9,22 @@ use Classes\AppUser,
     Classes\DayOfWeek;
 use Helpers\Util;
 use Library\Session;
+require_once(__DIR__ . "../../../vendor/autoload.php");
 
-$filepath = realpath(dirname(__FILE__));
-include_once $filepath . "../../lib/session.php";
+// $filepath = realpath(dirname(__FILE__));
+// include_once $filepath . "../../lib/session.php";
 
 if (!Session::checkRoles(['user', 'tutor'])) {
     header("location:../pages/errors/404");
 }
-include_once $filepath . "../../classes/tutoringschedule.php";
-include_once $filepath . "../../classes/appusers.php";
-include_once $filepath . "../../classes/teachingtimes.php";
-include_once $filepath . "../../classes/dayofweeks.php";
-include "../classes/subjecttopics.php";
+// include_once $filepath . "../../classes/tutoringschedule.php";
+// include_once $filepath . "../../classes/appusers.php";
+// include_once $filepath . "../../classes/teachingtimes.php";
+// include_once $filepath . "../../classes/dayofweeks.php";
+// include "../classes/subjecttopics.php";
 
-include_once $filepath . "../../helpers/utilities.php";
-include_once $filepath . "../../helpers/format.php";
+// include_once $filepath . "../../helpers/utilities.php";
+// include_once $filepath . "../../helpers/format.php";
 
 $_tutoring_schedule = new TutoringSchedule();
 $_user = new AppUser();

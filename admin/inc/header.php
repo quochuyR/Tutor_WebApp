@@ -4,22 +4,22 @@ use Helpers\Util, Helpers\Format;
 use Library\Session;
 use Classes\Notification, Classes\Remember;
 
-$filepath  = realpath(dirname(__FILE__, 2));
+require_once(__DIR__ . "../../../vendor/autoload.php");
+
+// $filepath  = realpath(dirname(__FILE__, 2));
 
 
-include_once($filepath . "../../lib/session.php");
+// include_once($filepath . "../../lib/session.php");
 Session::init();
 // include_once($filepath . "../../classes/adminlogin.php");
-include_once($filepath . "../../classes/notifications.php");
+// include_once($filepath . "../../classes/notifications.php");
 
-include_once($filepath . "../../helpers/utilities.php");
-include_once($filepath . "../../classes/remember.php");
+// include_once($filepath . "../../helpers/utilities.php");
+// include_once($filepath . "../../classes/remember.php");
 
 
 $remember = new Remember();
-?>
 
-<?php
 header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
 header("Pragma: no-cache"); //HTTP 1.0
 // header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
@@ -42,9 +42,6 @@ if (isset($_POST["action"]) && $_POST["action"] === "logout") {
         exit;
     }
 }
-?>
-
-<?php
 
 $notification = new Notification();
 

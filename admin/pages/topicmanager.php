@@ -5,23 +5,19 @@ namespace Admin;
 use Classes\Subject;
 use Library\Session;
 
-require_once "../../lib/session.php";
+require_once(__DIR__ . "../../../vendor/autoload.php");
+
+// require_once "../../lib/session.php";
 
 if (!Session::checkRoles(["admin"])) {
     header("location: ../../pages/login");
 }
 //  Classes\Subject, Classes\SubjectTopic;
-?>
 
-<?php
-include_once "../../classes/subjects.php";
-?>
+// include_once "../../classes/subjects.php";
 
-<?php
 $_subject = new Subject();
-
-?>
-<?php $title = "Quản lý môn học";
+$title = "Quản lý môn học";
 include_once "../inc/header.php" ?>
 <section>
 
@@ -38,60 +34,60 @@ include_once "../inc/header.php" ?>
             <div class="animated fadeIn">
                 <div class="card">
                     <div class="card-body">
-                    <div class="card mt-4">
-                                    <div class="card-body row px-md-3 px-1">
-                                        <div class="d-flex mb-4 col-12">
-                                            <button type="button" class="btn btn-outline-primary d-inline-flex " data-bs-toggle="modal" data-bs-target="#modalAddSubjectTopic">
-                                                <span class="material-symbols-rounded">
-                                                    add
-                                                </span>
-                                                <span class="d-block">Thêm mới</span>
-                                            </button>
-                                            <button type="button" class="btn btn-outline-danger d-inline-flex mx-1" id="multiple-delete">
-                                                <span class="material-symbols-rounded">
-                                                    delete
-                                                </span>
-                                                <span class="d-block px-1">Xoá nhiều</span>
-                                            </button>
+                        <div class="card mt-4">
+                            <div class="card-body row px-md-3 px-1">
+                                <div class="d-flex mb-4 col-12">
+                                    <button type="button" class="btn btn-outline-primary d-inline-flex " data-bs-toggle="modal" data-bs-target="#modalAddSubjectTopic">
+                                        <span class="material-symbols-rounded">
+                                            add
+                                        </span>
+                                        <span class="d-block">Thêm mới</span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger d-inline-flex mx-1" id="multiple-delete">
+                                        <span class="material-symbols-rounded">
+                                            delete
+                                        </span>
+                                        <span class="d-block px-1">Xoá nhiều</span>
+                                    </button>
 
-                                        </div>
-
-
-                                        <div class="col-md-10">
-                                            <div class="form-group flex-column d-flex mb-3 w-50">
-                                                <label class="form-control-label fw-bold">Lọc theo</label>
-                                                <select class="js-data-subjects-ajax select2bs5" name="subject">
+                                </div>
 
 
-                                                </select>
-
-                                            </div>
-
-                                            <table id="subject-topic-table" class="table table-hover table-type-1" style="width: 100% !important">
-                                                <thead class="table-dark">
-                                                    <tr>
-                                                        <th scope="col"><input class="form-check-input " id="select-all" type="checkbox"></th>
-                                                        <th scope="col">Id</th>
-                                                        <th scope="col">Tên môn học</th>
-                                                        <th scope="col">Chủ đề môn học</th>
-                                                        <th scope="col">Hành động</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                <div class="col-md-10">
+                                    <div class="form-group flex-column d-flex mb-3 w-50">
+                                        <label class="form-control-label fw-bold">Lọc theo</label>
+                                        <select class="js-data-subjects-ajax select2bs5" name="subject">
 
 
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        </select>
 
                                     </div>
+
+                                    <table id="subject-topic-table" class="table table-hover table-type-1" style="width: 100% !important">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col"><input class="form-check-input " id="select-all" type="checkbox"></th>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Tên môn học</th>
+                                                <th scope="col">Chủ đề môn học</th>
+                                                <th scope="col">Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                        </tbody>
+                                    </table>
                                 </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
-       
+
 
         <!-- Modal Add subject topic -->
         <div class="modal fade" id="modalAddSubjectTopic" tabindex="-1" aria-labelledby="modalAddSubjectTopicLabel" aria-hidden="true">
@@ -165,7 +161,7 @@ include_once "../inc/header.php" ?>
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: '../api/subjecttopics/getdatasubjecttopics.php',
+                        url: '../api/subjecttopics/getdatasubjecttopics',
                         dataType: 'json',
                         type: 'get',
                         complete: function(data) {
@@ -314,7 +310,7 @@ include_once "../inc/header.php" ?>
                 });
 
 
-                select2_ajax('.js-data-subjects-ajax', null, '../api/subjects/getsubjectjointopicbyquery.php', function(params) {
+                select2_ajax('.js-data-subjects-ajax', null, '../api/subjects/getsubjectjointopicbyquery', function(params) {
                     var query = {
                         q: params.term,
                         num: !params.term && 'all'
@@ -396,7 +392,7 @@ include_once "../inc/header.php" ?>
                 }
 
 
-                select2_ajax('.js-data-subject-topic-ajax', $("#modalAddSubjectTopic"), '../api/subjects/getsubjectbyquery.php', function(params) {
+                select2_ajax('.js-data-subject-topic-ajax', $("#modalAddSubjectTopic"), '../api/subjects/getsubjectbyquery', function(params) {
                     var query = {
                         q: params.term,
                         num: !params.term && 'all'
@@ -442,7 +438,7 @@ include_once "../inc/header.php" ?>
                         // show edit form
                         let select_subject_edit = $(e.target).closest("tr").find(".js-data-subjects-ajax-edit");
                         console.log(select_subject_edit);
-                        select2_ajax(select_subject_edit, null, '../api/subjects/getsubjectbyquery.php', function(params) {
+                        select2_ajax(select_subject_edit, null, '../api/subjects/getsubjectbyquery', function(params) {
                             var query = {
                                 q: params.term,
                                 num: !params.term && 'all'
@@ -475,7 +471,7 @@ include_once "../inc/header.php" ?>
                             //     console.log($(event.target).serialize())
                             $.ajax({
                                 type: "post",
-                                url: "../api/subjecttopics/updatesubjecttopic.php",
+                                url: "../api/subjecttopics/updatesubjecttopic",
                                 data: {
                                     topic_id,
                                     subject_id,
@@ -529,7 +525,7 @@ include_once "../inc/header.php" ?>
 
                         $.ajax({
                             type: "post",
-                            url: "../api/subjecttopics/deletesubjecttopics.php",
+                            url: "../api/subjecttopics/deletesubjecttopics",
                             data: {
                                 id_subject_topic
                             },
@@ -564,15 +560,15 @@ include_once "../inc/header.php" ?>
 
                     // Delete multiple
 
-                    $("#subject-topic #multiple-delete").on('click', (e) => {
+                    $("#multiple-delete").on('click', (e) => {
                         let subject_topic_id_list = [];
                         $('input[type="checkbox"]:not(#subject-topic-table #select-all):checked').each((i, elm) => {
                             subject_topic_id_list.push($(elm).val())
                         });
-                        console.log(subject_topic_id_list);
+                        console.log(subject_topic_id_list, "subject_topic_id_list");
                         $.ajax({
                             type: "post",
-                            url: "../api/subjecttopics/deletesubjecttopics.php",
+                            url: "../api/subjecttopics/deletesubjecttopics",
                             data: {
                                 id_subject_topic: subject_topic_id_list
                             },
@@ -644,7 +640,7 @@ include_once "../inc/header.php" ?>
                     if (confirm("Bạn chắc chắn muốn thêm những chủ đề môn học này?") === true) {
                         $.ajax({
                             type: "post",
-                            url: "../api/subjecttopics/addsubjecttopics.php",
+                            url: "../api/subjecttopics/addsubjecttopics",
                             data: $(event.target).serialize(),
                             cache: false,
                             success: function(data) {

@@ -5,10 +5,10 @@ namespace Classes;
 use Library\Database;
 use Helpers\Format;
 
-$filepath  = realpath(dirname(__FILE__));
+// $filepath  = realpath(dirname(__FILE__));
 
-include_once($filepath . "../../lib/database.php");
-include_once($filepath . "../../classes/paginator.php");
+// include_once($filepath . "../../lib/database.php");
+// include_once($filepath . "../../classes/paginator.php");
 
 // include_once($filepath."../../helpers/format.php");
 

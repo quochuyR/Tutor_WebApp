@@ -6,29 +6,25 @@ use Classes\Tutor, Classes\AppUser, Classes\TeachingSubject;
 use Library\Session;
 use Helpers\Format;
 
-require_once "../../lib/session.php";
+require_once(__DIR__ . "../../../vendor/autoload.php");
+
+// require_once "../../lib/session.php";
 
 if (!Session::checkRoles(["admin"])) {
     header("location: ../../pages/login");
 }
 //  Classes\Subject, Classes\SubjectTopic;
-?>
 
-<?php
 
-include_once "../../classes/tutors.php";
-include_once "../../classes/appusers.php";
-include_once "../../classes/teachingsubjects.php";
-include_once "../../helpers/format.php";
-?>
+// include_once "../../classes/tutors.php";
+// include_once "../../classes/appusers.php";
+// include_once "../../classes/teachingsubjects.php";
+// include_once "../../helpers/format.php";
 
-<?php
 $_tutor = new Tutor();
 $_user = new AppUser();
 $_teaching_subject = new TeachingSubject();
-?>
 
-<?php
 $title = "Trang chủ";
 include_once "../inc/header.php" ?>
 <section>
@@ -183,14 +179,13 @@ include_once "../inc/header.php" ?>
                         <div class="col-xl-8">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="box-title">Gia sư mới đăng ký </h4>
+                                    <h4 class="box-title mb-3">Gia sư mới đăng ký </h4>
 
                                     <div class="table-stats order-table ov-h">
                                         <div class="table-responsive">
                                             <table class="table">
-                                                <thead>
+                                                <thead class="table-dark">
                                                     <tr>
-
                                                         <th scope="col" class="min-w-200">Gia sư</th>
                                                         <th scope="col" class="min-w-200">Nghề nghiệp</th>
                                                         <th scope="col" class="min-w-215">Nơi dạy</th>
@@ -209,7 +204,7 @@ include_once "../inc/header.php" ?>
                                                                 <td class="avatar ">
                                                                     <div class="d-flex">
                                                                         <div class="round-img">
-                                                                            <a href="#"><img class="rounded" src="../../public/<?= $InfoTutor["imagepath"] ?>" alt=""></a>
+                                                                            <a href="#"><img class="rounded" src=" <?= isset($InfoTutor["imagepath"]) ? "../../public/" . $InfoTutor["imagepath"]: "https://www.bootdey.com/img/Content/avatar/avatar5.png" ?>" alt=""></a>
                                                                         </div>
                                                                         <div class="d-flex flex-column">
                                                                             <span class="text-dark fw-bold d-block"><?= $InfoTutor["lastname"] . ' ' . $InfoTutor["firstname"] ?></span>

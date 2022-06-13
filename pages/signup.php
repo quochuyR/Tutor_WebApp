@@ -5,41 +5,27 @@ namespace Pages;
 use Classes\AdminLogin;
 use Library\Session;
 
-$filepath = realpath(dirname(__FILE__));
-include_once $filepath . "../../classes/adminlogin.php";
-include_once $filepath . "../../lib/session.php";
+require_once(__DIR__ . "../../vendor/autoload.php");
+
+// $filepath = realpath(dirname(__FILE__));
+// include_once $filepath . "../../classes/adminlogin.php";
+// include_once $filepath . "../../lib/session.php";
 Session::init();
-include_once $filepath . "../../helpers/utilities.php";
-include_once $filepath . "../../helpers/format.php";
+// include_once $filepath . "../../helpers/utilities.php";
+// include_once $filepath . "../../helpers/format.php";
 
 $login = new AdminLogin();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<?php
 
 $title = "Đăng ký";
-include "../inc/head.php";
 
-?>
-
-<body>
-
-    <div class="container-fluid px-0">
-        <header class="row g-0 m-0">
-
-            <?php
             $nav_tutor_active = "active";
             include "../inc/header.php";
             ?>
 
-        </header>
         <div id="main" class="container ">
             <section class="ftco-section">
                 <div class="row page-wrapper  p-t-45 p-b-50">
@@ -135,14 +121,6 @@ include "../inc/head.php";
 
         </div>
 
-    </div>
-
-
-    <?php include '../inc/footer.php' ?>
-
-
-
-    </div>
 
     <?php
 
@@ -338,6 +316,4 @@ include "../inc/head.php";
         })();
     </script>
 
-</body>
-
-</html>
+<?php include '../inc/footer.php' ?>

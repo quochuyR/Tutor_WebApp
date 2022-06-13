@@ -3,13 +3,14 @@
 namespace Views;
 
 use Classes\Tutor, Classes\Subject, Classes\SubjectTopic, Library\Session;
+require_once(__DIR__ . "../../vendor/autoload.php");
 
-include_once "../classes/topics.php";
-include_once "../classes/subjecttopics.php";
-include_once "../classes/tutors.php";
-include_once "../classes/subjects.php";
-include_once "../classes/paginator.php";
-include_once "../lib/session.php";
+// include_once "../classes/topics.php";
+// include_once "../classes/subjecttopics.php";
+// include_once "../classes/tutors.php";
+// include_once "../classes/subjects.php";
+// include_once "../classes/paginator.php";
+// include_once "../lib/session.php";
 
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
@@ -86,16 +87,16 @@ include "../inc/header.php";
                     $subjects = new Subject();
                     $SBtopic = new SubjectTopic();
 
-                    $SBtopicList = $SBtopic->CountBySubject();
+                    $SBtopicList = $SBtopic->CountByTutor();
                     if ($SBtopicList) {
                         echo '<li
                             class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category subject-active checkbox-filter" subject-id="0" value="Tất cả"> Tất cả
-                            <span class="badge badge-primary badge-pill">' . $SBtopic->CountAll()->fetch_assoc()["sum_all"] . '</span> </li>';
+                            <span class="badge badge-primary badge-pill">' . $SBtopic->countAllTutorRegisteredTopic()->fetch_assoc()["sum_all_tutor"] . '</span> </li>';
 
                         while ($result = $SBtopicList->fetch_assoc()) {
                             echo '<li
-                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category checkbox-filter" subject-id="' . $result['subjectId'] . '" value="' . $result['subject'] . '">
-                            ' . $result['subject'] . ' <span class="badge badge-primary badge-pill">' . $result['sum_topic'] . '</span> </li>';
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category checkbox-filter" subject-id="' . $result['id'] . '" value="' . $result['subject'] . '">
+                            ' . $result['subject'] . ' <span class="badge badge-primary badge-pill">' . $result['sum_tutor'] . '</span> </li>';
                         }
                     }
 
@@ -162,16 +163,16 @@ include "../inc/header.php";
                     <ul class="list-group" id="filter-subject">
                         <?php
 
-                        $SBtopicList = $SBtopic->CountBySubject();
+                        $SBtopicList = $SBtopic->CountByTutor();
                         if ($SBtopicList) {
                             echo '<li
                             class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category subject-active checkbox-filter" subject-id="0" value="Tất cả"> Tất cả
-                            <span class="badge badge-primary badge-pill">' . $SBtopic->CountAll()->fetch_assoc()["sum_all"] . '</span> </li>';
+                            <span class="badge badge-primary badge-pill">' . $SBtopic->countAllTutorRegisteredTopic()->fetch_assoc()["sum_all_tutor"] . '</span> </li>';
 
                             while ($result = $SBtopicList->fetch_assoc()) {
                                 echo '<li
-                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category checkbox-filter" subject-id="' . $result['subjectId'] . '" value="' . $result['subject'] . '">
-                            ' . $result['subject'] . ' <span class="badge badge-primary badge-pill">' . $result['sum_topic'] . '</span> </li>';
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category checkbox-filter" subject-id="' . $result['id'] . '" value="' . $result['subject'] . '">
+                            ' . $result['subject'] . ' <span class="badge badge-primary badge-pill">' . $result['sum_tutor'] . '</span> </li>';
                             }
                         }
 

@@ -6,13 +6,15 @@ use Classes\db_homepage;
 use Classes\Tutor, Classes\Subject, Classes\SubjectTopic, Library\Session;
 use Helpers\Util;
 
-include_once "../classes/topics.php";
-include_once "../classes/subjecttopics.php";
-include_once "../classes/tutors.php";
-include_once "../classes/subjects.php";
-include_once "../classes/paginator.php";
-include_once "../lib/session.php";
-include_once("../helpers/utilities.php");
+require_once(__DIR__ . "../../vendor/autoload.php");
+
+// include_once "../classes/topics.php";
+// include_once "../classes/subjecttopics.php";
+// include_once "../classes/tutors.php";
+// include_once "../classes/subjects.php";
+// include_once "../classes/paginator.php";
+// include_once "../lib/session.php";
+// include_once("../helpers/utilities.php");
 
 
 Session::init();

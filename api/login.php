@@ -6,14 +6,16 @@ use Helpers\Util, Helpers\Format;
 use Library\Session;
 use Classes\AdminLogin, Classes\Notification;
 
-$filepath  = realpath(dirname(__FILE__));
-include_once($filepath . "../../lib/session.php");
-Session::init();
-include_once($filepath . "../../classes/adminlogin.php");
+require_once(__DIR__ . "../../../vendor/autoload.php");
 
-include_once($filepath . "../../helpers/utilities.php");
-include_once($filepath . "../../helpers/format.php");
-include_once($filepath . "../../classes/notifications.php");
+// $filepath  = realpath(dirname(__FILE__));
+// include_once($filepath . "../../lib/session.php");
+Session::init();
+// include_once($filepath . "../../classes/adminlogin.php");
+
+// include_once($filepath . "../../helpers/utilities.php");
+// include_once($filepath . "../../helpers/format.php");
+// include_once($filepath . "../../classes/notifications.php");
 
 
 $captcha = '';

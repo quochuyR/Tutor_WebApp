@@ -49,7 +49,7 @@
 
 
 		$(".menu-item-has-children.dropdown").each(function () {
-			$(this).one('click', function () {
+			$(this).off().on('click', function () {
 				var $temp_text = $(this).children('.dropdown-toggle').html();
 				$(this).children('.sub-menu').prepend('<li class="subtitle">' + $temp_text + '</li>');
 			});
@@ -86,7 +86,7 @@
 
 		$.ajax({
 			type: "get",
-			url: "../api/home/getnumberuserandtutorbymonth.php",
+			url: "../api/home/getnumberuserandtutorbymonth",
 			data: {
 				// numNotification, // lấy giá trị của thuộc tính subject-id
 				// offset
@@ -179,7 +179,7 @@
 				console.log($(".logout").attr("href-action"), `$(".logout").attr("href")`);
 				$.ajax({
 					type: "post",
-					url: "../inc/header.php",
+					url: "../inc/header",
 					data: {
 						action: $(".logout").attr("href-action")
 					},

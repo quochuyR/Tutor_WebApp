@@ -11,25 +11,23 @@ use Classes\RegisterUser,
     Classes\DayOfWeek,
     Classes\TeachingSubject;
 
-$filepath = realpath(dirname(__FILE__));
-include_once $filepath . "../../lib/session.php";
-include_once $filepath . "../../helpers/utilities.php";
-include_once $filepath . "../../helpers/format.php";
-include_once $filepath . "../../classes/registerusers.php";
-include_once $filepath . "../../classes/appusers.php";
-include_once $filepath . "../../classes/dayofweeks.php";
-include_once $filepath . "../../classes/subjecttopics.php";
-include_once $filepath . "../../classes/teachingtimes.php";
-include_once $filepath . "../../classes/teachingsubjects.php";
+require_once(__DIR__ . "../../vendor/autoload.php");
+
+// $filepath = realpath(dirname(__FILE__));
+// include_once $filepath . "../../lib/session.php";
+// include_once $filepath . "../../helpers/utilities.php";
+// include_once $filepath . "../../helpers/format.php";
+// include_once $filepath . "../../classes/registerusers.php";
+// include_once $filepath . "../../classes/appusers.php";
+// include_once $filepath . "../../classes/dayofweeks.php";
+// include_once $filepath . "../../classes/subjecttopics.php";
+// include_once $filepath . "../../classes/teachingtimes.php";
+// include_once $filepath . "../../classes/teachingsubjects.php";
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 if (Session::checkRoles(["user", "tutor"]) !== true) {
     header("location: ./");
 }
-?>
-
-<?php
-
 
 $register_user = new RegisterUser();
 $_user = new AppUser();
@@ -38,11 +36,7 @@ $_teaching_time = new TeachingTime();
 $_day_of_week = new DayOfWeek();
 $_teaching_subject = new TeachingSubject();
 
-?>
 
-
-
-<?php
 $title = "Người dùng đăng ký";
 
 include "../inc/header.php";
@@ -103,7 +97,7 @@ include "../inc/header.php";
                                                     <!-- <div class="text-muted ms-5 mt-3 mt-md-0"></div>
                                             <div class="text-muted ms-5">Sinh viên</div> -->
                                                     <ul class="d-md-flex flex-md-column flex-wrap my-md-2 ff-open-sans p-0">
-                                                        <li class="text-sub d-inline-flex">
+                                                        <li class="text-sub d-inline-flex" id="topic-register">
                                                             <span class="material-symbols-rounded " style="color: #00857c">
                                                                 menu_book
                                                             </span>
@@ -129,7 +123,7 @@ include "../inc/header.php";
                                                             <span class="material-symbols-rounded" style="color: #3e4359">
                                                                 work
                                                             </span>
-                                                            <span class="d-block m-l-10 fw-500"><?= $_register_user["currentjob"] ?></span>
+                                                            <span class="d-block m-l-10 fw-500"><?= isset($_register_user["currentjob"]) ? $_register_user["currentjob"] : "Chưa có thông tin"; ?></span>
                                                         </li>
 
 
@@ -155,9 +149,9 @@ include "../inc/header.php";
                                                             </a>
                                                         </li>
                                                         <li class="d-flex flex-row align-items-center">
-                                                            <div class="mx-sm-1  register-unregister-tutor" data-id="<?= $_register_user["tutorId"]; ?>" data-bs-toggle="modal" data-bs-target="#approval-register-<?= $user["username"];?>" style="cursor: pointer; padding: 0.25rem 1rem !important;">                                                               
+                                                            <div class="mx-sm-1  register-unregister-tutor" data-id="<?= $_register_user["tutorId"]; ?>" data-bs-toggle="modal" data-bs-target="#approval-register-<?= $user["username"]; ?>" style="cursor: pointer; padding: 0.25rem 1rem !important;">
 
-                                                            <span class="material-symbols-rounded">
+                                                                <span class="material-symbols-rounded">
                                                                     library_add_check
                                                                 </span>
 
@@ -165,7 +159,7 @@ include "../inc/header.php";
                                                         </li>
                                                         <li class="d-flex flex-row align-items-center">
                                                             <a class="mx-sm-1 text-reset" href="./schedule_user?tuid=<?= $_register_user["tutorId"] ?>&day=all" style="padding: 0.25rem 1rem !important;">
-                                                                
+
                                                                 <span class="material-symbols-rounded">
                                                                     today
                                                                 </span>
@@ -322,8 +316,8 @@ include "../inc/script.php"
 
 
             function onChangeActionRadio() {
-                $(`.form-check-input[type="radio"]`).off();
-                $(`.form-check-input[type="radio"]`).on('change', (e) => { // disable input checkbox khi thay đổi
+               
+                $(`.form-check-input[type="radio"]`).off().on('change', (e) => { // disable input checkbox khi thay đổi
                     if (e.currentTarget.checked) {
                         $(e.currentTarget).closest(".modal-content").find(".btn-register-add-del") // Tìm nơi chứa select thêm lịch dạy cho người dùng
                             .text($(e.currentTarget)
@@ -340,8 +334,8 @@ include "../inc/script.php"
             }
 
             function onChangeShowTopic(event_approval) {
-                $(".show-topic-register").off();
-                $(".show-topic-register").on('change', () => {
+               
+                $(".show-topic-register").off().on('change', () => {
 
                     getSubjectRegisterUser(event_approval);
                 });
@@ -367,8 +361,8 @@ include "../inc/script.php"
             }
 
             function onClickAddOrDel(event_approval) {
-                $(".btn-register-add-del").off();
-                $(".btn-register-add-del").on('click', (e) => {
+           
+                $(".btn-register-add-del").off().on('click', (e) => {
                     if (confirm("Bạn có chắn chắn muốn " + $(e.target).text().trim()) === true)
                         addOrDelRegisterTutor(event_approval, e);
                 });
@@ -385,7 +379,7 @@ include "../inc/script.php"
                 console.log([tuId, id_approval, subject, status])
                 $.ajax({
                     type: "post",
-                    url: "../api/getsubjecttutor",
+                    url: "../api/teachingsubject/getsubjecttutor",
                     data: {
                         tuId,
                         status
@@ -414,7 +408,7 @@ include "../inc/script.php"
 
                 $.ajax({
                     type: "post",
-                    url: "../api/addordeleteregistertutor",
+                    url: "../api/registertutor/addordeleteregistertutor",
                     data: {
                         tuId,
                         action,
@@ -431,12 +425,17 @@ include "../inc/script.php"
                         if (data.insert === 'successful') {
                             alert(`Đăng ký môn học ${data.topicName } thành công. Hãy chờ gia sư liên hệ với bạn.`)
                             getSubjectRegisterUser(event_approval); // refresh topic when insert success
+
+                            // When inserting the topic success, include a badge containing the topic name.
+                            $("#topic-register").append(`<span class="subject-span m-l-10 fw-500 badge bg-secondary data-id="${data.topicId}">${data.topicName}</span>`);
                         } else if (data.delete === 'successful') {
                             alert(`Huỷ đăng ký môn học ${data.topicName } thành công.`);
                             getSubjectRegisterUser(event_approval); // refresh topic when delete success
-                        }else if (data.delete === 'fail') {
+
+                            $("ul li span[data-id=" + data.topicId + "]").remove();
+                        } else if (data.delete === 'fail') {
                             alert(data.message);
-                           
+
                         }
 
 

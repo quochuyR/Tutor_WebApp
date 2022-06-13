@@ -5,9 +5,11 @@ namespace Views;
 use Classes\AppUser, Library\Session, Helpers\Util;
 use Helpers\Format;
 
-include_once "../classes/appusers.php";
-include_once "../lib/session.php";
-include_once "../helpers/format.php";
+require_once(__DIR__ . "../../vendor/autoload.php");
+
+// include_once "../classes/appusers.php";
+// include_once "../lib/session.php";
+// include_once "../helpers/format.php";
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 
@@ -53,7 +55,7 @@ include "../inc/header.php";
                     $address = (isset($_POST["address"]) && !empty($_POST["address"])) ? Format::validation($_POST["address"]) : NULL;
                     $job = (isset($_POST["job"]) && !empty($_POST["job"])) ? Format::validation($_POST["job"]) : NULL;
 
-                    
+
                     $get_info_user = $_user->update_user(Session::get("userId"), $email, $last_name, $first_name,  $sex, $phonenumber, $date_of_birth, $address, $job);
 
                     if ($get_info_user) {
@@ -75,13 +77,30 @@ include "../inc/header.php";
 
             ?>
                     <div class="col-3 text-center">
+
                         <div class="card h-100">
                             <div class="card-body">
-                                <img src="<?= isset($person["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $person["imagepath"] : "https://www.bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="rounded-circle avatar-lg" alt="hình đại diện" value="<?php echo $person['imagepath'] ?>">
+
+                                <button type="button" class="position-absolute end-0 bottom-0 translate-middle-x" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <div class="card w-fit-content bg-gray-600" style="cursor:pointer;" id="my-qr-code">
+                                        <div class="card-body p-2">
+                                            <span class="material-symbols-rounded font-36 text-white d-flex m-auto">
+                                                qr_code_2
+                                            </span>
+                                        </div>
+                                    </div>
+                                </button>
+
+
+
+                                <img src="<?= isset($person["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $person["imagepath"] : "https://www.bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="rounded-circle avatar-lg" alt="hình đại diện" value="<?php echo $person['imagepath'] ?>" id="my-image">
                                 <div class="mt-3">
+                                
                                     <h4 class="fw-bold"><?php echo $person['lastname'] . " " . $person['firstname'] ?></h4>
                                     <h6 class="text-muted"><?php echo "<b> ID: </b>" . $person['username'] ?></h6>
+                                    <input type="hidden" name="" value="<?= Session::get('tutorId') ?>" id="tuid">
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -107,7 +126,7 @@ include "../inc/header.php";
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" class="text-muted form-control" id="email" name="email" placeholder="Email" value="<?php echo $person['email'] ?>">
                                     </div>
-                                    
+
                                     <div class="col-3 mb-3">
                                         <label for="dateofbirth" class="form-label">Ngày sinh</label>
                                         <input type="date" class="text-muted form-control" id="dateofbirth" name="dateofbirth" placeholder="dateofbirth" value="<?= isset($person['dateofbirth']) ? $person['dateofbirth'] : ""; ?>">
@@ -185,10 +204,110 @@ include "../inc/header.php";
 
         </div>
     </form>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">QR code của tôi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-center">
+                        <div id="canvas"></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary" id="download">Tải về</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <?php
 
 
 include "../inc/script.php"
 ?>
+<script type="text/javascript">
+    (function() {
+        $(document).ready(function() {
+            var src_img = $("#my-image").prop("src");
+            let tuid = $("#tuid").val();
+            var data =  new URL(`./tutor_details?id=${tuid}`, window.location.href);
+            console.log(data);
+            const option = {
+                "width": 360,
+                "height": 360,
+                "data": data.href,
+                "image": src_img,
+                "margin": 0,
+                "qrOptions": {
+                    "typeNumber": "0",
+                    "mode": "Byte",
+                    "errorCorrectionLevel": "H"
+                },
+                "imageOptions": {
+                    "hideBackgroundDots": true,
+                    "imageSize": 0.4,
+                    "margin": 10
+                },
+                "dotsOptions": {
+                    "type": "dots",
+                    "color": "#45b8ac"
+                },
+                "backgroundOptions": {
+                    "color": "#ffffff"
+                },
+                "dotsOptionsHelper": {
+                    "colorType": {
+                        "single": true,
+                        "gradient": false
+                    }
+                },
+                "cornersSquareOptions": {
+                    "type": "circle",
+                    "color": "#038f7e"
+                },
+                "cornersSquareOptionsHelper": {
+                    "colorType": {
+                        "single": true,
+                        "gradient": false
+                    }
+                },
+                "cornersDotOptions": {
+                    "type": "dot",
+                    "color": "#038f81",
+                    "gradient": null
+                },
+                "cornersDotOptionsHelper": {
+                    "colorType": {
+                        "single": true,
+                        "gradient": false
+                    }
+                },
+                "backgroundOptionsHelper": {
+                    "colorType": {
+                        "single": true,
+                        "gradient": false
+                    },
+
+                }
+            }
+            const qrCode = new QRCodeStyling(option);
+
+            qrCode.append(document.getElementById("canvas"));
+            $("#download").on('click', (e) => {
+                qrCode.download({ name: "qr-tutor", extension: "png" });
+            })
+        })
+    })();
+</script>
 <?php include '../inc/footer.php' ?>

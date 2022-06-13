@@ -5,9 +5,9 @@ namespace Classes;
 use Library\Database;
 use mysqli;
 
-$filepath  = realpath(dirname(__FILE__));
+// $filepath  = realpath(dirname(__FILE__));
 
-include_once($filepath . "../../lib/database.php");
+// include_once($filepath . "../../lib/database.php");
 // include_once($filepath."../../helpers/format.php");
 
 class Subject

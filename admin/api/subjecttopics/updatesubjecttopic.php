@@ -8,13 +8,14 @@ use Library\Session;
 
 //  \tutor_webapp
 $filepath  = realpath(dirname(__FILE__, 4));
+require_once($filepath . "/vendor/autoload.php");
 
-include_once($filepath . "../lib/session.php");
+// include_once($filepath . "../lib/session.php");
 if (!Session::checkRoles(['admin'])) {
     header("location:../pages/errors/404");
 }
-include_once($filepath . "../../classes/subjecttopics.php");
-include_once($filepath . "../../helpers/format.php");
+// include_once($filepath . "../../classes/subjecttopics.php");
+// include_once($filepath . "../../helpers/format.php");
 
 // print_r($_POST);
 $_subject_topic = new SubjectTopic();

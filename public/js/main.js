@@ -120,7 +120,7 @@
       theme: 'bootstrap-5',
       language: "vi",
       ajax: {
-        url: '../api/getsubjecttopicbyquery',
+        url: '../api/subjecttopic/getsubjecttopicbyquery',
         type: "post",
         dataType: 'json',
         delay: 250,

@@ -2,22 +2,22 @@
 
 namespace Admin;
 
-use Classes\db_adminhomepage;
+use Classes\Adminhomepage;
 use Library\Session;
 
-require_once "../../lib/session.php";
+require_once(__DIR__ . "../../../vendor/autoload.php");
+
+// require_once "../../lib/session.php";
 
 if (!Session::checkRoles(["admin"])) {
     header("location: ./errors/404");
 }
 //  Classes\Subject, Classes\SubjectTopic;
-?>
 
-<?php
 $title = "Viết bài viết";
 
-include "../../classes/adminhomepage.php";
-$db_adminhomepage  = new db_adminhomepage();
+// include "../../classes/adminhomepage.php";
+$db_adminhomepage  = new Adminhomepage();
 if (isset($_POST["upload_button"]) && !empty($_FILES["file"]["name"]) && !empty($_POST["title"])) {
     $db_adminhomepage->UploadImage();
 }
