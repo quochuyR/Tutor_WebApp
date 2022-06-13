@@ -7,13 +7,15 @@ use Library\Session;
 use Classes\AdminSignUp;
 use Exception;
 
-$filepath  = realpath(dirname(__FILE__));
-include_once($filepath . "../../lib/session.php");
-Session::init();
-include_once($filepath . "../../classes/adminsignup.php");
+require_once(__DIR__ . "../../../vendor/autoload.php");
 
-include_once($filepath . "../../helpers/utilities.php");
-include_once($filepath . "../../helpers/format.php");
+// $filepath  = realpath(dirname(__FILE__));
+// include_once($filepath . "../../lib/session.php");
+Session::init();
+// include_once($filepath . "../../classes/adminsignup.php");
+
+// include_once($filepath . "../../helpers/utilities.php");
+// include_once($filepath . "../../helpers/format.php");
 
 
 $signup = new AdminSignUp();

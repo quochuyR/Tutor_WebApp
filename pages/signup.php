@@ -260,7 +260,7 @@ $title = "Đăng ký";
                     console.log(first_name, last_name, email, phone_number, username, password)
                     $.ajax({
                         type: "post",
-                        url: "../api/signup",
+                        url: "../api/appuser/signup",
                         data: {
                             token,
                             first_name,
