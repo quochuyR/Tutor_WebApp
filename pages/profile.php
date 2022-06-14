@@ -2,7 +2,7 @@
 
 namespace Views;
 
-use Classes\AppUser, Library\Session, Helpers\Util;
+use Classes\AppUser, Library\Session, Helpers\Util, Helpers\UploadFile;
 use Helpers\Format;
 
 require_once(__DIR__ . "../../vendor/autoload.php");
@@ -15,15 +15,27 @@ Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 
 
 $_user = new AppUser();
-if (isset($_POST['introduction']) != '') {
-    $Content = strip_tags(stripslashes($_POST['introduction']));
-} else {
 
-    $Content = "";
+// upload image user
+$upload_image = UploadFile::upload("file", "../public/images/");
+// 0 => 'images', 1 => image file name
+$explode_path = explode("/",  Session::get("imagepath"));
+if ($upload_image && $upload_image["uploaded"] == 1) {
+    // update lại đường dẫn
+    $update_new_image = $_user->update_image_user(Session::get("userId"), "images/" . $upload_image["fileName"]);
+    if ($update_new_image) {
+        // đường dẫn hình ảnh củ
+        $path_del = __DIR__ . "../../public/images/$explode_path[1]";
+        if (file_exists($path_del)) {
+            // xoá hình củ
+            unlink(__DIR__ . "../../public/images/$explode_path[1]");
+            // set session lại hình mới upload
+            Session::set("imagepath", "images/" . $upload_image["fileName"]);
+        }
+    }
 }
 
-?>
-<?php
+
 $title = "Danh sách gia sư";
 $nav_tutor_active = "active";
 include "../inc/header.php";
@@ -35,6 +47,14 @@ include "../inc/header.php";
         </symbol>
 
     </svg>
+    <!-- <form action="profile" method="post" enctype="multipart/form-data">
+        Select image to upload:
+        <input type="file" name="file" id="fileToUpload">
+        <input type="submit" value="Upload Image" name="submit">
+    </form> -->
+
+
+
     <form method="POST" action class="mt-3">
 
         <div class="row">
@@ -42,7 +62,7 @@ include "../inc/header.php";
             $message = "";
             //   print_r($_POST);
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
-                if (isset($_POST) && !empty($_POST)) {
+                if (isset($_POST) && !empty($_POST) && isset($_POST["update-profile"])) {
 
                     // print_r($_POST); 
 
@@ -80,26 +100,33 @@ include "../inc/header.php";
 
                         <div class="card h-100">
                             <div class="card-body">
+                                <div class="position-absolute end-5 bottom-0 translate-middle-y">
 
-                                <button type="button" class="position-absolute end-0 bottom-0 translate-middle-x" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <div class="card w-fit-content bg-gray-600" style="cursor:pointer;" id="my-qr-code">
-                                        <div class="card-body p-2">
-                                            <span class="material-symbols-rounded font-36 text-white d-flex m-auto">
-                                                qr_code_2
-                                            </span>
-                                        </div>
-                                    </div>
-                                </button>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#change-picture">
+                                        Thay đổi ảnh 
+                                    </button>
+                                </div>
 
 
+                                <img src="<?= isset($person["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $person["imagepath"] : "https://www.bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="rounded-circle avatar-lg avatar" alt="hình đại diện" value="<?php echo $person['imagepath'] ?>" id="my-image">
+                                <div class="mt-3 h-50 d-flex flex-column">
 
-                                <img src="<?= isset($person["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $person["imagepath"] : "https://www.bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="rounded-circle avatar-lg" alt="hình đại diện" value="<?php echo $person['imagepath'] ?>" id="my-image">
-                                <div class="mt-3">
-                                
-                                    <h4 class="fw-bold"><?php echo $person['lastname'] . " " . $person['firstname'] ?></h4>
+                                    <h4 class="fw-bold mb-1"><?php echo $person['lastname'] . " " . $person['firstname'] ?></h4>
                                     <h6 class="text-muted"><?php echo "<b> ID: </b>" . $person['username'] ?></h6>
                                     <input type="hidden" name="" value="<?= Session::get('tutorId') ?>" id="tuid">
+                                  
+                                    <button type="button" class="d-block m-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <div class="card w-fit-content bg-gray-600" style="cursor:pointer;" id="my-qr-code">
+                                            <div class="card-body p-2">
+                                                <span class="material-symbols-rounded font-36 text-white d-flex m-auto">
+                                                    qr_code_2
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </button>
                                 </div>
+
 
                             </div>
                         </div>
@@ -110,6 +137,7 @@ include "../inc/header.php";
 
                                 <div class="row">
                                     <?= isset($message) ? $message : "" ?>
+                                    <input type="hidden" name="update-profile">
                                     <div class="col-4 mb-3">
                                         <label for="username" class="form-label">Họ </label>
                                         <input type="text" class="text-muted form-control" name="lastname" id="lastname" placeholder="Họ" value="<?php echo $person['lastname']  ?>">
@@ -207,7 +235,7 @@ include "../inc/header.php";
 
 
 
-    <!-- Modal -->
+    <!-- Modal QR -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -218,7 +246,7 @@ include "../inc/header.php";
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-body d-flex justify-content-center">
-                        <div id="canvas"></div>
+                            <div id="canvas"></div>
 
                         </div>
                     </div>
@@ -226,6 +254,27 @@ include "../inc/header.php";
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
                     <button type="button" class="btn btn-primary" id="download">Tải về</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal update image -->
+    <div class="modal fade" id="change-picture" tabindex="-1" aria-labelledby="change-pictureLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="change-pictureLabel">Thay đổi ảnh đại diện</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form action="profile" class="dropzone" id="profile"></form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ bỏ</button>
+                    <button type="button" class="btn btn-primary" id="save-change-picture">Lưu</button>
                 </div>
             </div>
         </div>
@@ -241,18 +290,18 @@ include "../inc/script.php"
         $(document).ready(function() {
             var src_img = $("#my-image").prop("src");
             let tuid = $("#tuid").val();
-            var data =  new URL(`./tutor_details?id=${tuid}`, window.location.href);
+            var data = new URL(`./tutor_details?id=${tuid}`, window.location.href);
             console.log(data);
             const option = {
                 "width": 360,
                 "height": 360,
                 "data": data.href,
                 "image": src_img,
-                "margin": 0,
+                "margin": 20,
                 "qrOptions": {
                     "typeNumber": "0",
                     "mode": "Byte",
-                    "errorCorrectionLevel": "H"
+                    "errorCorrectionLevel": "M"
                 },
                 "imageOptions": {
                     "hideBackgroundDots": true,
@@ -260,7 +309,7 @@ include "../inc/script.php"
                     "margin": 10
                 },
                 "dotsOptions": {
-                    "type": "dots",
+                    "type": "classy",
                     "color": "#45b8ac"
                 },
                 "backgroundOptions": {
@@ -273,7 +322,7 @@ include "../inc/script.php"
                     }
                 },
                 "cornersSquareOptions": {
-                    "type": "circle",
+                    "type": "extra-rounded",
                     "color": "#038f7e"
                 },
                 "cornersSquareOptionsHelper": {
@@ -283,7 +332,7 @@ include "../inc/script.php"
                     }
                 },
                 "cornersDotOptions": {
-                    "type": "dot",
+                    
                     "color": "#038f81",
                     "gradient": null
                 },
@@ -305,9 +354,62 @@ include "../inc/script.php"
 
             qrCode.append(document.getElementById("canvas"));
             $("#download").on('click', (e) => {
-                qrCode.download({ name: "qr-tutor", extension: "png" });
-            })
-        })
+                qrCode.download({
+                    name: "qr-tutor",
+                    extension: "png"
+                });
+            });
+
+            // Dropzone
+
+
+
+        });
+
+        // dropzone
+        Dropzone.options.profile = {
+            // Configuration options go here
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 4, // MB
+            maxFiles: 1,
+            acceptedFiles: ".png,.jpg,.jpeg",
+            autoProcessQueue: false,
+            addRemoveLinks: true,
+            // Dịch sang tiếng Việt
+            dictDefaultMessage: "Kéo và thả file (có thể click) vào đây để upload",
+            dictFallbackMessage: "Trình duyệt của bạn không hỗ trợ kéo và thả upload file.",
+            dictFallbackText: "Vui lòng sử dụng biểu mẫu dự phòng bên dưới để tải lên các file của bạn như ngày xưa.",
+            dictFileTooBig: "File quá lớn ({{filesize}}MiB). Tối đa filesize: {{maxFilesize}}MiB.",
+            dictInvalidFileType: "Bạn không thể tải lên các file thuộc loại này (chú ý đến đuôi file).",
+            dictResponseError: "Máy chủ đã phản hồi với {{statusCode}} code.",
+            dictCancelUpload: "Huỷ bỏ upload",
+            dictUploadCanceled: "Upload đã huỷ bỏ.",
+            dictCancelUploadConfirmation: "Bạn có chắc chắn muốn hủy upload này không?",
+            dictRemoveFile: "Xoá file",
+            dictRemoveFileConfirmation: null,
+            dictMaxFilesExceeded: "Bạn không thể tải lên bất kỳ tệp nào nữa.",
+            init: function () {
+            let upload = this;
+            // Restrict to 1 file uploaded
+            upload.on("addedfile", function () {
+                if (upload.files[1] != null) {
+                    upload.removeFile(upload.files[0]);
+                }
+            });
+            // If validation passes, process queue and add insurance
+            $("#save-change-picture").on("click", function (e) {
+                e.preventDefault();
+                upload.processQueue();
+                console.log(upload.files[0].dataURL, "upload")
+                $("img.avatar").each((i, img)=>{
+                    img.src = upload.files[0].dataURL;
+                })
+
+            });
+        },
+        };
+
+
     })();
 </script>
 <?php include '../inc/footer.php' ?>

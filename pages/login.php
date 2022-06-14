@@ -106,7 +106,7 @@ include "../inc/header.php";
                 <div class="col-md-7 col-lg-5">
 
                     <div class="container-login100" style="background-image: none;">
-                        <div class="wrap-login100 p-l-45 p-r-30 p-t-80 p-b-30">
+                        <div class="wrap-login100 p-l-45 p-r-30 p-t-57 p-b-30">
                             <form class="login100-form validate-form signin-form">
                                 <input type="hidden" id="token" value="<?= Session::get("csrf_token") ?>" />
                                 <span class="login100-form-title p-b-37">
@@ -145,7 +145,8 @@ include "../inc/header.php";
                                         Đăng nhập
                                     </button>
                                 </div>
-                                <div class="text-center p-t-57 p-b-20">
+                                <!--  -->
+                                <!-- <div class="text-center p-t-57 p-b-20">
                                     <span class="txt1">
                                         hoặc đăng nhập bằng
                                     </span>
@@ -157,8 +158,13 @@ include "../inc/header.php";
                                     <a href="#" class="login100-social-item">
                                         <img src="../public/images/icons/icon-google.png" alt="GOOGLE">
                                     </a>
+                                </div> -->
+                                <div class="text-center p-t-57 p-b-20">
+                                    <span class="txt1">
+                                        Bạn chưa có tài khoản?
+                                    </span>
                                 </div>
-                                <div class="text-center">
+                                <div class="text-center ">
                                     <a href="signup" class=" hov1">
                                         Đăng ký
                                     </a>

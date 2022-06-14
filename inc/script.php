@@ -21,6 +21,8 @@ include_once($filepath."../../helpers/utilities.php");
     integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
 <script src="<?= Util::getRootURL(). "/tutor_webapp/public/" ."js/utilities.js" ?>"></script>
 <script src="<?= Util::getRootURL(). "/tutor_webapp/public/" ."js/main.js" ?>"></script>
 <!-- Smooth Scrolling  -->

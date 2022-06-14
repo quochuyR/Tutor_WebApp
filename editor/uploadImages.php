@@ -2,10 +2,6 @@
 
 namespace Ajax;
 
-?>
-
-
-<?php
 if (isset($_FILES["upload"]["name"])) {
    // print_r($_FILES["upload"]["tmp_name"]);
    $file_name = $_FILES['upload']['name'];
