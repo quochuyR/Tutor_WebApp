@@ -3,6 +3,7 @@
 namespace Views;
 
 use Classes\Tutor, Classes\Subject, Classes\SubjectTopic, Library\Session;
+
 require_once(__DIR__ . "../../vendor/autoload.php");
 
 // include_once "../classes/topics.php";
@@ -88,69 +89,77 @@ include "../inc/header.php";
                     $SBtopic = new SubjectTopic();
 
                     $SBtopicList = $SBtopic->CountByTutor();
-                    if ($SBtopicList) {
-                        echo '<li
-                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category subject-active checkbox-filter" subject-id="0" value="Tất cả"> Tất cả
-                            <span class="badge badge-primary badge-pill">' . $SBtopic->countAllTutorRegisteredTopic()->fetch_assoc()["sum_all_tutor"] . '</span> </li>';
+                    if ($SBtopicList) :
+                    ?>
 
-                        while ($result = $SBtopicList->fetch_assoc()) {
-                            echo '<li
-                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category checkbox-filter" subject-id="' . $result['id'] . '" value="' . $result['subject'] . '">
-                            ' . $result['subject'] . ' <span class="badge badge-primary badge-pill">' . $result['sum_tutor'] . '</span> </li>';
-                        }
-                    }
+                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category subject-active checkbox-filter" subject-id="0" value="Tất cả"> Tất cả
+                            <span class="badge badge-primary badge-pill"><?= $SBtopic->countAllTutorRegisteredTopic()->fetch_assoc()["sum_all_tutor"] ?></span>
+                        </li>
+                        <?php
+                        while ($result = $SBtopicList->fetch_assoc()) :
+                        ?>
+                            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category checkbox-filter" subject-id="<?= $result['id'] ?>" value="<?= $result['subject'] ?>">
+                                <?= $result['subject'] ?> <span class="badge badge-primary badge-pill"><?= $result['sum_tutor'] ?></span> </li>
+                    <?php
+                        endwhile;
+                    endif;
 
                     ?>
 
                 </ul>
             </div>
-            <div class="py-3">
-                <h5 class="font-weight-bold">Chủ đề</h5>
-                <form class="brand topic-container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="py-3">
+                        <h5 class="font-weight-bold">Chủ đề</h5>
+                        <form class="brand topic-container">
 
-                </form>
+                        </form>
+                    </div>
+                    <div class="py-3">
+                        <h5 class="font-weight-bold">Hình thức dạy</h5>
+                        <form class="brand">
+                            <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Gặp mặt (Offline)">Gặp mặt (Offline)<input type="checkbox" class="teachingForm checkbox-filter" value="0">
+                                    <span class="check"></span> </label> </div>
+                            <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Trực tuyến (Online)">Trực tuyến (Online)<input type="checkbox" class="teachingForm checkbox-filter" value="1"> <span class="check"></span> </label> </div>
+
+
+                        </form>
+                    </div>
+
+
+
+
+                    <div class="py-3">
+                        <h5 class="font-weight-bold">Giới tính</h5>
+                        <form class="brand">
+                            <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nam">Nam<input type="checkbox" value="1" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
+                            <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nữ">Nữ<input type="checkbox" value="0" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
+
+                        </form>
+                    </div>
+
+
+                    <div class="py-3">
+                        <h5 class="font-weight-bold">Kiểu</h5>
+                        <form class="brand">
+
+                            <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Giáo viên">Giáo viên<input type="checkbox" class="type checkbox-filter" value="Giáo viên"> <span class="check"></span> </label> </div>
+                            <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Sinh viên">Sinh viên<input type="checkbox" class="type checkbox-filter" value="Sinh viên">
+                                    <span class="check"></span> </label> </div>
+                            <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Chuyên gia">Chuyên gia<input type="checkbox" class="type checkbox-filter" value="Chuyên gia">
+                                    <span class="check"></span> </label> </div>
+                            <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Người đi làm">Người đi làm<input type="checkbox" class="type checkbox-filter" value="Người đi làm">
+                                    <span class="check"></span> </label> </div>
+                            <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Người nước ngoài">Người nước ngoài<input type="checkbox" class="type checkbox-filter" value="Người nước ngoài"> <span class="check"></span> </label> </div>
+
+
+
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="py-3">
-                <h5 class="font-weight-bold">Hình thức dạy</h5>
-                <form class="brand">
-                    <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Gặp mặt (Offline)">Gặp mặt (Offline)<input type="checkbox" class="teachingForm checkbox-filter" value="0">
-                            <span class="check"></span> </label> </div>
-                    <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Trực tuyến (Online)">Trực tuyến (Online)<input type="checkbox" class="teachingForm checkbox-filter" value="1"> <span class="check"></span> </label> </div>
 
-
-                </form>
-            </div>
-
-
-
-
-            <div class="py-3">
-                <h5 class="font-weight-bold">Giới tính</h5>
-                <form class="brand">
-                    <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nam">Nam<input type="checkbox" value="1" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
-                    <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nữ">Nữ<input type="checkbox" value="0" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
-
-                </form>
-            </div>
-
-
-            <div class="py-3">
-                <h5 class="font-weight-bold">Kiểu</h5>
-                <form class="brand">
-
-                    <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Giáo viên">Giáo viên<input type="checkbox" class="type checkbox-filter" value="Giáo viên"> <span class="check"></span> </label> </div>
-                    <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Sinh viên">Sinh viên<input type="checkbox" class="type checkbox-filter" value="Sinh viên">
-                            <span class="check"></span> </label> </div>
-                    <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Chuyên gia">Chuyên gia<input type="checkbox" class="type checkbox-filter" value="Chuyên gia">
-                            <span class="check"></span> </label> </div>
-                    <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Người đi làm">Người đi làm<input type="checkbox" class="type checkbox-filter" value="Người đi làm">
-                            <span class="check"></span> </label> </div>
-                    <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Người nước ngoài">Người nước ngoài<input type="checkbox" class="type checkbox-filter" value="Người nước ngoài"> <span class="check"></span> </label> </div>
-
-
-
-                </form>
-            </div>
 
         </div>
 
@@ -159,22 +168,29 @@ include "../inc/header.php";
             <section id="sidebar">
 
                 <div class="py-3">
-                    <h5 class="font-weight-bold">Môn học</h5>
+                    <h5 class="font-weight-bold mb-1">Môn học</h5>
                     <ul class="list-group" id="filter-subject">
                         <?php
 
                         $SBtopicList = $SBtopic->CountByTutor();
-                        if ($SBtopicList) {
-                            echo '<li
-                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category subject-active checkbox-filter" subject-id="0" value="Tất cả"> Tất cả
-                            <span class="badge badge-primary badge-pill">' . $SBtopic->countAllTutorRegisteredTopic()->fetch_assoc()["sum_all_tutor"] . '</span> </li>';
+                        if ($SBtopicList) :
+                        ?>
 
-                            while ($result = $SBtopicList->fetch_assoc()) {
-                                echo '<li
-                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category checkbox-filter" subject-id="' . $result['id'] . '" value="' . $result['subject'] . '">
-                            ' . $result['subject'] . ' <span class="badge badge-primary badge-pill">' . $result['sum_tutor'] . '</span> </li>';
-                            }
-                        }
+
+                            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category subject-active checkbox-filter" subject-id="0" value="Tất cả"> Tất cả
+                                <span class="badge badge-primary badge-pill">
+                                    <?= $SBtopic->countAllTutorRegisteredTopic()->fetch_assoc()["sum_all_tutor"]; ?>
+                                </span>
+                            </li>
+                            <?php
+                            while ($result = $SBtopicList->fetch_assoc()) :
+                            ?>
+                                <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category checkbox-filter" subject-id="<?= $result['id']; ?>" value="<?= $result['subject']; ?>">
+                                    <?= $result['subject']; ?>
+                                    <span class="badge badge-primary badge-pill"><?= $result['sum_tutor']; ?></span>
+                                </li>
+                        <?php endwhile;
+                        endif;
 
                         ?>
 
@@ -182,49 +198,53 @@ include "../inc/header.php";
                     </ul>
                 </div>
 
+                <div class="card">
+                    <div class="card-body">
+                        <div class="py-3">
+                            <h5 class="font-weight-bold">Chủ đề</h5>
+                            <form class="brand topic-container">
+                                <div>Chọn môn học mới hiện chủ đề</div>
+                            </form>
+                        </div>
 
-                <div class="py-3">
-                    <h5 class="font-weight-bold">Chủ đề</h5>
-                    <form class="brand topic-container">
-                        <div>Chọn môn học mới hiện chủ đề</div>
-                    </form>
+                        <div class="py-3">
+                            <h5 class="font-weight-bold">Hình thức dạy</h5>
+                            <form class="brand">
+                                <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Gặp mặt (Offline)">Gặp mặt (Offline)<input type="checkbox" class="teachingForm checkbox-filter" value="0">
+                                        <span class="check"></span> </label> </div>
+                                <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Trực tuyến (Online)">Trực tuyến (Online)<input type="checkbox" class="teachingForm checkbox-filter" value="1"> <span class="check"></span> </label> </div>
+
+                            </form>
+                        </div>
+
+
+                        <div class="py-3">
+                            <h5 class="font-weight-bold">Giới tính</h5>
+                            <form class="brand">
+                                <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nam">Nam<input type="checkbox" value="1" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
+                                <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nữ">Nữ<input type="checkbox" value="0" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
+
+                            </form>
+                        </div>
+
+
+                        <div class="py-3">
+                            <h5 class="font-weight-bold">Kiểu</h5>
+                            <form class="brand">
+                                <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Giáo viên">Giáo viên<input type="checkbox" class="type checkbox-filter" value="Giáo viên"> <span class="check"></span> </label> </div>
+                                <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Sinh viên">Sinh viên<input type="checkbox" class="type checkbox-filter" value="Sinh viên">
+                                        <span class="check"></span> </label> </div>
+                                <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Chuyên gia">Chuyên gia<input type="checkbox" class="type checkbox-filter" value="Chuyên gia">
+                                        <span class="check"></span> </label> </div>
+                                <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Người đi làm">Người đi làm<input type="checkbox" class="type checkbox-filter" value="Người đi làm">
+                                        <span class="check"></span> </label> </div>
+                                <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Người nước ngoài">Người nước ngoài<input type="checkbox" class="type checkbox-filter" value="Người nước ngoài"> <span class="check"></span> </label> </div>
+
+                            </form>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="py-3">
-                    <h5 class="font-weight-bold">Hình thức dạy</h5>
-                    <form class="brand">
-                        <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Gặp mặt (Offline)">Gặp mặt (Offline)<input type="checkbox" class="teachingForm checkbox-filter" value="0">
-                                <span class="check"></span> </label> </div>
-                        <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Trực tuyến (Online)">Trực tuyến (Online)<input type="checkbox" class="teachingForm checkbox-filter" value="1"> <span class="check"></span> </label> </div>
-
-                    </form>
-                </div>
-
-
-                <div class="py-3">
-                    <h5 class="font-weight-bold">Giới tính</h5>
-                    <form class="brand">
-                        <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nam">Nam<input type="checkbox" value="1" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
-                        <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nữ">Nữ<input type="checkbox" value="0" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
-
-                    </form>
-                </div>
-
-
-                <div class="py-3">
-                    <h5 class="font-weight-bold">Kiểu</h5>
-                    <form class="brand">
-                        <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Giáo viên">Giáo viên<input type="checkbox" class="type checkbox-filter" value="Giáo viên"> <span class="check"></span> </label> </div>
-                        <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Sinh viên">Sinh viên<input type="checkbox" class="type checkbox-filter" value="Sinh viên">
-                                <span class="check"></span> </label> </div>
-                        <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Chuyên gia">Chuyên gia<input type="checkbox" class="type checkbox-filter" value="Chuyên gia">
-                                <span class="check"></span> </label> </div>
-                        <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Người đi làm">Người đi làm<input type="checkbox" class="type checkbox-filter" value="Người đi làm">
-                                <span class="check"></span> </label> </div>
-                        <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Người nước ngoài">Người nước ngoài<input type="checkbox" class="type checkbox-filter" value="Người nước ngoài"> <span class="check"></span> </label> </div>
-
-                    </form>
-                </div>
 
 
 

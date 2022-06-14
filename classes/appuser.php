@@ -52,6 +52,20 @@ class AppUser
         $result = $this->db->p_statement($query, "sssisssss", [$email, $last_name, $first_name, $sex, $phonenumber, $date_of_birth, $address, $job, $id]);
         return $result;
     }
+    /**
+     * hàm có nhiệm vụ cập nhật hình ảnh người dùng(dành cho user)
+     * @param string $id id của người dùng
+     * @param string $image hình ảnh người dùng
+     * @return object|bool số lượng hàng cập nhật thành công
+     */
+
+    public function update_image_user($id, $new_image): object| bool
+    {
+        $query = "UPDATE `appusers` SET `imagepath`= ? WHERE `id` = ?;";
+
+        $result = $this->db->p_statement($query, "ss", [$new_image, $id]);
+        return $result;
+    }
 
     /**
      * Hàm có nhiệm vụ tìm user id bằng username
