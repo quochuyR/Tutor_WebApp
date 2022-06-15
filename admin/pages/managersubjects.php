@@ -35,44 +35,44 @@ include_once "../inc/header.php" ?>
             <div class="animated fadeIn">
                 <div class="card">
                     <div class="card-body">
-                    <div class="card mt-4">
-                                    <div class="card-body row px-md-3 px-1">
-                                        <div class="d-flex mb-4 col-12">
-                                            <button type="button" class="btn btn-outline-primary d-inline-flex " data-bs-toggle="modal" data-bs-target="#modalAddSubject">
-                                                <span class="material-symbols-rounded">
-                                                    add
-                                                </span>
-                                                <span class="d-block">Thêm mới</span>
-                                            </button>
-                                            <button type="button" class="btn btn-outline-danger d-inline-flex mx-1" id="multiple-delete-subject">
-                                                <span class="material-symbols-rounded">
-                                                    delete
-                                                </span>
-                                                <span class="d-block px-1">Xoá nhiều</span>
-                                            </button>
+                        <div class="card mt-4">
+                            <div class="card-body row px-md-3 px-1">
+                                <div class="d-flex mb-4 col-12">
+                                    <button type="button" class="btn btn-outline-primary d-inline-flex " data-bs-toggle="modal" data-bs-target="#modalAddSubject">
+                                        <span class="material-symbols-rounded">
+                                            add
+                                        </span>
+                                        <span class="d-block">Thêm mới</span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger d-inline-flex mx-1" id="multiple-delete-subject">
+                                        <span class="material-symbols-rounded">
+                                            delete
+                                        </span>
+                                        <span class="d-block px-1">Xoá nhiều</span>
+                                    </button>
 
-                                        </div>
-
-
-                                        <div class="col-md-7">
-                                            <table id="subject-table" class="table table-hover table-type-1" style="width: 100% !important">
-                                                <thead class="table-dark">
-                                                    <tr>
-                                                        <th scope="col"><input class="form-check-input " id="select-all-subject" type="checkbox"></th>
-                                                        <th scope="col">Id</th>
-                                                        <th scope="col">Tên môn học</th>
-                                                        <th scope="col">Hành động</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                    </div>
                                 </div>
+
+
+                                <div class="col-md-7">
+                                    <table id="subject-table" class="table table-hover table-type-1" style="width: 100% !important">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th scope="col"><input class="form-check-input " id="select-all-subject" type="checkbox"></th>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Tên môn học</th>
+                                                <th scope="col">Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -534,7 +534,7 @@ include_once "../inc/header.php" ?>
                  });*/
             })();
 
-           
+
         });
 
     })(jQuery)

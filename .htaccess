@@ -1,4 +1,4 @@
-
+Options -Indexes
 ErrorDocument 404 /tutor_webapp/pages/errors/404.php
 RewriteEngine On
 

@@ -48,7 +48,7 @@ include "../inc/header.php";
                 <!-- <p class="blue-text">Just answer a few questions<br> so that we can personalize the right experience for you.</p> -->
                 <div class="card py-3">
                     <div class="card-body">
-                        <h3 class="fw-bold">Đăng kí dạy kèm</h3>
+                        <h3 class="fw-bold mb-5">Đăng kí dạy kèm</h3>
 
                         <form class="form-card" id="register-form">
                             <input type="hidden" id="token" value="<?= Session::get("csrf_token") ?>" />
@@ -160,7 +160,7 @@ include "../inc/header.php";
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row justify-content-between text-start">
-                                        <h5 class="header-title fw-bold pb-2 border-bottom">Thời gian có thể nhận lớp</h5>
+                                        <h5 class="header-title fw-bold pb-2 mb-3 border-bottom">Thời gian có thể nhận lớp</h5>
                                         <div class="row g-0">
                                             <div class="form-group col-sm-12">
 
