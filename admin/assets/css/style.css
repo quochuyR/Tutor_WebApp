@@ -982,7 +982,8 @@ aside.left-panel:hover {
 }
 
 .open .sub-menu .subtitle {
-  display: block;
+  display: inline-flex;
+  align-items: center;
   font-size: 15px;
   line-height: 35px;
   color: #607d8b;
@@ -1069,21 +1070,21 @@ aside.left-panel:hover {
   padding-left: 0;
 }
 
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children {
-  overflow: hidden;
+.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-menu{
+  display: none;
 }
 
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle ul {
+.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children ul {
   padding-left: 0;
 }
 
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle+.sub-menu {
-  display: block;
+.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-menu.sub-menu {
+  /* display: block; */
   left: 83px;
   top: 0;
 }
 
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle+.sub-menu li a {
+.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-menu.sub-menu li a {
   display: block;
   font-size: 14px;
   max-width: inherit;
@@ -1091,17 +1092,17 @@ aside.left-panel:hover {
   width: 100%;
 }
 
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle+.sub-menu li a .menu-icon {
+.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-menu.sub-menu li a .menu-icon {
   text-align: center;
 }
 
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children.show {
-  overflow: visible !important;
+.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-menu.show {
+  display: block !important;
 }
 
-.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle.show+.sub-menu {
+.open aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-menu.show.sub-menu {
   position: absolute !important;
-  width: 180px;
+  width: 235px;
   -webkit-box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
   box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
 }
@@ -3260,11 +3261,11 @@ footer.site-footer .footer-inner a {
     left: 10px;
   }
 
-  aside.left-panel .navbar .navbar-nav li.menu-item-has-children.show {
+  aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-menu.show {
     overflow: visible;
   }
 
-  aside.left-panel .navbar .navbar-nav li.menu-item-has-children.show .sub-menu {
+  aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-menu.show .sub-menu {
     position: absolute !important;
   }
 

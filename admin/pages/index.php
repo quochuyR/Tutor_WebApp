@@ -208,7 +208,7 @@ include_once "../inc/header.php" ?>
                                                                         </div>
                                                                         <div class="d-flex flex-column">
                                                                             <span class="text-dark fw-bold d-block"><?= $InfoTutor["lastname"] . ' ' . $InfoTutor["firstname"] ?></span>
-                                                                            <span class="text-muted fs-6 fw-bold limit-text p-t-012"><?= $InfoTutor["currentplace"] ?></span>
+                                                                            <span class="text-muted fs-6  limit-text p-t-012"><?= $InfoTutor["currentplace"] ?></span>
                                                                         </div>
                                                                     </div>
 
@@ -217,7 +217,7 @@ include_once "../inc/header.php" ?>
                                                                     <div class="d-flex flex-column">
 
                                                                         <span class="text-dark fw-bold d-block"><?= $InfoTutor["currentjob"] ?></span>
-                                                                        <span class="text-muted fs-6 fw-bold limit-text p-t-012">
+                                                                        <span class="text-muted fs-6 limit-text p-t-012">
                                                                             <?php
                                                                             $topicTutors = "";
                                                                             $topicList = $_teaching_subject->getTopicByTutorId($InfoTutor['id']);
@@ -233,7 +233,7 @@ include_once "../inc/header.php" ?>
                                                                 <td>
                                                                     <div class="d-flex flex-column">
                                                                         <span class="text-dark fw-bold limit-text"><?= $InfoTutor["teachingarea"] ?></span>
-                                                                        <span class="text-muted fs-6 fw-bold limit-text p-t-012">
+                                                                        <span class="text-muted fs-6  limit-text p-t-012">
                                                                             <?php
                                                                             foreach (explode(",", $InfoTutor["teachingform"]) as $teachingForm) :
                                                                                 if ($teachingForm == 0)

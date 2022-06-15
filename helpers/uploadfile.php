@@ -35,6 +35,7 @@ class UploadFile
 
             } else {
                 print_r($errors);
+                return false;
                 exit();
 
             }

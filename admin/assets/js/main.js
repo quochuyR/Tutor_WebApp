@@ -49,25 +49,26 @@
 
 
 		$(".menu-item-has-children.dropdown").each(function () {
-			$(this).off().on('click', function () {
+			$(this).one('click', function () {
+				// $(this).toggleClass("show");
 				var $temp_text = $(this).children('.dropdown-toggle').html();
 				$(this).children('.sub-menu').prepend('<li class="subtitle">' + $temp_text + '</li>');
 			});
 		});
 
 
-		$("aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle").each(function () {
-			$(this).on('click', (e) => {
-				if ($(this).hasClass("show")) {
-					console.log($(this).parent().siblings(".menu-item-has-children").removeClass("show"))
+		// $("aside.left-panel .navbar .navbar-nav li.menu-item-has-children .dropdown-toggle").each(function () {
+		// 	$(this).on('click', (e) => {
+		// 		if ($(this).hasClass("show")) {
+		// 			$(this).parent().siblings(".menu-item-has-children").removeClass("show")
 
-					$(this).parent().addClass("show")
-				}
+		// 			$(this).parent().addClass("show")
+		// 		}
 
 
-			})
+		// 	})
 
-		});
+		// });
 
 
 		// Load Resize 

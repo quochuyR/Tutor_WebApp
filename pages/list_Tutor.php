@@ -90,6 +90,7 @@ include "../inc/header.php";
 
                     $SBtopicList = $SBtopic->CountByTutor();
                     if ($SBtopicList) :
+                        print_r( $SBtopic->countAllTutorRegisteredTopic()->fetch_row())
                     ?>
 
                         <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category subject-active checkbox-filter" subject-id="0" value="Tất cả"> Tất cả

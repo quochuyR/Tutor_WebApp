@@ -16,7 +16,7 @@ Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 
 $_user = new AppUser();
 
-// upload image user
+// upload avatar user
 $upload_image = UploadFile::upload("file", "../public/images/");
 // 0 => 'images', 1 => image file name
 $explode_path = explode("/",  Session::get("imagepath"));
@@ -96,30 +96,30 @@ include "../inc/header.php";
                     // print_r($person);
 
             ?>
-                    <div class="col-3 text-center">
+                    <div class="col-12 col-sm-3 mb-3 mb-sm-0 text-center">
 
                         <div class="card h-100">
                             <div class="card-body">
                                 <div class="position-absolute end-5 bottom-0 translate-middle-y">
 
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#change-picture">
-                                        Thay đổi ảnh 
+                                    <button type="button" class="btn btn-tutor-detail" data-bs-toggle="modal" data-bs-target="#change-picture">
+                                        Thay đổi ảnh
                                     </button>
                                 </div>
 
 
                                 <img src="<?= isset($person["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $person["imagepath"] : "https://www.bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="rounded-circle avatar-lg avatar" alt="hình đại diện" value="<?php echo $person['imagepath'] ?>" id="my-image">
-                                <div class="mt-3 h-50 d-flex flex-column">
+                                <div class="mt-3 h-50 d-flex flex-column pb-5">
 
                                     <h4 class="fw-bold mb-1"><?php echo $person['lastname'] . " " . $person['firstname'] ?></h4>
                                     <h6 class="text-muted"><?php echo "<b> ID: </b>" . $person['username'] ?></h6>
                                     <input type="hidden" name="" value="<?= Session::get('tutorId') ?>" id="tuid">
-                                  
-                                    <button type="button" class="d-block m-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                                    <button type="button" class="d-block m-auto pt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <div class="card w-fit-content bg-gray-600" style="cursor:pointer;" id="my-qr-code">
                                             <div class="card-body p-2">
-                                                <span class="material-symbols-rounded font-36 text-white d-flex m-auto">
+                                                <span class="material-symbols-rounded font-64 text-white d-flex m-auto">
                                                     qr_code_2
                                                 </span>
                                             </div>
@@ -131,35 +131,35 @@ include "../inc/header.php";
                             </div>
                         </div>
                     </div>
-                    <div class="col-9">
+                    <div class="col-12 col-sm-9">
                         <div class="card">
                             <div class="card-body">
 
                                 <div class="row">
                                     <?= isset($message) ? $message : "" ?>
                                     <input type="hidden" name="update-profile">
-                                    <div class="col-4 mb-3">
+                                    <div class="col-6 col-sm-4 mb-3">
                                         <label for="username" class="form-label">Họ </label>
                                         <input type="text" class="text-muted form-control" name="lastname" id="lastname" placeholder="Họ" value="<?php echo $person['lastname']  ?>">
                                     </div>
-                                    <div class="col-4 mb-3">
+                                    <div class="col-6 col-sm-4 mb-3">
                                         <label for="username" class="form-label">Tên</label>
                                         <input type="text" class="text-muted form-control" name="firstname" id="firstname" placeholder="Tên" value="<?php echo $person['firstname'] ?>">
                                     </div>
-                                    <div class="col-4 mb-3">
+                                    <div class="col-6 col-sm-4 mb-3">
                                         <label for="phone" class="form-label">Số điện thoại</label>
                                         <input type="text" class="text-muted form-control" name="phonenumber" id="phonenumber" placeholder="số điện thoại" value="<?php echo $person['phonenumber'] ?>">
                                     </div>
-                                    <div class="col-5 mb-3">
+                                    <div class="col-6 col-sm-5 mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" class="text-muted form-control" id="email" name="email" placeholder="Email" value="<?php echo $person['email'] ?>">
                                     </div>
 
-                                    <div class="col-3 mb-3">
+                                    <div class="col-6 col-sm-4 mb-3">
                                         <label for="dateofbirth" class="form-label">Ngày sinh</label>
                                         <input type="date" class="text-muted form-control" id="dateofbirth" name="dateofbirth" placeholder="dateofbirth" value="<?= isset($person['dateofbirth']) ? $person['dateofbirth'] : ""; ?>">
                                     </div>
-                                    <div class="col-4 mb-3">
+                                    <div class="col-6 col-sm-3 mb-3">
                                         <!-- <div class="form-group flex-column d-flex"> -->
                                         <label class="form-control-label">Nghề nghiệp</span></label>
                                         <select class="form-select" name="job" id="job">
@@ -177,11 +177,11 @@ include "../inc/header.php";
 
 
 
-                                    <div class="col-10 mb-3">
+                                    <div class="col-12 col-sm-10 mb-3">
                                         <label for="address" class="form-label">Địa chỉ</label>
                                         <input type="text" class="text-muted form-control" id="address" name="address" placeholder="Hãy cập nhật địa chỉ." value="<?= isset($person['address']) ? $person['address'] : ""; ?>">
                                     </div>
-                                    <div class="col-2 mb-3">
+                                    <div class="col-6 col-sm-2 mb-3">
                                         <div class="input-group">
                                             <label class="form-check-label" for="radio-nam">Giới tính</label>
                                         </div>
@@ -270,7 +270,7 @@ include "../inc/header.php";
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form action="profile" class="dropzone" id="profile"></form>
+                    <form action="profile" class="dropzone" id="profile" enctype="multipart/form-data"></form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ bỏ</button>
@@ -305,7 +305,7 @@ include "../inc/script.php"
                 },
                 "imageOptions": {
                     "hideBackgroundDots": true,
-                    "imageSize": 0.4,
+                    "imageSize": 0.6,
                     "margin": 10
                 },
                 "dotsOptions": {
@@ -332,7 +332,7 @@ include "../inc/script.php"
                     }
                 },
                 "cornersDotOptions": {
-                    
+
                     "color": "#038f81",
                     "gradient": null
                 },
@@ -370,7 +370,7 @@ include "../inc/script.php"
         Dropzone.options.profile = {
             // Configuration options go here
             paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: 4, // MB
+            maxFilesize: 2, // MB
             maxFiles: 1,
             acceptedFiles: ".png,.jpg,.jpeg",
             autoProcessQueue: false,
@@ -388,25 +388,25 @@ include "../inc/script.php"
             dictRemoveFile: "Xoá file",
             dictRemoveFileConfirmation: null,
             dictMaxFilesExceeded: "Bạn không thể tải lên bất kỳ tệp nào nữa.",
-            init: function () {
-            let upload = this;
-            // Restrict to 1 file uploaded
-            upload.on("addedfile", function () {
-                if (upload.files[1] != null) {
-                    upload.removeFile(upload.files[0]);
-                }
-            });
-            // If validation passes, process queue and add insurance
-            $("#save-change-picture").on("click", function (e) {
-                e.preventDefault();
-                upload.processQueue();
-                console.log(upload.files[0].dataURL, "upload")
-                $("img.avatar").each((i, img)=>{
-                    img.src = upload.files[0].dataURL;
-                })
+            init: function() {
+                let upload = this;
+                // Restrict to 1 file uploaded
+                upload.on("addedfile", function() {
+                    if (upload.files[1] != null) {
+                        upload.removeFile(upload.files[0]);
+                    }
+                });
+                // If validation passes, process queue and add insurance
+                $("#save-change-picture").on("click", function(e) {
+                    e.preventDefault();
+                    upload.processQueue();
+                    console.log(upload.files[0].dataURL, "upload")
+                    $("img.avatar").each((i, img) => {
+                        img.src = upload.files[0].dataURL;
+                    })
 
-            });
-        },
+                });
+            },
         };
 
 
