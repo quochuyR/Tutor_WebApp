@@ -116,7 +116,7 @@ include "../inc/header.php";
                                     <h6 class="text-muted"><?php echo "<b> ID: </b>" . $person['username'] ?></h6>
                                     <input type="hidden" name="" value="<?= Session::get('tutorId') ?>" id="tuid">
 
-                                    <button type="button" class="d-block m-auto pt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button type="button" class="d-block m-auto pt-3" data-bs-toggle="modal" data-bs-target="#QRModal">
                                         <div class="card w-fit-content bg-gray-600" style="cursor:pointer;" id="my-qr-code">
                                             <div class="card-body p-2">
                                                 <span class="material-symbols-rounded font-64 text-white d-flex m-auto">
@@ -236,11 +236,11 @@ include "../inc/header.php";
 
 
     <!-- Modal QR -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="QRModal" tabindex="-1" aria-labelledby="QRModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">QR code của tôi</h5>
+                    <h5 class="modal-title" id="QRModalLabel">QR code của tôi</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -291,66 +291,79 @@ include "../inc/script.php"
             var src_img = $("#my-image").prop("src");
             let tuid = $("#tuid").val();
             var data = new URL(`./tutor_details?id=${tuid}`, window.location.href);
+
+            // When the avatar changes, reattach the src_img. variable.
+            $("#my-image").on('load', (e) => {
+                // console.log(e.target.src)
+                src_img = e.target.src;
+            })
             console.log(data);
-            const option = {
-                "width": 360,
-                "height": 360,
-                "data": data.href,
-                "image": src_img,
-                "margin": 20,
-                "qrOptions": {
-                    "typeNumber": "0",
-                    "mode": "Byte",
-                    "errorCorrectionLevel": "M"
-                },
-                "imageOptions": {
-                    "hideBackgroundDots": true,
-                    "imageSize": 0.6,
-                    "margin": 10
-                },
-                "dotsOptions": {
-                    "type": "classy",
-                    "color": "#45b8ac"
-                },
-                "backgroundOptions": {
-                    "color": "#ffffff"
-                },
-                "dotsOptionsHelper": {
-                    "colorType": {
-                        "single": true,
-                        "gradient": false
-                    }
-                },
-                "cornersSquareOptions": {
-                    "type": "extra-rounded",
-                    "color": "#038f7e"
-                },
-                "cornersSquareOptionsHelper": {
-                    "colorType": {
-                        "single": true,
-                        "gradient": false
-                    }
-                },
-                "cornersDotOptions": {
-
-                    "color": "#038f81",
-                    "gradient": null
-                },
-                "cornersDotOptionsHelper": {
-                    "colorType": {
-                        "single": true,
-                        "gradient": false
-                    }
-                },
-                "backgroundOptionsHelper": {
-                    "colorType": {
-                        "single": true,
-                        "gradient": false
+            //
+            var option = {
+                    "width": 360,
+                    "height": 360,
+                    "data": data.href,
+                    "image": src_img,
+                    "margin": 20,
+                    "qrOptions": {
+                        "typeNumber": "0",
+                        "mode": "Byte",
+                        "errorCorrectionLevel": "M"
                     },
+                    "imageOptions": {
+                        "hideBackgroundDots": true,
+                        "imageSize": 0.6,
+                        "margin": 10
+                    },
+                    "dotsOptions": {
+                        "type": "classy",
+                        "color": "#45b8ac"
+                    },
+                    "backgroundOptions": {
+                        "color": "#ffffff"
+                    },
+                    "dotsOptionsHelper": {
+                        "colorType": {
+                            "single": true,
+                            "gradient": false
+                        }
+                    },
+                    "cornersSquareOptions": {
+                        "type": "extra-rounded",
+                        "color": "#038f7e"
+                    },
+                    "cornersSquareOptionsHelper": {
+                        "colorType": {
+                            "single": true,
+                            "gradient": false
+                        }
+                    },
+                    "cornersDotOptions": {
 
+                        "color": "#038f81",
+                        "gradient": null
+                    },
+                    "cornersDotOptionsHelper": {
+                        "colorType": {
+                            "single": true,
+                            "gradient": false
+                        }
+                    },
+                    "backgroundOptionsHelper": {
+                        "colorType": {
+                            "single": true,
+                            "gradient": false
+                        },
+
+                    }
                 }
-            }
-            const qrCode = new QRCodeStyling(option);
+            var QRModalEl = document.getElementById('QRModal')
+            QRModalEl.addEventListener('shown.bs.modal', function(event) {
+                option.image = src_img;
+                qrCode.update(option);
+            })
+
+            let qrCode = new QRCodeStyling(option);
 
             qrCode.append(document.getElementById("canvas"));
             $("#download").on('click', (e) => {
