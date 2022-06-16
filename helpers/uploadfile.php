@@ -8,38 +8,45 @@ class UploadFile
     {
         if (isset($_FILES[$name]["name"])) {
             // print_r($_FILES["upload"]["tmp_name"]);
-            $file_name = $_FILES[$name]['name'];
-            $file_size = $_FILES[$name]['size'];
-            $file_tmp = $_FILES[$name]['tmp_name'];
-            $file_type = $_FILES[$name]['type'];
-            $tmp = explode('.', $_FILES[$name]['name']);
-            $file_ext = strtolower(end($tmp));
-
-            $new_img_name = bin2hex(openssl_random_pseudo_bytes(10)) . '.' . $file_ext;
-
             $extensions = $file_extensions_allowed;
+            $new_images = array();
+            $errors = array();
+            $countfiles = count($_FILES[$name]['name']);
+            print_r($_FILES[$name]['name']);
+            for ($i = 0; $i < $countfiles; $i++) {
+                $file_name = $_FILES[$name]['name'][$i];
+                $file_size = $_FILES[$name]['size'][$i];
+                $file_tmp = $_FILES[$name]['tmp_name'][$i];
+                $file_type = $_FILES[$name]['type'][$i];
+                $tmp = explode('.', $_FILES[$name]['name'][$i]);
+                $file_ext = strtolower(end($tmp));
 
-            if (in_array($file_ext, $extensions) === false) {
-                $errors[] = "Phần mở rộng của file không phù hợp, vui lòng chọn JPEG hoặc PNG file.";
+                if (in_array($file_ext, $extensions) === false) {
+                    $errors[] = "Phần mở rộng của file không phù hợp, vui lòng chọn JPEG hoặc PNG file.";
+                    return false;
+                }
+    
+                if ($file_size > $limit_size) {
+                    $errors[] = "Khích thước file nhỏ hơn hoặc bằng " . ($limit_size / 1048576) . " MB";
+                    return false;
+                }
+
+                $new_img_name = bin2hex(openssl_random_pseudo_bytes(10)) . '.' . $file_ext;
+                move_uploaded_file($file_tmp, $upload_directory . $new_img_name);
+                $new_images[] = $new_img_name;
             }
 
-            if ($file_size > $limit_size) {
-                $errors[] = "Khích thước file nhỏ hơn hoặc bằng " . ($limit_size/1048576) . " MB";
-            }
+           
 
             if (empty($errors) == true) {
-                move_uploaded_file($file_tmp, $upload_directory . $new_img_name);        
-               
-               return array("fileName" => $new_img_name, 'uploaded' => 1);
-                exit();
 
+                return array("fileName" => $new_images, 'uploaded' => 1);
+                
             } else {
                 print_r($errors);
                 return false;
-                exit();
-
+                
             }
-
         }
     }
 }

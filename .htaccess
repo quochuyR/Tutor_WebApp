@@ -4,7 +4,7 @@ RewriteEngine On
 
 
 
-RewriteRule ^(lib/|inc/|classes/|helpers/|config/|model/|vendor/|editor/) - [F,L,NC]
+RewriteRule ^(lib/|inc/|classes/|helpers/|config/|model/|vendor/|editor/|certificates/) - [F,L,NC]
 
 
 

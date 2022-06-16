@@ -43,14 +43,14 @@ $title = "Đăng ký";
                                                 <div class="col-6">
                                                     <label for="first_name" class=" form-label">Họ</label>
                                                     <div class="input-group-desc ">
-                                                        <input class="input--style-5" type="text" id="first_name" name="first_name">
+                                                        <input class="input--style-5" type="text" id="last_name" name="first_name">
 
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="input-group-desc">
                                                         <label for="last_name" class="form-label">Tên</label>
-                                                        <input class="input--style-5" type="text" id="last_name" name="last_name">
+                                                        <input class="input--style-5" type="text" id="first_name" name="last_name">
 
                                                     </div>
                                                 </div>
