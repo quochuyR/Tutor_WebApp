@@ -90,6 +90,14 @@ class Tutor
         return $result;
     }
 
+    public function registerAsTutor($userID)
+    {
+        $query = "SELECT COUNT(*) AS  FROM `tutors`
+        WHERE `tutors`.`tutor_status` = 0;";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
     public function countTutorByUserId($userID)
     {
         $query = "SELECT COUNT(*) AS countTutor FROM `tutors`

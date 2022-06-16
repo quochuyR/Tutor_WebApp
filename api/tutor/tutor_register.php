@@ -3,8 +3,8 @@
 namespace Ajax;
 
 
-use Classes\Tutor, Classes\TeachingTime, Classes\TeachingSubject;
-use Helpers\Format;
+use Classes\Tutor, Classes\TeachingTime, Classes\TeachingSubject, Classes\Certificate;
+use Helpers\Format, Helpers\UploadFile;
 use Library\Session;
 
 require_once(__DIR__ . "../../../vendor/autoload.php");
@@ -26,9 +26,41 @@ if (Session::checkRoles(['tutor'])) {
 $_tutor = new Tutor();
 $_teaching_time = new TeachingTime();
 $_teaching_subject = new TeachingSubject();
-if ($_SERVER["REQUEST_METHOD"] === "POST" ) {
+$_certificate = new Certificate();
 
-    if (!isset($_POST["token"]) || !isset($_SESSION["csrf_token"])) { exit(); }
+/* upload certificate */
+$dir_certificate = __DIR__ . "../../../certificates/" . Session::get("username");
+if (!is_dir($dir_certificate)){
+    mkdir($dir_certificate);
+
+}
+
+// file upload if the number of files in the directory is less than 10 or is empty.
+$files_in_directory = scandir($dir_certificate);
+if($files_in_directory){
+    $files_in_directory = array_diff($files_in_directory, array('.', '..'));
+
+}
+
+ // limit 10 certificate   
+if(count($files_in_directory) <= 10 || !$files_in_directory){
+    $registered_as_tutor = $_tutor->getTutorIdByUserId(Session::get("userId"))->fetch_row();
+    if(!isset($registered_as_tutor)){
+        $upload_image = UploadFile::upload("file", $dir_certificate . "/");
+
+    }
+
+}
+
+/* end upload certificate */
+
+
+// info tutor
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    if (!isset($_POST["token"]) || !isset($_SESSION["csrf_token"])) {
+        exit();
+    }
 
     if (
         (isset($_POST["currentPhone"]) && !empty($_POST["currentPhone"]))
@@ -41,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" ) {
         && (isset($_POST["districts"]) && !empty($_POST["districts"]))
         && (isset($_POST["teachingForm"]) && !empty($_POST["teachingForm"]))
         && (isset($_POST["description"]) && !empty($_POST["description"]))
-        && hash_equals($_POST["token"], $_SESSION["csrf_token"] )
+        && hash_equals($_POST["token"], $_SESSION["csrf_token"])
     ) {
 
         $currentPhone = Format::validation($_POST["currentPhone"]);
@@ -60,14 +92,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" ) {
 
         // print_r($currentProvince);
         $numTutor = $_tutor->countTutorByUserId(Session::get("userId"))->fetch_assoc()["countTutor"];
-
+        // $numTutor = 0;
         if ($numTutor === 0) {
-            $insert_register_tutor = $_tutor->addRegisterTutor($data);
-            // $insert_register_tutor = false;
+            // $insert_register_tutor = $_tutor->addRegisterTutor($data);
+            $insert_register_tutor = false;
 
             if ($insert_register_tutor) {
                 $tutorId = $_tutor->getTutorIdByUserId(Session::get("userId"))->fetch_assoc()["tutorId"];
 
+
+
+                // upload avatar user
+                // 0 => 'images', 1 => image file name
+                $certificate_images = scandir($dir_certificate);
+                $certificate_images = array_diff($certificate_images, array('.', '..'));
+
+                if (!empty($certificate_images)) {
+                    // update lại đường dẫn insert_certificates($tutorId, $upload_image["fileName"])
+                    $insert_new_certificate_image = $_certificate->insert_certificates($tutorId, array_values($certificate_images));
+                    if ($insert_new_certificate_image) {
+                    }
+                }
+
+
+                // teaching subject
                 if (isset($_POST["subjects"]) && !empty($_POST["subjects"])) {
                     foreach ($_POST["subjects"] as $key => $topic) {
 
@@ -79,6 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" ) {
                     }
                 }
 
+                // teaching time
                 if (isset($_POST["Monday"]) && $_POST["Monday"] !== "false" && is_array($_POST["Monday"])) {
                     foreach ($_POST["Monday"]["timeId"] as $timeId) {
                         // print_r($timeId);
@@ -130,17 +179,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" ) {
                 }
                 header('Content-Type: application/json; charset=utf-8');
                 echo json_encode(["insert" => "successful"]);
-            }
-            else {
+            } else {
                 header('Content-Type: application/json; charset=utf-8');
                 echo json_encode(["insert" => "fail"]);
-        } 
-        }else {
+            }
+        } else {
             header('Content-Type: application/json; charset=utf-8');
             echo json_encode(["author" => "isTutor"]);
         }
     }
-}else {
+} else {
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(["token" => "not_match"]);
 }

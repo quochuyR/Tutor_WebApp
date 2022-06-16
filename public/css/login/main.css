@@ -48,10 +48,10 @@ textarea {
   border: none;
 }
 
-textarea:focus,
+/* textarea:focus,
 input:focus {
   border-color: transparent !important;
-}
+} */
 
 input::-webkit-input-placeholder {
   color: #4b2354;
@@ -260,7 +260,7 @@ iframe {
 }
 
 .form-control {
-  height: 48px;
+  /* height: 48px; */
   background: #fff;
   color: #363945;
   font-size: 16px;
@@ -289,12 +289,12 @@ iframe {
   color: rgba(0, 0, 0, 0.2) !important;
 }
 
-.form-control:focus,
+/* .form-control:focus,
 .form-control:active {
   outline: none !important;
   box-shadow: none;
   border: 1px solid #01d28e;
-}
+} */
 
 .login100-form {
   width: 100%;
