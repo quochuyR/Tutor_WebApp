@@ -94,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $numTutor = $_tutor->countTutorByUserId(Session::get("userId"))->fetch_assoc()["countTutor"];
         // $numTutor = 0;
         if ($numTutor === 0) {
-            // $insert_register_tutor = $_tutor->addRegisterTutor($data);
-            $insert_register_tutor = false;
+            $insert_register_tutor = $_tutor->addRegisterTutor($data);
+            // $insert_register_tutor = false;
 
             if ($insert_register_tutor) {
                 $tutorId = $_tutor->getTutorIdByUserId(Session::get("userId"))->fetch_assoc()["tutorId"];
