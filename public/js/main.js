@@ -248,10 +248,15 @@
           // if (window.location.pathname.includes("tutor_details"))
           if (data.login === 'fail-user-pass') {
             $("#error-login").html(`<div class="alert alert-danger" role="alert">
-            <span class="el-alert__title">${data.message}</span>
-        </div>`);
+                                        <span class="el-alert__title">${data.message}</span>
+                                    </div>`);
             grecaptcha.reset();
 
+          }
+          else if (data.login === "fail-user-verification"){
+            $("#error-login").html(`<div class="alert alert-danger" role="alert">
+                                      <span class="el-alert__title">${data.message}</span>
+                                  </div>`);
           }
           else if (data.login === "successful") {
             window.location = data.url;

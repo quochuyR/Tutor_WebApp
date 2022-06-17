@@ -248,7 +248,7 @@ include "../inc/head.php";
                                     </div>
                                 </div>
                                 <span class="font-weight-600 d-md-block d-none">
-                                    <?= Session::get("firstname") . ' ' . Session::get("lastname") ?>
+                                    <?= Session::get("lastname") . ' ' . Session::get("firstname") ?>
                                 </span>
 
                             </div>

@@ -43,25 +43,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $username =  Format::validation($_POST["username"]);
         $password =  Format::validation($_POST["password"]);
 
-        try{
-        $signup_check = $signup->sign_up_admin($first_name, $last_name, $email, $phone_number, $username, $password);
-        // $signup_check = false;
-        if ($signup_check) {
+        $activation_code = $signup->generate_activation_code();
+        try {
+            $signup_check = $signup->sign_up_admin($first_name, $last_name, $email, $phone_number, $username, $password, $activation_code);
+
+            // $signup_check = true;
+            if ($signup_check) {
+
+                // send the activation email
+                $send = $signup->send_activation_email(["email" => $email, "first_name" => $first_name, "last_name" => $last_name], $activation_code);
+                header('Content-Type: application/json; charset=UTF-8');
+                echo json_encode(array("sign_up" => "successful", "url" => "login", "send" => $send, "email" => $email, "message" => "Vui lòng kiểm tra email của bạn để kích hoạt tài khoản của bạn trước khi đăng nhập."));
+            }
+        } catch (Exception $ex) {
+
             header('Content-Type: application/json; charset=UTF-8');
-            echo json_encode(array("sign_up" => "successful", "url" => $signup_check));
+            echo json_encode(array("sign_up" => "fail", "errors" => $ex->getMessage()));
         }
-
-    }catch(Exception $ex){
-
-        header('Content-Type: application/json; charset=UTF-8');
-        echo json_encode(array("sign_up" => "fail"));
     }
-        
-
-        
-    }
-
-    
 } else {
 
     header('Content-Type: application/json; charset=UTF-8');

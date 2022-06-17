@@ -30,12 +30,20 @@ class AppUser
      * @return object|bool số lượng hàng thêm thành công
      */
 
-    public function create_new_user(string $username, string $email, string $password, string $last_name, string $first_name, string $phone_number): object|bool
-    {
+    public function create_new_user(
+        string $username,
+        string $email,
+        string $password,
+        string $last_name,
+        string $first_name,
+        string $phone_number,
+        string $activation_code,
+        string $expiry
+    ): object|bool {
         $query = "INSERT INTO `appusers`
-         VALUES (UUID(), ?, ?, ?, ?, ?, NULL, ?, NULL, NULL, NULL, NULL, current_timestamp(), 1);";
+         VALUES (UUID(), ?, ?, ?, ?, ?, NULL, ?, NULL, NULL, NULL, NULL, current_timestamp(), 0, ?, ?, current_timestamp());";
 
-        $result = $this->db->p_statement($query, "ssssss", [$username, $email, $password, $last_name, $first_name, $phone_number]);
+        $result = $this->db->p_statement($query, "ssssssss", [$username, $email, $password, $last_name, $first_name, $phone_number, $activation_code, $expiry]);
         return $result;
     }
     /**
@@ -68,6 +76,71 @@ class AppUser
     }
 
     /**
+     * hàm có nhiệm vụ cập nhật người dùng đã kích hoạt email
+     * @param string $user_id id của người dùng
+     * @return object|bool số lượng hàng cập nhật thành công
+     */
+    function activate_user(string $user_id): bool
+    {
+        $sql = 'UPDATE appusers
+            SET active = 1,
+                activated_at = CURRENT_TIMESTAMP
+            WHERE id = ? ';
+
+        $result = $this->db->p_statement($sql, "s", [$user_id]);
+        return $result;
+    }
+
+    /**
+     * Hàm có nhiệm vụ xoá người dùng không kích hoạt
+     * @param string $id id người dùng
+     * @param string $active trạng thái kích hoạt
+     * @return object|bool xoá người dùng thành công
+     */
+
+    public function delete_user_by_id(int $id, int $active = 0): object| bool
+    {
+        $query = "DELETE FROM `appusers` WHERE id = ? AND active = ?";
+
+        $result = $this->db->p_statement($query, "si", [$id, $active]);
+        return $result;
+    }
+
+
+    /**
+     * Hàm có nhiệm vụ tìm người dùng không kích hoạt và xoá
+     * @param string $activation_code code xác thực của người dùng
+     * @param string $email email người dùng
+     * @return object|bool xoá người dùng nếu chưa kích hoạt (lớn hơn 1 ngày) hoặc trả về người dùng chưa kích hoạt
+     */
+    function find_unverified_user(string $activation_code, string $email)
+    {
+
+        $sql = 'SELECT id, activation_code, activation_expiry < now() as expired
+        FROM appusers
+        WHERE active = 0 AND email= ?';
+
+        $result = $this->db->p_statement($sql, "s", [$email]);
+
+
+        $user = $result->fetch_assoc();
+
+        if ($user) {
+            // already expired, delete the in active user with expired activation code
+            if ((int)$user['expired'] === 1) {
+                $this->delete_user_by_id($user['id']);
+                return null;
+            }
+            // verify the password
+            if (password_verify($activation_code, $user['activation_code'])) {
+                return $user;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Hàm có nhiệm vụ tìm user id bằng username
      * @param string $username tài khoản người dùng
      * @return object|bool id của người dùng tìm được
@@ -89,7 +162,7 @@ class AppUser
      */
     public function find_user_by_username(string $username): object
     {
-        $query = "SELECT id, username, password, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`imagepath` 
+        $query = "SELECT id, username, password, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`imagepath`, active
         FROM `appusers` 
         WHERE username = ?;";
 
@@ -142,15 +215,15 @@ class AppUser
     public function check_column_unique($column, $value)
     {
         $query = "SELECT COUNT(*) AS has_unique FROM `appusers` AS u";
-        if($column === "email"){
+        if ($column === "email") {
             $query .= " WHERE u.email = ?";
         }
 
-        if($column === "username"){
+        if ($column === "username") {
             $query .= " WHERE u.username = ?";
         }
 
-        if($column === "phonenumber"){
+        if ($column === "phonenumber") {
             $query .= " WHERE u.phonenumber = ?";
         }
 
