@@ -57,7 +57,7 @@ class AdminLogin
             $user = $this->user->find_user_by_username($username)->fetch_assoc();
 
             // $result = $this->db->p_statement($query, "ss", [$username, $password]);
-            if ($user) {
+            if ($user && $this->is_user_active($user)) {
                 $result = password_verify($password, $user["password"]);
                 if (isset($result) && $result) {
 
@@ -67,7 +67,7 @@ class AdminLogin
                         $this->remember->remember_me($user["id"]);
                     }
                     return true;
-                }else {
+                } else {
 
                     header('Content-Type: application/json; charset=UTF-8');
                     echo json_encode(array("login" => "fail-user-pass", "message" => "Tài khoản hoặc mật khẩu không đúng")); // 1001 : ERROR_USERNAME_PASSWORD_INCORRECT
@@ -76,7 +76,7 @@ class AdminLogin
             } else {
 
                 header('Content-Type: application/json; charset=UTF-8');
-                echo json_encode(array("login" => "fail-user-pass", "message" => "Tài khoản hoặc mật khẩu không đúng")); // 1001 : ERROR_USERNAME_PASSWORD_INCORRECT
+                echo json_encode(array("login" => "fail-user-verification", "message" => "Tài khoản chưa xác thực gmail.")); // 1001 : ERROR_USERNAME_PASSWORD_INCORRECT
                 return false;
             }
         } else {
@@ -111,5 +111,15 @@ class AdminLogin
         Session::set("imagepath", $user["imagepath"]);
 
         return true;
+    }
+
+    /**
+     * Hàm có nhiệm vụ kiểm tra người dùng đã xác thực gmail hay chưa
+     * @param array $user mảng chứa thông tin người dùng (username, password, firstname, lastname ...)
+     * @return bool người dùng xác thực mail hay chưa
+     */
+    function is_user_active($user)
+    {
+        return (int)$user['active'] === 1;
     }
 }

@@ -4,7 +4,7 @@ namespace Pages;
 
 use Classes\AdminLogin;
 use Library\Session;
-
+use Helpers\Flash;
 require_once(__DIR__ . "../../vendor/autoload.php");
 
 // $filepath = realpath(dirname(__FILE__));
@@ -16,7 +16,9 @@ Session::init();
 
 $login = new AdminLogin();
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    [$errors, $inputs] = \Helpers\Flash::session_flash('errors', 'inputs');
+
 }
 
 
@@ -24,6 +26,7 @@ $title = "Đăng ký";
 
             $nav_tutor_active = "active";
             include "../inc/header.php";
+            
             ?>
 
         <div id="main" class="container ">
@@ -33,6 +36,7 @@ $title = "Đăng ký";
                         <div class=" card card-5">
 
                             <div class="card-body">
+                                <?php Flash::flash(); ?>
                                 <form class="pt-3 px-md-4" id="signup-form">
                                     <input type="hidden" id="token" value="<?= Session::get("csrf_token") ?>" />
 

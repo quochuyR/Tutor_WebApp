@@ -91,6 +91,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
+if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    [$errors, $inputs] = \Helpers\Flash::session_flash('errors', 'inputs');
+
+}
+
 $title = "Đăng nhập";
 
 
@@ -112,7 +117,9 @@ include "../inc/header.php";
                                 <span class="login100-form-title p-b-37">
                                     Đăng nhập
                                 </span>
+
                                 <div id="error-login">
+                                <?php \Helpers\Flash::flash(); ?>
 
                                 </div>
                                 <div class="wrap-input100 validate-input m-b-35">

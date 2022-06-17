@@ -6,15 +6,16 @@ use Classes\AppUser;
 use Helpers\Format;
 use Library\Session;
 
-$filepath = realpath(dirname(__FILE__, 2));
+// $filepath = realpath(dirname(__FILE__, 2));
+require_once(__DIR__ . "../../../vendor/autoload.php");
 
-include_once $filepath . "../../lib/session.php";
+// include_once $filepath . "../../lib/session.php";
 // if (!Session::checkRoles(['tutor'])) {
 //     header("location:../pages/errors/404");
 // }
-include_once $filepath . "../../classes/appusers.php";
+// include_once $filepath . "../../classes/appusers.php";
 
-include_once $filepath . "../../helpers/format.php";
+// include_once $filepath . "../../helpers/format.php";
 
 $_app_user = new AppUser();
 
