@@ -23,6 +23,8 @@ include_once($filepath."../../helpers/utilities.php");
     <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script src="<?= Util::getRootURL(). "/tutor_webapp/public/" ."js/utilities.js" ?>"></script>
 <script src="<?= Util::getRootURL(). "/tutor_webapp/public/" ."js/main.js" ?>"></script>
 <!-- Smooth Scrolling  -->
