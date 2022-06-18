@@ -73,7 +73,7 @@ include "../inc/head.php";
 
 <body>
 
-    <div class="container-fluid px-0">
+    <div class="container-fluid px-0" id="main-container">
         <header class="row g-0 m-0">
 
             <section class="p-0 d-flex   align-items-center" id="top-header">
