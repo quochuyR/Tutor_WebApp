@@ -5,6 +5,8 @@ namespace Ajax;
 use Helpers\Util, Helpers\Format;
 use Library\Session;
 use Classes\AdminSignUp;
+use Fiber;
+
 use Exception;
 
 require_once(__DIR__ . "../../../vendor/autoload.php");
@@ -51,9 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($signup_check) {
 
                 // send the activation email
+
+
                 $send = $signup->send_activation_email(["email" => $email, "first_name" => $first_name, "last_name" => $last_name], $activation_code);
+
                 header('Content-Type: application/json; charset=UTF-8');
-                echo json_encode(array("sign_up" => "successful", "url" => "login", "send" => $send, "email" => $email, "message" => "Vui lòng kiểm tra email của bạn để kích hoạt tài khoản của bạn trước khi đăng nhập."));
+                echo json_encode(array("sign_up" => "successful", "url" => "login", "email" => $email, "message" => "Vui lòng kiểm tra email của bạn để kích hoạt tài khoản của bạn trước khi đăng nhập."));
             }
         } catch (Exception $ex) {
 

@@ -9,7 +9,10 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.1.2"        
+        "php": "^8.1.2",
+        "react/promise-timer": "1.9.0",
+        "react/promise": "2.9.0",
+        "react/async": "4.x-dev"        
     },
     "autoload": {
         "psr-4": {
