@@ -19,6 +19,7 @@
             "Classes\\": "classes/",
             "Helpers\\": "helpers/",
             "Library\\": "lib/"
-        }
+        },
+        "files": ["mix.php"]
     }
 }

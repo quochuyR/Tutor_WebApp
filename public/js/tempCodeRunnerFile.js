@@ -1,1 +1,0 @@
-if (label) label.insertBefore($(element).parent()).addClass('mb-2 text-danger');

@@ -2,8 +2,8 @@
 
 
 .avatar-sm {
-    height: 4.5rem;
-    width: 4.5rem;
+    height: 4.5rem !important;
+    width: 4.5rem !important;
 }
 
 .img-thumbnail {
@@ -24,18 +24,12 @@
     font-size: 1rem !important;
 }
 
-.rounded-circle {
-    border-radius: 50% !important;
-}
+
 
 .me-2 {
     margin-right: .75rem !important;
 }
 
-.avatar-md {
-    height: 3.5rem;
-    width: 3.5rem;
-}
 
 .table-schedule-tutor thead tr th:nth-child(2){ /* cột 2 */
     width: 26.666666666667% ;

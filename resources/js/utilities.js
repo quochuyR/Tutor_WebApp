@@ -3,6 +3,7 @@
     // URL province api
 
     let offset = 0, numNotification = 2, responseNotification = true;
+   
 
     $(document).ready(function () {
 
@@ -97,7 +98,7 @@
             if ($(e.currentTarget).attr("type") === 'checkbox' && e.currentTarget.checked === false) {
                 $(`div[data-value="${e.currentTarget.parentNode.firstChild.nodeValue}"`)?.remove();
             }
-            
+
             $(".close").off().on('click', (e) => {
 
                 let checkBoxValue = $(e.currentTarget.parentNode).attr("data-value");
@@ -172,6 +173,42 @@
             return false;
         }
 
+        function placeholder(limit) {
+            let placeholder = "";
+            for (let i = 0; i < limit; i++) {
+                placeholder += `<div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
+                <div class="card card-tutor">
+                    <div class=" card-img-top img-teacher text-center">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#868e96"></rect>
+                        </svg>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                        <div class="d-flex align-items-center justify-content-between pt-1 position-absolute" style="bottom: 1rem;">
+                            <div class="d-flex flex-row">
+                                <a href="#" class="mx-1 social-list-item text-center border-primary text-primary disabled placeholder"></a>
+                                <a href="#" class="mx-1 social-list-item text-center border-info text-info disabled placeholder"></a>
+                            </div>
+                            <!-- <div class="btn btn-primary">Đăng ký</div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>`
+            }
+    
+            return placeholder;
+        }
 
         // page_data();
         filer_data();
@@ -179,7 +216,7 @@
 
         $("#filter-subject li").on('click', (e) => {
 
-            
+
             // thêm subject filter
             $.ajax({
                 type: "post",
@@ -215,18 +252,19 @@
         });
 
 
+
         // lọc dữ liệu
         function filer_data(e = null) {
-            $("#tutors .row").html(`<div class="spinner-border text-primary d-flex mx-auto" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>`);
-
-
-
 
 
             let url = $(e?.currentTarget).attr('href') ? $(e.currentTarget).attr('href') : "9&1"; // check có thẻ a chưa 
             let [limit, page] = url.split("&");
+            let placeholder_tutor = placeholder(limit);
+
+            $("#tutors .row").html(placeholder_tutor);
+
+
+            
             console.log(limit, page, url)
 
             let token = $("#token").val();
@@ -251,7 +289,10 @@
                 },
                 cache: false,
                 success: function (data) {
+
                     $("#tutors .row").html(data);
+                    document.querySelector('#top-filter')?.scrollIntoView({ behavior: "smooth", block: 'nearest', inline: 'start' })
+
                     page_paginator();
                     // console.log(data)
                 },
@@ -262,11 +303,11 @@
 
         }
 
-        
+
 
         function page_paginator() {
 
-            $(".link-ajax").on('click', (e) => {
+            $(".link-ajax").off().on('click', (e) => {
                 e.preventDefault();
                 filer_data(e);
             });
@@ -280,18 +321,18 @@
         // dữ liệu trả về sẽ như thế này Toán, Vật lý, Hoá,
         function get_filter_str(className) {
             let data = "";
-            if ($(className).length === 1 ) {
+            if ($(className).length === 1) {
                 return ($(className).val() + ",");
             }
-            
-            else if ($(className).length > 1 ) {
+
+            else if ($(className).length > 1) {
                 $(className).each((i, val) => {
                     data += $(val).val() + ', '
                     // console.log($(val).val(), "val")
                 });
                 return data.trim();
-            } 
-           return;
+            }
+            return;
         }
 
         function get_filter_arr(className) {
@@ -304,10 +345,12 @@
         }
 
 
+       
+
 
         $("#more-notification").on('click', (e) => {
 
-            
+
             offset += 2;
             // thêm subject filter
             responseNotification && $.ajax({
@@ -320,12 +363,12 @@
                 cache: false,
                 success: function (data) {
                     console.log(data, "thông báo")
-                    if(!data){
+                    if (!data) {
                         responseNotification = false;
                         return;
                     }
-                    $(".list-notification").last().append(data);  
-                    document.querySelector('#end-notification').scrollIntoView({behavior : "smooth",  block: 'nearest', inline: 'start'})
+                    $(".list-notification").last().append(data);
+                    document.querySelector('#end-notification')?.scrollIntoView({ behavior: "smooth", block: 'nearest', inline: 'start' })
 
                 },
                 error: function (xhr, status, error) {
@@ -388,14 +431,11 @@
 
         $(Img).prop("src", $(e.target).prop("src"));
         $('body').css("overflow-y", "hidden");
-        $(".img-float").on('click', (e) => {
+        $(".img-float").off().on('click', (e) => {
 
             $(e.currentTarget).addClass('d-none');
             $('body').css("overflow-y", "scroll");
 
-        }).on('click', (e) => {
-            e.cancelBubble = true;
-            e.stopPropagation();
         });
 
 

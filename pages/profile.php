@@ -113,7 +113,7 @@ include "../inc/header.php";
                                 </div>
 
 
-                                <img src="<?= isset($person["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $person["imagepath"] : "https://www.bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="rounded-circle avatar-lg avatar" alt="hình đại diện" value="<?php echo $person['imagepath'] ?>" id="my-image">
+                                <img src="<?= isset($person["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $person["imagepath"] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg"; ?>" class="rounded-circle avatar-lg avatar" alt="hình đại diện" value="<?php echo $person['imagepath'] ?>" id="my-image">
                                 <div class="mt-3 h-50 d-flex flex-column pb-5">
 
                                     <h4 class="fw-bold mb-1"><?php echo $person['lastname'] . " " . $person['firstname'] ?></h4>

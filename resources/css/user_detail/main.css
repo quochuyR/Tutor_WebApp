@@ -1,11 +1,52 @@
+/* rating */
+
+#rating-user::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  #rating-user::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+#rating-user::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.ratings{
+    margin-right:10px;
+}
+
+.ratings span{
+    
+    color:#cecece;
+}
+
+.rating-color{
+    color:#fbc634 !important;
+}
+
+.review-count{
+    font-weight:400;
+    margin-bottom:2px;
+    font-size:24px !important;
+}
+
+.small-ratings i{
+  color:#cecece;   
+}
+
+.review-stat{
+    font-weight:300;
+    font-size:18px;
+    margin-bottom:2px;
+}
+/* end rating */
+
 .avatar-lg {
     height: 7.5rem;
     width: 7.5rem;
 }
 
-.rounded-circle {
-    border-radius: 50% !important;
-}
+
 
 .img-thumbnail {
     padding: .25rem;
@@ -140,10 +181,10 @@ li+.postion-absolute {
 .img-float {
     top: 0;
     display: block;
-    position: sticky;
+    position: absolute;
     height: 100vh;
     width: 100vw;
-    background-color: rgba(63, 63, 63, 0.9);
+    background-color: #e5e5e5eb;
     opacity: 100%;
     z-index: 1100;
     
