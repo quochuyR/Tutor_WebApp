@@ -2,8 +2,8 @@
 namespace Inc;
 use Helpers\Util;
 
-$filepath  = realpath(dirname(__FILE__));
-include_once($filepath."../../helpers/utilities.php");
+
+require_once($filepath . "../../vendor/autoload.php");
 ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -25,7 +25,8 @@ include_once($filepath."../../helpers/utilities.php");
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script src="<?= Util::getRootURL(). "/tutor_webapp/public/" ."js/utilities.js" ?>"></script>
-<script src="<?= Util::getRootURL(). "/tutor_webapp/public/" ."js/main.js" ?>"></script>
+<!-- <script src="<?= Util::getRootURL(). "/tutor_webapp/public/" ."js/utilities.js" ?>"></script> -->
+<!-- <script src="<?= Util::getRootURL(). "/tutor_webapp/public/" ."js/main.js" ?>"></script> -->
 <!-- Smooth Scrolling  -->
-<script src="<?= Util::getRootURL(). "/tutor_webapp/public/" . "js/scroll.js"?>"></script>
+<!-- <script src="<?= Util::getRootURL(). "/tutor_webapp/public/" . "js/scroll.js"?>"></script> -->
+<script src="<?= mix("js/main.js", 'tutor_webapp');?>"></script>

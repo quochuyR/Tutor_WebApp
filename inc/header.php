@@ -124,7 +124,7 @@ include "../inc/head.php";
 
                                                             <a href="<?= Util::getCurrentURL(1) ."pages/". $notifi["notification_link"] ?>" class="d-flex list-group-item list-group-item-action border-0 text-small">
                                                                 <div class="my-auto me-2">
-                                                                    <img src="<?= isset($sender["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $sender["imagepath"] : "https://bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="avatar-notification avatar-sm-notification  ">
+                                                                    <img src="<?= isset($sender["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $sender["imagepath"] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg"; ?>" class="avatar-notification avatar-sm-notification  ">
                                                                 </div>
                                                                 <div>
                                                                     <b><?= $sender["firstname"] ?></b> <?= $notifi["notification_text"] ?>

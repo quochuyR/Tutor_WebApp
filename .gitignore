@@ -50,7 +50,6 @@ Icon
 
 # Thumbnails
 ._*
-
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
@@ -95,6 +94,9 @@ secring.*
 # also taken from here):  -o <path>/<filename>
 simv
 
+# npm package
+
+/node_modules/
 # Generated for Verilog and VHDL top configs
 simv.daidir/
 simv.db.dir/

@@ -10,7 +10,9 @@ use Classes\Tutor,
     Classes\DayOfWeek,
     Classes\TeachingTime,
     Classes\SavedTutor,
-    Classes\RegisterUser;
+    Classes\RegisterUser,
+    Classes\Review;
+
 require_once(__DIR__ . "../../vendor/autoload.php");
 
 // include_once "../classes/tutors.php";
@@ -67,6 +69,7 @@ include "../inc/header.php";
             $teachingtimes = new TeachingTime();
             $saved_tutor = new SavedTutor();
             $register_user = new RegisterUser();
+            $review = new Review();
 
             $detail_tutor = $tutors->getTutorDetail($id)->fetch_all(MYSQLI_ASSOC);
             if ($detail_tutor) :
@@ -76,7 +79,7 @@ include "../inc/header.php";
 
             ?>
                     <div class="col-xl-4 col-md-5">
-                        <div class="card card-detail position-sticky" style="top: 1rem">
+                        <div class="card card-detail">
                             <div class="card-body">
 
                                 <div class="d-flex align-items-start">
@@ -193,6 +196,134 @@ include "../inc/header.php";
                         </div>
 
 
+                        <div class="card">
+                            <div class="card-body p-0">
+
+
+                                <div class="row g-0 d-flex justify-content-center" id="rating-user" style="max-height: 40rem;overflow-y: scroll;">
+                                    <div class="col-12">
+                                        <div class="pt-4 ps-4 position-sticky" style="top: 0;background-color:#fff;z-index:2;">
+                                            <h4 class="mb-0">Đánh giá gần đây</h4>
+                                            <p class="fw-light  pb-2">Đánh giá mới nhất của người dùng</p>
+                                            <div class="d-flex align-items-center mt-2 mb-4">
+                                                <div class="ratings">
+                                                    <?php
+                                                    $avg_stars = $review->get_avg_review_by_tuId($id)->fetch_assoc()["average_rating"];
+                                                    $count = 1;
+                                                    for ($i = 1; $i <= 5; $i++) :
+                                                        if (round($avg_stars - .25) >= $i) :
+                                                    ?>
+                                                            <span class="material-symbols-rounded rating-color">
+                                                                star
+                                                            </span>
+                                                        <?php
+                                                        elseif (round($avg_stars + .25) >= $i) :
+                                                        ?>
+                                                            <span class="material-symbols-rounded rating-color">
+                                                                star_half
+                                                            </span>
+                                                        <?php
+                                                        else :
+                                                        ?>
+                                                            <span class="material-symbols-rounded">
+                                                                star
+                                                            </span>
+                                                    <?php
+                                                        endif;
+                                                        $count++;
+                                                    endfor;
+
+                                                    ?>
+
+
+                                                </div>
+                                                <h5 class="review-count"><?= $avg_stars ?> trên 5</h5>
+                                            </div>
+                                        </div>
+
+                                        <?php
+
+                                        $_review_user = $review->get_review_by_tuId($id);
+
+                                        if ($_review_user->num_rows > 0) :
+                                            while ($review_user = $_review_user->fetch_assoc()) :
+
+                                        ?>
+                                                <div class="card pb-0 mb-0">
+                                                    <div class="card-body p-4">
+
+
+                                                        <div class="d-flex flex-start">
+                                                            <img class="rounded-circle shadow-1-strong me-3" src="<?= Util::getCurrentURL(1) . 'public/' . $review_user["imagepath"] ?>" alt="avatar" width="60" height="60" />
+                                                            <div>
+                                                                <h6 class="fw-bold mb-1"><?= $review_user['lastname'] . ' ' . $review_user['firstname'] ?></h6>
+                                                                <div class="d-flex align-items-center mb-3">
+                                                                    <p class="mb-0 text-muted">
+                                                                        <?= Format::formatDate(strtotime($review_user['date_rating'])) ?>
+
+                                                                    </p>
+
+                                                                </div>
+                                                                <p class="mb-0">
+                                                                    <?= $review_user['user_review'] ?>
+
+                                                                </p>
+                                                                <div class="d-flex align-items-center mt-2">
+                                                                    <div class="ratings">
+                                                                        <?php
+                                                                        $stars = (float)$review_user['user_rating'];
+                                                                        $count = 1;
+                                                                        for ($i = 1; $i <= 5; $i++) :
+                                                                            if (round($stars - .25) >= $i) :
+                                                                        ?>
+                                                                                <span class="material-symbols-rounded rating-color">
+                                                                                    star
+                                                                                </span>
+                                                                            <?php
+                                                                            elseif (round($stars + .25) >= $i) :
+                                                                            ?>
+                                                                                <span class="material-symbols-rounded rating-color">
+                                                                                    star_half
+                                                                                </span>
+                                                                            <?php
+                                                                            else :
+                                                                            ?>
+                                                                                <span class="material-symbols-rounded">
+                                                                                    star
+                                                                                </span>
+                                                                        <?php
+                                                                            endif;
+                                                                            $count++;
+                                                                        endfor;
+
+                                                                        ?>
+
+
+                                                                    </div>
+                                                                    <h5 class="review-count"><?= $stars ?></h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="my-0" />
+
+
+
+
+                                        <?php
+                                            endwhile;
+
+                                        else : echo '<span class="mb-4 px-3 d-block fw-bold">Chưa có đánh giá</span>';
+                                        endif;
+                                        ?>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
 
 
                     </div> <!-- end col-->
@@ -222,7 +353,7 @@ include "../inc/header.php";
                             <div class="card-body">
                                 <h5 class="header-title fw-bold pb-2 border-bottom">Môn học đang dạy</h5>
 
-                                <div class="inbox-widget" data-simplebar="init" style="max-height: 7rem;">
+                                <div class="inbox-widget mt-2" data-simplebar="init" style="max-height: 7rem;">
                                     <div class="simplebar-wrapper" style="margin: 0px;">
                                         <div class="simplebar-height-auto-observer-wrapper">
                                             <div class="simplebar-height-auto-observer">
@@ -273,7 +404,7 @@ include "../inc/header.php";
                     <?php endforeach; ?>
                     <div class="card card-detail">
                         <div class="card-body">
-                            <h5 class="header-title fw-bold pb-2 border-bottom">Lịch dạy gia sư</h5>
+                            <h5 class="header-title fw-bold pb-2 mb-3 border-bottom">Lịch dạy gia sư</h5>
                             <div class="row g-0">
                                 <?php
                                 $dow_list = $dayofweeks->getAll();

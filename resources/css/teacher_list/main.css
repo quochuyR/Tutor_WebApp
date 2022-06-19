@@ -1,4 +1,9 @@
-
+#filter-subject::-webkit-scrollbar {
+    width: 5px;
+  }
+#filter-subject::-webkit-scrollbar-thumb {
+  background: #94c1bc !important; 
+}
 
 .wrapper {
     padding: 20px 0;
@@ -299,7 +304,7 @@ h6 {
     color: #fff !important;
     border: none;
     border-radius: 10px !important;
-    font-weight: 700 !important;
+    font-weight: 500 !important;
 }
 
 .btn-tutor-detail:hover {

@@ -5,7 +5,7 @@ namespace Inc;
 use Helpers\Util;
 
 $filepath  = realpath(dirname(__FILE__));
-include_once($filepath . "../../helpers/utilities.php");
+require_once($filepath . "../../vendor/autoload.php");
 ?>
 
 <head>
@@ -29,8 +29,10 @@ include_once($filepath . "../../helpers/utilities.php");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
-    <link rel="stylesheet" href="<?= Util::getRootURL() . '/tutor_webapp/public/' . "css/style.css" ?>">
+    <!-- <link rel="stylesheet" href="<?= Util::getRootURL() . '/tutor_webapp/public/' . "css/style.css" ?>"> -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" integrity="sha512-zxBiDORGDEAYDdKLuYU9X/JaJo/DPzE42UubfBw9yg8Qvb2YRRIQ8v4KsGHOx2H1/+sdSXyXxLXv5r7tHc9ygg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="<?= mix('css/main.css', 'tutor_webapp'); ?>">
 
 </head>

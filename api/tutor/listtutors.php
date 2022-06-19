@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") :
                 <div class="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
                     <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
                         <div class=" card-img-top img-teacher text-center">
-                            <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(2) . "public/" .  $result['imagepath'] : "https://bootdey.com/img/Content/avatar/avatar5.png") ?>" class="rounded" alt="" srcset="">
+                            <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(2) . "public/" .  $result['imagepath'] : Util::getCurrentURL(2) . "public/images/avatar5-default.jpg") ?>" class="rounded" alt="" srcset="">
                         </div>
                         <div class="card-body">
                             <h6 class="font-weight-bold pt-1"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h6>
@@ -69,10 +69,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") :
                             ?>
 
                             <div class="text-muted description-intro"><?= $result['teachingarea'] . ' | ' . $subjectTutors ?></div>
-                            <div class="text-start description product limit-text">
+                            <div class="text-start description product limit-text mb-5">
                                 <?= html_entity_decode($result['introduction']) ?>
                             </div>
-                            <div class="d-flex align-items-center justify-content-between pt-1">
+                            <div class="d-flex align-items-center justify-content-between pt-1 position-absolute" style="bottom: 1rem;">
                                 <div class="d-flex flex-row">
                                     <a href="<?= (isset($result['linkfacebook']) ? $result['linkfacebook'] : "") ?>" class="mx-1 social-list-item text-center border-primary text-primary"><i class="mdi mdi-facebook"></i></i></a>
                                     <a href="<?= (isset($result['linktwitter']) ? $result['linktwitter'] : "") ?>" class="mx-1 social-list-item text-center border-info text-info"><i class="mdi mdi-twitter"></i></i></a>

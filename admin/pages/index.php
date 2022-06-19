@@ -4,7 +4,7 @@ namespace Admin;
 
 use Classes\Tutor, Classes\AppUser, Classes\TeachingSubject;
 use Library\Session;
-use Helpers\Format;
+use Helpers\Util;
 
 require_once(__DIR__ . "../../../vendor/autoload.php");
 
@@ -204,7 +204,7 @@ include_once "../inc/header.php" ?>
                                                                 <td class="avatar ">
                                                                     <div class="d-flex">
                                                                         <div class="round-img">
-                                                                            <a href="#"><img class="rounded" src=" <?= isset($InfoTutor["imagepath"]) ? "../../public/" . $InfoTutor["imagepath"]: "https://www.bootdey.com/img/Content/avatar/avatar5.png" ?>" alt=""></a>
+                                                                            <a href="#"><img class="rounded" src=" <?= isset($InfoTutor["imagepath"]) ? "../../public/" . $InfoTutor["imagepath"]: Util::getCurrentURL(2) . "public/images/avatar5-default.jpg" ?>" alt=""></a>
                                                                         </div>
                                                                         <div class="d-flex flex-column">
                                                                             <span class="text-dark fw-bold d-block"><?= $InfoTutor["lastname"] . ' ' . $InfoTutor["firstname"] ?></span>

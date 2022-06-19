@@ -82,7 +82,7 @@ include "../inc/header.php";
         <div class="collapse " id="mobile-filter">
             <div class="py-3">
                 <h5 class="font-weight-bold">Môn học</h5>
-                <ul class="list-group" id="filter-subject">
+                <ul class="list-group " style="max-height: 20rem;overflow-y:scroll;" id="filter-subject">
                     <?php
                     $tutors = new Tutor();
                     $subjects = new Subject();
@@ -170,7 +170,7 @@ include "../inc/header.php";
 
                 <div class="py-3">
                     <h5 class="font-weight-bold mb-1">Môn học</h5>
-                    <ul class="list-group" id="filter-subject">
+                    <ul class="list-group" style="max-height: 20rem;overflow-y:scroll;" id="filter-subject">
                         <?php
 
                         $SBtopicList = $SBtopic->CountByTutor();
@@ -252,12 +252,15 @@ include "../inc/header.php";
 
             </section> <!-- tutors Section -->
             <section id="tutors">
+                  <!-- scroll to top -->
+                  <div id="top-filter"></div>
                 <div class="container py-3">
+                  
+
                     <div class="row">
                         <div class="col-12 pb-4  g-0 d-flex justify-content-end">
-
+                            
                             <nav aria-label="Page navigation example " id="pagination-nav" class="mt-3">
-
                             </nav>
                         </div>
             </section>

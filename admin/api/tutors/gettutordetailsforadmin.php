@@ -78,7 +78,7 @@ if (!isset($_POST["id"]) || empty($_POST["id"]) || $_POST["id"] === null) {
                             <div class="card-body">
 
                                 <div class="d-flex align-items-start">
-                                    <img src="<?= isset( $result["imagepath"]) ? Util::getCurrentURL(3) . "public/" . $result["imagepath"] : "https://bootdey.com/img/Content/avatar/avatar5.png"; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+                                    <img src="<?= isset( $result["imagepath"]) ? Util::getCurrentURL(3) . "public/" . $result["imagepath"] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg"; ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
                                     <div class="w-100 ms-3 align-self-end">
                                         <h4 class="my-1"><?= $result["lastname"] . ' ' . $result["firstname"]; ?></h4>
                                         <p class="text-muted">@id: <?= $result["username"]; ?></p>
