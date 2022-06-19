@@ -19,10 +19,12 @@ if (!function_exists('mix')) {
         static $manifest;
         $publicFolder = '/public';
         $rootPath = $_SERVER['DOCUMENT_ROOT'];
+        // echo $rootPath;
         $publicPath = $rootPath . $publicFolder;
         if ($manifestDirectory && !str_starts_with($manifestDirectory, '/')) {
             $manifestDirectory = "/{$manifestDirectory}";
         }
+
         if (!$manifest) {
             if (!file_exists($manifestPath = ($rootPath . $manifestDirectory . '/mix-manifest.json'))) {
                 throw new Exception('The Mix manifest does not exist.');
@@ -32,7 +34,7 @@ if (!function_exists('mix')) {
         if (!str_starts_with($path, '/')) {
             $path = "/{$path}";
         }
-        $path = $publicFolder . $path;
+        // $path = $publicFolder . $path;
         if (!array_key_exists($path, $manifest)) {
             throw new Exception(
                 "Unable to locate Mix file: {$path}. Please check your " .

@@ -29,4 +29,4 @@ require_once($filepath . "../../vendor/autoload.php");
 <!-- <script src="<?= Util::getRootURL(). "/tutor_webapp/public/" ."js/main.js" ?>"></script> -->
 <!-- Smooth Scrolling  -->
 <!-- <script src="<?= Util::getRootURL(). "/tutor_webapp/public/" . "js/scroll.js"?>"></script> -->
-<script src="<?= mix("js/main.js", 'tutor_webapp');?>"></script>
+<script src="<?= mix("js/main.js", 'tutor_webapp/public');?>"></script>

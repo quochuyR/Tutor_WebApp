@@ -206,38 +206,46 @@ include "../inc/header.php";
                                             <h4 class="mb-0">Đánh giá gần đây</h4>
                                             <p class="fw-light  pb-2">Đánh giá mới nhất của người dùng</p>
                                             <div class="d-flex align-items-center mt-2 mb-4">
-                                                <div class="ratings">
-                                                    <?php
-                                                    $avg_stars = $review->get_avg_review_by_tuId($id)->fetch_assoc()["average_rating"];
-                                                    $count = 1;
-                                                    for ($i = 1; $i <= 5; $i++) :
-                                                        if (round($avg_stars - .25) >= $i) :
-                                                    ?>
-                                                            <span class="material-symbols-rounded rating-color">
-                                                                star
-                                                            </span>
+
+                                                <?php
+                                                $avg_stars = $review->get_avg_review_by_tuId($id)->fetch_assoc()["average_rating"];
+                                                if ($avg_stars) :
+                                                ?>
+                                                    <div class="ratings">
                                                         <?php
-                                                        elseif (round($avg_stars + .25) >= $i) :
+                                                        $count = 1;
+                                                        for ($i = 1; $i <= 5; $i++) :
+                                                            if (round($avg_stars - .25) >= $i) :
                                                         ?>
-                                                            <span class="material-symbols-rounded rating-color">
-                                                                star_half
-                                                            </span>
+                                                                <span class="material-symbols-rounded rating-color">
+                                                                    star
+                                                                </span>
+                                                            <?php
+                                                            elseif (round($avg_stars + .25) >= $i) :
+                                                            ?>
+                                                                <span class="material-symbols-rounded rating-color">
+                                                                    star_half
+                                                                </span>
+                                                            <?php
+                                                            else :
+                                                            ?>
+                                                                <span class="material-symbols-rounded">
+                                                                    star
+                                                                </span>
                                                         <?php
-                                                        else :
+                                                            endif;
+                                                            $count++;
+                                                        endfor;
+
                                                         ?>
-                                                            <span class="material-symbols-rounded">
-                                                                star
-                                                            </span>
-                                                    <?php
-                                                        endif;
-                                                        $count++;
-                                                    endfor;
-
-                                                    ?>
 
 
-                                                </div>
-                                                <h5 class="review-count"><?= $avg_stars ?> trên 5</h5>
+                                                    </div>
+
+                                                    <h5 class="review-count"><?= $avg_stars ?> trên 5</h5>
+                                                <?php
+                                                endif;
+                                                ?>
                                             </div>
                                         </div>
 

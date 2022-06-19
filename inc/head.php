@@ -33,6 +33,6 @@ require_once($filepath . "../../vendor/autoload.php");
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" integrity="sha512-zxBiDORGDEAYDdKLuYU9X/JaJo/DPzE42UubfBw9yg8Qvb2YRRIQ8v4KsGHOx2H1/+sdSXyXxLXv5r7tHc9ygg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="<?= mix('css/main.css', 'tutor_webapp'); ?>">
+    <link rel="stylesheet" href="<?= mix('css/main.css', 'tutor_webapp/public'); ?>">
 
 </head>

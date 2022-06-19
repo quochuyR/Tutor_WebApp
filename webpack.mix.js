@@ -17,4 +17,6 @@ mix.js(['resources/js/main.js',
         'resources/css/TrangChu/main.css',
         'resources/css/tutor_registration_form/main.css',
         'resources/css/user_detail/main.css',
-        'resources/css/utilities/main.css'], 'public/css/main.css');
+        'resources/css/utilities/main.css'], 'public/css/main.css')
+        .setPublicPath('public')
+        .version()
