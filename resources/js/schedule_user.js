@@ -7,23 +7,25 @@
     let td_topic_name = null; // biến toàn cục dùng để lưu chủ đề trước khi update  mục địch trả về trạng thái chủ đề còn trống khi đã cập nhật chủ đề khác
 
     $(document).ready(() => {
-      filer_data_tutoringSchedule();
+      filer_data_user_schedule();
       $(".form-select").on('change', (e) => {
-        filer_data_tutoringSchedule();
+        filer_data_user_schedule();
       });
 
       function page_paginator() {
 
         $(".link-ajax").on('click', (e) => {
           e.preventDefault();
-          filer_data_tutoringSchedule(e);
+          filer_data_user_schedule(e);
         });
       }
 
 
       // lọc dữ liệu
-      function filer_data_tutoringSchedule(e = null) {
-        $("#tutoring-schedule").html(`<div class="spinner-border text-primary d-flex mx-auto" role="status">
+      function filer_data_user_schedule(e = null) {
+        if(!document.querySelector("#user-schedule")) return false;
+
+        $("#user-schedule").html(`<div class="spinner-border text-primary d-flex mx-auto" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>`);
         const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -82,7 +84,7 @@
           cache: false,
           success: function(data) {
 
-            $("#tutoring-schedule").html(data);
+            $("#user-schedule").html(data);
             page_paginator();
 
             console.log(data)

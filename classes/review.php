@@ -58,4 +58,37 @@ class Review
         return $result;
     }
 
+    /**
+     * Hàm có nhiệm vụ thêm đánh giá cho gia sư
+     * @param string $userId id người dùng
+     * @param string $tuid id gia sư
+     * @param int $star_review Số lượng sao đánh giá (1 --> 5)
+     * @param string $text_rating nội dung đánh giá
+     * @return object|bool số lượng hàng thêm thành công
+     */
+    public function add_review($userId, $tuid, $star_review, $text_rating): object|bool
+    {
+        $query = "INSERT INTO `reviews` (`id`, `userId`, `tutorId`, `user_rating`, `user_review`, `date_rating`) 
+        VALUES (NULL, ?, ?, ?, ?, CURRENT_TIMESTAMP);";
+
+        $result = $this->db->p_statement($query, "ssis", [$userId, $tuid, $star_review, $text_rating]);
+        return $result;
+    }
+
+    /**
+     * Hàm có nhiệm vụ kiểm tra người dùng đánh giá gia sư hay chưa
+     * @param string $userId id người dùng
+     * @param string $tuid id gia sư
+     * @return object|bool gia sư đăng kí hay chưa (0/1)
+     */
+    public function has_review($userId, $tuid): object|bool
+    {
+        $query = "SELECT COUNT(*) hasReview 
+        FROM `reviews`
+        WHERE `userId` = ? AND `tutorId` = ?;";
+
+        $result = $this->db->p_statement($query, "ss", [$userId, $tuid]);
+        return $result;
+    }
+
 }

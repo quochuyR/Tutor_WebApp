@@ -112,6 +112,23 @@ ul {
   .text-xs-center{
     text-align:center !important;
   }
+
+  .filter-result .job-box {
+   
+    padding: 0.2rem 1.5rem;
+  }
+  
+  .limit-text-subject{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    /* max-width: calc(100% - 14rem); */
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px !important;
+}
   
 }
 
@@ -141,9 +158,6 @@ ul {
     margin-bottom: 30px;
 }
 
-.text-muted {
-  font-size: 0.9rem
-}
 
 .dropdown-toggle::after {
   border: none!important;
@@ -168,3 +182,5 @@ ul {
 .fa-heart-broken{
   color: #e31b23;
 }
+
+

@@ -131,7 +131,8 @@ class Tutor
         $vars = array();
 
         // query filter
-        $this->query = "SELECT DISTINCT `tutors`.`id`, `appusers`.`firstname`, `appusers`.`lastname`, `tutors`.`CURRENTADDRESS`, `tutors`.`teachingarea`, `tutors`.`introduction`, `tutors`.`linkfacebook`, `tutors`.`linktwitter`, `appusers`.`imagepath`
+        $this->query = "SELECT DISTINCT `tutors`.`id`, `appusers`.`firstname`, `appusers`.`lastname`, `tutors`.`CURRENTADDRESS`, `tutors`.`teachingarea`, `tutors`.`introduction`, `tutors`.`linkfacebook`, `tutors`.`linktwitter`, `appusers`.`imagepath`,
+        (SELECT AVG(reviews.user_rating) FROM reviews WHERE reviews.tutorId = `tutors`.`id`) AS rating
              FROM (((`tutors` INNER JOIN `appusers`  ON `tutors`.`userId` = `appusers`.`id`)
                   INNER JOIN  `teachingsubjects` ON `teachingsubjects`.`tutorId` = `tutors`.`id`)
                   INNER JOIN `subjecttopics` ON `subjecttopics`.`id` = `teachingsubjects`.`topicId`)
@@ -217,6 +218,7 @@ class Tutor
 
         // return $result;
 
+        $this->query .= " ORDER BY rating DESC";
         // pagination
 
         $limit      = (isset($request_method['limit']))  ? Format::validation($request_method['limit']) : 3;

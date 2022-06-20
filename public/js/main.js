@@ -597,6 +597,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
     function filer_data() {
       var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      if (!document.querySelector("#tutors .row")) return false;
       var url = $(e === null || e === void 0 ? void 0 : e.currentTarget).attr('href') ? $(e.currentTarget).attr('href') : "9&1"; // check có thẻ a chưa 
 
       var _url$split = url.split("&"),
@@ -815,6 +816,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
     function filer_data_tutoringSchedule() {
       var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      if (!document.querySelector("#tutoring-schedule")) return false;
       $("#tutoring-schedule").html("<div class=\"spinner-border text-primary d-flex mx-auto\" role=\"status\">\n                        <span class=\"sr-only\">Loading...</span>\n                    </div>");
       var params = new Proxy(new URLSearchParams(window.location.search), {
         get: function get(searchParams, prop) {
@@ -864,7 +866,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         },
         cache: false,
         success: function success(data) {
-          $("#tutoring-schedule").html(data);
+          var _$;
+
+          (_$ = $("#tutoring-schedule")) === null || _$ === void 0 ? void 0 : _$.html(data);
           page_paginator();
           OnchangeSelectDoW();
           console.log(data);
@@ -1109,22 +1113,23 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   var td_topic_name = null; // biến toàn cục dùng để lưu chủ đề trước khi update  mục địch trả về trạng thái chủ đề còn trống khi đã cập nhật chủ đề khác
 
   $(document).ready(function () {
-    filer_data_tutoringSchedule();
+    filer_data_user_schedule();
     $(".form-select").on('change', function (e) {
-      filer_data_tutoringSchedule();
+      filer_data_user_schedule();
     });
 
     function page_paginator() {
       $(".link-ajax").on('click', function (e) {
         e.preventDefault();
-        filer_data_tutoringSchedule(e);
+        filer_data_user_schedule(e);
       });
     } // lọc dữ liệu
 
 
-    function filer_data_tutoringSchedule() {
+    function filer_data_user_schedule() {
       var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      $("#tutoring-schedule").html("<div class=\"spinner-border text-primary d-flex mx-auto\" role=\"status\">\n                        <span class=\"sr-only\">Loading...</span>\n                    </div>");
+      if (!document.querySelector("#user-schedule")) return false;
+      $("#user-schedule").html("<div class=\"spinner-border text-primary d-flex mx-auto\" role=\"status\">\n                        <span class=\"sr-only\">Loading...</span>\n                    </div>");
       var params = new Proxy(new URLSearchParams(window.location.search), {
         get: function get(searchParams, prop) {
           return searchParams.get(prop);
@@ -1185,7 +1190,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         },
         cache: false,
         success: function success(data) {
-          $("#tutoring-schedule").html(data);
+          $("#user-schedule").html(data);
           page_paginator();
           console.log(data);
           /**/
@@ -1430,6 +1435,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   \*******************************************/
 (function () {
   $(document).ready(function () {
+    var _review_modal, _review_modal2;
+
     OnClickApprovalRegisterUser(); // click để duyệt người dùng đăng ký
 
     function onChangeActionRadio() {
@@ -1531,6 +1538,75 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         }
       });
     }
+
+    var review_modal = document.getElementById('review');
+    var tuid, review_modal;
+    (_review_modal = review_modal) === null || _review_modal === void 0 ? void 0 : _review_modal.addEventListener('shown.bs.modal', function (event) {
+      console.log(event.relatedTarget);
+      tuid = $(event.relatedTarget).attr("data-id");
+      review_modal = $(event.target);
+    });
+    $(".btn-add-review").on('click', function (e) {
+      var star_review = $(review_modal).find("input[type='radio'][name='rating']:checked").val();
+      var text_rating = $(review_modal).find("#text-rating").val(); // console.log(star_review, tuid, text_rating)
+
+      $.ajax({
+        type: "post",
+        url: "../api/review/addreviewtutor",
+        data: {
+          tuid: tuid,
+          star_review: star_review,
+          text_rating: text_rating
+        },
+        cache: false,
+        success: function success(data) {
+          if (data.add === "successful") {
+            Toastify({
+              text: data.message,
+              duration: 5000,
+              close: true,
+              gravity: "top",
+              // `top` or `bottom`
+              position: "right",
+              // `left`, `center` or `right`
+              stopOnFocus: true,
+              // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #56C596, #7BE495)"
+              },
+              onClick: function onClick() {} // Callback after click
+
+            }).showToast();
+          } else {
+            Toastify({
+              text: data.message,
+              duration: 5000,
+              close: true,
+              gravity: "top",
+              // `top` or `bottom`
+              position: "right",
+              // `left`, `center` or `right`
+              stopOnFocus: true,
+              // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #F082AC, #b91c1c)"
+              },
+              onClick: function onClick() {} // Callback after click
+
+            }).showToast();
+          }
+
+          console.log(data, "add review");
+        },
+        error: function error(xhr, status, _error3) {
+          console.error(xhr);
+        }
+      });
+    });
+    (_review_modal2 = review_modal) === null || _review_modal2 === void 0 ? void 0 : _review_modal2.addEventListener('hidden.bs.modal', function (event) {
+      $(event.target).find("input[type='radio'][name='rating']:checked").prop("checked", false);
+      $(event.target).find("#text-rating").val('');
+    });
   });
 })();
 })();
@@ -1593,6 +1669,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
     function OnClickApprovalRegisterUser() {
       $(".approval-register-user").on('click', function (e) {
+        onLoadSwitch(e);
+        getDaySchedule(e);
         getSubjectRegisterUser(e);
         getStatusRegisterUser(e);
         onChangeFlexSwitch(e);
@@ -1606,6 +1684,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       $(".btn-save").off().on('click', function () {
         addSchedule(event_approval);
       });
+    }
+
+    function onLoadSwitch(e) {
+      var id_modal = $(e.currentTarget).attr("data-bs-target");
+      var data_allow_schedule = $(e.currentTarget).attr("data-allow-schedule");
+      var data_show_status_topic = $(e.currentTarget).attr("data-show-status-topic");
+      var switch_status_allow_schedule = $(id_modal).find(".allow-schedule.form-check-input");
+      var switch_status_show_status_topic = $(id_modal).find(".show-status-topic.form-check-input");
+      Number.parseInt(data_allow_schedule) === 1 && $(switch_status_allow_schedule).attr("checked", true);
+      Number.parseInt(data_show_status_topic) === 1 && $(switch_status_show_status_topic).attr("checked", true); // console.log( data_show_status_topic === "1", data_allow_schedule, id_modal," switch_status, id_modal")
     }
 
     function getStatusRegisterUser(e) {
