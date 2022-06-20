@@ -133,7 +133,9 @@ class RegisterUser
      */
     public function ApprovalRegisteredUser(string $userId, string $tutorId): object | bool
     {
-        $query = "UPDATE `registeredusers` SET `status`= ? WHERE `userId` = ? AND `tutorId` = ?;";
+        $query = "UPDATE `registeredusers` 
+        SET `status`= ? 
+        WHERE `userId` = ? AND `tutorId` = ?;";
         $results = $this->db->p_statement($query, "iss", [1, $userId, $tutorId]);
 
         return $results ? $results : false;
@@ -147,7 +149,9 @@ class RegisterUser
      */
     public function GetApprovalRegisteredUser(string $userId, string $tutorId): object | bool
     {
-        $query = "SELECT `registeredusers`.`status` FROM `registeredusers` WHERE `userId` = ? AND `tutorId` = ?;";
+        $query = "SELECT `registeredusers`.`status` 
+        FROM `registeredusers` 
+        WHERE `userId` = ? AND `tutorId` = ?;";
         $results = $this->db->p_statement($query, "ss", [$userId, $tutorId]);
 
         return $results ? $results : false;

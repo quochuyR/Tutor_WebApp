@@ -26,6 +26,8 @@
 
       // lọc dữ liệu
       function filer_data_tutoringSchedule(e = null) {
+
+        if(!document.querySelector("#tutoring-schedule")) return false;
         $("#tutoring-schedule").html(`<div class="spinner-border text-primary d-flex mx-auto" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>`);
@@ -72,7 +74,7 @@
           cache: false,
           success: function(data) {
 
-            $("#tutoring-schedule").html(data);
+            $("#tutoring-schedule")?.html(data);
             page_paginator();
             OnchangeSelectDoW();
             console.log(data)

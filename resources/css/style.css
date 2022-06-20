@@ -262,3 +262,14 @@ a:hover {
   
 
 /* end loading */
+
+
+/* dropdown item */
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: rgba(61, 77, 183, 0.947);
+    text-decoration: none;
+    background-color: transparent !important;
+}
+/* end dropdown item */

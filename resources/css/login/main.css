@@ -561,7 +561,7 @@ iframe {
 
 .field-icon-user {
 
-  background-image: url("../../images/icons/user_48px.png");
+  background-image: url("../images/icons/user_48px.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -569,7 +569,7 @@ iframe {
 }
 
 .field-icon-password {
-  background-image: url("../../images/icons/password_48px.png");
+  background-image: url("../images/icons/password_48px.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;

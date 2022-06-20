@@ -444,5 +444,19 @@ class TutoringSchedule
 
         return $results ? $results : false;
     }
+
+    /**
+     * Đếm xem gia sư đã lên lịch dạy cho người dùng hay chưa
+     */
+   
+    public function count_tutor_has_schedule_for_user($userId, $tutorId, $status)
+    {
+        $query = "SELECT COUNT(*) AS has_schedule
+        FROM `registeredusers` AS r INNER JOIN `scheduletutors` AS s ON r.id = s.registeredId
+        WHERE r.userId = ? AND r.tutorId = ? AND r.status = ?;";
+        $results = $this->db->p_statement($query, "ssi", [$userId, $tutorId, $status]);
+
+        return $results ? $results : false;
+    }
     
 }

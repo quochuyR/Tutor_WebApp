@@ -256,6 +256,7 @@
         // lọc dữ liệu
         function filer_data(e = null) {
 
+            if(!document.querySelector("#tutors .row")) return false;
 
             let url = $(e?.currentTarget).attr('href') ? $(e.currentTarget).attr('href') : "9&1"; // check có thẻ a chưa 
             let [limit, page] = url.split("&");

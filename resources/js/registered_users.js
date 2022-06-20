@@ -56,6 +56,8 @@
 
         function OnClickApprovalRegisterUser() {
             $(".approval-register-user").on('click', (e) => {
+                onLoadSwitch(e);
+                getDaySchedule(e);
                 getSubjectRegisterUser(e);
                 getStatusRegisterUser(e);
                 onChangeFlexSwitch(e);
@@ -70,6 +72,19 @@
             $(".btn-save").off().on('click', () => {
                 addSchedule(event_approval);
             });
+        }
+
+        function onLoadSwitch(e){
+            let id_modal = $(e.currentTarget).attr("data-bs-target");
+            let data_allow_schedule = $(e.currentTarget).attr("data-allow-schedule");
+            let data_show_status_topic = $(e.currentTarget).attr("data-show-status-topic");
+            let switch_status_allow_schedule = $(id_modal).find(`.allow-schedule.form-check-input`);
+            let switch_status_show_status_topic = $(id_modal).find(`.show-status-topic.form-check-input`);
+
+            Number.parseInt(data_allow_schedule) === 1 && $(switch_status_allow_schedule).attr("checked", true);
+            Number.parseInt(data_show_status_topic) === 1 && $(switch_status_show_status_topic).attr("checked", true)
+            // console.log( data_show_status_topic === "1", data_allow_schedule, id_modal," switch_status, id_modal")
+
         }
 
         function getStatusRegisterUser(e) {

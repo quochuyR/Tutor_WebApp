@@ -57,6 +57,7 @@ class Paginator
         $results             = $this->_db->p_statement($query, $this->_types,   $this->_vars );
        
         // print_r($results);
+        // print_r($query);
        
 
         $result         = new stdClass();

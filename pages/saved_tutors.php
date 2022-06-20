@@ -5,6 +5,7 @@ namespace Views;
 use Helpers\Util, Helpers\Format;
 use Library\Session;
 use Classes\SavedTutor, Classes\Subject;
+
 require_once(__DIR__ . "../../vendor/autoload.php");
 
 // include "../classes/savedtutors.php";
@@ -84,9 +85,9 @@ include "../inc/header.php"
                                                 <ul class="d-md-flex flex-md-column flex-wrap my-md-2 ff-open-sans p-0">
                                                     <li class="text-sub d-inline-flex">
                                                         <span class="material-symbols-rounded" style="color: #131311 !important;">
-                                                            house
+                                                            home
                                                         </span>
-                                                        <span class="text-muted m-l-10 pt-1 fw-500">
+                                                        <span class="text-muted m-l-10 pt-1">
                                                             <?= $tutor["teachingarea"] ?> | <?php $subjectTutors = "";
                                                                                             $subjectList = $subjects->getByTutorId($tutor['id']);
                                                                                             while ($resultSB = $subjectList->fetch_assoc()) {
@@ -101,8 +102,8 @@ include "../inc/header.php"
                                                         <span class="material-symbols-rounded" style="color: #3e4359">
                                                             work
                                                         </span>
-                                                        <span class="text-muted m-l-10 pt-1 fw-500">
-                                                            <?= isset($tutor["job"]) ? $tutor["job"]: "Chưa có thông tin"; ?>
+                                                        <span class="text-muted m-l-10 pt-1">
+                                                            <?= isset($tutor["job"]) ? $tutor["job"] : "Chưa có thông tin"; ?>
                                                         </span>
                                                     </li>
 
@@ -110,10 +111,23 @@ include "../inc/header.php"
                                             </div>
                                         </div>
 
-                                        <div class="d-md-none d-block pb-4 pb-md-0">
+                                        <div class="d-md-none d-block pb-4 pb-md-0 mb-3">
                                             <ul class="d-flex justify-content-end ">
-                                                <li><a class="text-reset text-decoration-none" href="tutor_details?id=<?= Format::validation($tutor["id"]) ?>"><i class="fas fa-eye me-1"></i> Xem</a></li>
-                                                <li><a class="ms-3 text-reset text-decoration-none" href="#"><i class="fas fa-heart-broken"></i> Huỷ lưu</a></li>
+                                                <li><a class="text-reset text-decoration-none" href="tutor_details?id=<?= Format::validation($tutor["id"]) ?>">
+                                                        <span class="badge badge-light-success">
+
+                                                            <span class="material-symbols-rounded" style="color: #366622;font-size:28px;">
+                                                                visibility
+                                                            </span>
+                                                        </span></a></li>
+                                                <li><a class="ms-3 text-reset text-decoration-none unsave-tutor" href="#" data-href="<?= Format::validation($tutor["id"]) ?>">
+                                                        <span class="badge badge-light-success">
+
+                                                            <span class="material-symbols-rounded  text-danger" style="font-size:28px;">
+                                                                heart_broken
+                                                            </span>
+                                                        </span>
+                                                    </a></li>
 
                                             </ul>
                                         </div>
@@ -186,7 +200,7 @@ include "../inc/header.php"
 
 <?php include "../inc/script.php" ?>
 <script>
-   
+
 </script>
 
 <?php include '../inc/footer.php' ?>

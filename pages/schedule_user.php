@@ -161,7 +161,7 @@ include "../inc/header.php"
     </form>
   </section>
 
-  <section id="tutoring-schedule">
+  <section id="user-schedule">
 
 
   </section>
