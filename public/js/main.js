@@ -761,5 +761,1815 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 })();
 })();
 
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!*****************************************!*\
+  !*** ./resources/js/schedule_tutors.js ***!
+  \*****************************************/
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+(function () {
+  var hasFirstFilter = true; // biến toàn cục dùng để kiểm tra load thứ lần đầu tiên
+
+  var th_id = null; // biến toàn cục dùng để lưu id
+
+  var container_schedule = null; // biến toàn cục dùng để lưu nơi chứa thông tin dạy kèm
+
+  var td_day = null; // biến toàn cục dùng để lưu thư trước khi update mục địch trả về trạng thái thứ còn trống khi đã cập nhật thứ khác
+
+  var td_time = null; // biến toàn cục dùng để lưu thời gian trước khi update  mục địch trả về trạng thái thời gian còn trống khi đã cập nhật thời gian khác
+
+  var td_topic_name = null; // biến toàn cục dùng để lưu chủ đề trước khi update  mục địch trả về trạng thái chủ đề còn trống khi đã cập nhật chủ đề khác
+
+  $(document).ready(function () {
+    filer_data_tutoringSchedule();
+    $(".form-select").on('change', function (e) {
+      filer_data_tutoringSchedule();
+    });
+
+    function page_paginator() {
+      $(".link-ajax").off().on('click', function (e) {
+        e.preventDefault();
+        filer_data_tutoringSchedule(e);
+      });
+    } // lọc dữ liệu
+
+
+    function filer_data_tutoringSchedule() {
+      var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      $("#tutoring-schedule").html("<div class=\"spinner-border text-primary d-flex mx-auto\" role=\"status\">\n                        <span class=\"sr-only\">Loading...</span>\n                    </div>");
+      var params = new Proxy(new URLSearchParams(window.location.search), {
+        get: function get(searchParams, prop) {
+          return searchParams.get(prop);
+        }
+      }); // get uid param
+      // dùng để lấy lịch dạy của một user duy nhất
+
+      var uid = params.uid; // "some_value"
+
+      var url = $(e === null || e === void 0 ? void 0 : e.target).attr('href') ? $(e.target).attr('href') : "3&1"; // check có thẻ a chưa 
+
+      var _url$split = url.split("&"),
+          _url$split2 = _slicedToArray(_url$split, 2),
+          limit = _url$split2[0],
+          page = _url$split2[1];
+
+      console.log(limit, page, url);
+      var day = null;
+
+      if (hasFirstFilter) {
+        if ($("#dayofweek option[value=\"".concat(new Date().getDay(), "\"]")).prop("selected", true).length === 0) day = 8; // không có ngày thứ 8 mục đích là trả về "không có lịch dạy hôm nay."
+
+        hasFirstFilter = false;
+      } //    console.log($(`#dayofweek option[value="${ 3}"]`).prop("selected", true), "dayofweek");
+
+
+      if (!hasFirstFilter) {
+        day = $("#dayofweek").val();
+      }
+
+      var subjectTopic = $("#subject-topic").val();
+      var startTime = $("#time-start").val();
+      var endTime = $("#time-end").val();
+      console.log([day, subjectTopic, startTime, endTime], "get value ");
+      $.ajax({
+        type: "post",
+        url: "../api/scheduletutor/schedule_tutor",
+        data: {
+          day: day,
+          subjectTopic: subjectTopic,
+          startTime: startTime,
+          endTime: endTime,
+          uid: uid,
+          limit: limit,
+          page: page
+        },
+        cache: false,
+        success: function success(data) {
+          $("#tutoring-schedule").html(data);
+          page_paginator();
+          OnchangeSelectDoW();
+          console.log(data);
+          /**/
+
+          onClickBtnEdit();
+          /* */
+
+          onClickUpdateSchedule();
+          /* */
+
+          /* */
+
+          onClickDeleteSchedule();
+          /* */
+
+          console.log($(".container-schedule"), "container-schedule");
+        },
+        error: function error(xhr, status, _error) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function onClickUpdateSchedule() {
+      $(".btn-modal-save").off().on('click', function (e) {
+        var main_body_modal = $(e.target).closest(".modal-footer").prev(".modal-body");
+        var dayofweek = $(main_body_modal).find("select").eq(0).val();
+        var time = $(main_body_modal).find("select").eq(1).val();
+        var subjecttopic = $(main_body_modal).find("select").eq(2).val();
+        /* Update lịch dạy ở đây */
+        // console.log([td_day ,dayofweek , $(td_time).attr("data-value") , time , td_topic_name , subjecttopic])
+        // if(td_day !== dayofweek || $(td_time).attr("data-value") !== time || td_topic_name !== subjecttopic)
+
+        updateScheduleTutor(th_id, dayofweek, time, subjecttopic, $(td_day).attr("data-value"), $(td_time).attr("data-value"));
+        /* */
+      });
+    }
+
+    function onClickDeleteSchedule() {
+      $(".delete-schedule").off().on('click', function (e) {
+        if (confirm("Bạn có chắn chắn muốn xoá?") === false) return 0;
+        var container_schedule = $(e.target).closest(".container-schedule");
+        var th_id = container_schedule.children(".th-id").attr("data-value");
+        $(container_schedule).remove();
+        /* Xoá lịch dạy ở đây */
+
+        $.ajax({
+          type: "post",
+          url: "../api/scheduletutor/deleteschudule",
+          data: {
+            id: th_id
+          },
+          cache: false,
+          success: function success(data) {
+            if (data.action === "success") {
+              $(container_schedule).remove();
+              Toastify({
+                text: "Xoá thành công!",
+                duration: 5000,
+                close: true,
+                gravity: "top",
+                // `top` or `bottom`
+                position: "right",
+                // `left`, `center` or `right`
+                stopOnFocus: true,
+                // Prevents dismissing of toast on hover
+                style: {
+                  background: "linear-gradient(to right, #C73866, #FE676E)"
+                },
+                onClick: function onClick() {} // Callback after click
+
+              }).showToast();
+            } // console.log($(td_options).html());
+            // page_paginator();
+
+
+            console.log(data);
+          },
+          error: function error(xhr, status, _error2) {
+            console.error(xhr);
+          }
+        });
+        /* */
+      });
+    }
+
+    function referenceDataFromTableToModal(e) {
+      container_schedule = $(e.target).closest(".container-schedule");
+      th_id = container_schedule.children(".th-id").attr("data-value");
+      td_day = container_schedule.children(".td-day");
+      td_time = container_schedule.children(".td-time");
+      td_topic_name = container_schedule.children(".td-topic-name");
+    }
+
+    function onClickBtnEdit() {
+      $(".edit-schedule").off().on('click', function (e) {
+        referenceDataFromTableToModal(e);
+        getDaySchedule(e);
+        var id_modal = $(e.target).attr("data-bs-target"); // $(id_modal).find(`select option[value="${-1}"]`).eq(0).prop("selected", true); // select teaching day in modal
+
+        $(id_modal).find("select").eq(1).html("<option value=\"0\">-- Bu\u1ED5i h\u1ECDc --</option> <option value=\"".concat($(td_time).attr("data-value"), "\" selected> ").concat($(td_time).text(), " </option>")); // select teaching time in modal
+
+        $(id_modal).find("select").eq(2).val($(td_topic_name).attr("data-value")); // select teaching subject topic in modal
+      });
+    }
+
+    function updateScheduleTutor(id, dayofweek, time, subject_topic, dayofweek_prev, time_prev) {
+      $.ajax({
+        type: "post",
+        url: "../api/scheduletutor/updateschedule",
+        data: {
+          id: id,
+          dayofweek: dayofweek,
+          time: time,
+          subject_topic: subject_topic,
+          dayofweek_prev: dayofweek_prev,
+          time_prev: time_prev
+        },
+        cache: false,
+        success: function success(data) {
+          var td_options = $(container_schedule).children(".td-options"); // console.log($(td_options).html());
+          // $(container_schedule).html(`${data} <td scope="row" class="text-start td-options">${$(td_options).html()}</td>`);
+          // page_paginator();
+
+          _toConsumableArray(data).forEach(function (row) {
+            $(td_day).attr("data-value", row.dayofweekId);
+            $(td_day).text(row.day);
+            $(td_time).attr("data-value", row.timeId);
+            $(td_time).text(row.time);
+            $(td_topic_name).attr("data-value", row.subject_topicId);
+            $(td_topic_name).text(row.topicName);
+          });
+
+          if (data) {
+            Toastify({
+              text: "S\u1EEDa th\xE0nh c\xF4ng.",
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              // `top` or `bottom`
+              position: "right",
+              // `left`, `center` or `right`
+              stopOnFocus: true,
+              // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #C73866, #FE676E)"
+              },
+              onClick: function onClick() {} // Callback after click
+
+            }).showToast();
+          }
+
+          console.log(data);
+        },
+        error: function error(xhr, status, _error3) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function OnchangeSelectDoW() {
+      $(".teaching-day").off().on('change', function (e) {
+        getTimeFromDay(e);
+      });
+    }
+
+    function getTimeFromDay(e) {
+      var dayofweek = $(e.target).val();
+      var index = $(".teaching-day").index(e.target);
+      $.ajax({
+        type: "post",
+        url: "../api/time/getTimeFromDay",
+        data: {
+          dayofweek: dayofweek
+        },
+        cache: false,
+        success: function success(data) {
+          $(".teaching-time").eq(index).html(data);
+          console.log(data);
+        },
+        error: function error(xhr, status, _error4) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function getDaySchedule(e) {
+      var id_modal = $(e.target).attr("data-bs-target");
+      var dayofweek = $(id_modal).find("select").eq(0);
+      console.log($(td_day).attr("data-value"), "td day");
+      $.ajax({
+        type: "post",
+        url: "../api/day/getdayschedule",
+        data: {
+          action: "getDay"
+        },
+        cache: false,
+        success: function success(data) {
+          dayofweek.html(data);
+          $(dayofweek).children("option[value=\"".concat($(td_day).attr("data-value"), "\"]")).prop("selected", true); // When we click the edit button, we can select a data value.
+
+          console.log(data);
+        },
+        error: function error(xhr, status, _error5) {
+          console.error(xhr);
+        }
+      });
+    }
+  });
+})();
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!***************************************!*\
+  !*** ./resources/js/schedule_user.js ***!
+  \***************************************/
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+(function () {
+  var hasFirstFilter = true; // biến toàn cục dùng để kiểm tra load thứ lần đầu tiên
+
+  var th_id = null; // biến toàn cục dùng để lưu id
+
+  var container_schedule = null; // biến toàn cục dùng để lưu nơi chứa thông tin dạy kèm
+
+  var td_day = null; // biến toàn cục dùng để lưu thư trước khi update mục địch trả về trạng thái thứ còn trống khi đã cập nhật thứ khác
+
+  var td_time = null; // biến toàn cục dùng để lưu thời gian trước khi update  mục địch trả về trạng thái thời gian còn trống khi đã cập nhật thời gian khác
+
+  var td_topic_name = null; // biến toàn cục dùng để lưu chủ đề trước khi update  mục địch trả về trạng thái chủ đề còn trống khi đã cập nhật chủ đề khác
+
+  $(document).ready(function () {
+    filer_data_tutoringSchedule();
+    $(".form-select").on('change', function (e) {
+      filer_data_tutoringSchedule();
+    });
+
+    function page_paginator() {
+      $(".link-ajax").on('click', function (e) {
+        e.preventDefault();
+        filer_data_tutoringSchedule(e);
+      });
+    } // lọc dữ liệu
+
+
+    function filer_data_tutoringSchedule() {
+      var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      $("#tutoring-schedule").html("<div class=\"spinner-border text-primary d-flex mx-auto\" role=\"status\">\n                        <span class=\"sr-only\">Loading...</span>\n                    </div>");
+      var params = new Proxy(new URLSearchParams(window.location.search), {
+        get: function get(searchParams, prop) {
+          return searchParams.get(prop);
+        }
+      }); // get uid param
+      // dùng để lấy lịch dạy của một user duy nhất
+
+      var tuid = params.tuid; // "some_value"
+
+      var subid = params.subid;
+      var url = $(e === null || e === void 0 ? void 0 : e.target).attr('href') ? $(e.target).attr('href') : "3&1"; // check có thẻ a chưa
+
+      var _url$split = url.split("&"),
+          _url$split2 = _slicedToArray(_url$split, 2),
+          limit = _url$split2[0],
+          page = _url$split2[1];
+
+      console.log(limit, page, url, subid, "params");
+      var day = null; // có nhiệm vụ xem lịch học khi chọn ở trang gia sư đã đăng ký
+
+      if (params.day) {
+        day = params.day;
+      } else {
+        if (hasFirstFilter) {
+          if ($("#dayofweek option[value=\"".concat(new Date().getDay(), "\"]")).prop("selected", true).length === 0) day = 8; // không có ngày thứ 8 mục đích là trả về "không có lịch dạy hôm nay."
+
+          hasFirstFilter = false;
+        } //    console.log($(`#dayofweek option[value="${ 3}"]`).prop("selected", true), "dayofweek");
+
+
+        if (!hasFirstFilter) {
+          day = $("#dayofweek").val();
+        }
+      }
+
+      var subjectTopic = undefined; // áp dụng vừa lọc và tạo thông báo
+
+      if (subid) {
+        subjectTopic = subid;
+      } else {
+        subjectTopic = $("#subject-topic").val();
+      }
+
+      var startTime = $("#time-start").val();
+      var endTime = $("#time-end").val();
+      console.log([day, subjectTopic, startTime, endTime], "get value ");
+      $.ajax({
+        type: "post",
+        url: "../api/scheduleuser/schedule_user",
+        data: {
+          day: day,
+          subjectTopic: subjectTopic,
+          startTime: startTime,
+          endTime: endTime,
+          tuid: tuid,
+          limit: limit,
+          page: page
+        },
+        cache: false,
+        success: function success(data) {
+          $("#tutoring-schedule").html(data);
+          page_paginator();
+          console.log(data);
+          /**/
+
+          /* */
+        },
+        error: function error(xhr, status, _error) {
+          console.error(xhr);
+        }
+      });
+    }
+  });
+})();
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!*********************************!*\
+  !*** ./resources/js/profile.js ***!
+  \*********************************/
+(function () {
+  Dropzone.autoDiscover = false; // Dropzone.discover();
+
+  var dropzoneProfile;
+  var basic;
+  $(document).ready(function () {
+    var src_img = $("#my-image").prop("src");
+    var tuid = $("#tuid").val();
+    var data = new URL("./tutor_details?id=".concat(tuid), window.location.href); // When the avatar changes, reattach the src_img. variable.
+
+    $("#my-image").on('load', function (e) {
+      // console.log(e.target.src)
+      src_img = e.target.src;
+    });
+    console.log(data); //
+
+    var option = {
+      "width": 360,
+      "height": 360,
+      "data": data.href,
+      "image": src_img,
+      "margin": 20,
+      "qrOptions": {
+        "typeNumber": "0",
+        "mode": "Byte",
+        "errorCorrectionLevel": "M"
+      },
+      "imageOptions": {
+        "hideBackgroundDots": true,
+        "imageSize": 0.6,
+        "margin": 10
+      },
+      "dotsOptions": {
+        "type": "classy",
+        "color": "#45b8ac"
+      },
+      "backgroundOptions": {
+        "color": "#ffffff"
+      },
+      "dotsOptionsHelper": {
+        "colorType": {
+          "single": true,
+          "gradient": false
+        }
+      },
+      "cornersSquareOptions": {
+        "type": "extra-rounded",
+        "color": "#038f7e"
+      },
+      "cornersSquareOptionsHelper": {
+        "colorType": {
+          "single": true,
+          "gradient": false
+        }
+      },
+      "cornersDotOptions": {
+        "color": "#038f81",
+        "gradient": null
+      },
+      "cornersDotOptionsHelper": {
+        "colorType": {
+          "single": true,
+          "gradient": false
+        }
+      },
+      "backgroundOptionsHelper": {
+        "colorType": {
+          "single": true,
+          "gradient": false
+        }
+      }
+    };
+    var QRModalEl = document.getElementById('QRModal');
+    QRModalEl === null || QRModalEl === void 0 ? void 0 : QRModalEl.addEventListener('shown.bs.modal', function (event) {
+      option.image = src_img;
+      qrCode.update(option);
+    });
+    var qrCode = new QRCodeStyling(option);
+    qrCode.append(document.getElementById("canvas"));
+    $("#download").on('click', function (e) {
+      qrCode.download({
+        name: "qr-tutor",
+        extension: "png"
+      });
+    }); // Dropzone
+    // dropzone
+
+    if (document.querySelector("div#profile")) {
+      dropzoneProfile = new Dropzone("div#profile", {
+        // Configuration options go here
+        paramName: "file",
+        // The name that will be used to transfer the file
+        maxFilesize: 2,
+        // MB
+        maxFiles: 1,
+        acceptedFiles: ".png,.jpg,.jpeg",
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        uploadMultiple: true,
+        // Dịch sang tiếng Việt
+        dictDefaultMessage: "Kéo và thả file (có thể click) vào đây để upload<br>Ngoài ra bạn có thể chụp ảnh màn hình và dán vào trang web",
+        dictFallbackMessage: "Trình duyệt của bạn không hỗ trợ kéo và thả upload file.",
+        dictFallbackText: "Vui lòng sử dụng biểu mẫu dự phòng bên dưới để tải lên các file của bạn như ngày xưa.",
+        dictFileTooBig: "File quá lớn ({{filesize}}MiB). Tối đa filesize: {{maxFilesize}}MiB.",
+        dictInvalidFileType: "Bạn không thể tải lên các file thuộc loại này (chú ý đến đuôi file).",
+        dictResponseError: "Máy chủ đã phản hồi với {{statusCode}} code.",
+        dictCancelUpload: "Huỷ bỏ upload",
+        dictUploadCanceled: "Upload đã huỷ bỏ.",
+        dictCancelUploadConfirmation: "Bạn có chắc chắn muốn hủy upload này không?",
+        dictRemoveFile: "Xoá file",
+        dictRemoveFileConfirmation: null,
+        dictMaxFilesExceeded: "Bạn không thể tải lên bất kỳ tệp nào nữa.",
+        init: function init() {
+          var upload = this; // Restrict to 1 file uploaded
+
+          upload.on("addedfile", function (file) {
+            if (upload.files[1] != null) {
+              upload.removeFile(upload.files[0]);
+            }
+
+            basic.croppie('bind', {
+              url: URL.createObjectURL(file) // points: [77, 469, 280, 739]
+
+            });
+            console.log(URL.createObjectURL(file));
+          }); // If validation passes, process queue and add insurance
+
+          $("#save-change-picture").on("click", function (e) {
+            e.preventDefault(); // upload.processQueue();
+            // console.log(upload.files[0].dataURL, "upload")
+
+            basic.croppie('result', {
+              type: 'blob',
+              size: 'viewport',
+              format: 'jpeg'
+            }).then(function (image) {
+              // html is div (overflow hidden)
+              // with img positioned inside.
+              var formData = new FormData();
+              formData.append("file[]", image, "image.jpg"); // console.log(event.target.result)
+
+              $.ajax({
+                type: "post",
+                url: "profile",
+                contentType: false,
+                processData: false,
+                data: formData,
+                cache: false,
+                success: function success(data) {
+                  if (data.action === "success") {
+                    $("img.avatar").each(function (i, img) {
+                      img.src = "../public/images/" + data.fileName;
+                    });
+                    Toastify({
+                      text: "Đổi ảnh đại diện thành công!",
+                      duration: 5000,
+                      close: true,
+                      gravity: "top",
+                      // `top` or `bottom`
+                      position: "right",
+                      // `left`, `center` or `right`
+                      stopOnFocus: true,
+                      // Prevents dismissing of toast on hover
+                      style: {
+                        background: "linear-gradient(to right, #56C596, #7BE495)"
+                      },
+                      onClick: function onClick() {}
+                    });
+                  }
+
+                  console.log(data, "profile");
+                },
+                error: function error(xhr, status, _error) {
+                  console.error(xhr);
+                }
+              });
+            });
+          });
+        }
+      });
+    }
+
+    document.onpaste = function (event) {
+      var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+      items.forEach(function (item) {
+        if (item.kind === 'file') {
+          // adds the file to your dropzone instance
+          dropzoneProfile.addFile(item.getAsFile());
+        }
+      });
+    };
+
+    basic = $('#demo-basic').croppie({
+      enableExif: true,
+      viewport: {
+        width: 320,
+        height: 320,
+        type: 'square'
+      },
+      boundary: {
+        width: 720,
+        height: 360
+      },
+      showZoomer: true,
+      mouseWheelZoom: 'ctrl'
+    });
+    $('#change-picture').on('shown.bs.modal', function () {
+      basic.croppie('bind', {
+        url: src_img // points: [77, 469, 280, 739]
+
+      });
+    }); //on button click
+  }); // paste into dropzone
+  //
+})();
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!*******************************************!*\
+  !*** ./resources/js/registered_tutors.js ***!
+  \*******************************************/
+(function () {
+  $(document).ready(function () {
+    OnClickApprovalRegisterUser(); // click để duyệt người dùng đăng ký
+
+    function onChangeActionRadio() {
+      $(".form-check-input[type=\"radio\"]").off().on('change', function (e) {
+        // disable input checkbox khi thay đổi
+        if (e.currentTarget.checked) {
+          $(e.currentTarget).closest(".modal-content").find(".btn-register-add-del") // Tìm nơi chứa select thêm lịch dạy cho người dùng
+          .text($(e.currentTarget).next(".form-check-label").text());
+          $(e.currentTarget).closest(".modal-content").find(".btn-register-add-del").attr("data-action", $(e.currentTarget).attr("data-action")); // và disable nó 
+        }
+      });
+    }
+
+    function onChangeShowTopic(event_approval) {
+      $(".show-topic-register").off().on('change', function () {
+        getSubjectRegisterUser(event_approval);
+      });
+    }
+
+    function OnClickApprovalRegisterUser() {
+      $(".register-unregister-tutor").on('click', function (e) {
+        getSubjectRegisterUser(e);
+        onChangeShowTopic(e);
+        onChangeActionRadio();
+        onClickAddOrDel(e);
+      });
+    }
+
+    function onClickAddOrDel(event_approval) {
+      $(".btn-register-add-del").off().on('click', function (e) {
+        if (confirm("Bạn có chắn chắn muốn " + $(e.target).text().trim()) === true) addOrDelRegisterTutor(event_approval, e);
+      });
+    }
+
+    function getSubjectRegisterUser(e) {
+      var tuId = $(e.currentTarget).attr("data-id");
+      var id_approval = $(e.currentTarget).attr("data-bs-target");
+      var subject = $(id_approval).find(".teaching-subject");
+      var status = $(id_approval).find(".show-topic-register.form-check-input").prop("checked") ? 1 : 0; // trạng thái đã duyệt môn học hay chưa
+
+      console.log([tuId, id_approval, subject, status]);
+      $.ajax({
+        type: "post",
+        url: "../api/teachingsubject/getsubjecttutor",
+        data: {
+          tuId: tuId,
+          status: status
+        },
+        cache: false,
+        success: function success(data) {
+          subject.html(data);
+          console.log(data);
+        },
+        error: function error(xhr, status, _error) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function addOrDelRegisterTutor(event_approval, event_target) {
+      var id_modal = $(event_approval.currentTarget).attr("data-bs-target");
+      var tuId = $(event_approval.currentTarget).attr("data-id");
+      var action = $(event_target.currentTarget).attr("data-action");
+      var topicId = $(id_modal).find("select").val();
+      console.log([action, tuId, topicId]);
+      $.ajax({
+        type: "post",
+        url: "../api/registertutor/addordeleteregistertutor",
+        data: {
+          tuId: tuId,
+          action: action,
+          topicId: topicId
+        },
+        cache: false,
+        success: function success(data) {
+          if (data.added === 'added') {
+            alert("M\xF4n h\u1ECDc ".concat(data.topicName, " \u0111\xE3 \u0111\u0103ng k\xFD r\u1ED3i. H\xE3y ch\u1ECDn m\xF4n h\u1ECDc kh\xE1c."));
+          }
+
+          if (data.insert === 'successful') {
+            alert("\u0110\u0103ng k\xFD m\xF4n h\u1ECDc ".concat(data.topicName, " th\xE0nh c\xF4ng. H\xE3y ch\u1EDD gia s\u01B0 li\xEAn h\u1EC7 v\u1EDBi b\u1EA1n."));
+            getSubjectRegisterUser(event_approval); // refresh topic when insert success
+            // When inserting the topic success, include a badge containing the topic name.
+
+            $("#topic-register").append("<span class=\"subject-span m-l-10 fw-500 badge bg-secondary data-id=\"".concat(data.topicId, "\">").concat(data.topicName, "</span>"));
+          } else if (data["delete"] === 'successful') {
+            alert("Hu\u1EF7 \u0111\u0103ng k\xFD m\xF4n h\u1ECDc ".concat(data.topicName, " th\xE0nh c\xF4ng."));
+            getSubjectRegisterUser(event_approval); // refresh topic when delete success
+
+            $("ul li span[data-id=" + data.topicId + "]").remove();
+          } else if (data["delete"] === 'fail') {
+            alert(data.message);
+          }
+
+          console.log(data, "insert3");
+        },
+        error: function error(xhr, status, _error2) {
+          console.error(xhr);
+        }
+      });
+    }
+  });
+})();
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!******************************************!*\
+  !*** ./resources/js/registered_users.js ***!
+  \******************************************/
+(function () {
+  $(document).ready(function () {
+    OnClickApprovalRegisterUser(); // click để duyệt người dùng đăng ký
+
+    OnchangeSelectDoW(); // khi thứ thay đổi (được chọn)
+
+    $(".allow-schedule.form-check-input").on('change', function (e) {
+      // disable input checkbox khi thay đổi
+      if (!e.currentTarget.checked) {
+        $(e.currentTarget).closest(".modal-content").find("select:not(.teaching-subject)").prop("disabled", true); // Tìm nơi chứa select thêm lịch dạy cho người dùng
+        // và disable nó 
+      } else {
+        $(e.currentTarget).closest(".modal-content").find("select").prop("disabled", false);
+      }
+    }); //
+
+    function onChangeTopic(event_approval) {
+      $(".teaching-subject").off().on('change', function (event_target) {
+        getIdRegisterUser(event_approval, event_target);
+      });
+    } //
+    // thay đổi hiển thị môn học duyệt hay chưa
+
+
+    function onChangeStatusApproval(event_approval) {
+      $(".show-status-topic").off().on('change', function () {
+        getSubjectRegisterUser(event_approval);
+      });
+    } //
+
+
+    function OnchangeSelectDoW() {
+      $(".teaching-day").on('change', function (e) {
+        getTimeFromDay(e);
+      });
+    }
+
+    function onChangeFlexSwitch() {
+      $(".allow-schedule.form-check-input").each(function (i, select) {
+        // disable input checkbox khi thay đổi
+        console.log(select);
+
+        if (!$(select).prop("checked")) {
+          $(select).closest(".modal-content").find("select:not(.teaching-subject)").prop("disabled", true); // Tìm nơi chứa select thêm lịch dạy cho người dùng
+          // và disable nó 
+        } else {
+          $(select).closest(".modal-content").find("select").prop("disabled", false);
+        }
+      });
+    }
+
+    function OnClickApprovalRegisterUser() {
+      $(".approval-register-user").on('click', function (e) {
+        getSubjectRegisterUser(e);
+        getStatusRegisterUser(e);
+        onChangeFlexSwitch(e);
+        onChangeTopic(e);
+        onChangeStatusApproval(e);
+        onClickSave(e);
+      });
+    }
+
+    function onClickSave(event_approval) {
+      $(".btn-save").off().on('click', function () {
+        addSchedule(event_approval);
+      });
+    }
+
+    function getStatusRegisterUser(e) {
+      var id_modal = $(e.currentTarget).attr("data-bs-target");
+      var switch_status = $(id_modal).find(".allow-schedule.form-check-input");
+      var id = $(e.currentTarget).attr("data-id"); // console.log(switch_status, id_modal)
+
+      if (!$(switch_status).prop("checked")) {
+        $(switch_status).closest(".modal-content").find("select:not(.teaching-subject)").prop("disabled", true); // Tìm nơi chứa select thêm lịch dạy cho người dùng
+        // và disable nó 
+      } else {
+        $(switch_status).closest(".modal-content").find("select").prop("disabled", false);
+      }
+
+      $.ajax({
+        type: "post",
+        url: "../api/registeruser/getstatusregisteruser",
+        data: {
+          id: id
+        },
+        cache: false,
+        success: function success(data) {
+          $(switch_status).prop("checked", data.status === 1 ? true : false);
+          console.log(data, "dât");
+        },
+        error: function error(xhr, status, _error) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function getIdRegisterUser(event_approval, event_target) {
+      var id_modal = $(event_approval.currentTarget).attr("data-bs-target");
+      var id_register = $(id_modal).find(".id-register");
+      var id = $(event_approval.currentTarget).attr("data-id");
+      var topicId = $(event_target.currentTarget).val();
+      var status = $(id_modal).find(".show-status-topic").prop("checked") ? 1 : 0; // trạng thái đã duyệt môn học hay chưa
+      // console.log(id, topicId, "id")
+
+      console.log(id_register, "id_register");
+      $.ajax({
+        type: "post",
+        url: "../api/registeruser/getregisteridbytopicid",
+        data: {
+          id: id,
+          topicId: topicId,
+          status: status
+        },
+        cache: false,
+        success: function success(data) {
+          if (data.registerId) {
+            $(id_register).html("@id: " + data.registerId);
+            $(id_register).attr("data-id", data.registerId);
+          } else $(id_register).html("@id: không có");
+
+          console.log(data, "dât2");
+        },
+        error: function error(xhr, status, _error2) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function getTimeFromDay(e) {
+      var dayofweek = $(e.currentTarget).val();
+      var index = $(".teaching-day").index(e.currentTarget);
+      $.ajax({
+        type: "post",
+        url: "../api/time/getTimeFromDay",
+        data: {
+          dayofweek: dayofweek
+        },
+        cache: false,
+        success: function success(data) {
+          $(".teaching-time").eq(index).html(data);
+          console.log(data);
+        },
+        error: function error(xhr, status, _error3) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function getDaySchedule(e) {
+      var id_modal = $(e.currentTarget).attr("data-bs-target");
+      var dayofweek = $(id_modal).find("select").eq(0);
+      $.ajax({
+        type: "post",
+        url: "../api/day/getdayschedule",
+        data: {
+          action: "getDay"
+        },
+        cache: false,
+        success: function success(data) {
+          dayofweek.html(data);
+          console.log(data);
+        },
+        error: function error(xhr, status, _error4) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function getSubjectRegisterUser(e) {
+      var userId = $(e.currentTarget).attr("data-id");
+      var id_approval = $(e.currentTarget).attr("data-bs-target");
+      var subject = $(id_approval).find("select").eq(2);
+      var status = $(id_approval).find(".show-status-topic").prop("checked") ? 1 : 0; // trạng thái đã duyệt môn học hay chưa
+
+      console.log(status);
+      $.ajax({
+        type: "post",
+        url: "../api/registeruser/getsubjectregisteruser",
+        data: {
+          userId: userId,
+          status: status
+        },
+        cache: false,
+        success: function success(data) {
+          subject.html(data);
+          console.log(data);
+        },
+        error: function error(xhr, status, _error5) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function addSchedule(event_approval) {
+      var id_modal = $(event_approval.currentTarget).attr("data-bs-target");
+      var id = $(id_modal).find(".id-register").attr("data-id");
+      var status = $(id_modal).find("input[type=\"checkbox\"]").prop("checked") ? 1 : 0;
+      var DoW_id = $(id_modal).find("select").eq(0).val();
+      var timeId = $(id_modal).find("select").eq(1).val();
+      var topicId = $(id_modal).find("select").eq(2).val();
+      console.log($(id_modal).find("select"));
+      console.log([id, status, DoW_id, timeId, topicId]);
+      $.ajax({
+        type: "post",
+        url: "../api/scheduleuser/addscheduleuser",
+        data: {
+          id: id,
+          status: status,
+          DoW_id: DoW_id,
+          topicId: topicId,
+          timeId: timeId
+        },
+        cache: false,
+        success: function success(data) {
+          // if (data.registerId) {
+          //     $(id_register).html("@id: " + data.registerId);
+          //     $(id_register).attr("data-id", data.registerId);
+          // } else $(id_register).html("@id: không có");
+          if (data.status === '1') {
+            $(id_modal).closest(".job-box").addClass("bg-approval"); // 
+
+            Toastify({
+              text: "Duy\u1EC7t th\xE0nh c\xF4ng. B\u1EA1n \u0111\xE3 duy\u1EC7t th\xE0nh c\xF4ng m\xF4n ".concat($(id_modal).find("select option:selected").eq(2).text()),
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              // `top` or `bottom`
+              position: "right",
+              // `left`, `center` or `right`
+              stopOnFocus: true,
+              // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #C73866, #FE676E)"
+              },
+              onClick: function onClick() {} // Callback after click
+
+            }).showToast();
+          } else if (data.status === '0') {
+            $(id_modal).closest(".job-box").removeClass("bg-approval"); // 
+
+            Toastify({
+              text: "Hu\u1EF7 duy\u1EC7t th\xE0nh c\xF4ng.",
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              // `top` or `bottom`
+              position: "right",
+              // `left`, `center` or `right`
+              stopOnFocus: true,
+              // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #C73866, #FE676E)"
+              },
+              onClick: function onClick() {} // Callback after click
+
+            }).showToast();
+          }
+
+          if (data.action === "successful") {
+            $(id_modal).closest(".job-box").find(".subject-span").each(function (i, span) {
+              if ($(span).attr("data-id") === topicId) {
+                $(span).addClass("text-success");
+              }
+            }); //
+
+            Toastify({
+              text: "Th\xEAm l\u1ECBch d\u1EA1y th\xE0nh c\xF4ng.",
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              // `top` or `bottom`
+              position: "right",
+              // `left`, `center` or `right`
+              stopOnFocus: true,
+              // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #C73866, #FE676E)"
+              },
+              onClick: function onClick() {} // Callback after click
+
+            }).showToast();
+          }
+
+          console.log(data, "update2");
+        },
+        error: function error(xhr, status, _error6) {
+          console.error(xhr);
+        }
+      });
+    }
+  });
+})();
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!**************************************!*\
+  !*** ./resources/js/saved_tutors.js ***!
+  \**************************************/
+(function () {
+  $(document).ready(function () {
+    $(".unsave-tutor").on('click', function (e) {
+      e.preventDefault();
+      var tutorId = $(e.currentTarget).attr("data-href");
+      console.log(tutorId, $(e.currentTarget).attr("data-href"));
+      $.ajax({
+        type: "post",
+        url: "../api/savedtutor/unsaved_tutors",
+        data: {
+          tutorId: tutorId
+        },
+        cache: false,
+        success: function success(data) {
+          // $("#save-tutor").replaceWith(data);
+          if (data["delete"] === "successful") $(e.target).closest(".job-box").remove();
+          console.log(data, "data");
+        },
+        error: function error(xhr, status, _error) {
+          console.log(xhr, _error, status, "Lỗi");
+        }
+      });
+    });
+  });
+})();
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!********************************!*\
+  !*** ./resources/js/signup.js ***!
+  \********************************/
+(function () {
+  $(document).ready(function () {
+    $.validator.addMethod('phoneVI', function (value) {
+      return /^(84|0[3|5|7|8|9])+([0-9]{8})$/.test(value);
+    });
+    $.validator.addMethod('Password', function (value) {
+      return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/.test(value);
+    });
+    $("#signup-form").validate({
+      ignore: [],
+      rules: {
+        "first_name": {
+          required: true,
+          minlength: 5
+        },
+        "last_name": {
+          required: true,
+          minlength: 2
+        },
+        "email": {
+          required: true,
+          email: true,
+          remote: {
+            url: "../api/validation/checkunique",
+            type: "post",
+            data: {
+              value: function value() {
+                return $("#email").val();
+              },
+              column: function column() {
+                return 'email';
+              }
+            }
+          }
+        },
+        "phone": {
+          required: true,
+          phoneVI: true,
+          rangelength: [10, 10],
+          remote: {
+            url: "../api/validation/checkunique",
+            type: "post",
+            data: {
+              value: function value() {
+                return $("#phone_number").val();
+              },
+              column: function column() {
+                return 'phonenumber';
+              }
+            }
+          }
+        },
+        "username": {
+          required: true,
+          minlength: 5,
+          remote: {
+            url: "../api/validation/checkunique",
+            type: "post",
+            data: {
+              value: function value() {
+                return $("#username").val();
+              },
+              column: function column() {
+                return 'username';
+              }
+            }
+          }
+        },
+        "pass": {
+          required: true,
+          Password: true
+        },
+        "repass": {
+          required: true,
+          minlength: 5,
+          equalTo: '#pass'
+        }
+      },
+      messages: {
+        first_name: "Họ từ 5 kí tự trở lên.",
+        last_name: "Tên từ 2 kí tự trở lên.",
+        email: {
+          required: "Vui lòng nhập email.",
+          email: "Email sai định dạng",
+          remote: $.validator.format("{0} đã tồn tại.")
+        },
+        phone: {
+          required: "Vui lòng nhập số điện thoại",
+          phoneVI: "Đầu số điện thoại phải là 03, 05, 07, 08, 09.",
+          rangelength: "Số điện thoại phải đủ 10 kí tự.",
+          remote: $.validator.format("{0} đã tồn tại.")
+        },
+        username: {
+          required: "Vui lòng nhập tài khoản.",
+          minlength: "Phải nhập từ 5 kí tự trở lên.",
+          remote: $.validator.format("{0} đã tồn tại.")
+        },
+        pass: "Mật khẩu phải chứa từ 10 kí tự, ít nhất 1 kí tự viết hoa, thường, số, kí tự đặc biệt.",
+        repass: "Mật khẩu nhập lại không đúng."
+      },
+      errorPlacement: function errorPlacement(label, element) {
+        label.insertAfter($(element).parent()).addClass('mb-2 text-danger');
+      },
+      success: function success(label, element) {},
+      submitHandler: function submitHandler(form) {
+        // submitRegisterForm();
+        // form.submit();
+        console.log("1huy2k");
+      }
+    });
+    $("#signup-form").on('submit', function (e) {
+      e.preventDefault();
+      var $form = $(e.target);
+      if (!$form.valid()) return false;
+      var token = $("#token").val();
+      var first_name = $("#first_name").val();
+      var last_name = $("#last_name").val();
+      var email = $("#email").val();
+      var phone_number = $("#phone_number").val();
+      var username = $("#username").val();
+      var password = $("#pass").val();
+      console.log(first_name, last_name, email, phone_number, username, password); // add loading
+
+      $("#main-container").append("<div class=\"loading\">\n                                            <div class=\"spinner-grow text-light d-flex mx-auto\" style=\"width: 3rem; height: 3rem;\" role=\"status\">\n                                                <span class=\"visually-hidden\">Loading...</span>\n                                            </div>\n                                        </div>");
+      $.ajax({
+        type: "post",
+        url: "../api/appuser/signup",
+        data: {
+          token: token,
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          phone_number: phone_number,
+          username: username,
+          password: password
+        },
+        cache: false,
+        success: function success(data) {
+          if (data.sign_up === "successful") {
+            var _$;
+
+            (_$ = $(".loading")) === null || _$ === void 0 ? void 0 : _$.remove();
+
+            if (confirm("Vui lòng kiểm tra email của bạn để kích hoạt tài khoản của bạn trước khi đăng nhập.") === true) {
+              Toastify({
+                text: "Đăng kí tài khoản thành công.",
+                duration: 5000,
+                close: true,
+                gravity: "top",
+                // `top` or `bottom`
+                position: "right",
+                // `left`, `center` or `right`
+                stopOnFocus: true,
+                // Prevents dismissing of toast on hover
+                style: {
+                  background: "linear-gradient(to right, #56C596, #7BE495)"
+                },
+                onClick: function onClick() {} // Callback after click
+
+              }).showToast();
+              new Promise(function (res) {
+                return setTimeout(res, 1000);
+              }).then(function () {
+                window.location.href = data.url;
+              });
+            }
+          }
+
+          if (data.sign_up === "fail") {
+            Toastify({
+              text: "Tài khoản đã tồn tại!",
+              duration: 5000,
+              close: true,
+              gravity: "top",
+              // `top` or `bottom`
+              position: "right",
+              // `left`, `center` or `right`
+              stopOnFocus: true,
+              // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #F082AC, #b91c1c)"
+              },
+              onClick: function onClick() {} // Callback after click
+
+            }).showToast();
+          }
+
+          console.log(data);
+        },
+        error: function error(xhr, status, _error) {
+          console.log(xhr, _error, status, "Lỗi");
+        }
+      });
+    });
+  });
+})();
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!***************************************!*\
+  !*** ./resources/js/tutor_details.js ***!
+  \***************************************/
+(function () {
+  $(document).ready(function () {
+    onClickToShowModalRegister();
+
+    function onClickToShowModalRegister() {
+      $(".btn-register-show").on('click', function (e) {
+        getSubjectRegisterUser(e);
+        onClickToAddRegister();
+      });
+    }
+
+    function onClickToAddRegister() {
+      $(".btn-register-add").on('click', function (e) {
+        addRegisterTutor(e);
+      });
+    }
+
+    function getSubjectRegisterUser(e) {
+      var params = new Proxy(new URLSearchParams(window.location.search), {
+        get: function get(searchParams, prop) {
+          return searchParams.get(prop);
+        }
+      }); // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+
+      var tuId = params.id; // "some_value"
+
+      var id_approval = $(e.currentTarget).attr("data-bs-target");
+      var subject = $(id_approval).find(".teaching-subject");
+      var status = 0; // trạng thái đã duyệt môn học hay chưa
+      // console.log([tuId, id_approval, subject, status])
+
+      $.ajax({
+        type: "post",
+        url: "../api/teachingsubject/getsubjecttutor",
+        data: {
+          tuId: tuId,
+          status: status
+        },
+        cache: false,
+        success: function success(data) {
+          subject.html(data);
+          console.log(data);
+        },
+        error: function error(xhr, status, _error) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function addRegisterTutor(e) {
+      var params = new Proxy(new URLSearchParams(window.location.search), {
+        get: function get(searchParams, prop) {
+          return searchParams.get(prop);
+        }
+      }); // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+
+      var tuId = params.id; // "some_value"
+
+      var action = 1;
+      var topicId = $(e.currentTarget).closest(".modal-content").find("select");
+      console.log([action, tuId, topicId, e.currentTarget]);
+      $.ajax({
+        type: "post",
+        url: "../api/registertutor/addordeleteregistertutor",
+        data: {
+          tuId: tuId,
+          action: action,
+          topicId: $(topicId).val()
+        },
+        cache: false,
+        success: function success(data) {
+          if (data.insert === 'successful') {
+            alert("\u0110\u0103ng k\xFD m\xF4n h\u1ECDc ".concat(data.topicName, " th\xE0nh c\xF4ng. H\xE3y ch\u1EDD gia s\u01B0 li\xEAn h\u1EC7 v\u1EDBi b\u1EA1n."));
+            window.location.href = "./registered_tutors";
+          }
+
+          console.log(data, "insert3");
+        },
+        error: function error(xhr, status, _error2) {
+          console.error(xhr);
+        }
+      });
+    }
+    /* Lưu gia sư */
+
+
+    $("#save-tutor").on('click', function (e) {
+      var params = new Proxy(new URLSearchParams(window.location.search), {
+        get: function get(searchParams, prop) {
+          return searchParams.get(prop);
+        }
+      }); // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+
+      var tutorId = params.id; // "some_value"
+
+      console.log(tutorId, "save-tutor");
+      $.ajax({
+        type: "post",
+        url: "../api/savedtutor/savetutor",
+        data: {
+          tutorId: tutorId
+        },
+        cache: false,
+        success: function success(data) {
+          if (data.insert !== "fail") $("#save-tutor").text(data.data);else {
+            Toastify({
+              text: "Lưu không thành công. Bạn đã lưu gia sư này rồi!",
+              duration: 5000,
+              close: true,
+              gravity: "top",
+              // `top` or `bottom`
+              position: "right",
+              // `left`, `center` or `right`
+              stopOnFocus: true,
+              // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #C73866, #FE676E)"
+              },
+              onClick: function onClick() {} // Callback after click
+
+            }).showToast();
+          }
+          console.log(data, "data");
+        },
+        error: function error(xhr, status, _error3) {
+          console.log(xhr, _error3, status, "Lỗi");
+        }
+      });
+    });
+  });
+})();
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!*************************************************!*\
+  !*** ./resources/js/tutor_registration_form.js ***!
+  \*************************************************/
+(function () {
+  var MyEditor;
+  Dropzone.autoDiscover = false;
+  var dropzoneCertificate;
+  $(document).ready(function () {
+    document.querySelector('#editor') && DecoupledEditor.create(document.querySelector('#editor'), {
+      placeholder: 'Nhấn vào đây và hãy viết mô tả chi tiết nhất về kiến thức của bạn!',
+      ckfinder: {
+        uploadUrl: "../editor/uploadImages.php"
+      }
+    }).then(function (editor) {
+      var toolbarContainer = document.querySelector('#toolbar-container');
+      toolbarContainer.appendChild(editor.ui.view.toolbar.element);
+      MyEditor = editor;
+    })["catch"](function (error) {
+      console.error(error);
+    }); // dành cho select
+    // Dropzone
+    //  Dropzone.discover();
+
+    if (document.querySelector("div#certificate")) {
+      dropzoneCertificate = new Dropzone("div#certificate", {
+        // Configuration options go here
+        url: "../api/tutor/tutor_register",
+        paramName: "file",
+        // The name that will be used to transfer the file
+        parallelUploads: 10,
+        maxFilesize: 2,
+        // MB
+        maxFiles: 10,
+        acceptedFiles: ".png,.jpg,.jpeg",
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        uploadMultiple: true,
+        // Dịch sang tiếng Việt
+        dictDefaultMessage: "Kéo và thả file (có thể click) vào đây để upload <br>Ngoài ra bạn có thể chụp ảnh màn hình và dán vào trang web",
+        dictFallbackMessage: "Trình duyệt của bạn không hỗ trợ kéo và thả upload file.",
+        dictFallbackText: "Vui lòng sử dụng biểu mẫu dự phòng bên dưới để tải lên các file của bạn như ngày xưa.",
+        dictFileTooBig: "File quá lớn ({{filesize}}MiB). Tối đa filesize: {{maxFilesize}}MiB.",
+        dictInvalidFileType: "Bạn không thể tải lên các file thuộc loại này (chú ý đến đuôi file).",
+        dictResponseError: "Máy chủ đã phản hồi với {{statusCode}} code.",
+        dictCancelUpload: "Huỷ bỏ upload",
+        dictUploadCanceled: "Upload đã huỷ bỏ.",
+        dictCancelUploadConfirmation: "Bạn có chắc chắn muốn hủy upload này không?",
+        dictRemoveFile: "Xoá file",
+        dictRemoveFileConfirmation: null,
+        dictMaxFilesExceeded: "Bạn không thể tải lên bất kỳ tệp nào nữa.",
+        init: function init() {
+          var upload = this;
+          $("#upload-certificate").on("click", function (e) {
+            e.preventDefault();
+            if (confirm("Bạn đã chắc chắn chưa? Vì bạn chỉ thêm ảnh bằng cấp được 1 lần.") === true) upload.processQueue();
+          });
+          this.on("addedfile", function (file) {
+            var _$;
+
+            (_$ = $("#certificate_dropzone-error")) === null || _$ === void 0 ? void 0 : _$.remove();
+          });
+        },
+        accept: function accept(file, done) {
+          if (file.size === 0) {
+            done("Không có file nào. Vui lòng upload file.");
+          } else {
+            done();
+          }
+        }
+      });
+    }
+  }); // paste into dropzone
+
+  document.onpaste = function (event) {
+    var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    items.forEach(function (item) {
+      if (item.kind === 'file') {
+        // adds the file to your dropzone instance
+        dropzoneCertificate.addFile(item.getAsFile());
+      }
+    });
+  }; //
+
+
+  $.validator.addMethod("validOrNah", function (value, element) {
+    console.log($(element)[0].selectedIndex, "element");
+
+    if ($(element)[0].selectedIndex === 0) {
+      return false;
+    } else {}
+
+    return true;
+  }); // dành cho checkbox
+  // dành cho ckeditor
+
+  $.validator.addMethod("ck_editor", function (value, element) {
+    var content_length = MyEditor.getData().trim().length; // console.log(element)
+
+    return content_length > 0;
+  }, "Vui lòng thêm nội dung mô tả."); // dành cho dropzone
+
+  $.validator.addMethod("dropzone_validation", function (value, element) {
+    var is_exists_file = dropzoneCertificate.files.length; // console.log(is_exists_file)
+
+    return is_exists_file > 0;
+  }, "Vui lòng thêm ảnh bằng cấp.");
+  $("#register-form").validate({
+    ignore: [],
+    rules: {
+      "current-phone-number": {
+        required: true,
+        rangelength: [10, 10]
+      },
+      "current-email": {
+        required: true,
+        email: true
+      },
+      "current-address": {
+        required: true,
+        minlength: 5
+      },
+      "subject": {
+        required: true
+      },
+      "province": {
+        validOrNah: true
+      },
+      "districts[]": {
+        required: true // minlength: 1
+
+      },
+      "collage": {
+        required: true,
+        minlength: 5
+      },
+      "graduate-year": {
+        required: true,
+        digits: true
+      },
+      "teaching-form[]": {
+        required: true,
+        minlength: 1
+      },
+      "editor": {
+        ck_editor: true
+      },
+      "teaching_time[]": {
+        required: true
+      },
+      "certificate_dropzone": {
+        dropzone_validation: true
+      }
+    },
+    messages: {
+      "current-phone-number": "Số điện thoại phải đủ 10 kí tự.",
+      "current-email": "Email sai định dạng.",
+      "current-address": "Địa chỉ nhiều hơn 5 kí tự.",
+      "subject": "Vui lòng chọn môn học.",
+      "province": "Vui lòng chọn tỉnh/thành phố.",
+      "districts[]": "Vui lòng chọn huyện/thị xã.",
+      "collage": "Trường phải ít nhất 5 kí tự",
+      "graduate-year": "Năm tốt nghiệp không được trống và phải là số",
+      "teaching-form[]": "Vui lòng chọn hình thức dạy.",
+      "teaching_time[]": "Vui lòng chọn ít nhất một buổi dạy."
+    },
+    errorPlacement: function errorPlacement(label, element) {
+      if ($(element).hasClass('select2bs5')) {
+        label.insertAfter($(element).next(".select2-container")).addClass('mt-2 text-danger');
+      } else if ($(element).is(":checkbox")) {
+        label.insertAfter($(element).closest(".form-group").children(".error-checkbox")).addClass('mt-2 text-danger');
+      } else {
+        label.insertAfter(element).addClass('mt-2 text-danger');
+      }
+    },
+    success: function success(label, element) {},
+    submitHandler: function submitHandler(form) {
+      // submitRegisterForm();
+      // form.submit();
+      console.log("1huy2k");
+    }
+  }); // function submitRegisterForm() {
+
+  $("#register-form").on('submit', function (e) {
+    e.preventDefault();
+    var $form = $(e.target);
+    console.log(dropzoneCertificate);
+    if (!$form.valid()) return false; // 
+
+    var token = $("#token").val();
+    var currentPhone = $("#current-phone-number").val();
+    var currentEmail = $("#current-email").val();
+    var currentAddress = $("#current-address").val();
+    var currentJob = $("#job").val();
+    var currentProvince = $("#province option:selected").text();
+    var currentCollage = $("#collage").val();
+    var graduateYear = $("#graduate-year").val();
+    var districts = "";
+    var teachingForm = "";
+    var subjects = [];
+    var linkFace = $("#face").val();
+    var linkTwit = $("#twit").val();
+    var description = MyEditor.getData();
+    var Sunday = {
+      dayId: "0",
+      timeId: []
+    },
+        Monday = {
+      dayId: "1",
+      timeId: []
+    },
+        Tuesday = {
+      dayId: "2",
+      timeId: []
+    },
+        Wednesday = {
+      dayId: "3",
+      timeId: []
+    },
+        Thursday = {
+      dayId: "4",
+      timeId: []
+    },
+        Friday = {
+      dayId: "5",
+      timeId: []
+    },
+        Saturday = {
+      dayId: "6",
+      timeId: []
+    }; // teaching time
+
+    $("#0").find("input[type='checkbox']:checked").each(function (i, elem) {
+      Sunday.timeId.push($(elem).val());
+    });
+    $("#1").find("input[type='checkbox']:checked").each(function (i, elem) {
+      Monday.timeId.push($(elem).val());
+    });
+    $("#2").find("input[type='checkbox']:checked").each(function (i, elem) {
+      Tuesday.timeId.push($(elem).val());
+    });
+    $("#3").find("input[type='checkbox']:checked").each(function (i, elem) {
+      Wednesday.timeId.push($(elem).val());
+    });
+    $("#4").find("input[type='checkbox']:checked").each(function (i, elem) {
+      Thursday.timeId.push($(elem).val());
+    });
+    $("#5").find("input[type='checkbox']:checked").each(function (i, elem) {
+      Friday.timeId.push($(elem).val());
+    });
+    $("#6").find("input[type='checkbox']:checked").each(function (i, elem) {
+      Saturday.timeId.push($(elem).val());
+    }); // select2
+
+    $('.js-data-subjects-ajax').select2('data').map(function (val) {
+      subjects.push({
+        id: val.id,
+        "subject": val.text
+      });
+    });
+    $('.js-data-districts-ajax').select2('data').map(function (val) {
+      districts += val.text + ", ";
+    });
+    $('.js-data-teaching-form-ajax').select2('data').map(function (val) {
+      teachingForm += val.id + ", ";
+    });
+    console.log(teachingForm);
+    $.ajax({
+      type: "post",
+      url: "../api/tutor/tutor_register",
+      data: {
+        token: token,
+        currentPhone: currentPhone,
+        currentEmail: currentEmail,
+        currentAddress: currentAddress,
+        currentJob: currentJob,
+        currentProvince: currentProvince,
+        currentCollage: currentCollage,
+        graduateYear: graduateYear,
+        districts: districts,
+        teachingForm: teachingForm,
+        subjects: subjects,
+        linkFace: linkFace,
+        linkTwit: linkTwit,
+        description: description,
+        Sunday: Sunday.timeId.length > 0 && Sunday,
+        Monday: Monday.timeId.length > 0 && Monday,
+        Tuesday: Tuesday.timeId.length > 0 && Tuesday,
+        Wednesday: Wednesday.timeId.length > 0 && Wednesday,
+        Thursday: Thursday.timeId.length > 0 && Thursday,
+        Friday: Friday.timeId.length > 0 && Friday,
+        Saturday: Saturday.timeId.length > 0 && Saturday
+      },
+      cache: false,
+      success: function success(data) {
+        // if(data !== '0')
+        if (data.author === 'isTutor') {
+          Toastify({
+            text: "Bạn đã là gia sư rồi!",
+            duration: 5000,
+            close: true,
+            gravity: "top",
+            // `top` or `bottom`
+            position: "right",
+            // `left`, `center` or `right`
+            stopOnFocus: true,
+            // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, #C73866, #FE676E)"
+            },
+            onClick: function onClick() {} // Callback after click
+
+          }).showToast();
+        }
+
+        if (data.insert === 'successful') {
+          Toastify({
+            text: "Đăng kí thành công. Bạn hãy chờ duyệt nhé!",
+            duration: 5000,
+            close: true,
+            gravity: "top",
+            // `top` or `bottom`
+            position: "right",
+            // `left`, `center` or `right`
+            stopOnFocus: true,
+            // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, #56C596, #7BE495)"
+            },
+            onClick: function onClick() {} // Callback after click
+
+          }).showToast();
+        } else if (data.insert === 'fail') {
+          Toastify({
+            text: "Đăng kí không thành công. Bạn đã đăng kí rồi!",
+            duration: 5000,
+            close: true,
+            gravity: "top",
+            // `top` or `bottom`
+            position: "right",
+            // `left`, `center` or `right`
+            stopOnFocus: true,
+            // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, #C73866, #FE676E)"
+            },
+            onClick: function onClick() {} // Callback after click
+
+          }).showToast();
+        }
+
+        console.log(data);
+        console.log("1huy2k3");
+      },
+      error: function error(xhr, status, _error) {
+        console.log(xhr, _error, status, "Lỗi");
+      }
+    });
+  }); // }
+})();
+})();
+
 /******/ })()
 ;

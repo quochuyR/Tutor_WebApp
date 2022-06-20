@@ -2,7 +2,7 @@
 
 use Helpers\Util;
 
-require_once(__DIR__ . "/helpers/utilities.php");
+require_once(__DIR__ . "../../helpers/utilities.php");
 
 if (!function_exists('mix')) {
     /**
