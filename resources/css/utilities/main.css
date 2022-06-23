@@ -205,4 +205,11 @@
 .end-5{
   right: 5%;
 }
+
+.start-5{
+  left: 5%;
+}
+.translate-y-middle{
+  transform: translateY(-50%);
+}
 /* end position */

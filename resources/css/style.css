@@ -273,3 +273,7 @@ a:hover {
     background-color: transparent !important;
 }
 /* end dropdown item */
+
+input[type=checkbox] {
+    transform: scale(1.3);
+}

@@ -1,8 +1,8 @@
-(function() {
+(function () {
     let MyEditor;
     Dropzone.autoDiscover = false;
     var dropzoneCertificate;
-    $(document).ready(function() {
+    $(document).ready(function () {
         document.querySelector('#editor') && DecoupledEditor
             .create(document.querySelector('#editor'), {
                 placeholder: 'Nhấn vào đây và hãy viết mô tả chi tiết nhất về kiến thức của bạn!',
@@ -24,7 +24,7 @@
 
         // Dropzone
         //  Dropzone.discover();
-        if(document.querySelector("div#certificate")){
+        if (document.querySelector("div#certificate")) {
             dropzoneCertificate = new Dropzone("div#certificate", {
                 // Configuration options go here
                 url: "../api/tutor/tutor_register",
@@ -49,23 +49,23 @@
                 dictRemoveFile: "Xoá file",
                 dictRemoveFileConfirmation: null,
                 dictMaxFilesExceeded: "Bạn không thể tải lên bất kỳ tệp nào nữa.",
-                init: function() {
+                init: function () {
                     let upload = this;
-    
-                    $("#upload-certificate").on("click", function(e) {
+
+                    $("#upload-certificate").on("click", function (e) {
                         e.preventDefault();
                         if (confirm("Bạn đã chắc chắn chưa? Vì bạn chỉ thêm ảnh bằng cấp được 1 lần.") === true)
                             upload.processQueue();
-    
-    
+
+
                     });
-    
+
                     this.on("addedfile", file => {
-                        
+
                         $("#certificate_dropzone-error")?.remove()
                     });
                 },
-                accept: function(file, done) {
+                accept: function (file, done) {
                     if (file.size === 0) {
                         done("Không có file nào. Vui lòng upload file.");
                     } else {
@@ -74,14 +74,14 @@
                 }
             });
         }
-       
+
 
 
     });
 
     // paste into dropzone
 
-    document.onpaste = function(event) {
+    document.onpaste = function (event) {
         const items = (event.clipboardData || event.originalEvent.clipboardData).items;
         items.forEach((item) => {
             if (item.kind === 'file') {
@@ -94,7 +94,7 @@
     //
 
 
-    $.validator.addMethod("validOrNah", function(value, element) {
+    $.validator.addMethod("validOrNah", function (value, element) {
 
         console.log($(element)[0].selectedIndex, "element")
         if ($(element)[0].selectedIndex === 0) {
@@ -111,7 +111,7 @@
 
 
     // dành cho ckeditor
-    $.validator.addMethod("ck_editor", function(value, element) {
+    $.validator.addMethod("ck_editor", function (value, element) {
         var content_length = MyEditor.getData().trim().length;
         // console.log(element)
         return content_length > 0;
@@ -119,7 +119,7 @@
     }, "Vui lòng thêm nội dung mô tả.");
 
     // dành cho dropzone
-    $.validator.addMethod("dropzone_validation", function(value, element) {
+    $.validator.addMethod("dropzone_validation", function (value, element) {
 
         var is_exists_file = dropzoneCertificate.files.length;
         // console.log(is_exists_file)
@@ -187,7 +187,7 @@
             "teaching-form[]": "Vui lòng chọn hình thức dạy.",
             "teaching_time[]": "Vui lòng chọn ít nhất một buổi dạy.",
         },
-        errorPlacement: function(label, element) {
+        errorPlacement: function (label, element) {
             if ($(element).hasClass('select2bs5')) {
                 label.insertAfter($(element).next(".select2-container")).addClass('mt-2 text-danger');
 
@@ -198,7 +198,7 @@
                 label.insertAfter(element).addClass('mt-2 text-danger');
             }
         },
-        success: function(label, element) {
+        success: function (label, element) {
 
 
         },
@@ -236,9 +236,9 @@
         let description = MyEditor.getData();
 
         let Sunday = {
-                dayId: "0",
-                timeId: []
-            },
+            dayId: "0",
+            timeId: []
+        },
             Monday = {
                 dayId: "1",
                 timeId: []
@@ -306,11 +306,25 @@
             })
         });
 
-        $('.js-data-districts-ajax').select2('data').map(val => {
-            districts += val.text + ", "
+        $('.js-data-districts-ajax').select2('data').map((val, i, arr) => {
+            if (arr.length - 1 === i) {
+
+                districts += val.text;
+            }
+            else {
+                districts += val.text + ", "
+
+            }
         });
-        $('.js-data-teaching-form-ajax').select2('data').map(val => {
-            teachingForm += val.id + ", "
+        $('.js-data-teaching-form-ajax').select2('data').map((val, i, arr) => {
+            if (arr.length - 1 === i) {
+                teachingForm += val.id
+
+            }
+            else {
+                teachingForm += val.id + ", "
+
+            }
         });
 
         console.log(teachingForm)
@@ -342,7 +356,7 @@
                 Saturday: Saturday.timeId.length > 0 && Saturday,
             },
             cache: false,
-            success: function(data) {
+            success: function (data) {
                 // if(data !== '0')
                 if (data.author === 'isTutor') {
                     Toastify({
@@ -355,7 +369,7 @@
                         style: {
                             background: "linear-gradient(to right, #C73866, #FE676E)",
                         },
-                        onClick: function() {} // Callback after click
+                        onClick: function () { } // Callback after click
                     }).showToast();
                 }
                 if (data.insert === 'successful') {
@@ -369,7 +383,7 @@
                         style: {
                             background: "linear-gradient(to right, #56C596, #7BE495)",
                         },
-                        onClick: function() {} // Callback after click
+                        onClick: function () { } // Callback after click
                     }).showToast();
                 } else if (data.insert === 'fail') {
                     Toastify({
@@ -382,13 +396,13 @@
                         style: {
                             background: "linear-gradient(to right, #C73866, #FE676E)",
                         },
-                        onClick: function() {} // Callback after click
+                        onClick: function () { } // Callback after click
                     }).showToast();
                 }
                 console.log(data)
                 console.log("1huy2k3");
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.log(xhr, error, status, "Lỗi");
             }
         });

@@ -115,6 +115,19 @@ class Tutor
         return $result ? $result : false;
     }
 
+    public function update_info_tutor($data)
+    {
+        $query = "UPDATE `tutors`
+        SET `currentphonenumber`= ?,`currentemail`= ?,`currentaddress`= ?, 
+        `currentplace`= ?,`teachingform`= ?, `teachingarea`= ?,
+        `linkfacebook`= ?,`linktwitter`= ?
+         WHERE `id` = ?";
+
+        // $result = $this->db->p_statement($query, "sssssisss", [$Tutor_Model->_userId, $Tutor_Model->__introduction, $Tutor_Model->_currentAddress, $Tutor_Model->_college, $Tutor_Model->_currentJob, $Tutor_Model->_teachingForm, $Tutor_Model->_teachingArea, $Tutor_Model->_linkFacebook, $Tutor_Model->_linkTwitter]);
+        $result = $this->db->p_statement($query, "sssssssss", $data);
+        return $result ? $result : false;
+    }
+
     public function update_approval_tutor($id)
     {
         $query = "CALL update_approval_tutor(?)";
@@ -236,6 +249,17 @@ class Tutor
     {
         $query = "SELECT `tutors`.`id`, `appusers`.`firstname`, `appusers`.`lastname`, `appusers`.`username`, `appusers`.`sex`, `tutors`.`currentphonenumber`, `tutors`.`currentemail`, `tutors`.`currentjob`, `tutors`.`currentaddress`, `tutors`.`teachingarea`, `tutors`.`teachingform`, `tutors`.`introduction`, `tutors`.`linkfacebook`, `tutors`.`linktwitter`, `appusers`.`imagepath` 
         FROM `tutors` INNER JOIN `appusers` ON `tutors`.`userId` = `appusers`.`id` 
+        WHERE `tutors`.`tutor_status` = 1 and `tutors`.`id` = ?";
+
+        // echo $query;
+        $result = $this->db->p_statement($query, "s", [$id]);
+        return $result;
+    }
+
+    public function get_tutor_detail_for_update($id)
+    {
+        $query = "SELECT `tutors`.`id`, `tutors`.`currentphonenumber`, `tutors`.`currentemail`, `tutors`.`currentaddress`, `tutors`.`currentplace`, `tutors`.`teachingarea`, `tutors`.`teachingform`,  `tutors`.`linkfacebook`, `tutors`.`linktwitter`
+        FROM `tutors`
         WHERE `tutors`.`tutor_status` = 1 and `tutors`.`id` = ?";
 
         // echo $query;

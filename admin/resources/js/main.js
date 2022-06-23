@@ -1,6 +1,16 @@
+
 (function () {
 	$.noConflict();
 
+	// document.addEventListener('contextmenu', event => event.preventDefault());
+	// jQuery(window).on('keyup',function (event) {
+	// 	if ((event.keyCode === 73 || event.keyCode === 41)  && event.ctrlKey && event.shiftKey) {
+	// 		event.preventDefault();
+	// 		console.log(event)
+	// 		return false;
+	// 	}
+	// 	console.log(event)
+	// });
 	jQuery(document).ready(function ($) {
 
 		"use strict";
@@ -158,11 +168,13 @@
 				data: data,
 
 			};
-
-			const myChart = new Chart(
-				document.getElementById('tutors-chart'),
-				config
-			);
+			if(document.getElementById('tutors-chart')){
+				const myChart = new Chart(
+					document.getElementById('tutors-chart'),
+					config
+				);
+			}
+			
 			// if(!data){
 			// 	responseNotification = false;
 			// 	return;
@@ -175,7 +187,7 @@
 		function logout() {
 			$(".logout").on('click', (e) => {
 				e.preventDefault();
-				
+
 
 				console.log($(".logout").attr("href-action"), `$(".logout").attr("href")`);
 				$.ajax({
@@ -187,10 +199,10 @@
 					cache: false,
 					success: function (data) {
 						// if(data !== '0')
-						
-					
-						
-						
+
+
+
+
 						window.location = "/tutor_webapp/pages/login";
 						console.log(data, "data")
 					},
@@ -204,6 +216,12 @@
 		logout();
 
 
+
+
+
+
 	});
+
+
 
 })();

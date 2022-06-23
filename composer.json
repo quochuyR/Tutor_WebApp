@@ -20,6 +20,6 @@
             "Helpers\\": "helpers/",
             "Library\\": "lib/"
         },
-        "files": ["resources/mix.php"]
+        "files": ["public/mix.php"]
     }
 }

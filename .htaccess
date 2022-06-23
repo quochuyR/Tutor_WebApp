@@ -1,10 +1,38 @@
-Options -Indexes
-ErrorDocument 404 /tutor_webapp/pages/errors/404.php
-RewriteEngine On
+# Options -Indexes
+ErrorDocument 404 /tutor_webapp/pages/errors/404
+# RewriteEngine On
 
 
 
-RewriteRule ^(lib/|inc/|classes/|helpers/|config/|model/|vendor/|editor/|certificates/) - [F,L,NC]
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+    RewriteBase /
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+   
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    
+</IfModule>
+
+
+
+# RewriteRule ^(lib/|inc/|classes/|helpers/|config/|model/|vendor/|editor/) - [F,L,NC]
+
+
 
 
 

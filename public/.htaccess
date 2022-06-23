@@ -1,0 +1,6 @@
+RewriteEngine on
+# prevent hotlink
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?localhost:5050(/)?.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^https://(www\.)?localhost:4433(/)?.*$ [NC]
+RewriteRule \.(jpg|jpeg|png|gif|css|js)$ - [F]

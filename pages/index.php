@@ -2,7 +2,7 @@
 
 namespace Views;
 
-use Classes\db_homepage;
+use Classes\HomePage;
 use Classes\Tutor, Classes\Subject, Classes\SubjectTopic, Library\Session;
 use Helpers\Util;
 
@@ -20,8 +20,8 @@ require_once(__DIR__ . "../../vendor/autoload.php");
 Session::init();
 Session::set('rdrurl', $_SERVER['REQUEST_URI']);
 
-include '../classes/queryphp.php';
-$db_homepage  = new db_homepage();
+
+$db_homepage  = new HomePage();
 $db_homepageTutor = new tutor();
 $TTtopic = new Tutor();
 $subjects = new Subject();

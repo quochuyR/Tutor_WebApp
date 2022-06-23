@@ -1211,12 +1211,26 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /*!*********************************!*\
   !*** ./resources/js/profile.js ***!
   \*********************************/
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 (function () {
   Dropzone.autoDiscover = false; // Dropzone.discover();
 
   var dropzoneProfile;
   var basic;
   $(document).ready(function () {
+    var _teaching_form_update;
+
     var src_img = $("#my-image").prop("src");
     var tuid = $("#tuid").val();
     var data = new URL("./tutor_details?id=".concat(tuid), window.location.href); // When the avatar changes, reattach the src_img. variable.
@@ -1423,6 +1437,565 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
       });
     }); //on button click
+
+    $("#provinces-update") && $.ajax({
+      type: "get",
+      url: "https://vapi.vnappmob.com/api/province/",
+      cache: false,
+      success: function success(data) {
+        // if(data !== '0')
+        var ObjProvinces = Object.assign({}, data); // copy to new obj
+
+        var provinces = _toConsumableArray(Object.values(ObjProvinces)); // convert to array
+
+
+        var data_province_default = $("#provinces-update").attr("data-name"); // create many options of select
+
+        var optionOfSelect = "<option value=\"0\">--Ch\u1ECDn t\u1EC9nh--</option>";
+        provinces[0].map(function (val, idx) {
+          optionOfSelect += "<option value=\"".concat(val.province_id, "\" ").concat(val.province_name === data_province_default && 'selected', ">").concat(val.province_name, "</option>"); // console.log()
+        });
+        console.log(provinces);
+        $("#provinces-update").html("<select id = \"province\" name=\"province\" class=\"form-select\" >".concat(optionOfSelect, "</select>")); // join option into select
+
+        onLoadDistrict();
+        console.log(data, "data");
+      },
+      error: function error(xhr, status, _error2) {
+        console.log(xhr, _error2, status, "Lỗi");
+      }
+    });
+    $("#provinces-update").on('change', function (e) {
+      select2District(e);
+    });
+
+    function select2District(e) {
+      $('.js-data-districts-ajax-update').select2('destroy');
+      $('.js-data-districts-ajax-update').select2({
+        theme: 'bootstrap-5',
+        language: "vi",
+        multiple: true,
+        ajax: {
+          url: "https://vapi.vnappmob.com/api/province/district/".concat(e.target.value),
+          type: "get",
+          dataType: 'json',
+          delay: 250,
+          data: function data(params) {
+            return {
+              term: params.term
+            };
+          },
+          processResults: function processResults(data, params) {
+            params.term = params.term ? params.term : 'all';
+            console.log(params); // Transforms the top-level key of the response object from 'items' to 'results'
+
+            return {
+              results: $.map(data.results, function (val) {
+                // console.log(val.district_name.toUpperCase().includes(params.term.toUpperCase()), "pấm")
+                if (params.term === 'all') {
+                  return {
+                    id: val.district_id,
+                    text: val.district_name
+                  };
+                }
+
+                if (val.district_name.toUpperCase().includes(params.term.toUpperCase())) {
+                  return {
+                    id: val.district_id,
+                    text: val.district_name
+                  };
+                }
+              })
+            };
+          },
+          cache: true
+        },
+        placeholder: 'Gõ chữ bất kì để tìm huyện'
+      }).on("select2:close", function (e) {// validation select2
+        // $(this).valid();
+      });
+    }
+
+    function onLoadDistrict() {
+      var districts_update = $('.js-data-districts-ajax-update');
+      var province_id = $("#province").find(":selected").val();
+      $('.js-data-districts-ajax-update').select2({
+        theme: 'bootstrap-5',
+        language: "vi",
+        multiple: true,
+        ajax: {
+          url: "https://vapi.vnappmob.com/api/province/district/".concat(province_id),
+          type: "get",
+          dataType: 'json',
+          delay: 250,
+          data: function data(params) {
+            return {
+              term: params.term
+            };
+          },
+          processResults: function processResults(data, params) {
+            params.term = params.term ? params.term : 'all';
+            console.log(params); // Transforms the top-level key of the response object from 'items' to 'results'
+
+            return {
+              results: $.map(data.results, function (val) {
+                // console.log(val.district_name.toUpperCase().includes(params.term.toUpperCase()), "pấm")
+                if (params.term === 'all') {
+                  return {
+                    id: val.district_id,
+                    text: val.district_name
+                  };
+                }
+
+                if (val.district_name.toUpperCase().includes(params.term.toUpperCase())) {
+                  return {
+                    id: val.district_id,
+                    text: val.district_name
+                  };
+                }
+              })
+            };
+          },
+          cache: true
+        },
+        placeholder: 'Gõ chữ bất kì để tìm huyện'
+      });
+      console.log(province_id);
+      $.ajax({
+        type: 'GET',
+        url: "https://vapi.vnappmob.com/api/province/district/".concat(province_id)
+      }).then(function (data) {
+        var _districts_update$att;
+
+        // create the option and append to Select2
+        var data_district_tutor = (_districts_update$att = districts_update.attr("data-district-name")) === null || _districts_update$att === void 0 ? void 0 : _districts_update$att.split(", ");
+        console.log(data_district_tutor, "data_district_tutor");
+        data.results.map(function (district_ajax) {
+          // console.log(data_district_tutor[i], district_ajax.district_name,  "data_district_tutor[i]")
+          if (data_district_tutor.find(function (district_tutor) {
+            return district_tutor === district_ajax.district_name;
+          })) {
+            var _option = new Option(district_ajax.district_name, district_ajax.district_id, true, true);
+
+            districts_update.append(_option).trigger('change');
+          }
+        });
+        console.log(data, "data-select2"); // manually trigger the `select2:select` event
+
+        districts_update.trigger({
+          type: 'select2:select',
+          params: {
+            data: data.results
+          }
+        });
+      });
+    }
+
+    var teaching_form_update = $('.js-data-teaching-form-ajax-update');
+    teaching_form_update.select2({
+      theme: 'bootstrap-5',
+      language: "vi",
+      multiple: true,
+      data: [{
+        id: 0,
+        text: "Trực tuyến (Online)"
+      }, {
+        id: 1,
+        text: "Gặp mặt (Offline)"
+      }],
+      placeholder: 'Gõ chữ bất kì để tìm hình thức dạy' // templateResult: formatRepo,
+      // templateSelection: formatRepoSelection
+
+    }).on("select2:close", function (e) {// validation select2
+      // $(this).valid();
+    });
+    /* */
+
+    var last_element_update;
+    $("input[type='text']").on('change', function (e) {
+      console.log($(e.target).offset().top);
+      last_element_update = $(e.target).offset().top - 50;
+    });
+    $("input[type='checkbox']").on('change', function (e) {
+      console.log($(e.target).offset().top);
+      last_element_update = $(e.target).offset().top - 50;
+    });
+    $("select").on('change', function (e) {
+      console.log($(e.target).offset().top);
+      last_element_update = $(e.target).offset().top - 50;
+    });
+    /* */
+
+    var value_default_teaching_form = (_teaching_form_update = teaching_form_update.attr("data-teaching-form")) === null || _teaching_form_update === void 0 ? void 0 : _teaching_form_update.split(", ");
+    console.log(value_default_teaching_form);
+    teaching_form_update.val(value_default_teaching_form).trigger('change');
+    var arr_del_teaching_time = [],
+        arr_add_teaching_time = [];
+    $("#tutor-form-update").on('submit', function (e) {
+      e.preventDefault();
+      var token = $("#token").val();
+      var currentPhone = $("#current-phone-number").val();
+      var currentEmail = $("#current-email").val();
+      var currentAddress = $("#current-address").val();
+      var currentProvince = $("#province option:selected").text();
+      var districts = "";
+      var teachingForm = "";
+      var linkFace = $("#face").val();
+      var linkTwit = $("#twit").val();
+      $('.js-data-districts-ajax-update').select2('data').map(function (val, i, arr) {
+        if (arr.length - 1 === i) {
+          districts += val.text;
+        } else {
+          districts += val.text + ", ";
+        }
+      });
+      $('.js-data-teaching-form-ajax-update').select2('data').map(function (val, i, arr) {
+        if (arr.length - 1 === i) {
+          teachingForm += val.id;
+        } else {
+          teachingForm += val.id + ", ";
+        }
+      });
+      arr_add_teaching_time = [];
+      arr_del_teaching_time = [];
+      /* Kiểm tra có timeId không nếu có thêm vào mảng xoá time */
+
+      if (Sunday_del.length > 0) {
+        arr_del_teaching_time.push(Sunday_del);
+      }
+
+      if (Monday_del.length > 0) {
+        arr_del_teaching_time.push(Monday_del);
+      }
+
+      if (Tuesday_del.length > 0) {
+        arr_del_teaching_time.push(Tuesday_del);
+      }
+
+      if (Wednesday_del.length > 0) {
+        arr_del_teaching_time.push(Wednesday_del);
+      }
+
+      if (Thursday_del.length > 0) {
+        arr_del_teaching_time.push(Thursday_del);
+      }
+
+      if (Friday_del.length > 0) {
+        arr_del_teaching_time.push(Friday_del);
+      }
+
+      if (Saturday_del.length > 0) {
+        arr_del_teaching_time.push(Saturday_del);
+      }
+      /* Kiểm tra có timeId không nếu có thêm vào mảng thêm time */
+
+
+      if (Sunday_add.length > 0) {
+        arr_add_teaching_time.push(Sunday_add);
+      }
+
+      if (Monday_add.length > 0) {
+        arr_add_teaching_time.push(Monday_add);
+      }
+
+      if (Tuesday_add.length > 0) {
+        arr_add_teaching_time.push(Tuesday_add);
+      }
+
+      if (Wednesday_add.length > 0) {
+        arr_add_teaching_time.push(Wednesday_add);
+      }
+
+      if (Thursday_add.length > 0) {
+        arr_add_teaching_time.push(Thursday_add);
+      }
+
+      if (Friday_add.length > 0) {
+        arr_add_teaching_time.push(Friday_add);
+      }
+
+      if (Saturday_add.length > 0) {
+        arr_add_teaching_time.push(Saturday_add);
+      }
+
+      console.log(arr_del_teaching_time, arr_add_teaching_time);
+      $.ajax({
+        type: "post",
+        url: "../api/tutor/updateinfotutor",
+        data: {
+          token: token,
+          currentPhone: currentPhone,
+          currentEmail: currentEmail,
+          currentAddress: currentAddress,
+          currentProvince: currentProvince,
+          districts: districts,
+          teachingForm: teachingForm,
+          linkFace: linkFace,
+          linkTwit: linkTwit,
+          arr_add_teaching_time: arr_add_teaching_time,
+          arr_del_teaching_time: arr_del_teaching_time
+        },
+        cache: false,
+        success: function success(data) {
+          if (data.update === "successful") {
+            window.location.reload();
+            localStorage.setItem("scrollpos", last_element_update);
+            console.log(last_element_update, "scrollpos");
+          }
+
+          console.log(data);
+        },
+        error: function error(xhr, status, _error3) {
+          console.error(xhr);
+        }
+      });
+    }); // 
+
+    var Sunday_del = [],
+        Monday_del = [],
+        Tuesday_del = [],
+        Wednesday_del = [],
+        Thursday_del = [],
+        Friday_del = [],
+        Saturday_del = []; // chọn tất cả thẻ input có type = checkbox, name = teaching_time[]
+    // không bị disabled và đã checked
+
+    $("input[type='checkbox'][name='teaching_time[]']:not(:disabled):checked").on("change", function (e) {
+      if ($(e.target).prop("checked")) {
+        if ($(e.target).attr("data-day-id") === "0") {
+          var index = Sunday_del.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (index > -1) {
+            Sunday_del.splice(index, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "1") {
+          var _index = Monday_del.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index > -1) {
+            Monday_del.splice(_index, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "2") {
+          var _index2 = Tuesday_del.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index2 > -1) {
+            Tuesday_del.splice(_index2, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "3") {
+          var _index3 = Wednesday_del.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index3 > -1) {
+            Wednesday_del.splice(_index3, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "4") {
+          var _index4 = Thursday_del.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index4 > -1) {
+            Thursday_del.splice(_index4, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "5") {
+          var _index5 = Friday_del.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index5 > -1) {
+            Friday_del.splice(_index5, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "6") {
+          var _index6 = Saturday_del.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index6 > -1) {
+            Saturday_del.splice(_index6, 1); // 2nd parameter means remove one item only
+          }
+        }
+      } else {
+        if ($(e.target).attr("data-day-id") === "0" && Sunday_del.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Sunday_del.push({
+            dayId: 0,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "1" && Monday_del.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Monday_del.push({
+            dayId: 1,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "2" && Tuesday_del.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Tuesday_del.push({
+            dayId: 2,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "3" && Wednesday_del.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Wednesday_del.push({
+            dayId: 3,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "4" && Thursday_del.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Thursday_del.push({
+            dayId: 4,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "5" && Friday_del.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Friday_del.push({
+            dayId: 5,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "6" && Saturday_del.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Saturday_del.push({
+            dayId: 6,
+            timeId: e.target.value
+          });
+        }
+      } // console.log(Sunday_del, Monday_del, Tuesday_del, Wednesday_del, Thursday_del,
+      //      Friday_del, Saturday_del, Sunday_del)
+
+    });
+    var Sunday_add = [],
+        Monday_add = [],
+        Tuesday_add = [];
+    Wednesday_add = [], Thursday_add = [], Friday_add = [], Saturday_add = []; // chọn tất cả thẻ input có type = checkbox, name = teaching_time[]
+    // không bị disabled và đã checked
+
+    $("input[type='checkbox'][name='teaching_time[]']:not(:disabled):not(:checked)").on("change", function (e) {
+      console.log(e.target.value, "not checked");
+
+      if (!$(e.target).prop("checked")) {
+        if ($(e.target).attr("data-day-id") === "0") {
+          var index = Sunday_add.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (index > -1) {
+            Sunday_add.splice(index, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "1") {
+          var _index7 = Monday_add.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index7 > -1) {
+            Monday_add.splice(_index7, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "2") {
+          var _index8 = Tuesday_add.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index8 > -1) {
+            Tuesday_add.splice(_index8, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "3") {
+          var _index9 = Wednesday_add.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index9 > -1) {
+            Wednesday_add.splice(_index9, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "4") {
+          var _index10 = Thursday_add.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index10 > -1) {
+            Thursday_add.splice(_index10, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "5") {
+          var _index11 = Friday_add.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index11 > -1) {
+            Friday_add.splice(_index11, 1); // 2nd parameter means remove one item only
+          }
+        } else if ($(e.target).attr("data-day-id") === "6") {
+          var _index12 = Saturday_add.findIndex(function (val) {
+            return e.target.value === val.timeId;
+          });
+
+          if (_index12 > -1) {
+            Saturday_add.splice(_index12, 1); // 2nd parameter means remove one item only
+          }
+        }
+      } else {
+        if ($(e.target).attr("data-day-id") === "0" && Sunday_add.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Sunday_add.push({
+            dayId: 0,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "1" && Monday_add.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Monday_add.push({
+            dayId: 1,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "2" && Tuesday_add.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Tuesday_add.push({
+            dayId: 2,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "3" && Wednesday_add.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Wednesday_add.push({
+            dayId: 3,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "4" && Thursday_add.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Thursday_add.push({
+            dayId: 4,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "5" && Friday_add.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Friday_add.push({
+            dayId: 5,
+            timeId: e.target.value
+          });
+        } else if ($(e.target).attr("data-day-id") === "6" && Saturday_add.findIndex(function (val) {
+          return e.target.value === val.timeId;
+        }) < 0) {
+          Saturday_add.push({
+            dayId: 6,
+            timeId: e.target.value
+          });
+        }
+      }
+
+      console.log(Sunday_add, Monday_add, Tuesday_add, Wednesday_add, Thursday_add, Friday_add, Saturday_add);
+    });
   }); // paste into dropzone
   //
 })();
@@ -2557,11 +3130,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         "subject": val.text
       });
     });
-    $('.js-data-districts-ajax').select2('data').map(function (val) {
-      districts += val.text + ", ";
+    $('.js-data-districts-ajax').select2('data').map(function (val, i, arr) {
+      if (arr.length - 1 === i) {
+        districts += val.text;
+      } else {
+        districts += val.text + ", ";
+      }
     });
-    $('.js-data-teaching-form-ajax').select2('data').map(function (val) {
-      teachingForm += val.id + ", ";
+    $('.js-data-teaching-form-ajax').select2('data').map(function (val, i, arr) {
+      if (arr.length - 1 === i) {
+        teachingForm += val.id;
+      } else {
+        teachingForm += val.id + ", ";
+      }
     });
     console.log(teachingForm);
     $.ajax({

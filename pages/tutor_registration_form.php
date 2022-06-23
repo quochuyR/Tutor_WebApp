@@ -34,14 +34,14 @@ include "../inc/header.php";
                 <!-- <p class="blue-text">Just answer a few questions<br> so that we can personalize the right experience for you.</p> -->
                 <div class="card py-3">
                     <div class="card-body">
-                        <h3 class="fw-bold mb-5">Đăng kí dạy kèm</h3>
+                        <h4 class="fw-bold mb-5">Đăng kí dạy kèm</h4>
 
                         <form class="form-card" id="register-form">
                             <input type="hidden" id="token" value="<?= Session::get("csrf_token") ?>" />
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row justify-content-between text-start">
-                                        <h5 class="text-start fw-bold mb-4 border-bottom pt-2 pb-2">Thông tin cá nhân</h5>
+                                        <h5 class="text-start fw-bold mb-4 border-bottom pt-2 pb-2">Thông tin liên lạc</h5>
                                         <div class="form-group col-sm-6 flex-column d-flex">
                                             <label class="form-control-label ">Số điện thoại<span class="text-danger"> *</span></label>
                                             <input class="form-control" type="text" id="current-phone-number" name="current-phone-number" placeholder="Nhập số điện thoại" value="">

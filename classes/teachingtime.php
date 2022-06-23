@@ -26,6 +26,15 @@ class TeachingTime
         return $result ? $result : false;
     }
 
+    public function delete_teaching_time($tutorId, $dayofweekId, $timeId)
+    {
+        $query = "DELETE FROM `teachingtimes` 
+        WHERE `tutorId` = ? AND `dayofweekId` = ? AND `timeId` = ?;";
+
+        $result = $this->db->p_statement($query, "sii", [$tutorId, $dayofweekId, $timeId]);
+        return $result ? $result : false;
+    }
+
     public function getAll($tutorId, $dayofweekId, $dayId)
     {
         $query = "SELECT `teachingtimes`.`dayofweekId`, `times`.`time`, `days`.`dayname`
@@ -56,6 +65,21 @@ class TeachingTime
         $query = "CALL update_schedule(?,?,?,?,?);";
 
         $result = $this->db->p_statement($query, "siiii", [$tutorId, $dayofweekId, $timeId, $dayofweekId_prev, $timeId_prev]);
+        return $result;
+    }
+
+
+    public function get_for_update($tutorId, $dayofweekId)
+    {
+        $query = "SELECT `times`.`id`,  `times`.`time`, temp.status
+        FROM `times` LEFT JOIN (
+        SELECT tt.timeId, tt.status
+            FROM teachingtimes tt 
+            WHERE tt.`tutorId` = ? AND dayofweekId = ?
+        
+        ) AS temp ON temp.timeId = times.id";
+
+        $result = $this->db->p_statement($query, "si", [$tutorId, $dayofweekId]);
         return $result;
     }
 
