@@ -9,7 +9,7 @@ $filepath  = realpath(dirname(__FILE__));
 include_once($filepath . "../../lib/database.php");
 // include_once($filepath."../../helpers/format.php");
 
-class db_homepage
+class HomePage
 {
     private $db;
 
@@ -28,14 +28,14 @@ class db_homepage
         $select = "SELECT * FROM calrouselimg WHERE status = 1 ORDER BY uploaded_on desc";
         // $select = "SELECT * FROM `calrouselimg` ";
         //dùng update thay vì dùng select bởi vì select khi truy vấn nếu không có phần tử nào sẽ trả về kiểu bool xảy ra cảnh báo lỗi
-        $imgList = $this->db->update($select);
+        $imgList = $this->db->select($select);
         // print_r($imgList);
         if (($imgList->num_rows) > 0) {
             while ($item = $imgList->fetch_assoc()) {
                 $obj = [
                     "id" => $item["id"], "name" => $item["name"],
                     "file_name" => $item["file_name"], "uploaded_on" => $item["uploaded_on"],
-                    "status" => $item["status"], "imageURL" => '../admin/assets/images/carousel/' . $item["file_name"]
+                    "status" => $item["status"], "imageURL" => '../admin/public/images/carousel/' . $item["file_name"]
                 ];
                 //sau này đường dẫn này có thể bị sai
                 array_push($ListImgUrl, $obj);
@@ -47,7 +47,7 @@ class db_homepage
     function showPost()
     {
         $select = "SELECT id, title, content, status, time, kind FROM admin_post WHERE status = 1 ORDER BY time DESC";
-        $result = $this->db->update($select);
+        $result = $this->db->select($select);
         return $result;
     }
 

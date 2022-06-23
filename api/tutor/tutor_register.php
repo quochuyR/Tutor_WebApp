@@ -12,7 +12,7 @@ require_once(__DIR__ . "../../../vendor/autoload.php");
 // $filepath = realpath(dirname(__FILE__));
 
 // include_once $filepath . "../../lib/session.php";
-if (Session::checkRoles(['tutor'])) {
+if (!Session::checkRoles(['tutor'])) {
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(["author" => "isTutor"]);
     exit();
@@ -29,7 +29,7 @@ $_teaching_subject = new TeachingSubject();
 $_certificate = new Certificate();
 
 /* upload certificate */
-$dir_certificate = __DIR__ . "../../../certificates/" . Session::get("username");
+$dir_certificate = __DIR__ . "../../../admin/certificates/" . Session::get("username");
 if (!is_dir($dir_certificate)){
     mkdir($dir_certificate);
 
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         && (isset($_POST["currentCollage"]) && !empty($_POST["currentCollage"]))
         && (isset($_POST["graduateYear"]) && is_numeric($_POST["graduateYear"]))
         && (isset($_POST["districts"]) && !empty($_POST["districts"]))
-        && (isset($_POST["teachingForm"]) && !empty($_POST["teachingForm"]))
+        && (isset($_POST["teachingForm"]) && is_string($_POST["teachingForm"]))
         && (isset($_POST["description"]) && !empty($_POST["description"]))
         && hash_equals($_POST["token"], $_SESSION["csrf_token"])
     ) {

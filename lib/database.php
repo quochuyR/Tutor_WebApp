@@ -55,15 +55,7 @@ class Database
         return false;
     }
 
-    /**
-     * Hàm có nhiệm vụ truy vấn đến csdl
-     * @return object|bool đối tượng chứa thông tin truy vấn
-     */
-    public function update($query): object | bool
-    {
-        $result = $this->link->query($query) or die($this->link->error.__LINE__);
-        return $result;
-    }
+  
 
     /**
      * Hàm có nhiệm vụ truy vấn, thêm, cập nhật, xoá, gọi procedure đến csdl

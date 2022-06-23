@@ -51,4 +51,18 @@ class Certificate
         return $result;
     }
 
+    /**
+     * Hàm có nhiệm vụ lấy thông tin bằng cấp
+     * @return object thông tin bằng cấp
+     */
+    public function get_image_certificate($tutorId): object
+    {
+        $query = "SELECT image 
+        FROM `certificates` 
+        WHERE tutorId = ?; ";
+        $tutorId = $this->db->link->real_escape_string($tutorId);
+        $result = $this->db->p_statement($query, "s", [$tutorId]);
+        return $result;
+    }
+
 }

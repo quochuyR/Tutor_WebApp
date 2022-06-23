@@ -2,6 +2,7 @@
 
 namespace Classes;
 
+use Helpers\Sanitization;
 use Library\Database;
 use mysqli;
 
@@ -163,12 +164,16 @@ class Subject
         FROM  `subjects` AS s";
         $q = "";
         $results = null;
-        if (isset($method['q']) && !empty($method['q'])) {
+        if (isset($method['num']) && !empty($method['num'])) {
 
-            $q = $method["q"];
+          
             $results = $this->db->select($query);
         }
-        if (isset($method['num']) && !empty($method['num'])) {
+        if (isset($method['q']) && !empty($method['q'])) {
+            $input = ["q" => $method["q"]];
+            $field = ["q" => "string"];
+            $q = Sanitization::sanitize($input, $field)["q"] ;
+            
             $query .= " WHERE s.`subject` LIKE  CONCAT('%',?,'%')";
             $query .= " ORDER BY s.`id` ASC;";
             $results = $this->db->p_statement($query, "s", [$q]);

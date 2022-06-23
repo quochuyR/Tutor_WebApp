@@ -273,6 +273,10 @@ a:hover {
     background-color: transparent !important;
 }
 /* end dropdown item */
+
+input[type=checkbox] {
+    transform: scale(1.3);
+}
 #handboy {
     animation: swing ease-in-out 1.3s infinite alternate;
     transform-origin: 98% 98%;
@@ -3288,5 +3292,12 @@ li+.postion-absolute {
 }
 .end-5{
   right: 5%;
+}
+
+.start-5{
+  left: 5%;
+}
+.translate-y-middle{
+  transform: translateY(-50%);
 }
 /* end position */

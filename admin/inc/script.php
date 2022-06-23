@@ -27,7 +27,7 @@ include_once($filepath . "../../../helpers/utilities.php");
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-<script src="<?= Util::getRootURL() . "/tutor_webapp/admin/" . "assets/js/main.js" ?>"></script>
+<script src="<?= mix("js/admin.js", 'tutor_webapp/public') ?>"></script>
 <!-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
