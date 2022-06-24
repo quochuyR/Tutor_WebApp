@@ -22,12 +22,13 @@ class Notification
     /**
      * Hàm có nhiệm vụ lấy thông báo dựa vào id người dùng
      * @param string $tutorId id gia sư
+     * @param int $notification_status trạng thái thông báo xem hay chưa (mặc định là 0( chưa xem) )
      * @param int $limit giới hạn số lượng thông báo (mặc định là 2)
      * @param int $offset bắt đầu từ thông báo nào (hàng trong csdl. Mặc định là 2)
      * @return object | bool thông tin của thông báo (SenderId, notification_subject, ...)
      */
 
-    public function getNotificationByUserId(string $userId, int $limit = 2, int $offset = 0): object | bool
+    public function getNotificationByUserId(string $userId, int $notification_status = 0,  int $limit = 2, int $offset = 0): object | bool
     {
         $userId = Format::validation($userId);
 
@@ -36,11 +37,11 @@ class Notification
         if (!empty($userId)) {
             $query = "SELECT `notifications`.`SenderId`, `notifications`.`notification_subject`, `notifications`.`notification_text`, `notifications`.`notification_link`
             FROM `notifications` 
-            WHERE `notifications`.`userID` = ?
-            ORDER BY `notifications`.`id` DESC 
+            WHERE `notifications`.`userID` = ? AND `notifications`.`notificationstatus` = ?
+            ORDER BY `notifications`.`date_dispatch` DESC 
             LIMIT ? OFFSET ?;";
 
-            $result = $this->db->p_statement($query, "sii", [$userId, $limit, $offset]);
+            $result = $this->db->p_statement($query, "siii", [$userId, $notification_status, $limit, $offset]);
             return $result;
         }
 

@@ -352,13 +352,13 @@
         $("#more-notification").on('click', (e) => {
 
 
-            offset += 2;
-            // thêm subject filter
+            offset += 3;
+           
             responseNotification && $.ajax({
                 type: "post",
                 url: "../api/notification/getnotificationmore",
                 data: {
-                    numNotification, // lấy giá trị của thuộc tính subject-id
+                    numNotification, 
                     offset
                 },
                 cache: false,

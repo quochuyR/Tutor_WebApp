@@ -114,14 +114,6 @@
       });
     }
 
-
-
-    //
-
-
-
-
-
     // 
 
 
@@ -317,8 +309,78 @@
       $("#password-field").val('');
     }
 
-
     logout();
+
+    function load_unseen_notification(view = '') {
+
+      $.ajax({
+        type: "post",
+        url: "../api/notification/getnotification",
+        data: {
+          view: view
+        },
+        cache: false,
+        success: function (data) {
+          if (data.unseen_notification > 0) {
+            $('.new-notification-list').html(data.notification);
+
+            $('#num_unread_notification').html(data.unseen_notification);
+          }
+          else{
+
+          }
+          console.log(data, "noti")
+        },
+        error: function (xhr, status, error) {
+          console.error(xhr);
+        }
+      });
+    }
+    function load_seen_notification() {
+
+      $.ajax({
+        type: "post",
+        url: "../api/notification/getseennotification",
+        data: {
+          num_notification: 3,
+          offset: 0
+        },
+        cache: false,
+        success: function (data) {
+          if (data.get_notification === "successful") {
+            $('.list-notification').html(data.notification);
+          }
+          console.log(data, "noti_seen")
+        },
+        error: function (xhr, status, error) {
+          console.error(xhr);
+        }
+      });
+    }
+    load_seen_notification();
+    load_unseen_notification();
+
+    $('.dropdown-notification').on('shown.bs.dropdown', function () {
+      // do something...
+      load_seen_notification();
+      load_unseen_notification('yes');
+    });
+
+    $('.dropdown-notification').on('hidden.bs.dropdown', function () {
+      // do something...
+      $('#num_unread_notification').html(0);
+
+      $('.new-notification-list').html('<a href="#" class="d-flex list-group-item list-group-item-action border-0 text-small">Không có thông báo</a>');
+
+    });
+
+    load_new_notification();
+    function load_new_notification() {
+      load_unseen_notification();
+
+      setTimeout(load_new_notification, 10000);
+    }
+
 
   });
 
