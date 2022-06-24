@@ -100,8 +100,8 @@ include "../inc/head.php";
                                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButtonNoti" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="material-symbols-rounded position-relative">
                                             notifications
-                                            <span class="position-absolute top-0 start-100 translate-middle  p-2 bg-danger border border-light rounded-circle">
-
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="num_unread_notification">
+                                                0
                                                 <span class="visually-hidden">New alerts</span>
                                             </span>
                                         </span>
@@ -111,33 +111,14 @@ include "../inc/head.php";
                                     <div class="dropdown-menu w-350 dropdown-menu-start " aria-labelledby="dropdownMenuButtonNoti">
                                         <div class="card border-0 mb-0">
                                             <h5 class="card-header text-primary">Thông báo</h5>
-                                            <div class="card-body p-0 overflow-y-scroll" style="max-height:40vh;">
+                                            <div class="card-body overflow-y-scroll" style="max-height:40vh;">
+                                                <h6 class="fw-600">Mới nhất</h6>
+                                                <div class="list-group new-notification-list">
+
+                                                    <a href="#" class="d-flex list-group-item list-group-item-action border-0 text-small">Không có thông báo</a>
+                                                </div>
+                                                <h6 class="fw-600">Trước đó</h6>
                                                 <div class="list-group list-notification">
-                                                    <?php
-                                                    if (Session::checkLogin()) {
-                                                        $fetch_notification = $notification->getNotificationByUserId(Session::get("userId"));
-
-                                                        while ($notifi = $fetch_notification->fetch_assoc()) {
-                                                            $sender = $notification->getUserBySenderId($notifi["SenderId"])->fetch_assoc();
-
-                                                    ?>
-
-                                                            <a href="<?= Util::getCurrentURL(1) ."pages/". $notifi["notification_link"] ?>" class="d-flex list-group-item list-group-item-action border-0 text-small">
-                                                                <div class="my-auto me-2">
-                                                                    <img src="<?= isset($sender["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $sender["imagepath"] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg"; ?>" class="avatar-notification avatar-sm-notification  ">
-                                                                </div>
-                                                                <div>
-                                                                    <b><?= $sender["firstname"] ?></b> <?= $notifi["notification_text"] ?>
-                                                                </div>
-
-                                                            </a>
-
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
-
-
                                                 </div>
                                                 <div id="end-notification"></div>
                                             </div>
@@ -212,20 +193,20 @@ include "../inc/head.php";
                                                     <span class="d-block m-l-10">Lịch học của bạn</span>
                                                 </a>
                                             </li>
-                                            
-                                        <li>
-                                            <a class="dropdown-item d-inline-flex py-1" href="<?= Format::validation("./saved_tutors?limit=3&page=1") ?>">
-                                                <span class="material-symbols-rounded text-danger">
-                                                    favorite
-                                                </span>
-                                                <span class="d-block m-l-10">Gia sư đã lưu</span>
-                                            </a>
-                                        </li>
+
+                                            <li>
+                                                <a class="dropdown-item d-inline-flex py-1" href="<?= Format::validation("./saved_tutors?limit=3&page=1") ?>">
+                                                    <span class="material-symbols-rounded text-danger">
+                                                        favorite
+                                                    </span>
+                                                    <span class="d-block m-l-10">Gia sư đã lưu</span>
+                                                </a>
+                                            </li>
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>
 
-                                            
+
                                         <?php } ?>
 
                                         <li>

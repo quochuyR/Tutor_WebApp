@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $numNotification = Format::validation($_POST["numNotification"]);
         $offset = Format::validation($_POST["offset"]);
-        $fetch_notification = $_notification->getNotificationByUserId(Session::get("userId"), $numNotification, $offset);
+        $fetch_notification = $_notification->getNotificationByUserId(Session::get("userId"), 1, $numNotification, $offset);
         if ($fetch_notification) {
 
             while ($notifi = $fetch_notification->fetch_assoc()) {

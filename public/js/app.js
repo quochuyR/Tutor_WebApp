@@ -160,8 +160,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         // validation select2
         $(this).valid();
       });
-    } //
-    // 
+    } // 
 
 
     $('.js-data-subjects-ajax').select2({
@@ -348,6 +347,70 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
 
     logout();
+
+    function load_unseen_notification() {
+      var view = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      $.ajax({
+        type: "post",
+        url: "../api/notification/getnotification",
+        data: {
+          view: view
+        },
+        cache: false,
+        success: function success(data) {
+          if (data.unseen_notification > 0) {
+            $('.new-notification-list').html(data.notification);
+            $('#num_unread_notification').html(data.unseen_notification);
+          } else {}
+
+          console.log(data, "noti");
+        },
+        error: function error(xhr, status, _error4) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    function load_seen_notification() {
+      $.ajax({
+        type: "post",
+        url: "../api/notification/getseennotification",
+        data: {
+          num_notification: 3,
+          offset: 0
+        },
+        cache: false,
+        success: function success(data) {
+          if (data.get_notification === "successful") {
+            $('.list-notification').html(data.notification);
+          }
+
+          console.log(data, "noti_seen");
+        },
+        error: function error(xhr, status, _error5) {
+          console.error(xhr);
+        }
+      });
+    }
+
+    load_seen_notification();
+    load_unseen_notification();
+    $('.dropdown-notification').on('shown.bs.dropdown', function () {
+      // do something...
+      load_seen_notification();
+      load_unseen_notification('yes');
+    });
+    $('.dropdown-notification').on('hidden.bs.dropdown', function () {
+      // do something...
+      $('#num_unread_notification').html(0);
+      $('.new-notification-list').html('<a href="#" class="d-flex list-group-item list-group-item-action border-0 text-small">Không có thông báo</a>');
+    });
+    load_new_notification();
+
+    function load_new_notification() {
+      load_unseen_notification();
+      setTimeout(load_new_notification, 10000);
+    }
   }); // validation form
 })();
 })();
@@ -679,14 +742,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
 
     $("#more-notification").on('click', function (e) {
-      offset += 2; // thêm subject filter
-
+      offset += 3;
       responseNotification && $.ajax({
         type: "post",
         url: "../api/notification/getnotificationmore",
         data: {
           numNotification: numNotification,
-          // lấy giá trị của thuộc tính subject-id
           offset: offset
         },
         cache: false,

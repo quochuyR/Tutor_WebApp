@@ -170,7 +170,7 @@ class Remember
 
         if ($this->insert_user_token($user_id, $selector, $hash_validator, $expiry)) {
 
-            setcookie('remember_me', $token, $expired_seconds,  "/", "localhost", false);
+            setcookie('remember_me', $token, $expired_seconds,  "/", "localhost", true, true);
         }
     }
 }
