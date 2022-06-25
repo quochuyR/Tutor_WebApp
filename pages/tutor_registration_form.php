@@ -34,14 +34,20 @@ include "../inc/header.php";
                 <!-- <p class="blue-text">Just answer a few questions<br> so that we can personalize the right experience for you.</p> -->
                 <div class="card py-3">
                     <div class="card-body">
-                        <h4 class="fw-bold mb-5">Đăng kí dạy kèm</h4>
+                        <h3 class="card-title fw-700 mb-4">Đăng kí dạy kèm</h3>
 
                         <form class="form-card" id="register-form">
                             <input type="hidden" id="token" value="<?= Session::get("csrf_token") ?>" />
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row justify-content-between text-start">
-                                        <h5 class="text-start fw-bold mb-4 border-bottom pt-2 pb-2">Thông tin liên lạc</h5>
+                                        <div class="d-inline-flex card-title mb-4 border-bottom pt-2 pb-2">
+                                            <h5 class="text-start fw-600 pe-1">Thông tin liên lạc</h5>
+
+                                            <span class="material-symbols-rounded text-info" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Những thông tin này sẽ hiển thị cho người dùng có thể liên hệ với bạn">
+                                                help
+                                            </span>
+                                        </div>
                                         <div class="form-group col-sm-6 flex-column d-flex">
                                             <label class="form-control-label ">Số điện thoại<span class="text-danger"> *</span></label>
                                             <input class="form-control" type="text" id="current-phone-number" name="current-phone-number" placeholder="Nhập số điện thoại" value="">
@@ -63,8 +69,16 @@ include "../inc/header.php";
 
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="text-start fw-bold md-4 border-bottom pb-2 pt-2">Thông tin gia sư</h5>
+
                                     <div class="row justify-content-between text-start pt-3">
+                                        <div class="d-inline-flex card-title mb-4 border-bottom pt-2 pb-2">
+
+                                            <h5 class="text-start fw-600 pe-1">Thông tin gia sư</h5>
+
+                                            <span class="material-symbols-rounded text-info" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Những thông tin này sẽ được quản lý liên hệ phỏng vấn để xác thực với bạn">
+                                                help
+                                            </span>
+                                        </div>
                                         <div class="form-group col-sm-4 flex-column d-flex">
                                             <label class="form-control-label">Bạn đang là<span class="text-danger"> *</span></label>
                                             <select class="form-select" name="job" id="job">
@@ -146,7 +160,13 @@ include "../inc/header.php";
                                 <div class="card-body">
 
                                     <div class="row justify-content-between text-start">
-                                        <h5 class="header-title fw-bold pb-2 mb-3 border-bottom">Bằng cấp gia sư</h5>
+                                        <div class="d-inline-flex card-title mb-4 border-bottom pt-2 pb-2">
+                                            <h5 class="text-start fw-600 pe-1">Bằng cấp gia sư</h5>
+
+                                            <span class="material-symbols-rounded text-info" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Ảnh bằng cấp hoặc chứng chỉ mà bạn đạt được">
+                                                help
+                                            </span>
+                                        </div>
                                         <div class="row g-0">
 
                                             <div class="form-group col-sm-12">
@@ -182,7 +202,13 @@ include "../inc/header.php";
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row justify-content-between text-start">
-                                        <h5 class="header-title fw-bold pb-2 mb-3 border-bottom">Thời gian có thể nhận lớp</h5>
+                                        <div class="d-inline-flex card-title mb-4 border-bottom pt-2 pb-2">
+                                            <h5 class="text-start fw-600 pe-1">Thời gian nhận lớp</h5>
+
+                                            <span class="material-symbols-rounded text-info" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Thời gian mà bạn có thể dạy học được">
+                                                help
+                                            </span>
+                                        </div>
                                         <div class="row g-0">
                                             <div class="form-group col-sm-12">
 
@@ -263,6 +289,6 @@ include "../inc/header.php";
 include "../inc/script.php"
 ?>
 <script>
-   
+
 </script>
 <?php include '../inc/footer.php' ?>

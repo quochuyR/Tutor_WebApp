@@ -6,6 +6,7 @@ use Helpers\Util;
 use Library\Session;
 
 use Classes\Tutor, Classes\Subject;
+
 require_once(__DIR__ . "../../../vendor/autoload.php");
 
 // $filepath  = realpath(dirname(__FILE__));
@@ -57,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") :
                             <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(2) . "public/" .  $result['imagepath'] : Util::getCurrentURL(2) . "public/images/avatar5-default.jpg") ?>" class="rounded" alt="" srcset="">
                         </div>
                         <div class="card-body">
-                            <h6 class="font-weight-bold pt-1"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h6>
+                            <h5 class="fw-600 pt-1 pb-2 limit-text-inline"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h5>
                             <?php
                             $subjectTutors = "";
                             $subjectList = $subjects->getByTutorId($result['id']);
@@ -68,7 +69,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") :
                             $subjectTutors = substr($subjectTutors, 0, strlen(trim($subjectTutors)) - 1);
                             ?>
 
-                            <div class="text-muted description-intro"><?= $result['teachingarea'] . ' | ' . $subjectTutors ?></div>
+                            <div class=" d-flex pb-2">
+                                <span class="material-symbols-rounded pe-1">
+                                    pin_drop
+                                </span>
+                                <span class="description-intro"><?= $result['teachingarea'] . "," . str_replace(["Tỉnh", "Thành phố"], '', $result['currentplace']) ?>
+                                </span>
+                            </div>
+                            <div class=" d-flex pb-2">
+                                <span class="material-symbols-rounded pe-1">
+                                    book
+                                </span>
+                                <span class="description-intro"><?= $subjectTutors ?></span>
+                            </div>
                             <div class="text-start description product limit-text mb-5">
                                 <?= html_entity_decode($result['introduction']) ?>
                             </div>

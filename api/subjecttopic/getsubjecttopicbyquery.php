@@ -12,7 +12,7 @@ require_once(__DIR__ . "../../../vendor/autoload.php");
 
 // include_once $filepath . "../../lib/session.php";
 if (!Session::checkRoles(['tutor', 'user'])) {
-    header("location:../pages/errors/404");
+    header("location:../../pages/errors/404");
 }
 // include_once $filepath . "../../classes/subjecttopics.php";
 // include_once $filepath . "../../classes/subjects.php";

@@ -264,7 +264,7 @@ include "../inc/header.php";
                                                         <div class="d-flex flex-start">
                                                             <img class="rounded-circle shadow-1-strong me-3" src="<?= Util::getCurrentURL(1) . 'public/' . $review_user["imagepath"] ?>" alt="avatar" width="60" height="60" />
                                                             <div>
-                                                                <h6 class="fw-bold mb-1"><?= $review_user['lastname'] . ' ' . $review_user['firstname'] ?></h6>
+                                                                <h6 class="fw-600 mb-1"><?= $review_user['lastname'] . ' ' . $review_user['firstname'] ?></h6>
                                                                 <div class="d-flex align-items-center mb-3">
                                                                     <p class="mb-0 text-muted">
                                                                         <?= Format::formatDate(strtotime($review_user['date_rating'])) ?>
@@ -344,7 +344,7 @@ include "../inc/header.php";
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 border-end border-light">
-                                        <h5 class="mt-1 mb-2  fw-bold text-start border-bottom pb-2">Giới thiệu chung
+                                        <h5 class="mt-1 mb-2  fw-600 text-start border-bottom pb-2">Giới thiệu chung
                                             và kinh nghiệm gia
                                             sư</h5>
                                         <?= html_entity_decode($result["introduction"]) ?>
@@ -359,7 +359,7 @@ include "../inc/header.php";
 
                         <div class="card card-detail">
                             <div class="card-body">
-                                <h5 class="header-title fw-bold pb-2 border-bottom">Môn học đang dạy</h5>
+                                <h5 class="header-title fw-600 pb-2 border-bottom">Môn học đang dạy</h5>
 
                                 <div class="inbox-widget mt-2" data-simplebar="init" style="max-height: 7rem;">
                                     <div class="simplebar-wrapper" style="margin: 0px;">
@@ -412,7 +412,7 @@ include "../inc/header.php";
                     <?php endforeach; ?>
                     <div class="card card-detail">
                         <div class="card-body">
-                            <h5 class="header-title fw-bold pb-2 mb-3 border-bottom">Lịch dạy gia sư</h5>
+                            <h5 class="header-title fw-600 pb-2 mb-3 border-bottom">Lịch dạy gia sư</h5>
                             <div class="row g-0">
                                 <?php
                                 $dow_list = $dayofweeks->getAll();
