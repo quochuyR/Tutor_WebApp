@@ -193,7 +193,7 @@ include "../inc/header.php";
             <div class="row justify-content-around pt-5">
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="card card-second" style="width: 18rem">
-                        <img src="https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-gai-xinh-deo-kinh-1.jpg" class="card-img-top rounded" alt="...">
+                        <img src="../public/images/Homepage/gia-su-chat-luong.png" class="card-img-top rounded" alt="...">
                         <div class="card-body">
                             <p class="card-title text-center"><b>GIA SƯ CHẤT LƯỢNG CAO</b></p>
                             <p class="card-text card-second-text">Được tuyển chọn từ hơn 40.000 gia sư từ các trường đại học hàng đầu Việt Nam, các gia sư còn trải qua quá trình đào tạo và kiểm tra nghiêm khắc.</p>
@@ -202,7 +202,7 @@ include "../inc/header.php";
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 pt-5">
                     <div class="card card-second" style="width:  18rem">
-                        <img src="https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-gai-xinh-deo-kinh-1.jpg" class="card-img-top" alt="...">
+                        <img src="../public/images/Homepage/Hoc-tap-ca-nhan-hoa.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-title text-center"><b>HỌC TẬP CÁ NHÂN HOÁ</b></p>
                             <p class="card-text card-second-text">Không chỉ cá nhân hoá lộ trình học mà mỗi học sinh đều được xác định phong cách học riêng và giảng dạy theo phương pháp phù hợp nhất với phong cách đó.</p>
@@ -211,7 +211,7 @@ include "../inc/header.php";
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="card card-second" style="width:  18rem">
-                        <img src="https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-gai-xinh-deo-kinh-1.jpg" class="card-img-top" alt="...">
+                        <img src="../public/images/Homepage/gia-su-chuyen-mon.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-title text-center"><b>GIÁO VIÊN CHUYÊN MÔN</b></p>
                             <p class="card-text card-second-text">Mỗi lớp gia sư sẽ có một giáo viên giỏi giám sát và đảm bảo chất lượng dạy và học. Giáo viên chuyên môn sẽ lên lộ trình, theo dõi và trao đổi cùng gia sư và phụ huynh.</p>
@@ -220,7 +220,7 @@ include "../inc/header.php";
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 pt-5">
                     <div class="card card-second" style="width: 18rem">
-                        <img src="https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-gai-xinh-deo-kinh-1.jpg" class="card-img-top" alt="...">
+                        <img src="../public/images/Homepage/Huong-dan-quan-tri-web.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <p class="card-title text-center"><b>WEBSITE QUẢN LÝ</b></p>
                             <p class="card-text card-second-text">Website Gia Sư giúp phụ huynh dễ dàng theo dõi được nội dung học từng buổi học, đọc báo cáo học tập và nhận xét của gia sư, của cô giáo tổ chuyên môn.</p>

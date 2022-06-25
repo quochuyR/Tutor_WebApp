@@ -115,7 +115,7 @@
 }
 
 .features-background {
-    background-image: url('../../../public/images/background/background-trangchu-1.png');
+    background-image: url("../../public/images/background/background-trangchu-1.png");
     background-size: cover;
 }
 
