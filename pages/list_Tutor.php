@@ -257,8 +257,8 @@ include "../inc/header.php";
                 <div class="container py-3">
                   
 
-                    <div class="row">
-                        <div class="col-12 pb-4  g-0 d-flex justify-content-end">
+                    <div class="row g-0">
+                        <div class="col-12 pb-4  d-flex justify-content-end">
                             
                             <nav aria-label="Page navigation example " id="pagination-nav" class="mt-3">
                             </nav>

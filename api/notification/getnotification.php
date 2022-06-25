@@ -15,7 +15,8 @@ require_once(__DIR__ . "../../../vendor/autoload.php");
 
 // include_once($filepath . "../../lib/session.php");
 if (!Session::checkRoles(['user', 'tutor'])) {
-    header("location:../pages/errors/404");
+    die();
+    // header("location:../../pages/errors/404");
 }
 // include_once $filepath . "../../classes/notifications.php";
 

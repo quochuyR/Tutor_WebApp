@@ -239,3 +239,15 @@
   transform: translateY(-50%);
 }
 /* end position */
+
+/* text */
+
+.limit-text-inline{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  /* max-width: calc(100% - 14rem); */
+}
+
+/* end text */

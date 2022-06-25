@@ -80,14 +80,14 @@ include "../inc/header.php"
                                                 <img src="<?= Util::getCurrentURL(1) . "public/" . $tutor["imagepath"] ?>" alt=".">
                                             </div>
                                             <div class="job-content">
-                                                <h5 class="text-xs-center text-md-left fw-bold"><?= $tutor["lastname"] . ' ' . $tutor["firstname"] ?></h5>
+                                                <h5 class="text-xs-center text-md-left fw-700"><?= $tutor["lastname"] . ' ' . $tutor["firstname"] ?></h5>
 
                                                 <ul class="d-md-flex flex-md-column flex-wrap my-md-2 ff-open-sans p-0">
                                                     <li class="text-sub d-inline-flex">
                                                         <span class="material-symbols-rounded" style="color: #131311 !important;">
                                                             home
                                                         </span>
-                                                        <span class="text-muted m-l-10 pt-1">
+                                                        <span class="fw-600 m-l-10 pt-1">
                                                             <?= $tutor["teachingarea"] ?> | <?php $subjectTutors = "";
                                                                                             $subjectList = $subjects->getByTutorId($tutor['id']);
                                                                                             while ($resultSB = $subjectList->fetch_assoc()) {
@@ -102,7 +102,7 @@ include "../inc/header.php"
                                                         <span class="material-symbols-rounded" style="color: #3e4359">
                                                             work
                                                         </span>
-                                                        <span class="text-muted m-l-10 pt-1">
+                                                        <span class="m-l-10 fw-600 pt-1">
                                                             <?= isset($tutor["job"]) ? $tutor["job"] : "Chưa có thông tin"; ?>
                                                         </span>
                                                     </li>
