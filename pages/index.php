@@ -90,11 +90,11 @@ include "../inc/header.php";
             </div>
         </div>
     </section>
-<hr>
+    <hr>
     <!-- Lọc trên web -->
     <section class="container">
         <div>
-            <h2 class="text-center m-3" >Danh sách gia sư tiêu biểu</h2>
+            <h2 class="text-center m-3">Danh sách gia sư tiêu biểu</h2>
         </div>
         <div class="row justify-content-around">
             <?php
@@ -144,6 +144,151 @@ include "../inc/header.php";
             ?>
         </div>
     </section>
+
+    <!-- About Start -->
+    <section class="container py-6 pt-5 about-start">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 wow zoomIn" data-wow-delay="0.1s">
+                    <!-- Change img -->
+                    <img class="img-fluid about-image-transiton" src="https://giasuongmattroi.com/wp-content/uploads/2018/06/doi-ngu-gia-su-tay-nghe-cao.jpg">
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="text-align: justify;">
+                    <h1 class="mb-4">Giới Thiệu</h1>
+                    <p class="mb-4"><b>Website gia sư</b> là công cụ giúp trung tâm hỗ trợ giải đáp câu hỏi của khách hàng hiệu quả, website giúp truyền tải đầy đủ thông tin của gia sư đến phụ huynh một cách thuận tiện, những thông báo từ lịch học, giá dịch vụ, …. giúp
+                        phụ huynh có thể tiếp nhận nhanh nhất. Ngoài ra, mọi thắc mắc của phụ huynh sẽ được hỗ trợ ngay trên website gia sư.</p>
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 d-flex">
+                            <div class="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
+                                <i class="fa fa-user-tie text-white"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h6>Phụ huynh</h6>
+                                <span>“Website Gia Sư” mang lại thuận tiện trong việc tìm kiếm gia sư tốt cho con của bậc phụ huynh. Tiết kiệm thời gian, chi phí, công sức...</span>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h6>Gia Sư</h6>
+                                <span>"Gia sư"là một công việc khá lí tưởng cho những sinh viên đang trong quá trình học tập tại các trường đại học hoặc đã tốt nghiệp. Đặc biệt những bạn chưa có công việc ổn định hoặc muốn kiếm thêm thu nhập cho bản thân. </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-more-link text-center"><a class="btn btn-about rounded-pill  px-5 mt-2" href="#features">Xem thêm</a></div>
+
+                    <!-- <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">Xem thêm</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About End -->
+    <!-- About Second strat-->
+    <section class="about-second-background container-fluid">
+        <div class="container pt-5 about-second">
+            <h4 class="text-center">Hãy tìm cho con một gia sư</h4>
+            <h2 class="text-center">Gia Sư - Trợ lý học tập đích thực</h2>
+            <div class="row justify-content-around pt-5">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card card-second" style="width: 18rem">
+                        <img src="https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-gai-xinh-deo-kinh-1.jpg" class="card-img-top rounded" alt="...">
+                        <div class="card-body">
+                            <p class="card-title text-center"><b>GIA SƯ CHẤT LƯỢNG CAO</b></p>
+                            <p class="card-text card-second-text">Được tuyển chọn từ hơn 40.000 gia sư từ các trường đại học hàng đầu Việt Nam, các gia sư còn trải qua quá trình đào tạo và kiểm tra nghiêm khắc.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 pt-5">
+                    <div class="card card-second" style="width:  18rem">
+                        <img src="https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-gai-xinh-deo-kinh-1.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-title text-center"><b>HỌC TẬP CÁ NHÂN HOÁ</b></p>
+                            <p class="card-text card-second-text">Không chỉ cá nhân hoá lộ trình học mà mỗi học sinh đều được xác định phong cách học riêng và giảng dạy theo phương pháp phù hợp nhất với phong cách đó.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="card card-second" style="width:  18rem">
+                        <img src="https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-gai-xinh-deo-kinh-1.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-title text-center"><b>GIÁO VIÊN CHUYÊN MÔN</b></p>
+                            <p class="card-text card-second-text">Mỗi lớp gia sư sẽ có một giáo viên giỏi giám sát và đảm bảo chất lượng dạy và học. Giáo viên chuyên môn sẽ lên lộ trình, theo dõi và trao đổi cùng gia sư và phụ huynh.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 pt-5">
+                    <div class="card card-second" style="width: 18rem">
+                        <img src="https://pdp.edu.vn/wp-content/uploads/2021/06/hinh-anh-gai-xinh-deo-kinh-1.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <p class="card-title text-center"><b>WEBSITE QUẢN LÝ</b></p>
+                            <p class="card-text card-second-text">Website Gia Sư giúp phụ huynh dễ dàng theo dõi được nội dung học từng buổi học, đọc báo cáo học tập và nhận xét của gia sư, của cô giáo tổ chuyên môn.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center p-4">
+                <div class="btn btn-warning p-2 text-light"><a class="link-light h4" href="">Đăng kí gia sư miễn phí</a></div>
+            </div>
+        </div>
+    </section>
+    <!-- About Second end  -->
+
+    <!-- Features Start -->
+    <section class="features-background container-fluid">
+        <section id="features" class="container pt-5 pb-5">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-5 wow fadeInUp align-self-center" data-wow-delay="0.1s">
+                        <h2 class="mb-4">TẠI SAO CHỌN GIA SƯ TRÊN WEBSITE?</h2>
+                        <p>Lý do để hơn 3000+ phụ huynh toàn quốc lựa chọn Gia Sư giúp con học tốt và cảm thấy hiệu quả hơn bất kỳ hình thức học tập nào khác.</p>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="row g-5">
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
+                                        <i class="fa fa-cubes text-white"></i>
+                                    </div>
+                                    <h6 class="mb-0">Quản lý chất lượng từ giáo viên giỏi</h6>
+                                </div>
+                                <span class="features-text">Khác với học gia sư tự do, gia sư sẽ được quản lý chất lượng và định hướng bởi tổ giáo viên giỏi.</span>
+                            </div>
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.2s">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
+                                        <i class="fa fa-percent text-white"></i>
+                                    </div>
+                                    <h6 class="mb-0">Cách học mới & Tài liệu độc quyền</h6>
+                                </div>
+                                <span class="features-text">Học sinh được học theo đúng phong cách của mình nên tiếp thu nhanh hơn, hứng thú hơn. Kho bài giảng được nghiên cứu, giúp học dễ hiểu và hiệu quả hơn.</span>
+                            </div>
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
+                                        <i class="fa fa-smile-beam text-white"></i>
+                                    </div>
+                                    <h6 class="mb-0">Website tiện lợi</h6>
+                                </div>
+                                <span class="features-text">Website Gia Sư giúp phụ huynh theo dõi được từng buổi học, xem biểu đồ phát triển của con.</span>
+                            </div>
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
+                                        <i class="fa fa-user-tie text-white"></i>
+                                    </div>
+                                    <h6 class="mb-0">Được hỗ trợ từ trường đại học</h6>
+                                </div>
+                                <span class="features-text">Trường Đại học Đồng Tháp là đơn vị uy tín.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- Features End -->
 
     <!-- gioi thieu gia su day kem tai nha la gi -->
     <section class="mt-5 d-flex align-items-center justify-content-center" style="height: 300px; background-color: #A1E3D8;">

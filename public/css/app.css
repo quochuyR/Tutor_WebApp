@@ -2665,6 +2665,38 @@ h6 {
             line-clamp: 3; 
     -webkit-box-orient: vertical;
  }
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+    background-color: #00B98E !important;
+    color: #fff !important;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    border-radius: 50px;
+}
+
+.btn-about {
+    background-color: #00B98E;
+    color: #fff !important;
+}
 
 .carouselDanhGiaPhuHuynh .carousel-item {
     height: 40vh !important;
@@ -2672,6 +2704,86 @@ h6 {
 
 .carouselTrangChu .carousel-item {
     max-height: 80vh !important;
+}
+
+
+/* about  start */
+
+.about-start {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.about-more-link a {
+    transition: 0.7s;
+    animation: animationMoreBtn 3s infinite;
+    transition: transform 1s;
+}
+
+@keyframes animationMoreBtn {
+    0% {
+        background-color: #45B8AC;
+        transform: scale(1);
+    }
+    100% {
+        background-color: #00B98E;
+        transform: scale(1.1);
+    }
+}
+
+.about-more-link:hover a {
+    background-color: #45B8AC;
+}
+
+.about-image-transiton {
+    transition: transform 1s;
+}
+
+.about-image-transiton:hover {
+    transform: rotate(6deg);
+}
+
+
+/* card-about-second */
+
+.about-second {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.about-second-background {
+    background-image: url('https://static.vecteezy.com/system/resources/previews/004/554/612/non_2x/abstract-blue-wave-set-on-transparent-background-illustration-free-vector.jpg');
+    background-size: cover;
+}
+
+.card-second-text {
+    text-align: justify !important;
+    font-size: 0.9em;
+}
+
+.card-second {
+    transition: 0.3s ease;
+}
+
+.card-second:hover {
+    transform: translateY(-10px);
+    border: none;
+    border-bottom: 10px solid #2196fe;
+}
+
+.features-text {
+    text-align: justify !important;
+    font-size: 0.9em;
+}
+
+#features {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.features-background {
+    background-image: url('../../../public/images/background/background-trangchu-1.png');
+    background-size: cover;
 }
 
 
