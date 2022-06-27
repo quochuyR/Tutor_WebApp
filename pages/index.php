@@ -149,11 +149,11 @@ include "../inc/header.php";
     <section class="container py-6 pt-5 about-start">
         <div class="container">
             <div class="row g-5 align-items-center">
-                <div class="col-lg-6 wow zoomIn" data-wow-delay="0.1s">
+                <div class="col-lg-6 wow zoomIn" data-wow-delay="0.1s" data-aos="zoom-out-right">
                     <!-- Change img -->
                     <img class="img-fluid about-image-transiton" src="https://giasuongmattroi.com/wp-content/uploads/2018/06/doi-ngu-gia-su-tay-nghe-cao.jpg">
                 </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="text-align: justify;">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" data-aos="zoom-out-left" style="text-align: justify;">
                     <h1 class="mb-4">Giới Thiệu</h1>
                     <p class="mb-4"><b>Website gia sư</b> là công cụ giúp trung tâm hỗ trợ giải đáp câu hỏi của khách hàng hiệu quả, website giúp truyền tải đầy đủ thông tin của gia sư đến phụ huynh một cách thuận tiện, những thông báo từ lịch học, giá dịch vụ, …. giúp
                         phụ huynh có thể tiếp nhận nhanh nhất. Ngoài ra, mọi thắc mắc của phụ huynh sẽ được hỗ trợ ngay trên website gia sư.</p>
@@ -189,7 +189,7 @@ include "../inc/header.php";
         <div class="container pt-5 about-second">
             <h4 class="text-center">Hãy tìm cho con một gia sư</h4>
             <h2 class="text-center">Gia Sư - Trợ lý học tập đích thực</h2>
-            <div class="row justify-content-around pt-5">
+            <div class="row justify-content-around pt-5" data-aos="zoom-in">
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="card card-second" style="width: 18rem">
                         <img src="../public/images/Homepage/gia-su-chat-luong.png" class="card-img-top rounded" alt="...">
@@ -199,7 +199,7 @@ include "../inc/header.php";
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 pt-5">
+                <div class="col-lg-3 col-md-6 col-sm-12 pt-5" data-aos="zoom-in">
                     <div class="card card-second" style="width:  18rem">
                         <img src="../public/images/Homepage/Hoc-tap-ca-nhan-hoa.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -208,7 +208,7 @@ include "../inc/header.php";
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="col-lg-3 col-md-6 col-sm-12" data-aos="zoom-in">
                     <div class="card card-second" style="width:  18rem">
                         <img src="../public/images/Homepage/gia-su-chuyen-mon.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -217,7 +217,7 @@ include "../inc/header.php";
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 pt-5">
+                <div class="col-lg-3 col-md-6 col-sm-12 pt-5" data-aos="zoom-in">
                     <div class="card card-second" style="width: 18rem">
                         <img src="../public/images/Homepage/Huong-dan-quan-tri-web.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -227,7 +227,7 @@ include "../inc/header.php";
                     </div>
                 </div>
             </div>
-            <div class="text-center p-4">
+            <div class="text-center p-4" data-aos="zoom-in-up">
                 <div class="btn text-light"><a class="link-light h4" href="list_tutor">Xem danh sách gia sư</a></div>
             </div>
         </div>
@@ -305,9 +305,9 @@ include "../inc/header.php";
                 <div class="col-6">
                     <select name="registerlive" id="register-live" class="form-control">
                         <option value="Tỉnh" selected>Tỉnh/Thành phố</option>
-                        <option value="Tỉnh" >Đồng Tháp</option>
-                        <option value="Tỉnh" >Vĩnh Phúc</option>
-                        <option value="Tỉnh" >Đồng Nai</option>
+                        <option value="Tỉnh">Đồng Tháp</option>
+                        <option value="Tỉnh">Vĩnh Phúc</option>
+                        <option value="Tỉnh">Đồng Nai</option>
                     </select>
                 </div>
                 <div class="col-6">
@@ -316,11 +316,11 @@ include "../inc/header.php";
             </div>
             <div class="row mb-3">
                 <div class="col-12">
-                    <textarea class="form-control" id="register-content" name="registercontent"  rows="3" placeholder="Nội dung muốn tư vấn"></textarea>
+                    <textarea class="form-control" id="register-content" name="registercontent" rows="3" placeholder="Nội dung muốn tư vấn"></textarea>
                 </div>
             </div>
             <div class="text-center">
-                <button class="btn"type="submit">GỬI ĐĂNG KÍ TƯ VẤN</button>
+                <button class="btn" type="submit">GỬI ĐĂNG KÍ TƯ VẤN</button>
             </div>
         </form>
     </section>
@@ -361,6 +361,41 @@ include "../inc/header.php";
             </div>
         </div>
     </section>
+    <!-- danh gia cua moi nguoi ve trang gia su day kem End-->
+    <!-- Tro thanh gia su Start -->
+    <section class="container">
+        <div>
+            <p>DÀNH CHO GIÁO VIÊN, SINH VIÊN</p>
+            <p>Trở Thành Gia Sư</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div data-aos="fade-right" data-aos-duration="1000">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Khác Biệt và Chuyên Nghiệp</h5>
+                            <p class="card-text">Được đào tạo nghiệp vụ sư phạm, kỹ năng, tâm lý. Dạy có giáo án chuẩn và trả lương theo từng buổi trên ứng dụng BMentor.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div data-aos="fade-left" data-aos-duration="1000">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Đăng Ký Trở Thành Gia Sư</h5>
+                            <p class="card-text">Hệ thống lớn nhất Việt Nam với hơn 40.000 gia sư. Đăng ký ngay để nâng cao chuyên môn và gia tăng thu nhập.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Tro thanh gia su End -->
+
+
     <!-- bootstrap 4 -->
     <!-- Smooth Scrolling  -->
     <!-- <script src="js/scroll.js"></script> -->
