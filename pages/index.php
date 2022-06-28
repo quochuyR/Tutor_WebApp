@@ -289,8 +289,45 @@ include "../inc/header.php";
     </section>
     <!-- Features End -->
 
+    <!-- danh gia cua moi nguoi ve trang gia su day kem  -->
+    <section style="background-color: #6a41ed; color: #FFFFFF;">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <p class="text-center pt-5">Ý KIẾN KHÁCH HÀNG</p>
+            <h2 class="text-center">Phụ Huynh và Học Viên Nói Gì?</h2>
+            <div class="carousel-inner pt-5">
+                <div class="carousel-item active" data-bs-interval="4000">
+                    <div class="row d-block w-100 ">
+                        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://anhdep123.com/wp-content/uploads/2020/05/anh-gai-che-mat-4.jpg" data-holder-rendered="true">
+                            <h3 class="mt-3">Nguyễn Văn A</h3>
+                            <p>Con tôi học rất tệ môn tiếng anh từ khi được dạy kèm ở đây thì giỏi ngữ văn lắm.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="4000">
+                    <div class="row d-block w-100 ">
+                        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://i.pinimg.com/originals/f7/a5/48/f7a5489830eef765b2ba8bc77f66e25d.png" data-holder-rendered="true">
+                            <h3 class="mt-3">Huỳnh Bé Nên</h3>
+                            <p>Con tôi khác yếu Anh Văn nhờ thầy cô dạy kèm ở đây cháu nó có thể lấy 10 điểm môn toán dễ dàng.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="4000">
+                    <div class="row d-block w-100 ">
+                        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://haycafe.vn/wp-content/uploads/2022/02/Anh-gai-xinh-Viet-Nam.jpg" data-holder-rendered="true">
+                            <h3 class="mt-3">Lâm Gia Huy</h3>
+                            <p>Cháu Diễm Mi nhà tôi mất tích 3 năm rồi từ khi tôi thuê gia sư ở đây thì con bé thấy trai đẹp nên tự mò về.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- danh gia cua moi nguoi ve trang gia su day kem End-->
     <!-- Form đăng kí tư vấn start  -->
-    <section class="form-register-tutor container p-3 d-flex justify-content-center">
+    <section class="form-register-tutor container p-3 d-flex justify-content-center" data-aos="zoom-in" data-aos-duration="1000">
         <form name="form-register">
             <h3>ĐĂNG KÍ TƯ VẤN MIỄN PHÍ</h3>
             <div class="row mb-3">
@@ -325,43 +362,6 @@ include "../inc/header.php";
         </form>
     </section>
     <!-- Form đăng kí tư vấn End  -->
-
-    <!-- danh gia cua moi nguoi ve trang gia su day kem  -->
-    <section style="background-color: #6a41ed; color: #FFFFFF;">
-        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <h2 class="text-center pt-5">Mọi người nghĩ gì về trang dạy kèm tại nhà?</h2>
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="4000">
-                    <div class="row d-block w-100 ">
-                        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://anhdep123.com/wp-content/uploads/2020/05/anh-gai-che-mat-4.jpg" data-holder-rendered="true">
-                            <h3 class="mt-3">Nguyễn Văn A</h3>
-                            <p>Con tôi học rất tệ môn tiếng anh từ khi được dạy kèm ở đây thì giỏi ngữ văn lắm.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item" data-bs-interval="4000">
-                    <div class="row d-block w-100 ">
-                        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://i.pinimg.com/originals/f7/a5/48/f7a5489830eef765b2ba8bc77f66e25d.png" data-holder-rendered="true">
-                            <h3 class="mt-3">Huỳnh Bé Nên</h3>
-                            <p>Con tôi khác yếu Anh Văn nhờ thầy cô dạy kèm ở đây cháu nó có thể lấy 10 điểm môn toán dễ dàng.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item" data-bs-interval="4000">
-                    <div class="row d-block w-100 ">
-                        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                            <img class="rounded-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://haycafe.vn/wp-content/uploads/2022/02/Anh-gai-xinh-Viet-Nam.jpg" data-holder-rendered="true">
-                            <h3 class="mt-3">Lâm Gia Huy</h3>
-                            <p>Cháu Diễm Mi nhà tôi mất tích 3 năm rồi từ khi tôi thuê gia sư ở đây thì con bé thấy trai đẹp nên tự mò về.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- danh gia cua moi nguoi ve trang gia su day kem End-->
     <!-- Tro thanh gia su Start -->
     <section class="container">
         <div>
@@ -372,10 +372,17 @@ include "../inc/header.php";
             <div class="col-sm-6">
                 <div data-aos="fade-right" data-aos-duration="1000">
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Khác Biệt và Chuyên Nghiệp</h5>
-                            <p class="card-text">Được đào tạo nghiệp vụ sư phạm, kỹ năng, tâm lý. Dạy có giáo án chuẩn và trả lương theo từng buổi trên ứng dụng BMentor.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div class="row g-0">
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Khác Biệt và Chuyên Nghiệp</h5>
+                                    <p class="card-text">Được đào tạo nghiệp vụ sư phạm, kỹ năng, tâm lý. Dạy có giáo án chuẩn và trả lương theo từng buổi trên ứng dụng BMentor.</p>
+                                    <a href="#" class="btn btn-primary">Tìm hiểu thêm</a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <img src="../public/images/Homepage/chuyen-gia-gia-su.png" class="img-responsive img-fluid" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -386,7 +393,7 @@ include "../inc/header.php";
                         <div class="card-body">
                             <h5 class="card-title">Đăng Ký Trở Thành Gia Sư</h5>
                             <p class="card-text">Hệ thống lớn nhất Việt Nam với hơn 40.000 gia sư. Đăng ký ngay để nâng cao chuyên môn và gia tăng thu nhập.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="#" class="btn btn-primary">Đăng kí ngay </a>
                         </div>
                     </div>
                 </div>
