@@ -14,7 +14,8 @@ const src = {
             'resources/js/saved_tutors.js',
             'resources/js/signup.js',
             'resources/js/tutor_details.js',
-            'resources/js/tutor_registration_form.js'],
+            'resources/js/tutor_registration_form.js'
+        ],
         css: ['resources/css/style.css',
             'resources/css/404/main.css',
             'resources/css/footer/main.css',
@@ -29,7 +30,8 @@ const src = {
             'resources/css/TrangChu/main.css',
             'resources/css/tutor_registration_form/main.css',
             'resources/css/user_detail/main.css',
-            'resources/css/utilities/main.css']
+            'resources/css/utilities/main.css'
+        ]
     },
     admin: {
         js: ['admin/resources/js/modules/image_viewer.js',
@@ -38,14 +40,16 @@ const src = {
             'admin/resources/js/managersubjects.js',
             'admin/resources/js/page_editpost.js',
             'admin/resources/js/topicmanager.js',
-            'admin/resources/js/tutormanagers.js'],
+            'admin/resources/js/tutormanagers.js'
+        ],
         css: ['admin/resources/css/carousel_post/main.css',
             'admin/resources/css/material-icon/main.css',
             'admin/resources/css/print/print.css',
             'admin/resources/css/sliderbar/main.css',
             'admin/resources/css/user_detail/main.css',
             'admin/resources/css/utilities/main.css',
-            'admin/resources/css/style.css',]
+            'admin/resources/css/style.css',
+        ]
     }
 }
 
@@ -64,7 +68,7 @@ const dest = {
 // For User
 if (argv.user) {
     mix.js(src.user.js, `${dest.user.js}/app.js`) // Output: public/js/app.js
-        .styles(src.user.css, `${dest.user.css}/app.css`)// Output: public/css/app.css
+        .styles(src.user.css, `${dest.user.css}/app.css`) // Output: public/css/app.css
 
 
 }
@@ -79,7 +83,7 @@ else if (argv.admin) {
 else {
     mix.js(src.user.js, `${dest.user.js}/app.js`)
 
-        .styles(src.user.css, `${dest.user.css}/app.css`)
+    .styles(src.user.css, `${dest.user.css}/app.css`)
         .js(src.admin.js, `${dest.admin.js}/admin.js`)
         .styles(src.admin.css, `${dest.admin.css}/admin.css`)
 
