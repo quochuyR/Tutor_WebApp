@@ -2712,9 +2712,8 @@ h6 {
 .about-start {
     margin-top: 100px;
     margin-bottom: 100px;
-    background-color: #333;
-    /* background-image: url("../../../public/images/background/background-1.png"); */
-    background-size: cover;
+    background-image: url("../../public/images/background/background-1.png");
+    /* background-size: cover; */
 }
 
 .about-more-link a {
