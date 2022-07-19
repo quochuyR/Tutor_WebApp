@@ -37,7 +37,7 @@ include "../inc/header.php";
 <!-- carousel silde  -->
 <div id="main" class="container-fluid px-0">
 
-    <section>
+    <section data-aos="zoom-in-up" data-aos-duration="1500">
         <div id="carouselExampleIndicators" class="carousel slide carouselTrangChu" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -63,7 +63,7 @@ include "../inc/header.php";
     <section class="container">
         <div class="container text-center mt-4">
             <div class="row">
-                <div class="col-4">
+                <div class="col-4" data-aos="zoom-in-left" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="row">
                         <div class="col-12"><img class="rounded-circle" alt="Uy tín" src="https://top1quangnam.com/wp-content/uploads/2021/06/UY-TIN-2.png" width="80" height="80"></div>
                         <div class="col-lg-12 col-12 ml-1 mt-3">
@@ -71,7 +71,7 @@ include "../inc/header.php";
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4" data-aos="zoom-in" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="row">
                         <div class="col-12"><img class="rounded-circle" alt="Tận tâm" src="http://cityhomes.net.vn/wp-content/uploads/2019/06/icon-tan-tam.png" width="80" height="80"></div>
                         <div class="col-lg-12 col-12 ml-1 mt-3">
@@ -79,7 +79,7 @@ include "../inc/header.php";
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4" data-aos="zoom-in-right" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="row">
                         <div class="col-lg-12 col-12"><img class="rounded-circle" alt="Chuyên nghiệp" src="https://iweb.tatthanh.com.vn/pic/3/service/images/thiet-ke-website-quang-cao(21).png" width="80" height="80"></div>
                         <div class="col-lg-12 col-12 ml-1 mt-3">
@@ -92,7 +92,7 @@ include "../inc/header.php";
     </section>
     <hr>
     <!-- Lọc trên web -->
-    <section class="container">
+    <section class="container" data-aos="zoom-in-up" data-aos-duration="1500">
         <div>
             <h2 class="text-center m-3">Danh sách gia sư tiêu biểu</h2>
         </div>
@@ -158,14 +158,14 @@ include "../inc/header.php";
     </section>
 
     <!-- About Start -->
-    <section class="container py-6 pt-5 about-start">
+    <section class="container-fluid py-6 pt-5 about-start">
         <div class="container">
             <div class="row g-5 align-items-center">
-                <div class="col-lg-6 wow zoomIn" data-wow-delay="0.1s">
+                <div class="col-lg-6 wow zoomIn" data-wow-delay="0.1s" data-aos="zoom-out-right" data-aos-duration="1500">
                     <!-- Change img -->
                     <img class="img-fluid about-image-transiton" src="https://giasuongmattroi.com/wp-content/uploads/2018/06/doi-ngu-gia-su-tay-nghe-cao.jpg">
                 </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="text-align: justify;">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" data-aos="zoom-out-left" style="text-align: justify;">
                     <h1 class="mb-4">Giới Thiệu</h1>
                     <p class="mb-4"><b>Website gia sư</b> là công cụ giúp trung tâm hỗ trợ giải đáp câu hỏi của khách hàng hiệu quả, website giúp truyền tải đầy đủ thông tin của gia sư đến phụ huynh một cách thuận tiện, những thông báo từ lịch học, giá dịch vụ, …. giúp
                         phụ huynh có thể tiếp nhận nhanh nhất. Ngoài ra, mọi thắc mắc của phụ huynh sẽ được hỗ trợ ngay trên website gia sư.</p>
@@ -190,7 +190,6 @@ include "../inc/header.php";
                         </div>
                     </div>
                     <div class="about-more-link text-center"><a class="btn btn-about rounded-pill  px-5 mt-2" href="#features">Xem thêm</a></div>
-
                     <!-- <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">Xem thêm</a> -->
                 </div>
             </div>
@@ -202,7 +201,7 @@ include "../inc/header.php";
         <div class="container pt-5 about-second">
             <h4 class="text-center">Hãy tìm cho con một gia sư</h4>
             <h2 class="text-center">Gia Sư - Trợ lý học tập đích thực</h2>
-            <div class="row justify-content-around pt-5">
+            <div class="row justify-content-around pt-5" data-aos="zoom-in" data-aos-duration="1500">
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="card card-second" style="width: 18rem">
                         <img src="../public/images/Homepage/gia-su-chat-luong.png" class="card-img-top rounded" alt="...">
@@ -212,7 +211,7 @@ include "../inc/header.php";
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 pt-5">
+                <div class="col-lg-3 col-md-6 col-sm-12 pt-5" data-aos="zoom-in" data-aos-duration="1500">
                     <div class="card card-second" style="width:  18rem">
                         <img src="../public/images/Homepage/Hoc-tap-ca-nhan-hoa.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -221,7 +220,7 @@ include "../inc/header.php";
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="col-lg-3 col-md-6 col-sm-12" data-aos="zoom-in" data-aos-duration="1500">
                     <div class="card card-second" style="width:  18rem">
                         <img src="../public/images/Homepage/gia-su-chuyen-mon.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -230,7 +229,7 @@ include "../inc/header.php";
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 pt-5">
+                <div class="col-lg-3 col-md-6 col-sm-12 pt-5" data-aos="zoom-in" data-aos-duration="1500">
                     <div class="card card-second" style="width: 18rem">
                         <img src="../public/images/Homepage/Huong-dan-quan-tri-web.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -240,8 +239,8 @@ include "../inc/header.php";
                     </div>
                 </div>
             </div>
-            <div class="text-center p-4">
-                <div class="btn btn-warning p-2 text-light"><a class="link-light h4" href="">Đăng kí gia sư miễn phí</a></div>
+            <div class="text-center p-4" data-aos="zoom-in-up" data-aos-duration="1500">
+                <div class="btn text-light"><a class="link-light h4" href="list_tutor">Xem danh sách gia sư</a></div>
             </div>
         </div>
     </section>
@@ -301,55 +300,48 @@ include "../inc/header.php";
         </section>
     </section>
     <!-- Features End -->
-
-    <!-- gioi thieu gia su day kem tai nha la gi -->
-    <section class="mt-5 d-flex align-items-center justify-content-center" style="height: 300px; background-color: #A1E3D8;">
-        <div class="jumbotron text-center mt-2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <h1>Gia sư dạy kèm tại nhà là gì?</h1>
-                        <p>Trang "gia sư tại nhà" là trang được xây dựng với nhu cầu có thể giúp con em các phụ huynh có thể học tập đạt thành tích tốt. Sự uy tín trong kiểm duyệt, tính chuyên nghiệp của các gia sư có tại đây là đại diện cho toàn bộ bộ mặt của trang.</p>
-                        <p><a id="buttonClickScroll" class="btn btn-primary btn-lg smoothScroll" href="#subInfor" role="button">Xem thêm »</a></p>
-                    </div>
+    <!-- Form đăng kí tư vấn start  -->
+    <section id="form-register-tutor" class="form-register-tutor container p-3 d-flex justify-content-center" data-aos="zoom-in" data-aos-duration="1000">
+        <form name="form-register">
+            <h3>ĐĂNG KÍ TƯ VẤN MIỄN PHÍ</h3>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <input type="text" class="form-control" id="registername" name="registername" placeholder="Họ và tên">
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control" id="registerphone" name="registerphone" placeholder="Số điện thoại">
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- thong tin loi ich tu viec hoc day kem  -->
-    <section>
-        <h2 id="subInfor" class="text-center mt-4 mb-5">LỢI ÍCH VIỆC HỌC DẠY KÈM</h2>
-        <div class="container">
-            <div class="row">
-                <?php
-                $result = $db_homepage->showPost();
-                $count = 0;
-
-                $NumberElement = $result->num_rows <= 4 ? $result->num_rows : 4; // lấy só lượng phần tử trong đây
-                $lenght = 12 / ($NumberElement); // chiều dài chia cột
-                while ($row = $result->fetch_assoc()) {
-                    $title = $row['title'];
-                    $content = $row['content'];
-                ?>
-                    <div class="col-lg-<?php echo $lenght ?> col-md-<?php echo $lenght ?> col-<?php echo $lenght ?>">
-                        <h3 class='text-center' style='height: 90px;'><?php echo $title; ?></h3>
-                        <?php echo $content ?>
-                    </div>
-                <?php
-                    if ($count == 3)
-                        break;
-                    else
-                        $count++;
-                }
-                ?>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <select name="registerlive" id="register-live" class="form-control">
+                        <option value="Tỉnh" selected>Tỉnh/Thành phố</option>
+                        <option value="Tỉnh">Đồng Tháp</option>
+                        <option value="Tỉnh">Vĩnh Phúc</option>
+                        <option value="Tỉnh">Đồng Nai</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control" id="registersubject" name="registersubject" placeholder="Môn học">
+                </div>
             </div>
-        </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <textarea class="form-control" id="registercontent" name="registercontent" rows="3" placeholder="Nội dung muốn tư vấn"></textarea>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn" type="submit">GỬI ĐĂNG KÍ TƯ VẤN</button>
+            </div>
+        </form>
     </section>
+    <!-- Form đăng kí tư vấn End  -->
     <!-- danh gia cua moi nguoi ve trang gia su day kem  -->
     <section style="background-color: #6a41ed; color: #FFFFFF;">
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <h2 class="text-center pt-5">Mọi người nghĩ gì về trang dạy kèm tại nhà?</h2>
-            <div class="carousel-inner">
+            <p class="text-center pt-5">Ý KIẾN KHÁCH HÀNG</p>
+            <h2 class="text-center">Phụ Huynh và Học Viên Nói Gì?</h2>
+            <div class="carousel-inner pt-5">
                 <div class="carousel-item active" data-bs-interval="4000">
                     <div class="row d-block w-100 ">
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center">
@@ -380,6 +372,62 @@ include "../inc/header.php";
             </div>
         </div>
     </section>
+    <!-- danh gia cua moi nguoi ve trang gia su day kem End-->
+    <!-- Tro thanh gia su Start -->
+    <section class="trothanhgiasu container-fluid">
+        <div class="text-center">
+            <h2><b>DÀNH CHO GIÁO VIÊN, SINH VIÊN</b></h2>
+            <h3>Trở Thành Gia Sư</h3>
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div data-aos="fade-right" data-aos-duration="1000">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Khác Biệt và Chuyên Nghiệp</h4>
+                                        <p class="card-text">Được đào tạo nghiệp vụ sư phạm, kỹ năng, tâm lý. Dạy có giáo án chuẩn và trả lương theo từng buổi trên ứng dụng BMentor.</p>
+                                        <a href="list_Tutor" class="btn btn-primary">Tìm hiểu thêm</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="../public/images/Homepage/chuyen-gia-gia-su.png" class="img-responsive img-fluid" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div data-aos="fade-left" data-aos-duration="1000">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Đăng Ký Trở Thành Gia Sư</h4>
+                                        <p class="card-text">Hệ thống lớn nhất Việt Nam với hơn 40.000 gia sư. Đăng ký ngay để nâng cao chuyên môn và gia tăng thu nhập.</p>
+                                        <a href="tutor_registration_form" class="btn btn-primary">Đăng kí ngay </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="../public/images/Homepage/chuyen-gia-gia-su.png" class="img-responsive img-fluid" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Tro thanh gia su End -->
+    <!-- bài viết và sự kiện start  -->
+    <section class="post-event">
+đay là list bài viết chuyển động animation
+    </section>
+    <!-- bài viết và sự kiện end  -->
+
+
     <!-- bootstrap 4 -->
     <!-- Smooth Scrolling  -->
     <!-- <script src="js/scroll.js"></script> -->

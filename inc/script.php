@@ -30,3 +30,9 @@ require_once($filepath . "../../vendor/autoload.php");
 <!-- Smooth Scrolling  -->
 <!-- <script src="<?= Util::getRootURL(). "/tutor_webapp/public/" . "js/scroll.js"?>"></script> -->
 <script src="<?= mix("js/app.js", 'tutor_webapp/public');?>"></script>
+
+<!-- aos js  -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
