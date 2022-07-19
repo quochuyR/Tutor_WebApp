@@ -2722,6 +2722,8 @@ h6 {
 .about-start {
     margin-top: 100px;
     margin-bottom: 100px;
+    background-image: url("../../public/images/background/background-1.png");
+    /* background-size: cover; */
 }
 
 .about-more-link a {
@@ -2766,6 +2768,20 @@ h6 {
     background-size: cover;
 }
 
+.about-second .btn {
+    padding: 0.7em;
+    transition: transform 0.5s;
+    background-color: #FAC213;
+}
+
+.about-second .btn:hover {
+    transform: scale(1.1);
+    background-color: #79C000;
+}
+
+
+/* card second */
+
 .card-second-text {
     text-align: justify !important;
     font-size: 0.9em;
@@ -2780,6 +2796,9 @@ h6 {
     border: none;
     border-bottom: 10px solid #2196fe;
 }
+
+
+/* features */
 
 .features-text {
     text-align: justify !important;
@@ -2797,6 +2816,40 @@ h6 {
 }
 
 
+/* form register tutor */
+
+.form-register-tutor form {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 50%;
+    height: 100%;
+    background-color: #9CB4CC;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 17px 14px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.form-register-tutor form h3 {
+    text-align: center;
+    padding-bottom: 1em;
+    font-weight: bold;
+    color: #fff;
+}
+
+.form-register-tutor form .btn {
+    background-color: #FF7F40;
+    color: #fff;
+    padding: 10px;
+    transition: transform 0.5s;
+}
+
+.form-register-tutor form .btn:hover {
+    background-color: #79C000;
+    color: #fff;
+    transform: scale(1.03);
+}
+
+
 /* ra small devices (portrait phones, less than 576px) */
 
 @media (max-width: 575.98px) {
@@ -2805,6 +2858,9 @@ h6 {
     }
     .carouselDanhGiaPhuHuynh .carousel-item {
         height: 30vh !important;
+    }
+    .form-register-tutor form {
+        width: 90%;
     }
 }
 
@@ -2818,6 +2874,10 @@ h6 {
     .carouselDanhGiaPhuHuynh .carousel-item {
         height: 50vh !important;
     }
+    /* form register tutor */
+    .form-register-tutor form {
+        width: 90%;
+    }
 }
 
 
@@ -2830,6 +2890,10 @@ h6 {
     .carouselDanhGiaPhuHuynh .carousel-item {
         height: 35vh !important;
     }
+    /* form register tutor */
+    .form-register-tutor form {
+        width: 90%;
+    }
 }
 
 
@@ -2841,6 +2905,10 @@ h6 {
     }
     .carouselDanhGiaPhuHuynh .carousel-item {
         max-height: 30vh !important;
+    }
+    /* form register tutor */
+    .form-register-tutor form {
+        width: 90%;
     }
 }
 .bg-notes{
