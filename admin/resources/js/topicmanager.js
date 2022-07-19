@@ -304,7 +304,9 @@
                         return {
                             results: data
                         }
-                    })
+                    });
+
+                    
                     console.log(select_subject_edit, $(span_subject_name).text());
                     $.ajax({
                         type: 'post',

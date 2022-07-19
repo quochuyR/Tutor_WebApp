@@ -612,6 +612,30 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return false;
     }
 
+    function select2_ajax(selector, dropdownParent, urlAjax, dataAjax, processResultsAjax, placeholder) {
+      var select2 = $(selector).select2({
+        theme: 'bootstrap-5',
+        language: "vi",
+        dropdownParent: dropdownParent,
+        ajax: {
+          url: urlAjax,
+          type: "post",
+          dataType: 'json',
+          delay: 250,
+          data: dataAjax,
+          processResults: processResultsAjax,
+          cache: true
+        },
+        placeholder: placeholder,
+        minimumInputLength: 0 // templateResult: formatRepo,
+        // templateSelection: formatRepoSelection
+
+      }).on("select2:close", function (e) {// validation select2
+        // $(this).valid();
+      });
+      return select2;
+    }
+
     function placeholder(limit) {
       var placeholder = "";
 
@@ -620,8 +644,22 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       return placeholder;
-    } // page_data();
+    }
 
+    select2_ajax('.js-data-province-filter-ajax', null, '../api/tutor/getcurrentplacetutor', function (params) {
+      var query = {
+        q: params.term,
+        num: !params.term && 'all'
+      }; // Query parameters will be ?search=[term]&type=public
+
+      return query;
+    }, function (data, params) {
+      console.log(data); // Transforms the top-level key of the response object from 'items' to 'results'
+
+      return {
+        results: data
+      };
+    }, 'Gõ chữ bất kì để tìm Tỉnh/Thành Phố'); // page_data();
 
     filer_data();
     page_paginator();
@@ -656,6 +694,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     $(".checkbox-filter").on('click', function () {
       // filter khi all checkbox bị click
       filer_data();
+    });
+    $("#select_province").on('change', function () {
+      filer_data();
     }); // lọc dữ liệu
 
     function filer_data() {
@@ -677,7 +718,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var status = get_filter_str(".teachingForm:checked");
       var sex = get_filter_arr(".sex:checked");
       var type = get_filter_arr(".type:checked");
-      console.log(status, token, "get value ");
+      var province = get_filter_str("#select_province option:selected"); // console.log(status, token, "get value ")
+
+      console.log(province, "prov");
       $.ajax({
         type: "post",
         url: "../api/tutor/listtutors",
@@ -688,6 +731,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           status: status,
           sex: sex,
           type: type,
+          province: province,
           limit: limit,
           page: page
         },
@@ -719,17 +763,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
     function get_filter_str(className) {
+      var _this = this;
+
       var data = "";
-
-      if ($(className).length === 1) {
-        return $(className).val() + ",";
-      } else if ($(className).length > 1) {
-        $(className).each(function (i, val) {
-          data += $(val).val() + ', '; // console.log($(val).val(), "val")
-        });
-        return data.trim();
-      }
-
+      $(className).each(function (i, val) {
+        // console.log($(this).length)
+        if (i === $(_this).length - 1) data += $(val).val();else data += $(val).val() + ', '; // console.log($(val).val(), "val")
+      });
+      return data.trim();
       return;
     }
 

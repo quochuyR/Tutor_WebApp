@@ -1,9 +1,10 @@
 <?php
+
 namespace Classes;
 
 use Library\Database;
 use Library\DatabasePDO;
-use Helpers\Format;
+use Helpers\Format, Helpers\Sanitization;
 // use Model\Tutor_Model;
 $filepath  = realpath(dirname(__FILE__));
 
@@ -194,7 +195,7 @@ class Tutor
             $vars[] = $status;
         }
 
-        if (isset($request_method['sex']) &&  !empty($request_method['sex'])) {
+        if (isset($request_method['sex'])) {
             $sex = $request_method['sex'];
 
             $sexCount = count($sex);
@@ -223,6 +224,20 @@ class Tutor
             $types .= $dataTypes;
             $vars = array_merge($vars, $type);
         }
+
+        if (isset($request_method['province']) && !empty($request_method['province'])) {
+            $province = Format::validation($request_method['province']);
+            $province = $this->db->link->real_escape_string($province);
+
+        //   print_r($province);
+          if($province != "all"){
+            $this->query .= " AND `tutors`.`currentplace` = ?";
+            // bind params
+            $types .= "s";
+            $vars = array_merge($vars, [$province]);
+          }
+          
+        }
         // echo $types;
 
 
@@ -237,7 +252,7 @@ class Tutor
         $limit      = (isset($request_method['limit']))  ? Format::validation($request_method['limit']) : 3;
         $page       = (isset($request_method['page'])) ?  Format::validation($request_method['page']) : 1;
 
-       
+
         $this->paginator->constructor($this->query, $types, $vars);
 
         $results  = $this->paginator->getData($limit, $page);
@@ -294,6 +309,40 @@ class Tutor
         return $result;
     }
 
+    /**
+     * Lấy thông tin gia sư hiển thị ở trang admin
+     * @return object|bool thông tin gia sư
+     */
+
+    public function get_current_place_tutor($method): object|bool
+    {
+        $query = "SELECT DISTINCT `tutors`.`currentplace` 
+        FROM `tutors`";
+
+        $q = "";
+        $results = null;
+        if (isset($method['num']) && !empty($method['num'])) {
+
+
+            $results = $this->db->select($query);
+        }
+        if (isset($method['q']) && !empty($method['q'])) {
+            $input = ["q" => $method["q"]];
+            $field = ["q" => "string"];
+            $q = Sanitization::sanitize($input, $field)["q"];
+
+            $query .= " WHERE `tutors`.`currentplace` LIKE  CONCAT('%',?,'%')";
+            $query .= " ORDER BY `tutors`.`currentplace` ASC;";
+            $results = $this->db->p_statement($query, "s", [$q]);
+        }
+
+
+
+        return $results ? $results : false; // echo $query;
+        $result = $this->db->p_statement($query, "s", []);
+        return $result;
+    }
+
 
 
     public function getPaginator($request_method)
@@ -301,6 +350,6 @@ class Tutor
         // paginator
         // echo $this->query;
         $links      = (isset($request_method['links'])) ?  Format::validation($request_method['links']) : 3;
-        return $this->paginator->createLinksAjax( 'pagination justify-content-center', $links);
+        return $this->paginator->createLinksAjax('pagination justify-content-center', $links);
     }
 }

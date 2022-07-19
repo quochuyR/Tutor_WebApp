@@ -64,7 +64,7 @@ include "../inc/header.php";
 
         <div class="d-sm-flex align-items-sm-center pt-2 clear" id="filter">
             <div class="text-muted filter-label">Lọc theo:</div>
-            <div class="green-label green-label-filter font-weight-bold p-0 px-1 mx-sm-1 mx-0 my-sm-0 my-2" value="Tất cả">Tất cả<span class="px-1 close ">&times;</span> </div>
+            <div class="green-label green-label-filter fw-600 p-0 px-1 mx-sm-1 mx-0 my-sm-0 my-2" value="Tất cả">Tất cả<span class="px-1 close ">&times;</span> </div>
 
         </div>
         <div class="filter">
@@ -81,7 +81,7 @@ include "../inc/header.php";
         <!-- Mobile filter -->
         <div class="collapse " id="mobile-filter">
             <div class="py-3">
-                <h5 class="font-weight-bold">Môn học</h5>
+                <h5 class="fw-600">Môn học</h5>
                 <ul class="list-group " style="max-height: 20rem;overflow-y:scroll;" id="filter-subject">
                     <?php
                     $tutors = new Tutor();
@@ -90,7 +90,7 @@ include "../inc/header.php";
 
                     $SBtopicList = $SBtopic->CountByTutor();
                     if ($SBtopicList) :
-                        print_r( $SBtopic->countAllTutorRegisteredTopic()->fetch_row())
+                        print_r($SBtopic->countAllTutorRegisteredTopic()->fetch_row())
                     ?>
 
                         <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category subject-active checkbox-filter" subject-id="0" value="Tất cả"> Tất cả
@@ -112,13 +112,13 @@ include "../inc/header.php";
             <div class="card">
                 <div class="card-body">
                     <div class="py-3">
-                        <h5 class="font-weight-bold">Chủ đề</h5>
+                        <h5 class="fw-600">Chủ đề</h5>
                         <form class="brand topic-container">
 
                         </form>
                     </div>
                     <div class="py-3">
-                        <h5 class="font-weight-bold">Hình thức dạy</h5>
+                        <h5 class="fw-600">Hình thức dạy</h5>
                         <form class="brand">
                             <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Gặp mặt (Offline)">Gặp mặt (Offline)<input type="checkbox" class="teachingForm checkbox-filter" value="0">
                                     <span class="check"></span> </label> </div>
@@ -132,7 +132,7 @@ include "../inc/header.php";
 
 
                     <div class="py-3">
-                        <h5 class="font-weight-bold">Giới tính</h5>
+                        <h5 class="fw-600">Giới tính</h5>
                         <form class="brand">
                             <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nam">Nam<input type="checkbox" value="1" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
                             <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nữ">Nữ<input type="checkbox" value="0" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
@@ -142,7 +142,7 @@ include "../inc/header.php";
 
 
                     <div class="py-3">
-                        <h5 class="font-weight-bold">Kiểu</h5>
+                        <h5 class="fw-600">Kiểu</h5>
                         <form class="brand">
 
                             <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Giáo viên">Giáo viên<input type="checkbox" class="type checkbox-filter" value="Giáo viên"> <span class="check"></span> </label> </div>
@@ -169,7 +169,7 @@ include "../inc/header.php";
             <section id="sidebar">
 
                 <div class="py-3">
-                    <h5 class="font-weight-bold mb-1">Môn học</h5>
+                    <h5 class="fw-600 mb-1">Môn học</h5>
                     <ul class="list-group" style="max-height: 20rem;overflow-y:scroll;" id="filter-subject">
                         <?php
 
@@ -202,14 +202,25 @@ include "../inc/header.php";
                 <div class="card">
                     <div class="card-body">
                         <div class="py-3">
-                            <h5 class="font-weight-bold">Chủ đề</h5>
+                            <h5 class="fw-600">Chủ đề</h5>
                             <form class="brand topic-container">
                                 <div>Chọn môn học mới hiện chủ đề</div>
                             </form>
                         </div>
 
                         <div class="py-3">
-                            <h5 class="font-weight-bold">Hình thức dạy</h5>
+                            <div class="form-group col-sm-12 flex-column d-flex">
+                            <h5 class="fw-600 pb-2">Tỉnh/Thành Phố</h5>
+
+                                <select class="form-select js-data-province-filter-ajax" id="select_province" name="provinces-filter[]">
+
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="py-3">
+                            <h5 class="fw-600">Hình thức dạy</h5>
                             <form class="brand">
                                 <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Gặp mặt (Offline)">Gặp mặt (Offline)<input type="checkbox" class="teachingForm checkbox-filter" value="0">
                                         <span class="check"></span> </label> </div>
@@ -220,7 +231,7 @@ include "../inc/header.php";
 
 
                         <div class="py-3">
-                            <h5 class="font-weight-bold">Giới tính</h5>
+                            <h5 class="fw-600">Giới tính</h5>
                             <form class="brand">
                                 <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nam">Nam<input type="checkbox" value="1" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
                                 <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Nữ">Nữ<input type="checkbox" value="0" class="sex checkbox-filter"> <span class="check"></span> </label> </div>
@@ -230,7 +241,7 @@ include "../inc/header.php";
 
 
                         <div class="py-3">
-                            <h5 class="font-weight-bold">Kiểu</h5>
+                            <h5 class="fw-600">Kiểu</h5>
                             <form class="brand">
                                 <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Giáo viên">Giáo viên<input type="checkbox" class="type checkbox-filter" value="Giáo viên"> <span class="check"></span> </label> </div>
                                 <div class="form-inline d-flex align-items-center py-1"> <label class="tick" data-value="Sinh viên">Sinh viên<input type="checkbox" class="type checkbox-filter" value="Sinh viên">
@@ -252,14 +263,14 @@ include "../inc/header.php";
 
             </section> <!-- tutors Section -->
             <section id="tutors">
-                  <!-- scroll to top -->
-                  <div id="top-filter"></div>
+                <!-- scroll to top -->
+                <div id="top-filter"></div>
                 <div class="container py-3">
-                  
+
 
                     <div class="row g-0">
                         <div class="col-12 pb-4  d-flex justify-content-end">
-                            
+
                             <nav aria-label="Page navigation example " id="pagination-nav" class="mt-3">
                             </nav>
                         </div>
