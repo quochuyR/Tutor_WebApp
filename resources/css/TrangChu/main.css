@@ -45,8 +45,9 @@
 .about-start {
     margin-top: 100px;
     margin-bottom: 100px;
-    background-image: url("../../public/images/background/background-1.png");
     /* background-size: cover; */
+    background-image: url("../../public/images/background/background-1.png");
+    background-size: cover;
 }
 
 .about-more-link a {
@@ -87,8 +88,8 @@
 }
 
 .about-second-background {
-    background-image: url('https://static.vecteezy.com/system/resources/previews/004/554/612/non_2x/abstract-blue-wave-set-on-transparent-background-illustration-free-vector.jpg');
-    background-size: cover;
+    /* background-image: url('https://static.vecteezy.com/system/resources/previews/004/554/612/non_2x/abstract-blue-wave-set-on-transparent-background-illustration-free-vector.jpg'); */
+    background-color: #FAC213;
 }
 
 .about-second .btn {
@@ -134,8 +135,8 @@
 }
 
 .features-background {
-    background-image: url("../../public/images/background/background-trangchu-1.png");
-    background-size: cover;
+    /* background-image: url("../../public/images/background/background-trangchu-1.png"); */
+    /* background-size: cover; */
 }
 
 
