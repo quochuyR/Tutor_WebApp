@@ -297,6 +297,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             grecaptcha.reset();
           } else if (data.login === "fail-user-verification") {
             $("#error-login").html("<div class=\"alert alert-danger\" role=\"alert\">\n                                      <span class=\"el-alert__title\">".concat(data.message, "</span>\n                                  </div>"));
+            grecaptcha.reset();
           } else if (data.login === "successful") {
             window.location = data.url;
           }
@@ -404,8 +405,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // do something...
       $('#num_unread_notification').html(0);
       $('.new-notification-list').html('<a href="#" class="d-flex list-group-item list-group-item-action border-0 text-small">Không có thông báo</a>');
-    });
-    load_new_notification();
+    }); // load_new_notification();
 
     function load_new_notification() {
       load_unseen_notification();
@@ -2355,6 +2355,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     }
 
+    var approval_register_model = document.getElementById('approval-register');
+    approval_register_model.addEventListener('shown.bs.modal', function (e) {
+      onClickSave(e);
+    });
+
     function onClickSave(event_approval) {
       $(".btn-save").off().on('click', function () {
         addSchedule(event_approval);
@@ -2498,7 +2503,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
 
     function addSchedule(event_approval) {
-      var id_modal = $(event_approval.currentTarget).attr("data-bs-target");
+      var id_modal = $(event_approval.relatedTarget).attr("data-bs-target");
       var id = $(id_modal).find(".id-register").attr("data-id");
       var status = $(id_modal).find("input[type=\"checkbox\"]").prop("checked") ? 1 : 0;
       var DoW_id = $(id_modal).find("select").eq(0).val();
@@ -2563,14 +2568,33 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
 
           if (data.action === "successful") {
-            $(id_modal).closest(".job-box").find(".subject-span").each(function (i, span) {
+            $(event_approval.relatedTarget).closest(".job-box").find(".subject-span").each(function (i, span) {
               if ($(span).attr("data-id") === topicId) {
-                $(span).addClass("text-success");
+                $(span).toggleClass("bg-cerulean");
+                $(span).toggleClass("bg-secondary");
               }
             }); //
 
             Toastify({
-              text: "Th\xEAm l\u1ECBch d\u1EA1y th\xE0nh c\xF4ng.",
+              text: data.message,
+              duration: 3000,
+              close: true,
+              gravity: "top",
+              // `top` or `bottom`
+              position: "right",
+              // `left`, `center` or `right`
+              stopOnFocus: true,
+              // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #C73866, #FE676E)"
+              },
+              onClick: function onClick() {} // Callback after click
+
+            }).showToast();
+          } else if (data.action === "fail") {
+            //
+            Toastify({
+              text: data.message,
               duration: 3000,
               close: true,
               gravity: "top",

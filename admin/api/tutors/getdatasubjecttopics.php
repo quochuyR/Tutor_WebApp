@@ -4,8 +4,9 @@ namespace Api;
 
 // use Helpers\Format;
 // use Classes\Subject;
-use Library\Session;
+use Exception;
 use Vendor\SSP;
+use Library\Session;
 
 // \tutor_webapp
 $filepath = realpath(dirname(__FILE__, 4));
@@ -53,10 +54,13 @@ $sql_details = array(
 
 // $_GET['columns'] = [["data" => "subject", "search"=> ["value" => "Hoá"], "searchable" => true, "orderable" => false]];
 // echo json_encode($_GET);
-
-header('Content-Type: application/json; charset=utf-8');
-echo json_encode(SSP::simple($_GET, $sql_details, $table, $primaryKey, $columns));
-
+try {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(SSP::simple($_GET, $sql_details, $table, $primaryKey, $columns));
+} catch (Exception $ex) {;
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(["error" => $ex->getMessage()]);
+}
 // print_r(SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns ));
 // $_subject = new Subject();
 // if ($_SERVER["REQUEST_METHOD"] === "POST") {

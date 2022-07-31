@@ -2,6 +2,7 @@
 
 namespace Api;
 
+use Exception;
 use Helpers\Format;
 use Classes\Subject;
 use Library\Session;
@@ -24,17 +25,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ((isset($_POST['id-subject']) && is_numeric($_POST['id-subject']))
         && (isset($_POST['subject']) && !empty($_POST['subject']))
     ) {
-        $id = Format::validation($_POST['id-subject']);
-        $subject_name = Format::validation($_POST['subject']);
+        try {
+            $id = Format::validation($_POST['id-subject']);
+            $subject_name = Format::validation($_POST['subject']);
 
 
-        $update_subject =  $_subject->update_subject($id, $subject_name);
+            $update_subject =  $_subject->update_subject($id, $subject_name);
 
 
-        if ($update_subject) {
+            if ($update_subject) {
 
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(["update" => "success", "subject" => $subject_name]);
+            }
+        } catch (Exception $ex) {;
             header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(["update"=>"success", "subject"=> $subject_name]);
+            echo json_encode(["error" => $ex->getMessage()]);
         }
     }
 }

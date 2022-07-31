@@ -28,33 +28,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $tutorId = Format::validation($_POST["tuId"]);
         $topicId = Format::validation($_POST["topicId"]);
 
-        try{
-        $ins_or_del_register_tutor = $_register_tutor->AddOrDeleteRegisterTutor($action, Session::get("userId"), $tutorId, $topicId);
-       
-        if ($ins_or_del_register_tutor) {
-             // chỉ có topicName
-            $result = $ins_or_del_register_tutor->fetch_assoc();
-            // print_r($result);
-            if(isset($result["added"]) && $result["added"] == "added"){
-                header('Content-Type: application/json; charset=utf-8');
-                echo json_encode(["added" => "added", "topicName" => $result["topicName"], "topicId"=> $result["topicId"] ]);
-            }
-            else{
-                if ($action == 1) {
+        try {
+            $ins_or_del_register_tutor = $_register_tutor->AddOrDeleteRegisterTutor($action, Session::get("userId"), $tutorId, $topicId);
+
+            if ($ins_or_del_register_tutor) {
+                // chỉ có topicName
+                $result = $ins_or_del_register_tutor->fetch_assoc();
+                // print_r($result);
+                if (isset($result["added"]) && $result["added"] == "added") {
                     header('Content-Type: application/json; charset=utf-8');
-                    echo json_encode(["insert" => "successful", "topicName" => $result["topicName"], "topicId"=> $result["topicId"]]);
+                    echo json_encode(["added" => "added", "topicName" => $result["topicName"], "topicId" => $result["topicId"]]);
                 } else {
-    
-    
-                    header('Content-Type: application/json; charset=utf-8');
-                    echo json_encode(["delete" => "successful", "topicName" => $result["topicName"], "topicId"=> $result["topicId"]]);
+                    if ($action == 1) {
+                        header('Content-Type: application/json; charset=utf-8');
+                        echo json_encode(["insert" => "successful", "topicName" => $result["topicName"], "topicId" => $result["topicId"]]);
+                    } else {
+
+
+                        header('Content-Type: application/json; charset=utf-8');
+                        echo json_encode(["delete" => "successful", "topicName" => $result["topicName"], "topicId" => $result["topicId"]]);
+                    }
                 }
             }
-            
+        } catch (Exception $ex) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(["delete" => "fail", "message" => "Gia sư đã thêm lịch dạy cho bạn rồi."]);
         }
-    }catch(Exception $ex){
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(["delete" => "fail", "message" => "Gia sư đã thêm lịch dạy cho bạn rồi."]);
-    }
     }
 }

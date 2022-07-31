@@ -3,6 +3,7 @@
 namespace Pages;
 
 use Classes\AdminLogin, Classes\Remember, Classes\Notification;
+use Exception;
 use Helpers\Util, Helpers\Format;
 use Library\Session;
 
@@ -61,25 +62,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $remember = $_POST["remember"];
 
+            try {
+                $login_check = $login->login_admin($username, $password, $remember);
 
-            $login_check = $login->login_admin($username, $password, $remember);
 
-
-            if ($login_check) {
-                if (Session::checkRoles(["admin"])) {
-                    header("Content-Type: application/json;charset=utf-8");
-                    echo json_encode(["login" => "successful", "url" => "../admin/pages"]);
-                } else {
-                    if (isset($_SESSION['rdrurl'])) {
+                if ($login_check) {
+                    if (Session::checkRoles(["admin"])) {
                         header("Content-Type: application/json;charset=utf-8");
-                        echo json_encode(["login" => "successful", "url" => Session::get('rdrurl')]);
+                        echo json_encode(["login" => "successful", "url" => "../admin/pages"]);
                     } else {
-                        header("Content-Type: application/json;charset=utf-8");
-                        echo json_encode(["login" => "successful", "url" => "./"]);
+                        if (isset($_SESSION['rdrurl'])) {
+                            header("Content-Type: application/json;charset=utf-8");
+                            echo json_encode(["login" => "successful", "url" => Session::get('rdrurl')]);
+                        } else {
+                            header("Content-Type: application/json;charset=utf-8");
+                            echo json_encode(["login" => "successful", "url" => "./"]);
+                        }
                     }
-                }
 
-                exit;
+                    exit;
+                }
+            } catch (Exception $ex) {
+                print_r($ex->getMessage());
             }
 
             exit;
@@ -93,7 +97,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     [$errors, $inputs] = \Helpers\Flash::session_flash('errors', 'inputs');
-
 }
 
 $title = "Đăng nhập";
@@ -119,7 +122,7 @@ include "../inc/header.php";
                                 </span>
 
                                 <div id="error-login">
-                                <?php \Helpers\Flash::flash(); ?>
+                                    <?php \Helpers\Flash::flash(); ?>
 
                                 </div>
                                 <div class="wrap-input100 validate-input m-b-35">

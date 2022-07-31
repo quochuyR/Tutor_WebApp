@@ -4,8 +4,9 @@ namespace Api;
 
 // use Helpers\Format;
 // use Classes\Subject;
-use Library\Session;
+use Exception;
 use Vendor\SSP;
+use Library\Session;
 
 // \tutor_webapp
 $filepath  = realpath(dirname(__FILE__, 4));
@@ -23,20 +24,20 @@ include_once $filepath . "/config/config.php";
 include_once($filepath . "/admin/vendor/ssp.class.php");
 // DB table to use
 $table = 'subjects';
- 
+
 // Table's primary key
 $primaryKey = 'id';
- 
+
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'id', 'dt' => "Id" ),
-    array( 'db' => 'subject',  'dt' => "Tên môn học" ),
-    
+    array('db' => 'id', 'dt' => "Id"),
+    array('db' => 'subject',  'dt' => "Tên môn học"),
+
 );
- 
+
 // SQL server connection information
 $sql_details = array(
     'user' => DB_USER,
@@ -44,9 +45,13 @@ $sql_details = array(
     'db'   => DB_NAME,
     'host' => DB_HOST
 );
-
-header('Content-Type: application/json; charset=utf-8');
-echo json_encode(SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns ));
+try {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(SSP::simple($_GET, $sql_details, $table, $primaryKey, $columns));
+} catch (Exception $ex) {;
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(["error" => $ex->getMessage()]);
+}
 
 // print_r(SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns ));
 // $_subject = new Subject();

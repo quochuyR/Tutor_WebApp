@@ -67,6 +67,10 @@
             });
         }
 
+        var approval_register_model = document.getElementById('approval-register')
+        approval_register_model.addEventListener('shown.bs.modal', (e) => {
+            onClickSave(e);
+        })
         function onClickSave(event_approval) {
            
             $(".btn-save").off().on('click', () => {
@@ -237,7 +241,7 @@
         }
 
         function addSchedule(event_approval) {
-            let id_modal = $(event_approval.currentTarget).attr("data-bs-target");
+            let id_modal = $(event_approval.relatedTarget).attr("data-bs-target");
             let id = $(id_modal).find(".id-register").attr("data-id");
             let status = $(id_modal).find(`input[type="checkbox"]`).prop("checked") ? 1 : 0;
             let DoW_id = $(id_modal).find(`select`).eq(0).val();
@@ -246,7 +250,6 @@
 
             console.log($(id_modal).find(`select`));
             console.log([id, status, DoW_id, timeId, topicId])
-
             $.ajax({
                 type: "post",
                 url: "../api/scheduleuser/addscheduleuser",
@@ -300,14 +303,31 @@
                     }
 
                     if (data.action === "successful") {
-                        $(id_modal).closest(".job-box").find(".subject-span").each((i, span) => {
+                        $(event_approval.relatedTarget).closest(".job-box").find(".subject-span").each((i, span) => {
                             if ($(span).attr("data-id") === topicId) {
-                                $(span).addClass("text-success");
+                                $(span).toggleClass("bg-cerulean");
+                                $(span).toggleClass("bg-secondary");
                             }
                         });
                         //
                         Toastify({
-                            text: `Thêm lịch dạy thành công.`,
+                            text: data.message,
+                            duration: 3000,
+                            close: true,
+                            gravity: "top", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: true, // Prevents dismissing of toast on hover
+                            style: {
+                                background: "linear-gradient(to right, #C73866, #FE676E)",
+                            },
+                            onClick: function() {} // Callback after click
+                        }).showToast();
+                    }
+                    else if (data.action === "fail") {
+                        
+                        //
+                        Toastify({
+                            text: data.message,
                             duration: 3000,
                             close: true,
                             gravity: "top", // `top` or `bottom`

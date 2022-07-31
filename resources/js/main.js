@@ -258,6 +258,8 @@
             $("#error-login").html(`<div class="alert alert-danger" role="alert">
                                       <span class="el-alert__title">${data.message}</span>
                                   </div>`);
+            grecaptcha.reset();
+
           }
           else if (data.login === "successful") {
             window.location = data.url;
@@ -374,7 +376,7 @@
 
     });
 
-    load_new_notification();
+    // load_new_notification();
     function load_new_notification() {
       load_unseen_notification();
 

@@ -326,6 +326,8 @@ input[type=checkbox] {
         transform: rotate(-6deg);
     }
 }
+
+
 .text-small {
     font-size: 0.825rem;
 }
@@ -602,7 +604,7 @@ iframe {
   .form-group {
     position: relative;
     z-index: 0;
-    margin-bottom: 1.4rem !important;
+    /* margin-bottom: 1.4rem !important; */
 }
 .form-group a {
   color: #b5b8c5;
@@ -2641,7 +2643,7 @@ h6 {
 @media only screen and (min-width: 576px) {
 
     .card-tutor{
-        min-height: 432px;
+        min-height: 441px;
     }
 }
 

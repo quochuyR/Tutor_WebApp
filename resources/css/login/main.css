@@ -253,7 +253,7 @@ iframe {
   .form-group {
     position: relative;
     z-index: 0;
-    margin-bottom: 1.4rem !important;
+    /* margin-bottom: 1.4rem !important; */
 }
 .form-group a {
   color: #b5b8c5;
