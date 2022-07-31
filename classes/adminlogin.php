@@ -5,6 +5,7 @@ namespace Classes;
 use Library\Session, Library\Database;
 use Helpers\Format;
 use Classes\AppUserRole, Classes\AppUser, Classes\Remember;
+use Exception;
 
 // $filepath  = realpath(dirname(__FILE__));
 // include_once($filepath . "../../lib/session.php");
@@ -42,42 +43,62 @@ class AdminLogin
 
     public function login_admin(string $username, string $password, bool $remember = false): bool
     {
-        $username = Format::validation($username);
-        $password = Format::validation($password);
-        $remember = Format::validation($remember);
 
-        $username = mysqli_real_escape_string($this->db->link, $username);
-        $password = mysqli_real_escape_string($this->db->link, $password);
-        $remember = mysqli_real_escape_string($this->db->link, $remember);
+
+
+        $fields = [
+            'username' => 'string',
+            'password' => 'string',
+            'remember' => 'int',
+        ];
+
+        $inputs = [
+            'username' => $username,
+            'password' => $password,
+            'remember' => $remember
+        ];
+
+        $data = \Helpers\Sanitization::sanitize($inputs, $fields);
+        // $username = Format::validation($username);
+        // $password = Format::validation($password);
+        // $remember = Format::validation($remember);
+
+        $username = mysqli_real_escape_string($this->db->link, $data['username']);
+        $password = mysqli_real_escape_string($this->db->link, $data['password']);
+        $remember = mysqli_real_escape_string($this->db->link, $data['remember']);
 
         if (!empty($username) && !empty($password)) {
             // $query = "SELECT id, username, lastname, firstname, imagepath 
             // FROM `appusers` 
             // WHERE username = ? and PASSWORD = md5(?) LIMIT 1";
-            $user = $this->user->find_user_by_username($username)->fetch_assoc();
+            try {
+                $user = $this->user->find_user_by_username($username)->fetch_assoc();
 
-            // $result = $this->db->p_statement($query, "ss", [$username, $password]);
-            if ($user && $this->is_user_active($user)) {
-                $result = password_verify($password, $user["password"]);
-                if (isset($result) && $result) {
+                // $result = $this->db->p_statement($query, "ss", [$username, $password]);
+                if ($user && $this->is_user_active($user)) {
+                    $result = password_verify($password, $user["password"]);
+                    if (isset($result) && $result) {
 
-                    $this->is_user_logged_in($user);
+                        $this->is_user_logged_in($user);
 
-                    if ($remember) {
-                        $this->remember->remember_me($user["id"]);
+                        if ($remember) {
+                            $this->remember->remember_me($user["id"]);
+                        }
+                        return true;
+                    } else {
+
+                        header('Content-Type: application/json; charset=UTF-8');
+                        echo json_encode(array("login" => "fail-user-pass", "message" => "Tài khoản hoặc mật khẩu không đúng")); // 1001 : ERROR_USERNAME_PASSWORD_INCORRECT
+                        return false;
                     }
-                    return true;
                 } else {
 
                     header('Content-Type: application/json; charset=UTF-8');
-                    echo json_encode(array("login" => "fail-user-pass", "message" => "Tài khoản hoặc mật khẩu không đúng")); // 1001 : ERROR_USERNAME_PASSWORD_INCORRECT
+                    echo json_encode(array("login" => "fail-user-verification", "message" => "Tài khoản chưa xác thực gmail.")); // 1001 : ERROR_USERNAME_PASSWORD_INCORRECT
                     return false;
                 }
-            } else {
-
-                header('Content-Type: application/json; charset=UTF-8');
-                echo json_encode(array("login" => "fail-user-verification", "message" => "Tài khoản chưa xác thực gmail.")); // 1001 : ERROR_USERNAME_PASSWORD_INCORRECT
-                return false;
+            } catch (Exception $ex) {
+                print_r($ex->getMessage());
             }
         } else {
 
@@ -88,6 +109,7 @@ class AdminLogin
 
         return false;
     }
+
 
     /**
      * Hàm có nhiệm vụ kiểm tra người dùng đã nhập hay chưa. Nếu có thêm thông tin người dùng vào session

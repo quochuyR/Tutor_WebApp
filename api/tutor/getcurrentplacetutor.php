@@ -2,6 +2,7 @@
 
 namespace Ajax;
 
+use Exception;
 use Classes\Tutor;
 use Helpers\Format;
 use Library\Session;
@@ -25,21 +26,23 @@ $_tutor = new Tutor();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST) && !empty($_POST)) {
+        try {
+            $get_provinces = $_tutor->get_current_place_tutor($_POST);
+            $provinces = [];
+            array_push($provinces, ["id" => "all", "text" => "-- Tất cả --"]);
+            if ($get_provinces) {
 
-        $get_provinces = $_tutor->get_current_place_tutor($_POST);
-        $provinces = [];
-        array_push($provinces, ["id" => "all", "text" => "-- Tất cả --"]);
-        if ($get_provinces) {
 
-
-            while ($result = $get_provinces->fetch_assoc()) {
-                array_push($provinces, ["id" => $result["currentplace"], "text" => $result["currentplace"]]);
+                while ($result = $get_provinces->fetch_assoc()) {
+                    array_push($provinces, ["id" => $result["currentplace"], "text" => $result["currentplace"]]);
+                }
             }
+        } catch (Exception $ex) {
+            print_r($ex->getMessage());
+        } finally {
+            header('Content-Type: application/json; charset=utf-8');
+            // echo json_encode([ "results" => [["text" => "group 1", "children" => [["id" => 0,"text"=> "Nguyễn Quốc HUy"], ["id" => 2,"text" => 21]]], ["text" => "group 2", "children" => [["id" => 0,"text"=> "Nguyễn Quốc HUy"], ["id" => 2,"text" => 21]]]]  ]);
+            echo json_encode($provinces);
         }
-
-
-        header('Content-Type: application/json; charset=utf-8');
-        // echo json_encode([ "results" => [["text" => "group 1", "children" => [["id" => 0,"text"=> "Nguyễn Quốc HUy"], ["id" => 2,"text" => 21]]], ["text" => "group 2", "children" => [["id" => 0,"text"=> "Nguyễn Quốc HUy"], ["id" => 2,"text" => 21]]]]  ]);
-        echo json_encode($provinces);
     }
 }

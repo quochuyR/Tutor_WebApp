@@ -2,9 +2,10 @@
 
 namespace Api;
 
-use Classes\AppUser;
+use Exception;
 use Classes\Tutor;
 // use Helpers\Format;
+use Classes\AppUser;
 use Library\Session;
 
 // \tutor_webapp
@@ -38,19 +39,22 @@ $get_num_tutor = $_tutor->getNumTutorByMonth();
 $get_num_user = $_user->getNumUserByMonth();
 if ($get_num_tutor && $get_num_user) {
 
+    try {
+        $groupByTutor = array();
+        $groupByUser = array();
 
-    $groupByTutor = array();
-    $groupByUser = array();
+        while ($rs = $get_num_tutor->fetch_assoc()) {
+            array_push($groupByTutor, $rs);
+        }
 
-    while ($rs = $get_num_tutor->fetch_assoc()) {
-        array_push($groupByTutor, $rs);
+        while ($rs = $get_num_user->fetch_assoc()) {
+            array_push($groupByUser, $rs);
+        }
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(["groupByTutor" => $groupByTutor, "groupByUser" => $groupByUser]);
+    } catch (Exception $ex) {
+        print_r($ex->getMessage());
     }
-
-    while ($rs = $get_num_user->fetch_assoc()) {
-        array_push($groupByUser, $rs);
-    }
-    header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(["groupByTutor" => $groupByTutor, "groupByUser" => $groupByUser]);
 }
 exit;
 //     }

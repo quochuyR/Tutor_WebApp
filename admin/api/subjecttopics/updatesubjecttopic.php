@@ -2,9 +2,10 @@
 
 namespace Api;
 
+use Exception;
 use Helpers\Format;
-use Classes\SubjectTopic;
 use Library\Session;
+use Classes\SubjectTopic;
 
 //  \tutor_webapp
 $filepath  = realpath(dirname(__FILE__, 4));
@@ -24,18 +25,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         && (isset($_POST['topic_id']) && is_numeric($_POST['topic_id']))
         && (isset($_POST['topic_name']) && !empty($_POST['topic_name']))
     ) {
-        $subjectId = Format::validation($_POST['subject_id']);
-        $topic_id = Format::validation($_POST['topic_id']);
-        $topic_name = Format::validation($_POST['topic_name']);
-        
-
-        $update_subject_topic =  $_subject_topic->update_subject_subject($topic_id, $subjectId, $topic_name);
+        try {
+            $subjectId = Format::validation($_POST['subject_id']);
+            $topic_id = Format::validation($_POST['topic_id']);
+            $topic_name = Format::validation($_POST['topic_name']);
 
 
-        if ($update_subject_topic) {
+            $update_subject_topic =  $_subject_topic->update_subject_subject($topic_id, $subjectId, $topic_name);
 
+
+            if ($update_subject_topic) {
+
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(["update" => "success", "subject" => $topic_name]);
+            }
+        } catch (Exception $ex) {;
             header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(["update"=>"success", "subject"=> $topic_name]);
+            echo json_encode(["error" => $ex->getMessage()]);
         }
     }
 }

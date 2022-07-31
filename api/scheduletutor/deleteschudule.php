@@ -2,14 +2,16 @@
 
 namespace Ajax;
 
-use Classes\TutoringSchedule, Classes\TeachingTime;
+use Exception;
 use Helpers\Format;
 use Library\Session;
+use Classes\TutoringSchedule, Classes\TeachingTime;
+
 require_once(__DIR__ . "../../../vendor/autoload.php");
 
 // $filepath = realpath(dirname(__FILE__));
 // include_once $filepath . "../../lib/session.php";
-if(!Session::checkRoles(['tutor'])){
+if (!Session::checkRoles(['tutor'])) {
     header("location:../../pages/errors/404");
 }
 // include_once $filepath . "../../classes/tutoringschedule.php";
@@ -23,18 +25,21 @@ $_teaching_time = new TeachingTime();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST) && !empty($_POST)) {
-        $Id = Format::validation($_POST["id"]);
-        
-        $get_tutoring_schedule = $_tutoring_schedule->deleteTutoringSchedule($Id);
+        try {
+            $Id = Format::validation($_POST["id"]);
 
-        if ($get_tutoring_schedule > 0) {
+            $get_tutoring_schedule = $_tutoring_schedule->deleteTutoringSchedule($Id);
 
-            header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(["action" => "success"]);
-            
-        }else{
-            header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(["action" => "fail"]);
+            if ($get_tutoring_schedule > 0) {
+
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(["action" => "success"]);
+            } else {
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(["action" => "fail"]);
+            }
+        } catch (Exception $ex) {
+            print_r($ex->getMessage());
         }
     }
 }

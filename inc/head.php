@@ -10,12 +10,38 @@ require_once($filepath . "../../vendor/autoload.php");
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="gia sư online, web gia sư, web gia sư online, website gia sư online, website gia sư, tìm gia sư,tìm khóa học,gia sư công nghệ,gia sư,gia sư tiếng anh,gia sư toán,gia sư Đồng Tháp"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <meta content="INDEX,FOLLOW" name="robots" />
+    <meta name="copyright" content="Dự án website gia sư trường Đại học Đồng Tháp" />
+    <meta name="author" content="Trường Đại học Đồng Tháp" />
+    <meta http-equiv="audience" content="General" />
+    <meta name="resource-type" content="Document" />
+    <meta name="distribution" content="Global" />
+    <meta name="revisit-after" content="1 days" />
+    <meta name="GENERATOR" content="Trường Đại học Đồng Tháp" />
+
     <meta name="description" content="Hệ thống gia sư dạy kèm chất lượng cao">
     <meta property="og:title" content="Kết nối dạy và học | Tìm giáo viên, Tìm gia sư">
-    <meta property="og:url" content="">
+    <meta property="og:url" content="http://localhost:5050/tutor_webapp/pages/">
     <meta property="og:image" content="">
+    <link rel="canonical" href="http://localhost:5050/tutor_webapp/pages/" />
+    <meta name="RATING" content="GENERAL" />
+
+    <meta property="og:site_name" content="Education" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:email" content="" />
+    <meta property="og:phone_number" content="" />
+    <meta property="fb:pages" content="106809601820790" />
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+    <meta property="og:see_also" content="http://localhost:5050/tutor_webapp/pages/list_tutor" />
+    <meta property="og:see_also" content="http://localhost:5050/tutor_webapp/pages/tutor_registration_form" />
+
     <title><?php if (isset($title)) echo $title;
             else echo "Không tiêu đề" ?></title>
 

@@ -4,7 +4,9 @@ namespace Ajax;
 
 use Helpers\Format;
 use Classes\DayOfWeek;
+use Exception;
 use Library\Session;
+
 require_once(__DIR__ . "../../../vendor/autoload.php");
 
 // $filepath  = realpath(dirname(__FILE__));
@@ -23,18 +25,21 @@ $_day_of_week = new DayOfWeek();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST['action']) && $_POST['action'] === "getDay") {
 
-
-        $get_day_of_week = $_day_of_week->GetByTutorId(Session::get("tutorId"), 0);
-        if ($get_day_of_week) {
+        try {
+            $get_day_of_week = $_day_of_week->GetByTutorId(Session::get("tutorId"), 0);
+            if ($get_day_of_week) {
 
 ?>
-            <option value="-1">-- Thứ --</option>
-            <?php
-            while ($day_of_week = $get_day_of_week->fetch_assoc()) {
-            ?>
-                <option value="<?= $day_of_week["id"] ?>"><?= $day_of_week["day"] ?></option>
+                <option value="-1">-- Thứ --</option>
+                <?php
+                while ($day_of_week = $get_day_of_week->fetch_assoc()) {
+                ?>
+                    <option value="<?= $day_of_week["id"] ?>"><?= $day_of_week["day"] ?></option>
 
 <?php }
+            }
+        } catch (Exception $ex) {
+            print_r($ex->getMessage());
         }
     }
 }

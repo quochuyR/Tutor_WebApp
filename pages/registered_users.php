@@ -104,7 +104,7 @@ include "../inc/header.php";
                                                                     // print_r($resultSubTopic);
 
                                                                 ?>
-                                                                    <span class="limit-text-subject  subject-span m-l-10 fw-500 badge my-1 <?= $resultSubTopic['approval'] == 1 ? "bg-cerulean" : "bg-secondary" ?>" data-id="<?= $resultSubTopic['id'] ?>"  data-bs-toggle="tooltip" data-bs-placement="top" title="<?=  $resultSubTopic['topicName'] ?>"><?= $resultSubTopic['topicName'] ?></span>
+                                                                    <span class="limit-text-subject  subject-span m-l-10 fw-500 badge my-1 <?= $resultSubTopic['approval'] == 1 ? "bg-cerulean" : "bg-secondary" ?>" data-id="<?= $resultSubTopic['id'] ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="<?= $resultSubTopic['topicName'] ?>"><?= $resultSubTopic['topicName'] ?></span>
                                                                 <?php
                                                                 endwhile;
 
@@ -334,7 +334,7 @@ include "../inc/header.php";
                                 <div class="card add-register-user">
                                     <div class="card-body">
                                         <div class="row g-0 ">
-                                            <div class="col-12 px-1 py-2 id-register"></div>
+                                            <div class="col-12 px-1 py-2 id-register d-none"></div>
                                             <div class="col-md-4 px-1 dayofweeks">
 
 
@@ -375,6 +375,27 @@ include "../inc/header.php";
                                             </div>
 
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="card note">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Hướng dẫn</h5>
+                                        <ol class="list-group list-group-numbered">
+                                            <li class="list-group-item pb-0 m-0">
+                                               Môn học chưa duyệt là môn học sẽ <b>không được hiển thị </b> ở phía người đăng kí kể cả môn học đó đã được <b>thêm lịch dạy</b>. Môn học được duyệt là môn học sẽ <b>hiển thị </b>ở phía người đăng kí, điều đó có nghĩa là bạn đã <b>chấp nhận dạy </b>môn học đó.
+                                            </li>
+                                            <li class="list-group-item pb-0 m-0">
+                                               Chữ màu <span style="background-color: #333; width:16px; height:16px;display: inline-block;"></span> : Môn học chưa được thêm lịch học
+                                            </li>
+
+                                            <li class="list-group-item pb-0 m-0">
+                                               Môn học có chữ màu <span style="background-color: #0dcaf0; width:16px; height:16px;display: inline-block;"></span> và có dấu <span style="color: #0dcaf0; width:16px; height:16px;display: inline-block;">&#x2714;</span>: Môn học đã được thêm lịch học
+                                            </li>
+
+                                            <li class="list-group-item pb-0 m-0">
+                                              Khi bạn muốn <b>Duyệt</b> hay <b>Huỷ duyệt</b> bạn chỉ cần chọn <b>Môn học</b> và sau đó nhấn vào nút công tắc <b>Đồng ý duyệt</b> (nếu nút công tắc chuyển sang màu xanh là <b>Đồng ý duyệt</b>, ngược lại màu xám là <b>Huỷ duyệt</b>) và sau đó nhấn vào nút <b>Lưu</b>.
+                                            </li>
+                                        </ol>
                                     </div>
                                 </div>
                             </div>

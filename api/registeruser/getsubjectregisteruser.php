@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php
             while ($subject_topic = $get_subject_topic->fetch_assoc()) {
             ?>
-                <option class="<?= $subject_topic["approval"] === 1 ? "text-info" : "text-secondary"  ?>" value="<?= $subject_topic["id"] ?>"><?= $subject_topic["topicName"] ?></option>
+                <option class="<?= $subject_topic["approval"] === 1 ? "text-info" : "text-secondary"  ?>" value="<?= $subject_topic["id"] ?>"> <?= $subject_topic["approval"] === 1 ? "&#x2714;" : ""?> <?= $subject_topic["topicName"] ?></option>
 
 <?php }
         }

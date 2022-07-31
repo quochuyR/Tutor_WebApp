@@ -2,8 +2,9 @@
 
 namespace Api;
 
-use Helpers\Format;
+use Exception;
 use Classes\Tutor;
+use Helpers\Format;
 use Library\Session;
 
 //  \tutor_webapp
@@ -20,18 +21,24 @@ if (!Session::checkRoles(['admin'])) {
 
 $_tutor = new Tutor();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST['id']) && !empty($_POST['id'])
+    if (
+        isset($_POST['id']) && !empty($_POST['id'])
     ) {
-        $id = Format::validation($_POST['id']);
+        try {
+            $id = Format::validation($_POST['id']);
 
 
-        $update_tutor =  $_tutor->update_approval_tutor($id);
+            $update_tutor =  $_tutor->update_approval_tutor($id);
 
 
-        if ($update_tutor) {
-            $message = $update_tutor->fetch_assoc();
+            if ($update_tutor) {
+                $message = $update_tutor->fetch_assoc();
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(["update" => "success", "message" => array_keys($message)[0]]);
+            }
+        } catch (Exception $ex) {;
             header('Content-Type: application/json; charset=utf-8');
-            echo json_encode(["update"=>"success", "message"=> array_keys($message)[0]]);
+            echo json_encode(["error" => $ex->getMessage()]);
         }
     }
 }

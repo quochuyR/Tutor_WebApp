@@ -2,8 +2,9 @@
 
 namespace Ajax;
 
-use Classes\AppUser;
+use Exception;
 use Helpers\Format;
+use Classes\AppUser;
 use Library\Session;
 
 // $filepath = realpath(dirname(__FILE__, 2));
@@ -23,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ((isset($_POST['value']) && !empty($_POST['value']))
     && (isset($_POST['column']) && !empty($_POST['column']))) {
 
-
+try{
         $value = Format::validation($_POST["value"]);
         $column = Format::validation($_POST["column"]);
         $hasValue = $_app_user->check_column_unique($column, $value);
@@ -39,5 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             
 
         }
+    } catch (Exception $ex) {
+        print_r($ex->getMessage());
+    }
     }
 }
