@@ -116,7 +116,7 @@ include "../inc/header.php";
 
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-tutor-detail" data-bs-toggle="modal" data-bs-target="#change-picture">
-                                    Thay đổi ảnh
+                                    Đổi ảnh
                                 </button>
                             </div>
 

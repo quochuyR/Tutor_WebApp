@@ -115,7 +115,15 @@ include "../inc/header.php";
                                 <button class="btn-sign-up btn btn--radius-2 btn--red" type="submit">Tạo tài khoản</button>
                             </div>
 
-
+                            <div class="text-center p-t-57 p-b-5">
+                                <span class="txt1 fw-600">
+                                    Bạn có đã tài khoản?
+                                </span>
+                                <a href="login" class=" hov1 fw-500">
+                                    Đăng nhập
+                                </a>
+                            </div>
+                            
 
                         </form>
                     </div>
@@ -133,7 +141,7 @@ include "../inc/script.php"
 ?>
 
 <script>
-   
+
 </script>
 
 <?php include '../inc/footer.php' ?>

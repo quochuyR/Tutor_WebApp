@@ -68,7 +68,7 @@
         }
 
         var approval_register_model = document.getElementById('approval-register')
-        approval_register_model.addEventListener('shown.bs.modal', (e) => {
+        approval_register_model?.addEventListener('shown.bs.modal', (e) => {
             onClickSave(e);
         })
         function onClickSave(event_approval) {

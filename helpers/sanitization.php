@@ -6,9 +6,9 @@ class Sanitization{
 
     
     const FILTERS = [
-        'string' => FILTER_UNSAFE_RAW,
+        'string' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
         'string[]' => [
-            'filter' => FILTER_UNSAFE_RAW,
+            'filter' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
             'flags' => FILTER_REQUIRE_ARRAY
         ],
         'email' => FILTER_SANITIZE_EMAIL,
@@ -58,7 +58,7 @@ class Sanitization{
      * @param bool $trim
      * @return array
      */
-    public static function  sanitize(array $inputs, array $fields = [], int $default_filter = FILTER_UNSAFE_RAW, array $filters = self::FILTERS, bool $trim = true): array
+    public static function  sanitize(array $inputs, array $fields = [], int $default_filter = FILTER_SANITIZE_FULL_SPECIAL_CHARS, array $filters = self::FILTERS, bool $trim = true): array
     {
         if ($fields) {
             $options = array_map(fn ($field) => $filters[$field], $fields);

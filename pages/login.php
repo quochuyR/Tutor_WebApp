@@ -169,16 +169,15 @@ include "../inc/header.php";
                                         <img src="../public/images/icons/icon-google.png" alt="GOOGLE">
                                     </a>
                                 </div> -->
-                                <div class="text-center p-t-57 p-b-20">
-                                    <span class="txt1">
+                                <div class="text-center p-t-57 p-b-5">
+                                    <span class="txt1 fw-600">
                                         Bạn chưa có tài khoản?
                                     </span>
-                                </div>
-                                <div class="text-center ">
-                                    <a href="signup" class=" hov1">
+                                    <a href="signup" class=" hov1 fw-500">
                                         Đăng ký
                                     </a>
                                 </div>
+                               
                             </form>
                         </div>
                     </div>

@@ -13,7 +13,7 @@ require_once(__DIR__ . "../../../vendor/autoload.php");
 // $filepath = realpath(dirname(__FILE__));
 
 // include_once $filepath . "../../lib/session.php";
-if (!Session::checkRoles(['tutor'])) {
+if (Session::checkRoles(['tutor'])) {
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(["author" => "isTutor"]);
     exit();
@@ -73,20 +73,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         && hash_equals($_POST["token"], $_SESSION["csrf_token"])
     ) {
         try {
+            $inputs = [
+                "currentPhone" => $_POST["currentPhone"],
+                "currentEmail" => $_POST["currentEmail"],
+                "currentAddress" => $_POST["currentAddress"],
+                "currentJob" => $_POST["currentJob"],
+                "currentProvince" => $_POST["currentProvince"],
+                "currentCollage" => $_POST["currentCollage"],
+                "graduateYear" => $_POST["graduateYear"],
+                "districts" => $_POST["districts"],
+                "teachingForm" => $_POST["teachingForm"],
+     
+                
+            ];
+            $fields = [
+                "currentPhone" => "string",
+                "currentEmail" =>"email",
+                "currentAddress" => "string",
+                "currentJob" => "string",
+                "currentProvince" => "string",
+                "currentCollage" => "string",
+                "graduateYear" => "int",
+                "districts" => "string",
+                "teachingForm" => "string",
+            ];
 
-            $currentPhone = Format::validation($_POST["currentPhone"]);
-            $currentEmail = Format::validation($_POST["currentEmail"]);
-            $currentAddress = Format::validation($_POST["currentAddress"]);
-            $currentJob = Format::validation($_POST["currentJob"]);
-            $currentProvince = Format::validation($_POST["currentProvince"]);
-            $currentCollage = Format::validation($_POST["currentCollage"]);
-            $graduateYear = Format::validation($_POST["graduateYear"]);
-            $districts = Format::validation($_POST["districts"]);
-            $teachingForm = Format::validation($_POST["teachingForm"]);
+            // description, linkFace, linkTwitter validation bình thường 
+            // bằng htmlspecialchars không cần sanitize
             $description = Format::validation($_POST["description"]);
             $linkFace = isset($_POST["linkFace"]) && !empty($_POST["linkFace"]) ? Format::validation($_POST["linkFace"]) : NULL;
-            $linkTwit = isset($_POST["linkTwit"]) && !empty($_POST["linkTwit"]) ? Format::validation($_POST["linkTwit"]) : NULL;
-            $data = array(Session::get("userId"), $description, $currentPhone, $currentEmail, $currentAddress, $currentCollage, $graduateYear,  $currentJob, $currentProvince, $teachingForm,  $districts, $linkFace, $linkTwit);
+            $linkTwit = isset($_POST["linkTwit"]) && !empty($_POST["linkTwit"]) ?Format::validation($_POST["linkTwit"]) : NULL;
+            
+            // sanitize input
+            $data_input = \Helpers\Sanitization::sanitize($inputs,$fields);
+            // tạo mảng chứa data input
+            $data = array(Session::get("userId"), $description, $data_input['currentPhone'], $data_input['currentEmail'], $data_input['currentAddress'], $data_input['currentCollage'], $data_input['graduateYear'],  $data_input['currentJob'], $data_input['currentProvince'], $data_input['teachingForm'],  $data_input['districts'], $linkFace, $linkTwit);
 
             // print_r($currentProvince);
             $numTutor = $_tutor->countTutorByUserId(Session::get("userId"))->fetch_assoc()["countTutor"];

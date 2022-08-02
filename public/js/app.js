@@ -2356,7 +2356,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
 
     var approval_register_model = document.getElementById('approval-register');
-    approval_register_model.addEventListener('shown.bs.modal', function (e) {
+    approval_register_model === null || approval_register_model === void 0 ? void 0 : approval_register_model.addEventListener('shown.bs.modal', function (e) {
       onClickSave(e);
     });
 

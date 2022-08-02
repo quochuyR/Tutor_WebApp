@@ -77,6 +77,19 @@
   padding-top: 80px;
 }
 
+
+.p-b-5{
+  padding-bottom: 5px;
+}
+
+.p-b-10{
+  padding-bottom: 10px;
+}
+
+.p-b-15{
+  padding-bottom: 15px;
+}
+
 .p-b-30 {
   padding-bottom: 30px;
 }

@@ -44,7 +44,7 @@ include "../inc/header.php";
                                         <div class="d-inline-flex card-title mb-4 border-bottom pt-2 pb-2">
                                             <h5 class="text-start fw-600 pe-1">Thông tin liên lạc</h5>
 
-                                            <span class="material-symbols-rounded text-info" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Những thông tin này sẽ hiển thị cho người dùng có thể liên hệ với bạn">
+                                            <span class="material-symbols-rounded text-steal" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Những thông tin này sẽ hiển thị cho người dùng có thể liên hệ với bạn">
                                                 help
                                             </span>
                                         </div>
@@ -75,7 +75,7 @@ include "../inc/header.php";
 
                                             <h5 class="text-start fw-600 pe-1">Thông tin gia sư</h5>
 
-                                            <span class="material-symbols-rounded text-info" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Những thông tin này sẽ được quản lý liên hệ phỏng vấn để xác thực với bạn">
+                                            <span class="material-symbols-rounded text-steal" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Những thông tin này sẽ được quản lý liên hệ phỏng vấn để xác thực với bạn">
                                                 help
                                             </span>
                                         </div>
@@ -163,7 +163,7 @@ include "../inc/header.php";
                                         <div class="d-inline-flex card-title mb-4 border-bottom pt-2 pb-2">
                                             <h5 class="text-start fw-600 pe-1">Bằng cấp gia sư</h5>
 
-                                            <span class="material-symbols-rounded text-info" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Ảnh bằng cấp hoặc chứng chỉ mà bạn đạt được">
+                                            <span class="material-symbols-rounded text-steal" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Ảnh bằng cấp hoặc chứng chỉ mà bạn đạt được">
                                                 help
                                             </span>
                                         </div>
@@ -205,7 +205,7 @@ include "../inc/header.php";
                                         <div class="d-inline-flex card-title mb-4 border-bottom pt-2 pb-2">
                                             <h5 class="text-start fw-600 pe-1">Thời gian nhận lớp</h5>
 
-                                            <span class="material-symbols-rounded text-info" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Thời gian mà bạn có thể dạy học được">
+                                            <span class="material-symbols-rounded text-steal" style="font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Thời gian mà bạn có thể dạy học được">
                                                 help
                                             </span>
                                         </div>

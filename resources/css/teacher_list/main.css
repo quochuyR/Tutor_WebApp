@@ -310,7 +310,7 @@ h6 {
 }
 
 .btn-tutor-detail {
-    background-color: #0062C3 !important;
+    background-color: #73BBB4 !important;
     color: #fff !important;
     border: none;
     border-radius: 10px !important;
@@ -322,7 +322,9 @@ h6 {
 }
 
 .btn{
-    border-radius: 10px !important;
+    border-radius: 5px !important;
+    padding: 0.5rem !important;
+    
 }
 
 .img-teacher > img {
@@ -469,3 +471,5 @@ h6 {
             line-clamp: 3; 
     -webkit-box-orient: vertical;
  }
+
+ 

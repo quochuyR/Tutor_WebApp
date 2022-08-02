@@ -7,8 +7,11 @@ require_once(__DIR__ . "../../vendor/autoload.php");
 Session::init();
 
 // print_r($_SESSION);
-include "../inc/header.php"
+include "../inc/header.php";
+
+print_r(filter_var("nhokbaby0246@gmail<>.com", FILTER_SANITIZE_EMAIL));
 ?>
+
 <span class="material-symbols-rounded">
 &#xe86c;
 </span>

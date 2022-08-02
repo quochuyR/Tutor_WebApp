@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (hash_equals($_POST["token"], $_SESSION["csrf_token"])) {
         try {
             $currentPhone =    (isset($_POST["currentPhone"]) && !empty($_POST["currentPhone"])) ? Format::validation($_POST["currentPhone"]) : NULL;
-            $currentEmail = (isset($_POST["currentEmail"]) && !empty($_POST["currentEmail"])) ?  Format::validation($_POST["currentEmail"]) : NULL;
+            $currentEmail = (isset($_POST["currentEmail"]) && !empty($_POST["currentEmail"])) ? filter_var($_POST["currentEmail"], FILTER_SANITIZE_EMAIL) : NULL;
             $currentAddress = (isset($_POST["currentAddress"]) && !empty($_POST["currentAddress"])) ? Format::validation($_POST["currentAddress"]) : NULL;
             $currentProvince = (isset($_POST["currentProvince"]) && !empty($_POST["currentProvince"])) ? Format::validation($_POST["currentProvince"]) : NULL;
             $districts = (isset($_POST["districts"]) && !empty($_POST["districts"])) ? Format::validation($_POST["districts"]) : NULL;
