@@ -3366,5 +3366,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 })();
 })();
 
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!*********************************!*\
+  !*** ./resources/js/contact.js ***!
+  \*********************************/
+$(document).ready(function () {
+  // sự kiện ấn submit trang contact
+  $("#sentcontact").click(function () {
+    event.preventDefault();
+    alert("Hello");
+  });
+})();
+})();
+
 /******/ })()
 ;

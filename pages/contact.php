@@ -35,8 +35,8 @@ $title = "Liên hệ";
 include "../inc/header.php";
 ?>
 
-<section class="container">
-    <div class="p-3">
+<section class="container contact-section d-flex justify-content-around">
+    <div class="p-3 w-75 ">
         <div class="page-wrapper">
             <div class="row">
                 <div class="col-lg-6">
@@ -55,18 +55,32 @@ include "../inc/header.php";
             <div class="row">
                 <div class="col-lg-12">
                     <form class="form-wrapper">
-                        <h4>Contact form</h4>
-                        <input type="text" class="form-control" placeholder="Your name">
-                        <input type="text" class="form-control" placeholder="Email address">
-                        <input type="text" class="form-control" placeholder="Phone">
-                        <input type="text" class="form-control" placeholder="Subject">
-                        <textarea class="form-control" placeholder="Your message"></textarea>
-                        <button type="submit" class="btn btn-primary">Send <i class="fa fa-envelope-open-o"></i></button>
+                        <h2 class="text-center">Liên hệ</h2>
+                        <div class="mb-3">
+                            <label for="fullname" class="form-label">Họ và tên</label>
+                            <input type="text" id="fullname" class="form-control" placeholder="Họ và tên">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Địa chỉ email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Số điện thoại</label>
+                            <input type="text" id="phone" class="form-control" placeholder="Số điện thoại">
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Nội dung</label>
+                            <textarea class="form-control" id="content" placeholder="Nội dung"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" id="sentcontact" class="btn btn-primary m-1 p-1">Gửi <i class="fas fa-paper-plane"></i></button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div><!-- end page-wrapper -->
     </div><!-- end container -->
+
 </section>
 
 <!-- bootstrap 4 -->
