@@ -14,7 +14,8 @@ const src = {
             'resources/js/saved_tutors.js',
             'resources/js/signup.js',
             'resources/js/tutor_details.js',
-            'resources/js/tutor_registration_form.js'
+            'resources/js/tutor_registration_form.js',
+            'resources/js/contact.js'
         ],
         css: ['resources/css/style.css',
             'resources/css/404/main.css',
@@ -30,7 +31,8 @@ const src = {
             'resources/css/TrangChu/main.css',
             'resources/css/tutor_registration_form/main.css',
             'resources/css/user_detail/main.css',
-            'resources/css/utilities/main.css'
+            'resources/css/utilities/main.css',
+            'resources/css/contact/main.css'
         ]
     },
     admin: {
