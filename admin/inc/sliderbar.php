@@ -5,6 +5,7 @@
 
             </li>
             <li class="menu-title">QUẢN LÍ</li><!-- /.menu-title -->
+            <!-- Quản lý môn học -->
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle d-inline-flex align-items-center " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="ico ico-subject-manager me-3"></span><span class="d-block">Quản lí môn học</span></a>
                 <ul class="sub-menu children dropdown-menu">
@@ -15,17 +16,27 @@
 
                 </ul>
             </li>
+            <!-- Quản lý gia sư -->
             <li class="menu-item-has-children dropdown">
             <a href="#" class="dropdown-toggle d-inline-flex align-items-center " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="ico ico-tutor-manager me-3"></span><span class="d-block">Quản lí gia sư</span></a>
                 <ul class="sub-menu children dropdown-menu">
                     <li class="d-inline-flex align-items-center"><span class="ico ico-tutor me-3"></span><a href="../pages/tutormanagers">Gia sư</a></li>
                 </ul>
             </li>
+            <!-- Quản lý gia sư  -->
             <li class="menu-item-has-children dropdown">
             <a href="#" class="dropdown-toggle d-inline-flex align-items-center " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="ico ico-home-manager me-3"></span><span class="d-block">Quản lí trang chủ</span></a>
                 <ul class="sub-menu children dropdown-menu">
                     <li class="d-inline-flex align-items-center"><span class="ico ico-image ico-subject me-3"></span><a href="../pages/carousel">Hình ảnh</a></li>
                     <li class="d-inline-flex align-items-center"><span class="ico ico-post me-3"></span><a href="../pages/page_editpost">Bài viết</a></li>
+                </ul>
+            </li>
+            <!-- Quản lý tài khoản  -->
+            <li class="menu-item-has-children dropdown">
+            <a href="#" class="dropdown-toggle d-inline-flex align-items-center " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="ico ico-account me-3"></span><span class="d-block">Quản lí tài khoản</span></a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li class="d-inline-flex align-items-center"><span class="ico ico-image ico-user me-3"></span><a href="../pages/usermanager">Người dùng</a></li>
+                    <!-- <li class="d-inline-flex align-items-center"><span class="ico ico-post me-3"></span><a href="../pages/page_editpost">Bài viết</a></li> -->
                 </ul>
             </li>
 

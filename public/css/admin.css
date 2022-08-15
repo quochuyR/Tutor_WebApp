@@ -60,6 +60,14 @@
     background-image: url("../../admin/public/images/icons/billboard_48px.png");
 
 }
+.ico-account{
+    background-image: url("../../admin/public/images/icons/account_48px.png");
+
+}
+.ico-user{
+    background-image: url("../../admin/public/images/icons/user_48px.png");
+
+}
 .avatar-lg {
     height: 7.5rem;
     width: 7.5rem;
@@ -401,8 +409,8 @@ li+.postion-absolute {
 
 /* badge */
 .badge-light-danger {
-  color: #F1416C;
-  background-color: #fbe7ed;
+  color: #F1416C !important;
+  background-color: #fbe7ed !important;
 }
 
 .badge-light-success {
@@ -4266,3 +4274,18 @@ footer.site-footer .footer-inner a {
 }
 
 /* end image viewer */
+
+/* input checkbox */
+
+.form-check-input:focus {
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(13, 253, 209, 0.25) !important
+}
+
+.form-check-input:checked {
+  background-color: #1f7776 !important;
+  border-color: #1f7776 !important
+}
+
+/* end input checkbox */
