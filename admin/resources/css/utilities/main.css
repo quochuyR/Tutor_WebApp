@@ -164,8 +164,8 @@
 
 /* badge */
 .badge-light-danger {
-  color: #F1416C;
-  background-color: #fbe7ed;
+  color: #F1416C !important;
+  background-color: #fbe7ed !important;
 }
 
 .badge-light-success {

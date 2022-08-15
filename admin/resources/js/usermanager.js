@@ -2,24 +2,24 @@ import {
     image_viewer,
     remove_eventListener
 } from './modules/image_viewer.js'
-(function() {
+(function () {
     // data table
     "use-strict"
-    jQuery(document).ready(function($) {
+    jQuery(document).ready(function ($) {
 
 
 
 
-        (function() {
-            var tutor_table = $('#tutor-table').DataTable({
+        (function () {
+            var tutor_table = $('#user-table').DataTable({
                 // data: data,
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '../api/tutors/getdatasubjecttopics',
+                    url: '../api/users/getdatausers',
                     dataType: 'json',
                     type: 'get',
-                    complete: function(data) {
+                    complete: function (data) {
 
                         // if (data.add === "success") {
                         //     table.ajax.reload(null, false);
@@ -28,115 +28,102 @@ import {
                         InitLoadSuccess();
                         console.log(data)
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error(xhr);
                     }
                 },
-                drawCallBack: function(settings) {
+                drawCallBack: function (settings) {
                     console.log(settings)
                 },
-                createdRow: function(row, data, dataIndex) {
+                createdRow: function (row, data, dataIndex) {
+                    if(data.status === 0){
+                        $(row).addClass('badge-light-danger');
+                    }
                     $(row).addClass('subject-row');
                 },
                 columns: [{
-                        data: "id",
-                        className: "",
-                        render: function(data, type, row) {
-                            return `<input class="form-check-input check-one" type="checkbox" value="${data}">`
-                        },
+                    data: "Id",
+                    className: "",
+                    render: function (data, type, row) {
+                        return `<input class="form-check-input check-one" type="checkbox" value="${data}">`
                     },
-                    {
-                        data: null,
-                        render: function(data, type, row) {
-                            if (type === "display") {
-                                return `<div class="round-img">
+                },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        if (type === "display") {
+                            return `<div class="round-img">
                                             <a href="#"><img class="rounded" src="${row.image ? "../../public/" + row.image : "https://www.bootdey.com/img/Content/avatar/avatar5.png"}" alt=""></a>
                                         </div>`
-                            }
-                            return data
-
-                        },
-                    },
-                    {
-                        data: "last_name",
-                        render: function(data, type, row) {
-                            if (type === "display") {
-                                return `<span class="text-dark d-block">${data}</span>`
-                            }
-                            return data
-
-                        },
-                    },
-                    {
-                        data: "first_name",
-                        render: function(data, type, row) {
-                            if (type === "display") {
-                                return `<span class="text-dark d-block">${data}</span>`
-                            }
-                            return data
-
-                        },
-                    },
-                    {
-                        data: "current_job",
-                        render: function(data, type, row) {
-                            console.log(row, "row")
-
-                            if (type === "display") {
-                                return `<span class="text-dark d-block">${data}</span>`;
-                            }
-                            return data
                         }
-                    },
-                    {
-                        data: "current_place",
-                        render: function(data, type, row) {
-                            console.log(row, "row")
+                        return data
 
-                            if (type === "display") {
-                                return `<span class="text-dark d-block">${data}</span>`;
-                            }
-                            return data
-                        }
                     },
-                    {
-                        data: "teaching_area",
-                        render: function(data, type, row) {
-                            console.log(row, "row")
+                },
+                {
+                    data: "last_name",
+                    render: function (data, type, row) {
+                        if (type === "display") {
+                            return `<span class="text-dark d-block">${data}</span>`
+                        }
+                        return data
 
-                            if (type === "display") {
-                                return `<span class="text-dark d-block">${data}</span>`;
-                            }
-                            return data
-                        }
-                    }, {
-                        data: "teaching_form",
-                        render: function(data, type, row) {
-                            // Combine the first and last names into a single table field
-                            if (type === "display") {
-                                let teaching_form = "";
-                                let array_teaching_form = data.replace(/\s/g, '').split(",")
-                                array_teaching_form.map(val => {
-                                    if (val === '0')
-                                        teaching_form += "Trực tiếp" + ', '
-                                    if (val === '1')
-                                        teaching_form += "Trực tuyến" + ', '
-                                })
-                                // console.log(array_teaching_form)
-                                return `<span class="text-muted fs-6 limit-text p-t-012">
-                                            ${teaching_form}                        
-                                        </span>`;
-                            }
-                            return data
-                        },
-                    }, {
-                        data: null,
-                        render: function(data, type, row) {
-                            // Combine the first and last names into a single table field
-                            return `<span class="badge ${ data.tutor_status === 1 ? "badge-light-success" : "badge-light-danger"} approval d-block mx-2" data-value-id=${row.id} data-bs-toggle="modal" data-bs-target="#modal-tutor-detail">${ data.tutor_status === 1 ? "Đã duyệt" : "Chưa duyệt"}</span>`;
-                        },
-                        // defaultContent:,
                     },
+                },
+                {
+                    data: "first_name",
+                    render: function (data, type, row) {
+                        if (type === "display") {
+                            return `<span class="text-dark d-block">${data}</span>`
+                        }
+                        return data
+
+                    },
+                },
+                {
+                    data: "username",
+                    render: function (data, type, row) {
+                        console.log(row, "row")
+
+                        if (type === "display") {
+                            return `<span class="text-dark d-block">${data}</span>`;
+                        }
+                        return data
+                    }
+                },
+                {
+                    data: "sex",
+                    render: function (data, type, row) {
+                        console.log(row, "row")
+
+                        if (type === "display") {
+                            return `<span class="text-dark d-block">${data === 1 ? "Nam" : "Nữ"}</span>`;
+                        }
+                        return data
+                    }
+                },
+                {
+                    data: "account_roles",
+                    render: function (data, type, row) {
+                        console.log(row, "row")
+
+                        if (type === "display") {
+                            return `<span class="text-dark d-block">${data}</span>`;
+                        }
+                        return data
+                    }
+                }, {
+                    data: null,
+                    className: "",
+                    render: function (data, type, row) {
+                        // Combine the first and last names into a single table field
+                        return `<div class="form-check form-switch d-flex justify-content-center">
+                                        <input class="form-check-input users-active" type="checkbox" role="switch" id="flexSwitchCheckActiveUser${data.Id.substring(9, 13)}" ${data.status === 1 ? "checked" : ""} data-id="${data.Id}">
+                                        <label class="form-check-label" for="flexSwitchCheckActiveUser${data.Id.substring(9, 13)}"></label>
+                                    </div>`;
+                    },
+                    // defaultContent:,
+                },
                 ],
 
                 // initComplete: function(settings, json) {
@@ -144,24 +131,24 @@ import {
                 // },,
                 dom: 'Bfrtip',
                 buttons: ['pageLength', {
-                        extend: 'print',
-                        download: 'open',
-                        exportOptions: {
-                            columns: ':visible'
-                        },
-                        customize: function(win) {
-                            console.log($(win.document.body).find('table').eq(1))
-                            // $(win.document.body)
-                            //     .css('font-size', '10pt')
-                            //     .prepend(
-                            //         '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
-                            //     );
-
-                            $(win.document.body).find('table')
-                                .addClass('table-bordered').removeClass("table-type-1")
-                        },
-                        messageTop: `<span class="h5 pt-3 d-block">THÔNG TIN GIA SƯ</span>`
+                    extend: 'print',
+                    download: 'open',
+                    exportOptions: {
+                        columns: ':visible'
                     },
+                    customize: function (win) {
+                        console.log($(win.document.body).find('table').eq(1))
+                        // $(win.document.body)
+                        //     .css('font-size', '10pt')
+                        //     .prepend(
+                        //         '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                        //     );
+
+                        $(win.document.body).find('table')
+                            .addClass('table-bordered').removeClass("table-type-1")
+                    },
+                    messageTop: `<span class="h5 pt-3 d-block">THÔNG TIN TÀI KHOẢN NGƯỜI DÙNG</span>`
+                },
                     'colvis'
                 ],
                 stateSave: true,
@@ -181,9 +168,9 @@ import {
                 }
             });
 
-            // $('#tutor-table').on('page.dt', (e) => {
-            //     $("#select-all-tutor").prop("checked", false);
-            //     $("#select-all-tutor").removeClass('allChecked');
+            // $('#user-table').on('page.dt', (e) => {
+            //     $("#select-all-user").prop("checked", false);
+            //     $("#select-all-user").removeClass('allChecked');
 
             // })
 
@@ -196,12 +183,12 @@ import {
             // console.log(settings)
 
             // select all
-            $('#select-all-tutor').on('click', function(e) {
+            $('#select-all-user').on('click', function (e) {
                 // idx++
                 // console.log("-------------------", idx, "allPage")
 
                 let allPages = tutor_table.rows().nodes();
-                console.log($(this).hasClass('allChecked'))
+                console.log(allPages)
                 if ($(this).hasClass('allChecked')) {
                     $('input[type="checkbox"]', allPages).prop('checked', false);
                 } else {
@@ -213,54 +200,55 @@ import {
                 return true;
             });
 
-            console.log($('#select-all-tutor'), "$('#select-all-tutor')")
-
             function InitLoadSuccess(settings = null, json = null) {
 
-                $("#update-approval-tutor").off();
-                $(".approval").on('click', (e) => {
-                    let id = $(e.target).attr("data-value-id");
+                // $(".approval").on('click', (e) => {
+                //     let id = $(e.target).attr("data-value-id");
 
 
-                    $.ajax({
-                        type: "post",
-                        url: "../api/tutors/gettutordetailsforadmin",
-                        data: {
-                            id
-                        },
-                        cache: false,
-                        success: function(data) {
+                //     $.ajax({
+                //         type: "post",
+                //         url: "../api/tutors/gettutordetailsforadmin",
+                //         data: {
+                //             id
+                //         },
+                //         cache: false,
+                //         success: function(data) {
 
-                            // if (data.delete === "success") {
-                            //     subject_topic_table.ajax.reload(null, false);
+                //             // if (data.delete === "success") {
+                //             //     subject_topic_table.ajax.reload(null, false);
 
-                            // }
-                            $("#modal-tutor-detail .modal-body").html(data);
-                            $("#update-approval-tutor").attr("data-id", id);
-                                
-                            image_viewer(".image-certificate");
+                //             // }
+                //             $("#modal-user-detail .modal-body").html(data);
+                //             $("#users-active").attr("data-id", id);
 
-                            console.log(data)
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(xhr);
-                        }
-                    });
-                });
+                //             image_viewer(".image-certificate");
+
+                //             console.log(data)
+                //         },
+                //         error: function(xhr, status, error) {
+                //             console.error(xhr);
+                //         }
+                //     });
+                // });
 
                 // update approval tutor
-                $("#update-approval-tutor").on('click', (e) => {
-                    let id = $(e.target).attr("data-id");
+                $(".users-active").off();
 
+                $(".users-active").on('click', (e) => {
+                    let id = $(e.target).attr("data-id");
+                    let isActive = $(e.target).prop("checked") ? 1 : 0;
+                    console.log(id, isActive, "ID")
 
                     $.ajax({
                         type: "post",
-                        url: "../api/tutors/updateapprovaltutor",
+                        url: "../api/users/updateactiveuser",
                         data: {
-                            id
+                            id,
+                            isActive
                         },
                         cache: false,
-                        success: function(data) {
+                        success: function (data) {
 
                             if (data.update === "success") {
                                 tutor_table.ajax.reload(null, false);
@@ -276,13 +264,13 @@ import {
                                     style: {
                                         background: "linear-gradient(to right, #56C596, #7BE495)",
                                     },
-                                    onClick: function() {} // Callback after click
+                                    onClick: function () { } // Callback after click
                                 }).showToast();
                             }
 
                             console.log(data)
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             console.error(xhr);
                         }
                     });
@@ -292,21 +280,21 @@ import {
 
 
             }
-            var review_modal = document.getElementById('modal-tutor-detail');
-            
-            review_modal?.addEventListener('hidden.bs.modal', function(event) {
-                
-                remove_eventListener({
-                   event: 'click',
-                   selector: '#image-viewer .close'
-                });
-                remove_eventListener({
-                   event: 'click',
-                   selector: '.image-certificate'
-                })
+            // var review_modal = document.getElementById('modal-user-detail');
+
+            // review_modal?.addEventListener('hidden.bs.modal', function(event) {
+
+            //     remove_eventListener({
+            //        event: 'click',
+            //        selector: '#image-viewer .close'
+            //     });
+            //     remove_eventListener({
+            //        event: 'click',
+            //        selector: '.image-certificate'
+            //     })
 
 
-            });
+            // });
 
             /*
 

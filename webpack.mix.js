@@ -40,7 +40,8 @@ const src = {
             'admin/resources/js/managersubjects.js',
             'admin/resources/js/page_editpost.js',
             'admin/resources/js/topicmanager.js',
-            'admin/resources/js/tutormanagers.js'
+            'admin/resources/js/tutormanagers.js',
+            'admin/resources/js/usermanager.js',
         ],
         css: ['admin/resources/css/carousel_post/main.css',
             'admin/resources/css/material-icon/main.css',
