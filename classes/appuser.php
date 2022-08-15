@@ -78,18 +78,20 @@ class AppUser
     /**
      * hàm có nhiệm vụ cập nhật người dùng đã kích hoạt email
      * @param string $user_id id của người dùng
+     * @param int $isActive active hoặc block
      * @return object|bool số lượng hàng cập nhật thành công
      */
-    function activate_user(string $user_id): bool
+    function activate_user(string $user_id, int $isActive ): bool
     {
         $sql = 'UPDATE appusers
-            SET active = 1,
+            SET active = ?,
                 activated_at = CURRENT_TIMESTAMP
             WHERE id = ? ';
 
-        $result = $this->db->p_statement($sql, "s", [$user_id]);
+        $result = $this->db->p_statement($sql, "is", [$isActive, $user_id]);
         return $result;
     }
+    
 
     /**
      * Hàm có nhiệm vụ xoá người dùng không kích hoạt
