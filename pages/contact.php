@@ -26,10 +26,6 @@ $db_homepageTutor = new tutor();
 $TTtopic = new Tutor();
 $subjects = new Subject();
 
-$arrayImg = array();
-
-$arrayImg = $db_homepage->loadImageToArray();
-
 $contact = "active";
 $title = "Liên hệ";
 include "../inc/header.php";
@@ -46,7 +42,7 @@ include "../inc/header.php";
 
                 <div class="col-lg-6">
                     <h4>How we help?</h4>
-                    <p>If you’d like to write for us, <a href="#">advertise with us</a> or just say hello, fill out the form below and we’ll get back to you as soon as possible.</p>
+                    <p>If you&rsquo;d like to write for us, <a href="#">advertise with us</a> or just say hello, fill out the form below and we’ll get back to you as soon as possible.</p>
                 </div>
             </div><!-- end row -->
 
@@ -79,6 +75,24 @@ include "../inc/header.php";
                 </div>
             </div>
         </div><!-- end page-wrapper -->
+        <!-- start toast notification sent request success  -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+
+                    <strong class="me-auto"><i class="fab fa-facebook-messenger"></i> <b>Tin nhắn</b></strong>
+                    <small>Vừa xong</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" id="closetoast"></button>
+                </div>
+                <div class="toast-body">
+                    <p class="toast-content">
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- end toast notification sent request success  -->
+
     </div><!-- end container -->
 
 </section>
