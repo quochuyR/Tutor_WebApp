@@ -279,6 +279,7 @@ input[type=checkbox] {
     background-color: #1f7776 !important;
     border-color: #1f7776 !important
 }
+
 #handboy {
     animation: swing ease-in-out 1.3s infinite alternate;
     transform-origin: 98% 98%;

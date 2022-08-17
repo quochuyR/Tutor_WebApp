@@ -116,11 +116,11 @@
                 }
             });
 
-            $('#subject-table').on('page.dt', (e) => {
-                $("#select-all-subject").prop("checked", false);
-                $("#select-all-subject").removeClass('allChecked');
+            // $('#subject-table').on('page.dt', (e) => {
+            //     $("#select-all-subject").prop("checked", false);
+            //     $("#select-all-subject").removeClass('allChecked');
 
-            })
+            // })
 
 
             // hàm có tác dụng load dữ liệu bảng thành công mới thực thi hàm

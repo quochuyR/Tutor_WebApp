@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             $user = $_user->find_unverified_user($inputs['activation_code'], $inputs['email']);
 
             // if user exists and activate the user successfully
-            if ($user && $_user->activate_user($user['id'])) {
+            if ($user && $_user->activate_user($user['id'], 1)) {
                 Util::redirect_with_message(
                     '../login',
                     'Tài khoản của bạn đã được kích hoạt thành công. Vui lòng đăng nhập tại đây.'
