@@ -32,6 +32,18 @@
 
 /***/ }),
 
+/***/ "./admin/resources/js/contact.js":
+/*!***************************************!*\
+  !*** ./admin/resources/js/contact.js ***!
+  \***************************************/
+/***/ (() => {
+
+(function () {
+  $(document).ready(function () {});
+})();
+
+/***/ }),
+
 /***/ "./admin/resources/js/main.js":
 /*!************************************!*\
   !*** ./admin/resources/js/main.js ***!
@@ -1867,7 +1879,8 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	__webpack_require__("./admin/resources/js/page_editpost.js");
 /******/ 	__webpack_require__("./admin/resources/js/topicmanager.js");
 /******/ 	__webpack_require__("./admin/resources/js/tutormanagers.js");
-/******/ 	var __webpack_exports__ = __webpack_require__("./admin/resources/js/usermanager.js");
+/******/ 	__webpack_require__("./admin/resources/js/usermanager.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./admin/resources/js/contact.js");
 /******/ 	
 /******/ })()
 ;
