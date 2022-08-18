@@ -43,10 +43,9 @@
 /* about  start */
 
 .about-start {
-    margin-top: 100px;
-    margin-bottom: 100px;
-    background-image: url("../../public/images/background/background-1.png");
-    /* background-size: cover; */
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-color: #ffffff;
 }
 
 .about-more-link a {
@@ -87,19 +86,21 @@
 }
 
 .about-second-background {
-    background-image: url('https://static.vecteezy.com/system/resources/previews/004/554/612/non_2x/abstract-blue-wave-set-on-transparent-background-illustration-free-vector.jpg');
+    /* background-image: url('https://static.vecteezy.com/system/resources/previews/004/554/612/non_2x/abstract-blue-wave-set-on-transparent-background-illustration-free-vector.jpg');
+    background-size: cover; */
+    background-image: url("../../public/images/background/background-1a.png");
     background-size: cover;
 }
 
 .about-second .btn {
     padding: 0.7em;
     transition: transform 0.5s;
-    background-color: #FAC213;
+    background-color: #000000 !important;
 }
 
 .about-second .btn:hover {
     transform: scale(1.1);
-    background-color: #79C000;
+    background-color: #79C000 !important;
 }
 
 
@@ -134,12 +135,16 @@
 }
 
 .features-background {
-    background-image: url("../../public/images/background/background-trangchu-1.png");
+    background-image: url("../../public/images/background/background-1b.png");
     background-size: cover;
 }
 
 
 /* form register tutor */
+
+.form-register-tutor {
+    background-image: url("../../public/images/background/background-white.png");
+}
 
 .form-register-tutor form {
     margin-top: 50px;
