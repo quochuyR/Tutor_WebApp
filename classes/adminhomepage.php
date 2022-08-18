@@ -70,7 +70,7 @@ class Adminhomepage
     {
         if ($this->CountNumberImages() < 3 || $status == 0) {
             $query = "UPDATE `calrouselimg` SET `uploaded_on`= CURRENT_TIME(),`status`='$status' WHERE id = $id";
-            $result = $this->db->update($query);
+            $result = $this->db->select($query);
         }
     }
 
@@ -86,7 +86,7 @@ class Adminhomepage
         // truy vấn danh sach carousel image 
         $select = "SELECT * FROM calrouselimg WHERE status = 1 ORDER BY uploaded_on desc";
         // $select = "SELECT * FROM `calrouselimg` ";
-        $imgList = $this->db->update($select);
+        $imgList = $this->db->select($select);
         // return number image have been done show in homepage
         return $imgList->num_rows;
     }
@@ -155,7 +155,7 @@ class Adminhomepage
     //trang viết bài viết
     function AddPost($query)
     {
-        $result = $this->db->update($query);
+        $result = $this->db->select($query);
     }
     //tìm bài viết
     function SearchPost($query)
@@ -167,11 +167,11 @@ class Adminhomepage
     function DeletePost($idDelete)
     {
         $query = "DELETE FROM admin_post WHERE id = $idDelete ";
-        $result = $this->db->update($query);
+        $result = $this->db->select($query);
     }
     //lưu lại chỉnh sửa bài viết
     function SaveEditPost($query)
     {
-        $result = $this->db->update($query);
+        $result = $this->db->select($query);
     }
 }
