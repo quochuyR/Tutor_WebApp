@@ -44,6 +44,7 @@ const src = {
             'admin/resources/js/topicmanager.js',
             'admin/resources/js/tutormanagers.js',
             'admin/resources/js/usermanager.js',
+            'admin/resources/js/contact.js'
         ],
         css: ['admin/resources/css/carousel_post/main.css',
             'admin/resources/css/material-icon/main.css',
@@ -51,7 +52,7 @@ const src = {
             'admin/resources/css/sliderbar/main.css',
             'admin/resources/css/user_detail/main.css',
             'admin/resources/css/utilities/main.css',
-            'admin/resources/css/style.css',
+            'admin/resources/css/style.css'
         ]
     }
 }
