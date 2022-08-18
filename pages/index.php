@@ -301,7 +301,7 @@ include "../inc/header.php";
     </section>
     <!-- Features End -->
     <!-- Form đăng kí tư vấn start  -->
-    <section id="form-register-tutor" class="form-register-tutor container p-3 d-flex justify-content-center" data-aos="zoom-in" data-aos-duration="1000">
+    <section id="form-register-tutor" class="form-register-tutor  p-3 d-flex justify-content-center" data-aos="zoom-in" data-aos-duration="1000">
         <form name="form-register">
             <h3>ĐĂNG KÍ TƯ VẤN MIỄN PHÍ</h3>
             <div class="row mb-3">

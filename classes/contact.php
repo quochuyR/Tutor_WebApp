@@ -42,7 +42,7 @@ class contact
     public function queryAllContact(){
         $query  = "SELECT * FROM `contact`";
         $result = $this->db->select($query);
-        
+        return $result;
     }
 
 

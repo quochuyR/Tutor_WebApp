@@ -26,17 +26,17 @@
             let toastA = $('.toast');
             toastA.hide();
             console.log("xong");
-        }, 1000);
+        }, 3000);
 
     }
 
     // sự kiện ấn submit trang contact
     $("#sentcontact").on('click', function(event) {
         event.preventDefault();
-        let fullname = $("#fullname").val();
-        let email = $("#email").val();
-        let phone = $("#phone").val();
-        let content = $("#content").val();
+        let fullname = $("#fullnamecontact").val();
+        let email = $("#emailcontact").val();
+        let phone = $("#phonecontact").val();
+        let content = $("#contentcontact").val();
         //kiểm tra tính hợp lệ của dữ liệu và báo lỗi
         let checkfullname = (fullname.length < 30 && fullname.length > 0) ? true : false;
         let checkemail = ValidateEmail(email);
@@ -59,7 +59,7 @@
 
             //dữ liệu hợp lệ tiến hành post qua file contact.php
             $.ajax({
-                url: "..\api\contactsent\contactsent",
+                url: "../api/contactsent/contactsent",
                 type: "post",
                 dataType: "text",
                 data: {
@@ -69,17 +69,17 @@
                     content: content
                 },
                 success: function() {
-                    // alert("Contact");
+                    //Làm trông - làm trống thông tin nhập
+                    $('#fullnamecontact').val("");
+                    $('#emailcontact').val("");
+                    $('#phonecontact').val("");
+                    $('#contentcontact').val("");
+
+                    //mở notification - thong bao gửi yêu cầu thành công
+                    ShowMessage(success);
                 }
             });
-            //Làm trông - làm trống thông tin nhập
-            $('#fullname').attr('value', '');
-            $('#email').attr('value', '');
-            $('#phone').attr('value', '');
-            $('#content').attr('value', '');
 
-            //mở notification - thong bao gửi yêu cầu thành công
-            ShowMessage(success);
         }
     })
 

@@ -31,8 +31,9 @@ $title = "Liên hệ";
 include "../inc/header.php";
 ?>
 
-<section class="container contact-section d-flex justify-content-around">
-    <div class="p-3 w-75 ">
+<!-- start body page  -->
+<section class="container w-75 bg-light contact-section d-flex justify-content-around" style="border-left: 6px solid #D3DEDC; border-right: 6px solid #D3DEDC;">
+    <div class="p-3 w-80">
         <div class="page-wrapper">
             <div class="row">
                 <div class="col-lg-6">
@@ -54,29 +55,29 @@ include "../inc/header.php";
                         <h2 class="text-center">Liên hệ</h2>
                         <div class="mb-3">
                             <label for="fullname" class="form-label">Họ và tên</label>
-                            <input type="text" id="fullname" class="form-control" placeholder="Họ và tên">
+                            <input type="text" id="fullnamecontact" class="form-control" placeholder="Họ và tên">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" class="form-control" placeholder="Địa chỉ email">
+                            <input type="email" id="emailcontact" class="form-control" placeholder="Địa chỉ email">
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Số điện thoại</label>
-                            <input type="text" id="phone" class="form-control" placeholder="Số điện thoại">
+                            <input type="text" id="phonecontact" class="form-control" placeholder="Số điện thoại">
                         </div>
                         <div class="mb-3">
                             <label for="content" class="form-label">Nội dung</label>
-                            <textarea class="form-control" id="content" placeholder="Nội dung"></textarea>
+                            <textarea class="form-control" id="contentcontact" placeholder="Nội dung"></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit" id="sentcontact" class="btn btn-primary m-1 p-1">Gửi <i class="fas fa-paper-plane"></i></button>
+                            <button type="submit" id="sentcontact" class="btn btn-tutor-detail m-1 p-1">Gửi <i class="fas fa-paper-plane"></i></button>
                         </div>
                     </form>
                 </div>
             </div>
         </div><!-- end page-wrapper -->
         <!-- start toast notification sent request success  -->
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
             <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
 
