@@ -28,22 +28,30 @@ class contact
     public function insertcontact(string $fullname, string $email, string $phone, string $content)
     {
         $query = "INSERT INTO `contact`(`id`, `time`, `fullname`, `email`, `phone`, `content`, `status`) VALUES (NULL,CURRENT_TIMESTAMP(),?,?,?,?,false)";
-        
-        $result = $this->db->p_statement($query,"ssss",[$fullname,$email,$phone,$content]);
+
+        $result = $this->db->p_statement($query, "ssss", [$fullname, $email, $phone, $content]);
     }
 
     //cập nhật trạng thái đã duyệt liên hệ này hay chưa
-    public function updatecontactstatus(string $id){
+    public function updatecontactstatus(int $id)
+    {
         $query = "UPDATE `contact` SET `status`= ? WHERE `id` = ?";
-        $result = $this->db->p_statement($query,"is",[1,$id]);
+        $result = $this->db->p_statement($query, "ii", [1, $id]);
     }
-    
+
     //truy danh sách thông tin liên hiện
-    public function queryAllContact(){
+    public function queryAllContact()
+    {
         $query  = "SELECT * FROM `contact`";
         $result = $this->db->select($query);
         return $result;
     }
 
-
+    //truy danh sách thông tin liên hiện
+    public function select($id)
+    {
+        $query  = "SELECT * FROM `contact` where `id` = $id";
+        $result = $this->db->select($query);
+        return $result->fetch_array();
+    }
 }
