@@ -39,7 +39,40 @@
 /***/ (() => {
 
 (function () {
-  $(document).ready(function () {});
+  jQuery(document).ready(function ($) {
+    "use strict";
+
+    $("#contactstable").DataTable({
+      // processing: true,
+      // serverSide: true,
+      ajax: {
+        url: "../api/contact/getcontact",
+        dataType: 'json',
+        type: 'get'
+      },
+      columns: [{
+        "data": "id"
+      }, {
+        "data": "fullname"
+      }, {
+        "data": "email"
+      }, {
+        "data": "phone"
+      }, {
+        "data": "time"
+      }, {
+        "data": "status",
+        render: function render(data, type, row) {
+          if (data == 0) return "Chưa xem";else return "Đã xem";
+        }
+      }, {
+        "data": null,
+        render: function render(data, type, row) {
+          return "<a href=\"#id=".concat(data.id, "\">Xem th\xEAm</a>");
+        }
+      }]
+    });
+  });
 })();
 
 /***/ }),

@@ -83,11 +83,11 @@
                         },
                         customize: function(win) {
                             console.log($(win.document.body).find('table').eq(1))
-                            // $(win.document.body)
-                            //     .css('font-size', '10pt')
-                            //     .prepend(
-                            //         '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
-                            //     );
+                                // $(win.document.body)
+                                //     .css('font-size', '10pt')
+                                //     .prepend(
+                                //         '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                                //     );
 
                             $(win.document.body).find('table')
                                 .addClass('table-bordered').removeClass("table-type-1")
@@ -165,7 +165,7 @@
                     let row_subject = $(e.currentTarget).closest(".subject-row");
                     let edit_form = row_subject.find("td > .edit-subject-form")
                     let span_subject_name = row_subject.find("td > .subject-name")
-                    // show edit form
+                        // show edit form
                     edit_form.toggleClass("d-none");
                     // hide span subject name
                     span_subject_name.toggleClass("d-none");
@@ -191,7 +191,7 @@
                             if (data.update === "success") {
                                 $(event.target).toggleClass("d-none")
                                 $(event.target).prev().toggleClass("d-none").text(data.subject)
-                                // 
+                                    // 
                                 Toastify({
                                     text: "Cập nhật thành công!",
                                     duration: 5000,
