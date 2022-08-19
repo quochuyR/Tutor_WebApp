@@ -52,6 +52,7 @@ const src = {
             'admin/resources/css/sliderbar/main.css',
             'admin/resources/css/user_detail/main.css',
             'admin/resources/css/utilities/main.css',
+            'admin/resources/css/contact/main.css',
             'admin/resources/css/style.css'
         ]
     }
