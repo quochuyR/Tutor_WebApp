@@ -3398,8 +3398,7 @@ $(document).ready(function () {
     setTimeout(function () {
       var toastA = $('.toast');
       toastA.hide();
-      console.log("xong");
-    }, 3000);
+    }, 10000);
   } // sự kiện ấn submit trang contact
 
 
@@ -3413,6 +3412,7 @@ $(document).ready(function () {
     var checkfullname = fullname.length < 30 && fullname.length > 0 ? true : false;
     var checkemail = ValidateEmail(email);
     var checkphone = ValidatePhone(phone);
+    var checkcontent = content.length < 500 ? true : false;
 
     if (!checkfullname) {
       var fullnameError = "";
@@ -3424,6 +3424,9 @@ $(document).ready(function () {
     } else if (!checkphone) {
       var phoneError = "Vui lòng nhập chính xác số điện thoại của bạn để chúng tôi có thể liên hệ giải quyết nhanh chóng vấn đề bạn gặp phải.<br><i>Số điện thoại gồm 10 số, không có kí tự đặt biệt</i>";
       ShowMessage(phoneError);
+    } else if (!checkcontent) {
+      var contentError = "Giới hạn tối đa nhập 500 kí tự";
+      ShowMessage(contentError);
     } else {
       var _success = "Yêu cầu của bạn đã được thực hiện. Vui lòng chờ điện thoại chúng tôi sẽ liên hệ bạn."; //dữ liệu hợp lệ tiến hành post qua file contact.php
 
