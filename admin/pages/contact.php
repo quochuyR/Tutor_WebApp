@@ -2,7 +2,7 @@
 
 namespace Admin;
 
-use Classes\Adminhomepage;
+// use Classes\Adminhomepage;
 use Library\Session;
 
 
@@ -15,56 +15,11 @@ if (!Session::checkRoles(["admin"])) {
 }
 //  Classes\Subject, Classes\SubjectTopic;
 
-$title = "Tải hình ảnh";
+$title = "Danh sách tư vấn";
 
 // include "../../classes/adminhomepage.php";
-$db_adminhomepage  = new Adminhomepage();
-if (isset($_POST["upload_button"]) && !empty($_FILES["file"]["name"]) && !empty($_POST["title"])) {
-    $db_adminhomepage->UploadImage();
-}
-//show or hide in homepage
-if (isset($_GET['imageid']) && isset($_GET['status'])) {
-
-    $id = $_GET['imageid'];
-    $status = $_GET['status'];
-    //hiển thị ra trên trang chủ
-    $db_adminhomepage->EidtStatus($id, $status);
-}
-
-if (isset($_GET['idDelete'])) {
-    $idDelete = $_GET['idDelete'];
-    $db_adminhomepage->Delete($idDelete);
-}
-
-//tải bài viết lên trang chủ
-if (
-    isset($_POST['posts'])
-    && isset($_POST["titlepost"]) && !empty($_POST["titlepost"])
-    && isset($_POST["editor"]) && !empty($_POST["editor"])
-) {
-    $titlepost = $_POST["titlepost"];
-    $editor = $_POST["editor"];
-    $kind = $_POST["radioKind"];
-    $statuspost = (isset($_POST['statuspost'])) ? 1 : 0;
-    $Insert  = "INSERT INTO admin_post(id, title, content, status, time, kind) VALUES (NULL,'" . $titlepost . "','" . $editor . "'," . $statuspost . ",CURRENT_TIMESTAMP(),'" . $kind . "');";
-    $db_adminhomepage->AddPost($Insert);
-}
-
-//lưu lại bài viết
-if (
-    isset($_POST['savepost'])
-    && isset($_POST["titlepost"]) && !empty($_POST["titlepost"])
-    && isset($_POST["editor"]) && !empty($_POST["editor"])
-) {
-    $title = $_POST["titlepost"];
-    $editor = $_POST["editor"];
-    $kind = $_POST["radioKind"];
-    $statuspost = 0;
-    $Insert  = "INSERT INTO admin_post(id, title, content, status, time, kind) VALUES (NULL,'" . $titlepost . "','" . $editor . "'," . $statuspost . ",CURRENT_TIMESTAMP(),'" . $kind . "');";
-    $db_adminhomepage->AddPost($Insert);
-}
-
 ?>
+
 
 
 <?php include_once "../inc/header.php" ?>
@@ -95,13 +50,10 @@ if (
                         </tr>
                     </thead>
                     <tbody>
-                        
-                        <?php include"../api/contact/getcontact.php" ?>
-                    </tbody>
+
+                </tbody>
                 </table>
                 <!-- table end  -->
-                xin chào
-
             </div>
         </div>
         <!-- /.content -->
