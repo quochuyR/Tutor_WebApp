@@ -51,7 +51,7 @@
         type: 'get'
       },
       columns: [{
-        "data": "id"
+        "data": 'id'
       }, {
         "data": "fullname"
       }, {
@@ -68,9 +68,48 @@
       }, {
         "data": null,
         render: function render(data, type, row) {
-          return "<a href=\"#id=".concat(data.id, "\">Xem th\xEAm</a>");
+          // return `<a href="?id=${data.id}" id="moreview">Xem thêm</a>`
+          return "<button id=\"moreviewbutton\" class=\"btn btn-success m-1 p-1\">Xem</button>";
         }
-      }]
+      }],
+      "order": [[1, 'asc']]
+    }); //Thao tác với bảng
+
+    $('#contactstable tbody').on('click', 'tr', function () {
+      var data = $("#contactstable").DataTable().row(this).data(); //hiện chổ đã chọn trên bảng
+
+      var selectedcolor = 'selected';
+
+      if ($(this).hasClass(selectedcolor)) {
+        $(this).removeClass(selectedcolor);
+      } else {
+        $("#contactstable tr.selected").removeClass(selectedcolor);
+        $(this).addClass(selectedcolor);
+      } //hiển thị thông tin
+
+
+      $("#showfullname").html(data['fullname']);
+      $("#showemail").html(data['email']);
+      $("#showphone").html(data['phone']);
+      $("#showcontent").html(data['content']);
+      $("#contactModal").modal('show'); // alert(data['status']);
+
+      if (data['status'] == 1) {
+        $("#seencontact").hide();
+      }
+
+      $("#seencontact").on('click', function () {
+        var id = data['id'];
+        $.ajax({
+          url: "../api/contact/updatestatuscontact",
+          type: "post",
+          dataType: "text",
+          data: {
+            id: id
+          }
+        });
+        $("#contactModal").modal('hide');
+      });
     });
   });
 })();
