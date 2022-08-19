@@ -4,6 +4,7 @@ namespace Admin;
 
 // use Classes\Adminhomepage;
 use Library\Session;
+use Classes\Contact;
 
 
 require_once(__DIR__ . "../../../vendor/autoload.php");
@@ -37,7 +38,7 @@ $title = "Danh sách tư vấn";
         <div class="content">
             <div class="container">
                 <!-- table start  -->
-                <table class="table table-success table-striped" id="contactstable">
+                <table class="table table-success table-striped display" style="width:100%" id="contactstable">
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
@@ -51,9 +52,35 @@ $title = "Danh sách tư vấn";
                     </thead>
                     <tbody>
 
-                </tbody>
+                    </tbody>
                 </table>
                 <!-- table end  -->
+                <!-- modal start  -->
+                <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="contactModalLabel">Thông Tin Liên Hệ</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <p>Họ và tên: <b><span id="showfullname"></span></b></p>
+                                    <p>Email: <b><span id="showemail"></span></b></p>
+                                    <p>Số điện thoại: <b><span id="showphone"></span></b></p>
+                                    <p><u>Nội dung</u></p>
+                                    <p id="showcontent" class="justify-content-between"></p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="seencontact">Đã xem</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal end  -->
+
             </div>
         </div>
         <!-- /.content -->
