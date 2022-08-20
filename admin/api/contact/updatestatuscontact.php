@@ -23,12 +23,13 @@ Session::init();
 include_once $filepath . "/config/config.php";
 // include_once($filepath . "../../classes/subjects.php");
 // include_once($filepath . "../../helpers/format.php");
-include_once $filepath . "/admin/vendor/ssp.class.php";
+// include_once $filepath . "/admin/vendor/ssp.class.php";
 try {
     $contact =  new Contact();
-    if (isset($_POST['id'])) {
+    if (isset($_POST['id']) && isset($_POST['status'])) {
         $id = Format::validation($_POST["id"]);
-        $contact->updatecontactstatus($id);
+        $status = Format::validation($_POST["status"]);
+        $contact->updatecontactstatus($id,$status);
     }
 } catch (Exception $ex) {
     print_r($ex->getMessage());
