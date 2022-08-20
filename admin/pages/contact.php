@@ -73,7 +73,8 @@ $title = "Danh sách tư vấn";
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="seencontact">Đã xem</button>
+                                <button type="button" class="btn btn-success" id="seencontact" >Đã xem</button>
+                                <button type="button" class="btn btn-success" id="deliveredcontact" >Chưa xem</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                             </div>
                         </div>
