@@ -25,8 +25,7 @@
         setTimeout(() => {
             let toastA = $('.toast');
             toastA.hide();
-            console.log("xong");
-        }, 3000);
+        }, 10000);
 
     }
 
@@ -41,6 +40,8 @@
         let checkfullname = (fullname.length < 30 && fullname.length > 0) ? true : false;
         let checkemail = ValidateEmail(email);
         let checkphone = ValidatePhone(phone);
+        let checkcontent = (content.length < 500) ? true : false;
+
         if (!checkfullname) {
             let fullnameError = "";
             if (fullname.length == 0)
@@ -54,6 +55,9 @@
         } else if (!checkphone) {
             let phoneError = "Vui lòng nhập chính xác số điện thoại của bạn để chúng tôi có thể liên hệ giải quyết nhanh chóng vấn đề bạn gặp phải.<br><i>Số điện thoại gồm 10 số, không có kí tự đặt biệt</i>";
             ShowMessage(phoneError);
+        } else if (!checkcontent) {
+            let contentError = "Giới hạn tối đa nhập 500 kí tự";
+            ShowMessage(contentError);
         } else {
             let success = "Yêu cầu của bạn đã được thực hiện. Vui lòng chờ điện thoại chúng tôi sẽ liên hệ bạn.";
 

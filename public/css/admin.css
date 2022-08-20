@@ -419,6 +419,10 @@ li+.postion-absolute {
 }
 
 /* end badge */
+#showcontent {
+    max-height: 300px;
+    overflow-y: auto;
+}
 /* This css file is to over write bootstarp css
 --------------------------------------------------------- /
 * Theme Name: Ela Admin Template
