@@ -107,49 +107,49 @@ include "../inc/header.php";
             ?>
 
 
-                     <div class="col-lg-3 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
-                    <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
-                        <div class=" card-img-top img-teacher text-center">
-                            <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(1) . "public/" .  $result['imagepath'] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg") ?>" class="rounded" alt="" srcset="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="fw-600 pt-1 pb-2 limit-text-inline"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h5>
-                            <?php
-                            $subjectTutors = "";
-                            $subjectList = $subjects->getByTutorId($result['id']);
-                            while ($resultSB = $subjectList->fetch_assoc()) :
-                                $subjectTutors .= $resultSB['subject'] . ', ';
-                            endwhile;
+                    <div class="col-lg-3 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
+                        <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
+                            <div class=" card-img-top img-teacher text-center">
+                                <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(1) . "public/" .  $result['imagepath'] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg") ?>" class="rounded" alt="" srcset="">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="fw-600 pt-1 pb-2 limit-text-inline"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h5>
+                                <?php
+                                $subjectTutors = "";
+                                $subjectList = $subjects->getByTutorId($result['id']);
+                                while ($resultSB = $subjectList->fetch_assoc()) :
+                                    $subjectTutors .= $resultSB['subject'] . ', ';
+                                endwhile;
 
-                            $subjectTutors = substr($subjectTutors, 0, strlen(trim($subjectTutors)) - 1);
-                            ?>
+                                $subjectTutors = substr($subjectTutors, 0, strlen(trim($subjectTutors)) - 1);
+                                ?>
 
-                            <div class=" d-flex pb-2">
-                                <span class="material-symbols-rounded pe-1">
-                                    pin_drop
-                                </span>
-                                <span class="description-intro"><?= $result['teachingarea'] . "," . str_replace(["Tỉnh", "Thành phố"], '', $result['currentplace']) ?>
-                                </span>
-                            </div>
-                            <div class=" d-flex pb-2">
-                                <span class="material-symbols-rounded pe-1">
-                                    book
-                                </span>
-                                <span class="description-intro"><?= $subjectTutors ?></span>
-                            </div>
-                            <div class="text-start description product limit-text mb-5">
-                                <?= html_entity_decode($result['introduction']) ?>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between pt-1 position-absolute" style="bottom: 1rem;">
-                                <div class="d-flex flex-row">
-                                    <a href="<?= (isset($result['linkfacebook']) ? $result['linkfacebook'] : "") ?>" class="mx-1 social-list-item text-center border-primary text-primary"><i class="mdi mdi-facebook"></i></i></a>
-                                    <a href="<?= (isset($result['linktwitter']) ? $result['linktwitter'] : "") ?>" class="mx-1 social-list-item text-center border-info text-info"><i class="mdi mdi-twitter"></i></i></a>
+                                <div class=" d-flex pb-2">
+                                    <span class="material-symbols-rounded pe-1">
+                                        pin_drop
+                                    </span>
+                                    <span class="description-intro"><?= $result['teachingarea'] . "," . str_replace(["Tỉnh", "Thành phố"], '', $result['currentplace']) ?>
+                                    </span>
                                 </div>
-                                <!-- <div class="btn btn-primary">Đăng ký</div> -->
+                                <div class=" d-flex pb-2">
+                                    <span class="material-symbols-rounded pe-1">
+                                        book
+                                    </span>
+                                    <span class="description-intro"><?= $subjectTutors ?></span>
+                                </div>
+                                <div class="text-start description product limit-text mb-5">
+                                    <?= html_entity_decode($result['introduction']) ?>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between pt-1 position-absolute" style="bottom: 1rem;">
+                                    <div class="d-flex flex-row">
+                                        <a href="<?= (isset($result['linkfacebook']) ? $result['linkfacebook'] : "") ?>" class="mx-1 social-list-item text-center border-primary text-primary"><i class="mdi mdi-facebook"></i></i></a>
+                                        <a href="<?= (isset($result['linktwitter']) ? $result['linktwitter'] : "") ?>" class="mx-1 social-list-item text-center border-info text-info"><i class="mdi mdi-twitter"></i></i></a>
+                                    </div>
+                                    <!-- <div class="btn btn-primary">Đăng ký</div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             <?php
                 endwhile;
             endif;
@@ -306,32 +306,30 @@ include "../inc/header.php";
             <h3>ĐĂNG KÍ TƯ VẤN MIỄN PHÍ</h3>
             <div class="row mb-3">
                 <div class="col-6">
-                    <input type="text" class="form-control" id="registername" name="registername" placeholder="Họ và tên">
+                    <input type="text" class="form-control" id="fullnamecontact" name="name" placeholder="Họ và tên">
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control" id="registerphone" name="registerphone" placeholder="Số điện thoại">
+                    <input type="text" class="form-control" id="phonecontact" name="phone" placeholder="Số điện thoại">
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-6">
-                    <select name="registerlive" id="register-live" class="form-control">
-                        <option value="Tỉnh" selected>Tỉnh/Thành phố</option>
-                        <option value="Tỉnh">Đồng Tháp</option>
-                        <option value="Tỉnh">Vĩnh Phúc</option>
-                        <option value="Tỉnh">Đồng Nai</option>
-                    </select>
+                <!-- <div class="col-6">
+                <div id="provinces" class=""></div>
+                </div> -->
+                <div class="col-12">
+                    <input type="text" class="form-control" id="emailcontact" name="email" placeholder="Địa chỉ email">
+                    <!-- <select class=" js-data-subjects-ajax select2bs5" name="subject" multiple="multiple"> -->
+
                 </div>
-                <div class="col-6">
-                    <input type="text" class="form-control" id="registersubject" name="registersubject" placeholder="Môn học">
-                </div>
+
             </div>
             <div class="row mb-3">
                 <div class="col-12">
-                    <textarea class="form-control" id="registercontent" name="registercontent" rows="3" placeholder="Nội dung muốn tư vấn"></textarea>
+                    <textarea class="form-control" id="contentcontact" name="registercontent" rows="3" placeholder="Nội dung"></textarea>
                 </div>
             </div>
             <div class="text-center">
-                <button class="btn" type="submit">GỬI ĐĂNG KÍ TƯ VẤN</button>
+                <button class="btn" type="submit" id="sentcontact">GỬI ĐĂNG KÍ TƯ VẤN</button>
             </div>
         </form>
     </section>
@@ -421,9 +419,29 @@ include "../inc/header.php";
         </div>
     </section>
     <!-- Tro thanh gia su End -->
+    <!-- start - contact -  toast notification sent request success  -->
+    <section class="trothanhgiasu container-fluid">
+        <!-- start toast notification sent request success  -->
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+
+                    <strong class="me-auto"><i class="fab fa-facebook-messenger"></i> <b>Tin nhắn</b></strong>
+                    <small>Vừa xong</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" id="closetoast"></button>
+                </div>
+                <div class="toast-body">
+                    <p class="toast-content">
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- end - contact -  toast notification sent request success  -->
+    </section>
     <!-- bài viết và sự kiện start  -->
     <section class="post-event">
-đay là list bài viết chuyển động animation
+        đay là list bài viết chuyển động animation
     </section>
     <!-- bài viết và sự kiện end  -->
 

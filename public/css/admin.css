@@ -423,6 +423,12 @@ li+.postion-absolute {
     max-height: 300px;
     overflow-y: auto;
 }
+
+#moreviewbutton:hover,
+#moreviewbutton:hover span {
+    color: #FFCB42 !important;
+    cursor: grab;
+}
 /* This css file is to over write bootstarp css
 --------------------------------------------------------- /
 * Theme Name: Ela Admin Template

@@ -21,11 +21,18 @@
 
         let toast = $('.toast');
         toast.show();
-
-        setTimeout(() => {
-            let toastA = $('.toast');
-            toastA.hide();
-        }, 10000);
+        //đếm ngược thời gian ẩn
+        //biến đếm thời gian
+        let count = 10;
+        let messagertTime = setInterval(() => {
+            if (count === -1) {
+                let toastA = $('.toast');
+                toastA.hide();
+                clearInterval(messagertTime);
+            }
+            $('.toast-header small b').html(count + " giây");
+            count--;
+        }, 1000)
 
     }
 
@@ -92,4 +99,5 @@
         let toast = $('.toast');
         toast.hide();
     })
+
 }))();

@@ -3394,11 +3394,20 @@ $(document).ready(function () {
   function ShowMessage(message) {
     $('.toast-content').html('<p class="toast-content">' + message + '</p>');
     var toast = $('.toast');
-    toast.show();
-    setTimeout(function () {
-      var toastA = $('.toast');
-      toastA.hide();
-    }, 10000);
+    toast.show(); //đếm ngược thời gian ẩn
+    //biến đếm thời gian
+
+    var count = 10;
+    var messagertTime = setInterval(function () {
+      if (count === -1) {
+        var toastA = $('.toast');
+        toastA.hide();
+        clearInterval(messagertTime);
+      }
+
+      $('.toast-header small b').html(count + " giây");
+      count--;
+    }, 1000);
   } // sự kiện ấn submit trang contact
 
 

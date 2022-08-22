@@ -33,10 +33,15 @@ class contact
     }
 
     //cập nhật trạng thái đã duyệt liên hệ này hay chưa
-    public function updatecontactstatus(int $id)
+    public function updatecontactstatus(int $id,int $status)
     {
         $query = "UPDATE `contact` SET `status`= ? WHERE `id` = ?";
-        $result = $this->db->p_statement($query, "ii", [1, $id]);
+        $statusA = 1;
+        if($status == 1){
+            $statusA = 0;
+        }
+
+        $result = $this->db->p_statement($query, "ii", [$statusA, $id]);
     }
 
     //truy danh sách thông tin liên hiện

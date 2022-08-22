@@ -100,7 +100,7 @@ if (
     $statuspost = (isset($_POST['statuspost'])) ? 1 : 0;
     $update = "UPDATE `admin_post` SET `title`='$titlepost',`content`='$editor',`status`='$statuspost',`time`= CURRENT_TIMESTAMP(),`kind`='$kind' WHERE id = $id;";
     $db_adminhomepage->SaveEditPost($update);
-    header('location: ./carousel.php');
+    header('location: ./carousel');
 }
 
 ?>
@@ -129,6 +129,7 @@ if (
                             <li class="nav-item" role="presentation">
                                 <button name="change_post" class="nav-link" id="post-homepage-tab" data-bs-toggle="tab" data-bs-target="#post-homepage" type="button" role="tab" aria-controls="post-homepage" aria-selected="true">Viết bài viết</button>
                             </li>
+                            
 
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -290,7 +291,11 @@ if (
                                                         <hr>
                                                         <ul class="list-unstyled p-3 pt-0">
                                                             <li class="form-check">
-                                                                <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" <?php if(($kind != "")){ if ($kind == 'Trích dẫn') {echo 'checked';}} else echo "checked"; ?>>
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" <?php if (($kind != "")) {
+                                                                                                                                                                    if ($kind == 'Trích dẫn') {
+                                                                                                                                                                        echo 'checked';
+                                                                                                                                                                    }
+                                                                                                                                                                } else echo "checked"; ?>>
                                                                 <label class="form-check-label" for="radioKind1">Trích dẫn</label>
                                                             </li>
                                                             <li class="form-check">
@@ -351,6 +356,7 @@ if (
                                 </div>
 
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -366,7 +372,7 @@ if (
 </section>
 <?php include_once "../inc/script.php" ?>
 <script>
-  
+
 </script>
 <?php include_once "../inc/footer.php" ?>
 
