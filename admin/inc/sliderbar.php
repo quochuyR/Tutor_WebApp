@@ -29,7 +29,7 @@
                 <ul class="sub-menu children dropdown-menu">
                     <li class="d-inline-flex align-items-center"><span class="ico ico-image ico-subject me-3"></span><a href="../pages/carousel">Hình ảnh</a></li>
                     <li class="d-inline-flex align-items-center"><span class="ico ico-post me-3"></span><a href="../pages/page_editpost">Bài viết</a></li>
-                    <li class="d-inline-flex align-items-center"><span class="ico ico-post me-3"></span><a href="../pages/contact">Danh sách liên hệ</a></li>
+                    <li class="d-inline-flex align-items-center"><span class="ico ico-user me-3"></span><a href="../pages/contact">Danh sách liên hệ</a></li>
                 </ul>
             </li>
             <!-- Quản lý tài khoản  -->
