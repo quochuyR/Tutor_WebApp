@@ -55,19 +55,19 @@ include "../inc/header.php";
                         <h2 class="text-center">Liên hệ</h2>
                         <div class="mb-3">
                             <label for="fullname" class="form-label">Họ và tên</label>
-                            <input type="text" id="fullnamecontact" class="form-control" placeholder="Họ và tên">
+                            <input type="text" id="fullnamecontact" class="form-control" name="name" placeholder="Họ và tên">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" id="emailcontact" class="form-control" placeholder="Địa chỉ email">
+                            <input type="email" id="emailcontact" class="form-control" name="email" placeholder="Địa chỉ email">
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Số điện thoại</label>
-                            <input type="text" id="phonecontact" class="form-control" placeholder="Số điện thoại">
+                            <input type="text" id="phonecontact" class="form-control" name="phone" placeholder="Số điện thoại">
                         </div>
                         <div class="mb-3">
                             <label for="content" class="form-label">Nội dung</label>
-                            <textarea class="form-control" id="contentcontact" placeholder="Nội dung"></textarea>
+                            <textarea class="form-control" id="contentcontact"  rows="4"  placeholder="Nội dung"></textarea>
                         </div>
                         <div class="text-center">
                             <button type="submit" id="sentcontact" class="btn btn-tutor-detail m-1 p-1">Gửi <i class="fas fa-paper-plane"></i></button>
@@ -82,7 +82,7 @@ include "../inc/header.php";
                 <div class="toast-header">
 
                     <strong class="me-auto"><i class="fab fa-facebook-messenger"></i> <b>Tin nhắn</b></strong>
-                    <small>Vừa xong</small>
+                    <small><b>Vừa xong</b></small>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" id="closetoast"></button>
                 </div>
                 <div class="toast-body">
