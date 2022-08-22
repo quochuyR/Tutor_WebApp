@@ -89,7 +89,9 @@ if (
                             <li class="nav-item" role="presentation">
                                 <button name="change_post" class="nav-link" id="post-homepage-tab" data-bs-toggle="tab" data-bs-target="#post-homepage" type="button" role="tab" aria-controls="post-homepage" aria-selected="false">Viết bài viết</button>
                             </li>
-
+                            <li class="nav-item" role="presentation">
+                                <button name="change_post2" class="nav-link" id="post-homepage-tab2" data-bs-toggle="tab" data-bs-target="#post-homepage2" type="button" role="tab" aria-controls="post-homepage2" aria-selected="true">Viết bài viết 2</button>
+                            </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="carousel" role="tabpanel" aria-labelledby="carousel-tab">
@@ -174,7 +176,7 @@ if (
                                                 <?php
                                                 }
                                             } else { ?>
-                                                <p>No image(s) found...</p>
+                                                <h3>Chưa có hình ảnh nào được tải lên!</h3>
                                             <?php
                                             }
                                             ?>
@@ -292,9 +294,9 @@ if (
                                                         <tbody>
                                                             <?php
                                                             //đường dẫn chuyển qua trang chỉnh sửa
-                                                            $linkPostpageEdit = './page_editpost.php?idEditPost=';
+                                                            $linkPostpageEdit = './page_editpost?idEditPost=';
                                                             // đường dẫn chuyển qua trang xóa
-                                                            $linkPostpageDelete = './page_editpost.php?idDeletePost=';
+                                                            $linkPostpageDelete = './page_editpost?idDeletePost=';
                                                             $db_adminhomepage->FillPostToTable($linkPostpageEdit, $linkPostpageDelete);
                                                             ?>
                                                         </tbody>
@@ -310,6 +312,129 @@ if (
                                 </div>
 
                             </div>
+
+                            <div class="tab-pane fade" id="post-homepage2" role="tabpanel" aria-labelledby="post-homepage-tab2">
+                                <!-- Đăng bài viết giới thiệu -->
+                                <div class="container-fluid d-flex justify-content-center text-center">
+                                    <form id="post-form">
+                                        <div class="row container">
+                                            <div class="col-8  p-5 mb-4 shadow">
+
+                                            </div>
+                                            <div class="col-4 p-4">
+                                                <div class="row text-start">
+                                                    <div class="col-12 border shadow rounded-2 p-1 mb-3">
+                                                        <div class="text-center p-1 pb-0">
+                                                            <h6 id="textip">
+                                                                <b>
+                                                                    Công bố
+                                                                </b>
+                                                            </h6>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="p-3 pt-0">
+                                                            <div class="d-flex justify-content-between pb-2">
+                                                                <input type="submit" name="savepost" class="btn btn-primary" value="Lưu lại">
+                                                                <input type="button" name="review" class="btn btn-primary" value="Xem trước">
+                                                            </div>
+                                                            <div>
+                                                                <div>
+                                                                    <p>
+                                                                        Trạng thái:
+                                                                        <b>
+                                                                            <snap>
+                                                                                <input type="checkbox" name="statuspost" id="status" value="1">
+                                                                                <label for="status">Hiểu thị ở trang chủ</label>
+                                                                            </snap>
+                                                                        </b>
+                                                                    <p>Quyền riêng tư: <b>
+                                                                            <snap>Công khai</snap>
+                                                                        </b>
+                                                                        <a href="#">chỉnh sửa</a>
+                                                                    </p>
+                                                                    <p>Ngày công bố: <b>
+                                                                            <snap>
+                                                                                <?php
+                                                                                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                                                                                $date = date('d/m/Y', time());
+                                                                                echo $date;
+                                                                                ?>
+                                                                            </snap>
+                                                                        </b><a href="#">chỉnh sửa</a></p>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            <div class="d-flex justify-content-end">
+                                                                <input type="submit" value="Công bố" name="posts" class="btn btn-success justyfi">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 p-1 rounded-2 border shadow">
+                                                        <h6 class="text-center"><b>Loại danh sách bài viết</b></h6>
+                                                        <hr>
+                                                        <ul class="list-unstyled p-3 pt-0">
+                                                            <li class="form-check">
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" checked>
+                                                                <label class="form-check-label" for="radioKind1">Trích dẫn</label>
+                                                            </li>
+                                                            <li class="form-check">
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Bài viết" id="radioKind2">
+                                                                <label class="form-check-label" for="radioKind2">Bài viết</label>
+                                                            </li>
+                                                            <li class="form-check">
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Hướng dẫn" id="radioKind3">
+                                                                <label class="form-check-label" for="radioKind3">Hướng dẫn</label>
+                                                            </li>
+                                                            <li class="form-check">
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Thông tin chung" id="radioKind4">
+                                                                <label class="form-check-label" for="radioKind4">Thông tin chung</label>
+                                                            </li>
+                                                            <li class="form-check">
+                                                                <input class="form-check-input" type="radio" name="radioKind" value="Giới thiệu" id="radioKind5">
+                                                                <label class="form-check-label" for="radioKind5">Giới thiệu</label>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="border shadow p-1 rounded-2">
+                                                <!-- DOM cái này bằng PHP -->
+                                                <div class="container w-70">
+                                                    <h4 class="text-center">Danh sách bài đăng</h4>
+                                                    <table class="table  mt-4">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Số thứ tự</th>
+                                                                <th scope="col">Tiêu đề</th>
+                                                                <th scope="col">Thời gian</th>
+                                                                <th scope="col">Trạng thái</th>
+                                                                <th scope="col">Thể loại</th>
+                                                                </th>
+                                                                <th scope="col"></th>
+                                                                <th scope="col">Chọn</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            //đường dẫn chuyển qua trang chỉnh sửa
+                                                            $linkPostpageEdit = './page_editpost?idEditPost=';
+                                                            // đường dẫn chuyển qua trang xóa
+                                                            $linkPostpageDelete = './page_editpost?idDeletePost=';
+                                                            $db_adminhomepage->FillPostToTable($linkPostpageEdit, $linkPostpageDelete);
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="d-flex justify-content-end pb-3">
+                                                        <input class="m-1 btn btn-success" type="button" value="Xóa" name="delete">
+                                                        <input class="m-1 btn btn-success" type="button" value="Hiển thị" name="showInfo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -325,7 +450,7 @@ if (
 </section>
 <?php include_once "../inc/script.php" ?>
 <script>
-   
+
 </script>
 <?php include_once "../inc/footer.php" ?>
 
