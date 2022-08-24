@@ -16,8 +16,12 @@
                     $(row).addClass('badge-light-danger');
                 }
             },
-            columns: [
-                { "data": 'id', },
+            columns: [{
+                    "data": "id",
+                    render: function(data, type, row) {
+                        return "<p class='counternumber'>Number</p>";
+                    }
+                },
                 { "data": "fullname" },
                 { "data": "email" },
                 { "data": "phone" },
@@ -85,6 +89,13 @@
                 }
             }
         });
+        // count number in table 
+        $("#contactstable").on("draw.dt", function() {
+            let n = 0;
+            $(".counternumber").each(function() {
+                $(this).html(++n);
+            })
+        })
 
         //Thao tác với bảng
         $('#contactstable tbody').on('click', 'tr', function() {
