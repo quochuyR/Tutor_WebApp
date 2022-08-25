@@ -35,34 +35,6 @@ if (isset($_GET['idDelete'])) {
     $db_adminhomepage->Delete($idDelete);
 }
 
-//tải bài viết lên trang chủ
-if (
-    isset($_POST['posts'])
-    && isset($_POST["titlepost"]) && !empty($_POST["titlepost"])
-    && isset($_POST["editor"]) && !empty($_POST["editor"])
-) {
-    $titlepost = $_POST["titlepost"];
-    $editor = $_POST["editor"];
-    $kind = $_POST["radioKind"];
-    $statuspost = (isset($_POST['statuspost'])) ? 1 : 0;
-    $Insert  = "INSERT INTO admin_post(id, title, content, status, time, kind) VALUES (NULL,'" . $titlepost . "','" . $editor . "'," . $statuspost . ",CURRENT_TIMESTAMP(),'" . $kind . "');";
-    $db_adminhomepage->AddPost($Insert);
-}
-
-//lưu lại bài viết
-if (
-    isset($_POST['savepost'])
-    && isset($_POST["titlepost"]) && !empty($_POST["titlepost"])
-    && isset($_POST["editor"]) && !empty($_POST["editor"])
-) {
-    $title = $_POST["titlepost"];
-    $editor = $_POST["editor"];
-    $kind = $_POST["radioKind"];
-    $statuspost = 0;
-    $Insert  = "INSERT INTO admin_post(id, title, content, status, time, kind) VALUES (NULL,'" . $titlepost . "','" . $editor . "'," . $statuspost . ",CURRENT_TIMESTAMP(),'" . $kind . "');";
-    $db_adminhomepage->AddPost($Insert);
-}
-
 ?>
 
 
@@ -84,17 +56,17 @@ if (
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button name="loadimg" class="nav-link active" id="carousel-tab" data-bs-toggle="tab" data-bs-target="#carousel" type="button" role="tab" aria-controls="carousel" aria-selected="true">Tải hình ảnh</button>
+                                <button name="loadimg" class="nav-link " id="carousel-tab" data-bs-toggle="tab" data-bs-target="#carousel" type="button" role="tab" aria-controls="carousel" aria-selected="false">Tải hình ảnh</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button name="change_post" class="nav-link" id="post-homepage-tab" data-bs-toggle="tab" data-bs-target="#post-homepage" type="button" role="tab" aria-controls="post-homepage" aria-selected="false">Viết bài viết</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button name="change_post2" class="nav-link" id="post-homepage-tab2" data-bs-toggle="tab" data-bs-target="#post-homepage2" type="button" role="tab" aria-controls="post-homepage2" aria-selected="true">Viết bài viết 2</button>
+                                <button name="change_post2" class="nav-link active" id="post-homepage-tab2" data-bs-toggle="tab" data-bs-target="#post-homepage2" type="button" role="tab" aria-controls="post-homepage2" aria-selected="true">Viết bài viết 2</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="carousel" role="tabpanel" aria-labelledby="carousel-tab">
+                            <div class="tab-pane fade" id="carousel" role="tabpanel" aria-labelledby="carousel-tab">
                                 <!-- hình ảnh trang chủ  -->
                                 <div class="container">
                                     <h1 id="carousel-h1" class="m-3 text-center"><strong>Tải hình ảnh trang chủ</strong></h1>
@@ -195,7 +167,7 @@ if (
                                                 </div>
                                                 <div class="row mt-3">
                                                     <!-- <div id="editor" class="col-12" name="editor"></div> -->
-                                                    <textarea name="editor" id="editor"></textarea>
+
                                                 </div>
                                             </div>
                                             <div class="col-4 p-4">
@@ -313,13 +285,19 @@ if (
 
                             </div>
 
-                            <div class="tab-pane fade" id="post-homepage2" role="tabpanel" aria-labelledby="post-homepage-tab2">
+                            <div class="tab-pane fade show active" id="post-homepage2" role="tabpanel" aria-labelledby="post-homepage-tab2">
                                 <!-- Đăng bài viết giới thiệu -->
                                 <div class="container-fluid d-flex justify-content-center text-center">
                                     <form id="post-form">
                                         <div class="row container">
-                                            <div class="col-8  p-5 mb-4 shadow">
-
+                                            <div class="col-8  pt-2 pb-2 mt-4 mb-4 shadow">
+                                                <!-- <h3 class="mb-2">Viết bài</h3> -->
+                                                <input type="text" name="titlepost" id="titlepost" class="form-control mb-3 p-1" placeholder="Tiêu đề bài viết">
+                                                <div class="mb-3 pt-1 pb-1 text-start">
+                                                    <label for="imagepost">Hình ảnh đại diện trên bài viết</label>
+                                                    <input class="form-control" type="file" id="imagepost" placeholder="Tải hình ảnh">
+                                                </div>
+                                                <textarea id="mytextareapost">Hello, World!</textarea>
                                             </div>
                                             <div class="col-4 p-4">
                                                 <div class="row text-start">
@@ -334,8 +312,8 @@ if (
                                                         <hr>
                                                         <div class="p-3 pt-0">
                                                             <div class="d-flex justify-content-between pb-2">
-                                                                <input type="submit" name="savepost" class="btn btn-primary" value="Lưu lại">
-                                                                <input type="button" name="review" class="btn btn-primary" value="Xem trước">
+                                                                <!-- <input type="submit" name="savepost" id="savepost" class="btn btn-primary" value="Lưu lại"> -->
+                                                                <!-- <input type="button" name="review" class="btn btn-primary" value="Xem trước"> -->
                                                             </div>
                                                             <div>
                                                                 <div>
@@ -363,16 +341,10 @@ if (
                                                                         </b><a href="#">chỉnh sửa</a></p>
                                                                 </div>
                                                             </div>
-                                                            <hr>
-                                                            <div class="d-flex justify-content-end">
-                                                                <input type="submit" value="Công bố" name="posts" class="btn btn-success justyfi">
-                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-12 p-1 rounded-2 border shadow">
-                                                        <h6 class="text-center"><b>Loại danh sách bài viết</b></h6>
+                                                        <h6 class="text-center"><b>Chủ đề</b></h6>
                                                         <hr>
-                                                        <ul class="list-unstyled p-3 pt-0">
+                                                        <ul class="list-unstyled p-3 pt-0 mt-0">
                                                             <li class="form-check">
                                                                 <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" checked>
                                                                 <label class="form-check-label" for="radioKind1">Trích dẫn</label>
@@ -393,8 +365,23 @@ if (
                                                                 <input class="form-check-input" type="radio" name="radioKind" value="Giới thiệu" id="radioKind5">
                                                                 <label class="form-check-label" for="radioKind5">Giới thiệu</label>
                                                             </li>
+                                                            <li class="form-check">
+                                                                <div class="text-decoration-underline">
+                                                                    <a href="#" id="addKind">Thêm mới... </a>
+                                                                </div>
+                                                            </li>
                                                         </ul>
+                                                        <hr>
+                                                        <div class="p-3 pt-0">
+                                                            <div class="d-flex justify-content-between">
+                                                                <input type="submit" name="savepost" id="savepost" class="btn btn-primary" value="Lưu lại">
+
+                                                                <input type="submit" name="postblog" id="publishpost" class="btn btn-success justyfi" value="Công bố">
+                                                            </div>
+                                                        </div>
+
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <div class="border shadow p-1 rounded-2">
@@ -438,15 +425,81 @@ if (
                         </div>
                     </div>
                 </div>
-
             </div>
+            <!-- modal start thêm thể loại bài viết  -->
+            <div>
+                <div class="modal" id="kindModal" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title">Thêm chủ đề bài viết</h5>
+                                <button type="button" class="btn-close closeKindModal" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button name="loadimg" class="nav-link " id="navaddthemepost" data-bs-toggle="tab" data-bs-target="#addthemepost" type="button" role="tab" aria-controls="carousel" aria-selected="false">Thêm</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button name="loadimg" class="nav-link " id="naveditthemepost" data-bs-toggle="tab" data-bs-target="#editthemepost" type="button" role="tab" aria-controls="carousel" aria-selected="false">Chỉnh sửa</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content pt-3" id="myTabContent">
+                                    <div class="tab-pane show active" id="addthemepost" role="tabpanel" aria-labelledby="carousel-tab">
+                                        <label for="themepost">Tên chủ đề</label>
+                                        <input type="text" class="form-control" name="themepost" id="themepost">
+                                        <p id="errorThemePostInput" class="text-danger ps-1 "><Small></Small></p>
+                                        <div class="text-end p-3">
+                                            <button type="submit" class="btn btn-primary" id="btnSaveKind">Lưu lại</button>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="editthemepost" role="tabpanel" aria-labelledby="carousel-tab">
+                                        <table class="table w-100" id="kindtable">
+                                            <thead>
+                                                <th></th>
+                                                <th class="text-center">Tên chủ đề</th>
+                                                <th class="text-center">Khác</th>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger closeKindModal" data-bs-dismiss="modal" aria-label="Close">Đóng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- modal end thêm thể thoại bài viết  -->
+                <!-- Start Modal succes post-->
+                <div class="modal fade gb-primary" id="modalPostStatus" tabindex="-1" aria-labelledby="modalPostStatusLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalPostStatusLabel">Thông báo</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4>Thêm bài viết thành công</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Modal succes post -->
+            </div>
+            <!-- /.content -->
+            <div class="clearfix"></div>
+            <!-- Footer -->
+            <!-- /.site-footer -->
         </div>
-        <!-- /.content -->
-        <div class="clearfix"></div>
-        <!-- Footer -->
-        <!-- /.site-footer -->
-    </div>
-    <!-- /#right-panel -->
+        <!-- /#right-panel -->
 </section>
 <?php include_once "../inc/script.php" ?>
 <script>
