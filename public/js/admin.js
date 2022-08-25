@@ -9,7 +9,7 @@
 
 (function () {
   jQuery(document).ready(function ($) {
-    // tinymce editor
+    "use strict", // tinymce editor
     tinymce.init({
       selector: '#mytextareapost',
       plugins: 'image code',
@@ -132,12 +132,12 @@
       columns: [{
         "data": "id",
         render: function render(data, type, row) {
-          return "<p class='counternumber'>Number</p>";
+          return "<p class='counternumber text-center'>Number</p>";
         }
       }, {
         "data": "kindname",
         render: function render(data, type, row) {
-          return "<input type=\"text\" name=\"kindname\" value=\"".concat(data, "\">");
+          return "<input type=\"text\" name=\"kindname\" class=\"form-control\" value=\"".concat(data, "\">");
         }
       }, {
         "data": null,
@@ -178,29 +178,72 @@
     $("#savepost").on("click", function (event) {
       event.preventDefault();
       var title = $("#titlepost").val();
-      var nameimage = $('#imagepost')[0].files[0].name;
+      var nameimage = $('#imagepost').val();
+      var kind = $('input[name="radioKind"]:checked').val();
+      var data = tinyMCE.get('mytextareapost').getContent();
+
+      if (title != "" && nameimage !== "" && data != "") {
+        nameimage = $('#imagepost')[0].files[0].name;
+        $.ajax({
+          type: "post",
+          url: "../api/blogpost/insertblog",
+          dataType: "text",
+          data: {
+            title: title,
+            content: data,
+            nameimage: nameimage,
+            kind: kind,
+            status: 0
+          } // cache: false,
+
+        }).done(function () {
+          $("#modalPostStatus").modal("show");
+          $("#modalPostStatus h4").html("Thêm bài viết thành công");
+          $("#titlepost").val("");
+          $('#imagepost').val("");
+          tinyMCE.get('mytextareapost').setContent("");
+        });
+      } else {
+        $("#modalPostStatus").modal("show");
+        $("#modalPostStatus h4").html("Vui lòng điền đủ dữ liệu");
+      }
+    }); //submit publish post
+
+    $("#publishpost").on("click", function (event) {
+      event.preventDefault();
+      var title = $("#titlepost").val();
+      var nameimage = $('#imagepost').val();
       var kind = $('input[name="radioKind"]:checked').val();
       var data = tinyMCE.get('mytextareapost').getContent(); // console.log("data: " + data);
       // $("div #data").html(data);
 
-      $.ajax({
-        type: "post",
-        url: "../api/blogpost/insertblog",
-        dataType: "text",
-        data: {
-          title: title,
-          content: data,
-          nameimage: nameimage,
-          kind: kind,
-          status: 0
-        } // cache: false,
+      if (title != "" && nameimage !== '' && data != "") {
+        nameimage = $('#imagepost')[0].files[0].name;
+        $.ajax({
+          type: "post",
+          url: "../api/blogpost/insertblog",
+          dataType: "text",
+          data: {
+            title: title,
+            content: data,
+            nameimage: nameimage,
+            kind: kind,
+            status: 1
+          } // cache: false,
 
-      }).done(function () {// console.log("data" + editorData);
-        // $("#data").html(data);
-        // alert(editorData);
-        // console.log("data: " + data);
-        // alert("title: " + title + ", nameimage: " + nameimage + ", kind: " + kind + ", data: " + data);
-      });
+        }).done(function () {
+          //thông báo thêm thành công
+          //xóa hết dữ liệu củ
+          $("#modalPostStatus").modal("show");
+          $("#modalPostStatus h4").html("Thêm bài viết thành công");
+          $("#titlepost").val("");
+          $('#imagepost').val("");
+          tinyMCE.get('mytextareapost').setContent("");
+        });
+      } else {
+        $("#modalPostStatus").modal("show");
+        $("#modalPostStatus h4").html("Vui lòng điền đủ dữ liệu");
+      }
     });
   });
 })(jQuery);
