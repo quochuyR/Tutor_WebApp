@@ -376,7 +376,7 @@ if (isset($_GET['idDelete'])) {
                                                             <div class="d-flex justify-content-between">
                                                                 <input type="submit" name="savepost" id="savepost" class="btn btn-primary" value="Lưu lại">
 
-                                                                <input type="submit" name="postblog" id="postblog" class="btn btn-success justyfi" value="Công bố">
+                                                                <input type="submit" name="postblog" id="publishpost" class="btn btn-success justyfi" value="Công bố">
                                                             </div>
                                                         </div>
 
@@ -429,7 +429,7 @@ if (isset($_GET['idDelete'])) {
             <!-- modal start thêm thể loại bài viết  -->
             <div>
                 <div class="modal" id="kindModal" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
 
                             <div class="modal-header">
@@ -445,7 +445,7 @@ if (isset($_GET['idDelete'])) {
                                         <button name="loadimg" class="nav-link " id="naveditthemepost" data-bs-toggle="tab" data-bs-target="#editthemepost" type="button" role="tab" aria-controls="carousel" aria-selected="false">Chỉnh sửa</button>
                                     </li>
                                 </ul>
-                                <div class="tab-content" id="myTabContent">
+                                <div class="tab-content pt-3" id="myTabContent">
                                     <div class="tab-pane show active" id="addthemepost" role="tabpanel" aria-labelledby="carousel-tab">
                                         <label for="themepost">Tên chủ đề</label>
                                         <input type="text" class="form-control" name="themepost" id="themepost">
@@ -455,11 +455,11 @@ if (isset($_GET['idDelete'])) {
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="editthemepost" role="tabpanel" aria-labelledby="carousel-tab">
-                                        <table class="table" id="kindtable">
+                                        <table class="table w-100" id="kindtable">
                                             <thead>
                                                 <th></th>
-                                                <th>Tên chủ đề</th>
-                                                <th>Khác</th>
+                                                <th class="text-center">Tên chủ đề</th>
+                                                <th class="text-center">Khác</th>
                                             </thead>
                                             <tbody>
                                             </tbody>
@@ -475,6 +475,24 @@ if (isset($_GET['idDelete'])) {
                     </div>
                 </div>
                 <!-- modal end thêm thể thoại bài viết  -->
+                <!-- Start Modal succes post-->
+                <div class="modal fade gb-primary" id="modalPostStatus" tabindex="-1" aria-labelledby="modalPostStatusLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalPostStatusLabel">Thông báo</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4>Thêm bài viết thành công</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Modal succes post -->
             </div>
             <!-- /.content -->
             <div class="clearfix"></div>
