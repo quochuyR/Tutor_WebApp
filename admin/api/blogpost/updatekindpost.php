@@ -27,11 +27,20 @@ include_once $filepath . "/config/config.php";
 try {
     $blog =  new blogpage();
     if (
-        isset($_POST['kind'])
-        && !empty($_POST['kind'])
+        isset($_POST['id'])
+        && !empty($_POST['id'])
+        && isset($_POST['name'])
+        && !empty($_POST['name'])
+        && isset($_POST['option'])
     ) {
-        $kind = Format::validation($_POST["kind"]);
-        $blog->insertKindPost($kind);
+        $kindId = $_POST["id"];
+        $kindName = $_POST["name"];
+        $option = $_POST["option"];
+        if ($option == "edit") {
+            $blog->updateKindPost($kindId, $kindName);
+        } else {
+            $blog->DeleteKindPost($kindId);
+        }
     }
 } catch (Exception $ex) {
     print_r($ex->getMessage());

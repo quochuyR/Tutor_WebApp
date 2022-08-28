@@ -23,16 +23,25 @@ Session::init();
 include_once $filepath . "/config/config.php";
 // include_once($filepath . "../../classes/subjects.php");
 // include_once($filepath . "../../helpers/format.php");
-// include_once $filepath . "/admin/vendor/ssp.class.php";
+include_once $filepath . "/admin/vendor/ssp.class.php";
+// DB table to use
+$table = 'kindpost';
+
 try {
     $blog =  new blogpage();
-    if (
-        isset($_POST['kind'])
-        && !empty($_POST['kind'])
-    ) {
-        $kind = Format::validation($_POST["kind"]);
-        $blog->insertKindPost($kind);
+    $result = $blog->selectAllKind();
+    $AllKind = Array();
+    while($row = $result->fetch_assoc()){
+        $id = $row['id'];
+        $kindname = $row['kindname'];
+        $AllKind[] = array("id" => $id,
+                        "kindname" => $kindname);
     }
+    header('Content-Type: application/json; charset=utf-8');
+
+    echo json_encode($AllKind);
+    // echo json_encode($contact);
+    // echo json_encode();
 } catch (Exception $ex) {
     print_r($ex->getMessage());
 } finally {

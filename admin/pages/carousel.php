@@ -342,9 +342,19 @@ if (isset($_GET['idDelete'])) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <h6 class="text-center"><b>Chủ đề</b></h6>
-                                                        <hr>
-                                                        <ul class="list-unstyled p-3 pt-0 mt-0">
+                                                        <div class="row p-2">
+                                                            <div class="col-md-9 col-sm-12 col-11">
+                                                                <select class="form-select" id="SelectKind" aria-label="Default select example">
+
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-12 col-1">
+                                                                <div class="btn btn-primary text-center" id="addKind">
+                                                                    <i class="fas fa-plus-circle"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <ul class="list-unstyled p-3 pt-0 mt-0">
                                                             <li class="form-check">
                                                                 <input class="form-check-input" type="radio" name="radioKind" value="Trích dẫn" id="radioKind1" checked>
                                                                 <label class="form-check-label" for="radioKind1">Trích dẫn</label>
@@ -370,7 +380,7 @@ if (isset($_GET['idDelete'])) {
                                                                     <a href="#" id="addKind">Thêm mới... </a>
                                                                 </div>
                                                             </li>
-                                                        </ul>
+                                                        </ul> -->
                                                         <hr>
                                                         <div class="p-3 pt-0">
                                                             <div class="d-flex justify-content-between">
@@ -475,6 +485,28 @@ if (isset($_GET['idDelete'])) {
                     </div>
                 </div>
                 <!-- modal end thêm thể thoại bài viết  -->
+                
+                <!-- START modal input edit theme blog   -->
+                <div class="modal fade" id="EnterKindNameEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Chỉnh sửa chủ đề</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="kindnameoldedit">Tên chủ đề cũ: <span></span></p>
+                                <label class="label-control" for="kindnameedit">Tên chủ đề mới</label>
+                                <input class="form-control" type="text" name="kindnameedit" id="kindnameedit">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="saveeidtkind">Lưu lại</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END modal input edit theme blog   -->
                 <!-- Start Modal succes post-->
                 <div class="modal fade gb-primary" id="modalPostStatus" tabindex="-1" aria-labelledby="modalPostStatusLabel" aria-hidden="true">
                     <div class="modal-dialog">

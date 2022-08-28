@@ -71,6 +71,18 @@ class blogpage
 
         $result = $this->db->p_statement($query, "s", [$kind]);
     }
+    //update kindpost
+    function updateKindPost($kindId, $kindName){
+        $query = "UPDATE `kindpost` SET `kindname`=? WHERE `id` = ?";
+
+        $result = $this->db->p_statement($query, "si", [ $kindName, $kindId]);
+    }
+    // delete kindpost
+    function DeleteKindPost($kindId){
+        $query = "DELETE FROM `kindpost` WHERE `id` = ?";
+
+        $result = $this->db->p_statement($query, "i", [$kindId]);
+    }
     //select table kindpost
     function selectAllKind(){
         $query  = "SELECT * FROM `kindpost`";
