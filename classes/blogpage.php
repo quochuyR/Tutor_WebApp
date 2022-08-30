@@ -28,7 +28,7 @@ class blogpage
     public function insertblog(string $title, string $nameimage, string $content, string $kind, int $status)
     {
         $statustext = "true";
-        if($status === 0) {
+        if ($status === 0) {
             $statustext = "false";
         }
         $query = "INSERT INTO `blogs`(`id`, `time`, `kind`, `title`, `content`, `nameimage`, `status`) VALUES (NULL,CURRENT_TIMESTAMP(),?,?,?,?,$statustext)";
@@ -37,11 +37,11 @@ class blogpage
     }
 
     //cập nhật trạng thái đã duyệt liên hệ này hay chưa
-    public function updateblogstatus(int $id,int $status)
+    public function updateblogstatus(int $id, int $status)
     {
         $query = "UPDATE `blogs` SET `status`= ? WHERE `id` = ?";
         $statusA = 1;
-        if($status == 1){
+        if ($status == 1) {
             $statusA = 0;
         }
 
@@ -66,25 +66,29 @@ class blogpage
 
     //thể loại bài Viết
     //Thêm thể loại bài Viết
-    function insertKindPost($kind){
+    function insertKindPost($kind)
+    {
         $query = "INSERT INTO `kindpost`(`id`, `kindname`) VALUES (null,?)";
 
         $result = $this->db->p_statement($query, "s", [$kind]);
     }
     //update kindpost
-    function updateKindPost($kindId, $kindName){
+    function updateKindPost($kindId, $kindName)
+    {
         $query = "UPDATE `kindpost` SET `kindname`=? WHERE `id` = ?";
 
-        $result = $this->db->p_statement($query, "si", [ $kindName, $kindId]);
+        $result = $this->db->p_statement($query, "si", [$kindName, $kindId]);
     }
     // delete kindpost
-    function DeleteKindPost($kindId){
+    function DeleteKindPost($kindId)
+    {
         $query = "DELETE FROM `kindpost` WHERE `id` = ?";
 
         $result = $this->db->p_statement($query, "i", [$kindId]);
     }
     //select table kindpost
-    function selectAllKind(){
+    function selectAllKind()
+    {
         $query  = "SELECT * FROM `kindpost`";
         $result = $this->db->select($query);
         return $result;

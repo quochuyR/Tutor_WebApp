@@ -218,37 +218,60 @@
         $("#savepost").on("click", function(event) {
             event.preventDefault();
             let title = $("#titlepost").val();
-            let nameimage = $('#imagepost').val();
+            let file_tmp_name = $('#imagepost').val();
             // let kind = $('input[name="radioKind"]:checked').val();
+            console.log(file_tmp_name);
+
             let kind = $("#SelectKind").val();
             let data = tinyMCE.get('mytextareapost').getContent();
             if (
                 title != "" &&
-                nameimage !== "" &&
+                file_tmp_name !== "" &&
                 data != "" &&
                 kind != ""
             ) {
-                nameimage = $('#imagepost')[0].files[0].name;
+                let nameimage = $('#imagepost')[0].files[0].name;
+                console.log(nameimage);
                 $.ajax({
-                        type: "post",
-                        url: "../api/blogpost/insertblog",
-                        dataType: "text",
-                        data: {
-                            title: title,
-                            content: data,
-                            nameimage: nameimage,
-                            kind: kind,
-                            status: 0
+                    type: "post",
+                    url: "../api/blogpost/insertblog",
+                    dataType: "text",
+                    data: {
+                        title: title,
+                        content: data,
+                        nameimage: nameimage,
+                        kind: kind,
+                        status: 0
+                    },
+                    success: function() {
+                            ModalNotify("show", "Lưu bài viết thành công");
+                            $("#titlepost").val("");
+                            tinyMCE.get('mytextareapost').setContent("");
                         }
                         // cache: false,
+                });
+                //imagepost
+                var fd = new FormData();
+                var files = $('#imagepost')[0].files;
+                // Check file selected or not
+                if (files.length > 0) {
 
-                    })
-                    .done(function() {
-                        ModalNotify("show", "Lưu bài viết thành công");
-                        $("#titlepost").val("");
-                        $('#imagepost').val("");
-                        tinyMCE.get('mytextareapost').setContent("");
-                    })
+                    fd.append('file', files[0]);
+
+                    $.ajax({
+                        url: '../api/blogpost/uploadimagepost',
+                        type: 'post',
+                        data: fd,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                            // $('#imagepost').val("");
+                            console.log(data, "data");
+                        }
+                    });
+                } else {
+                    alert("Please select a file.");
+                }
             } else {
                 ModalNotify("show", "Vui lòng điền đủ dữ liệu");
             }
