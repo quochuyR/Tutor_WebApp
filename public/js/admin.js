@@ -210,13 +210,15 @@
     $("#savepost").on("click", function (event) {
       event.preventDefault();
       var title = $("#titlepost").val();
-      var nameimage = $('#imagepost').val(); // let kind = $('input[name="radioKind"]:checked').val();
+      var file_tmp_name = $('#imagepost').val(); // let kind = $('input[name="radioKind"]:checked').val();
 
+      console.log(file_tmp_name);
       var kind = $("#SelectKind").val();
       var data = tinyMCE.get('mytextareapost').getContent();
 
-      if (title != "" && nameimage !== "" && data != "" && kind != "") {
-        nameimage = $('#imagepost')[0].files[0].name;
+      if (title != "" && file_tmp_name !== "" && data != "" && kind != "") {
+        var nameimage = $('#imagepost')[0].files[0].name;
+        console.log(nameimage);
         $.ajax({
           type: "post",
           url: "../api/blogpost/insertblog",
@@ -227,14 +229,34 @@
             nameimage: nameimage,
             kind: kind,
             status: 0
+          },
+          success: function success() {
+            ModalNotify("show", "Lưu bài viết thành công");
+            $("#titlepost").val("");
+            tinyMCE.get('mytextareapost').setContent("");
           } // cache: false,
 
-        }).done(function () {
-          ModalNotify("show", "Lưu bài viết thành công");
-          $("#titlepost").val("");
-          $('#imagepost').val("");
-          tinyMCE.get('mytextareapost').setContent("");
-        });
+        }); //imagepost
+
+        var fd = new FormData();
+        var files = $('#imagepost')[0].files; // Check file selected or not
+
+        if (files.length > 0) {
+          fd.append('file', files[0]);
+          $.ajax({
+            url: '../api/blogpost/uploadimagepost',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function success(data) {
+              // $('#imagepost').val("");
+              console.log(data, "data");
+            }
+          });
+        } else {
+          alert("Please select a file.");
+        }
       } else {
         ModalNotify("show", "Vui lòng điền đủ dữ liệu");
       }
