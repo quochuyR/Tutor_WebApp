@@ -124,7 +124,7 @@ include_once __DIR__ . "../head.php";
                     <img class="user-avatar rounded-circle" src="<?= !empty(Session::get("imagepath")) ? (Util::getCurrentURL(2) . "public/" . Session::get("imagepath")) : "https://bootdey.com/img/Content/avatar/avatar5.png" ?>" alt="User Avatar">
                 </button>
 
-                <div class="user-menu dropdown-menu" aria-labelledby="dropdownMenuAccount">
+                <div class="user-menu dropdown-menu dropdown-menu-account " aria-labelledby="dropdownMenuAccount">
                     <a class="nav-link" href="#"><i class="fa fa-user"></i>Thông tin cá nhân</a>
 
                     <a class="nav-link" href="#"><i class="fa fa-cog"></i>Cài đặt</a>

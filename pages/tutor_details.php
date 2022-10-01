@@ -54,11 +54,11 @@ include "../inc/header.php";
 
 
 
-<div id="main" class="container pt-2">
+<div id="main" class="pt-2">
 
 
     <!-- Main -->
-    <div class="container">
+    <div class="container-md">
         <div class="row">
 
             <?php

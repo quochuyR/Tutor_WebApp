@@ -182,7 +182,8 @@ include_once "../inc/header.php" ?>
                                     <h4 class="box-title mb-3">Gia sư mới đăng ký </h4>
 
                                     <div class="table-stats order-table ov-h">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive"  >
+                                            <div style="overflow-x: auto; max-width: calc(100vw - 5rem);">
                                             <table class="table">
                                                 <thead class="table-dark">
                                                     <tr>
@@ -254,6 +255,8 @@ include_once "../inc/header.php" ?>
                                                     ?>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                           
                                         </div>
 
                                     </div> <!-- /.table-stats -->

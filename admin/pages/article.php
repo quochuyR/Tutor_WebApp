@@ -36,16 +36,17 @@ $title = "Bài viết";
         <!-- Content -->
         <div class="content">
             <div class="animated fadeIn">
+                
                 <div class="row  align-items-center pb-4">
                     <div class="col-auto">
                         <a href="articleinsert"><button type="submit" class="btn btn-primary">Thêm mới</button></a>
                     </div>
                     <div class="col-auto">
                         <div class="dropdown">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="actionArticle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" href="#" role="button" id="actionArticle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Tùy chọn
-                            </a>
-                            <ul class="dropdown-menu bg-secondary" aria-labelledby="actionArticle">
+                            </button>
+                            <ul class="dropdown-menu " aria-labelledby="actionArticle">
                                 <li><a class="dropdown-item" id="publishedArticle" href="#">Công bố</a></li>
                                 <li><a class="dropdown-item" id="unPublishedArticle" href="#">Hủy xuất bản</a></li>
                                 <li><a class="dropdown-item" id="deleteArticle" href="#">Xóa</a></li>

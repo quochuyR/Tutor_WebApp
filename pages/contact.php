@@ -32,7 +32,7 @@ include "../inc/header.php";
 ?>
 
 <!-- start body page  -->
-<section class="container w-75 bg-light contact-section d-flex justify-content-around" style="border-left: 6px solid #D3DEDC; border-right: 6px solid #D3DEDC;">
+<section class="container-md  bg-light contact-section d-flex justify-content-around" style="border-left: 6px solid #D3DEDC; border-right: 6px solid #D3DEDC;">
     <div class="p-3 w-80">
         <div class="page-wrapper">
             <div class="row">
@@ -70,7 +70,7 @@ include "../inc/header.php";
                             <textarea class="form-control" id="contentcontact"  rows="4"  placeholder="Nội dung"></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit" id="sentcontact" class="btn btn-tutor-detail m-1 p-1">Gửi <i class="fas fa-paper-plane"></i></button>
+                            <button type="submit" id="sentcontact" class="btn btn-tutor-detail m-1 p-1">Gửi tư vấn <i class="fas fa-paper-plane"></i></button>
                         </div>
                     </form>
                 </div>
