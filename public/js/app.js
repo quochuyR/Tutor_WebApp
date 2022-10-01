@@ -3371,100 +3371,266 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /*!*********************************!*\
   !*** ./resources/js/contact.js ***!
   \*********************************/
-$(document).ready(function () {
-  //string
-  function ValidateEmail(mail) {
-    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-      return true;
-    }
-
-    return false;
-  } //string
-
-
-  function ValidatePhone(phonenumber) {
-    if (/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(phonenumber)) {
-      return true;
-    }
-
-    return false;
-  } //show message - close message
-
-
-  function ShowMessage(message) {
-    $('.toast-content').html('<p class="toast-content">' + message + '</p>');
-    var toast = $('.toast');
-    toast.show(); //đếm ngược thời gian ẩn
-    //biến đếm thời gian
-
-    var count = 10;
-    var messagertTime = setInterval(function () {
-      if (count === -1) {
-        var toastA = $('.toast');
-        toastA.hide();
-        clearInterval(messagertTime);
+(function () {
+  $(document).ready(function () {
+    //string
+    function ValidateEmail(mail) {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+        return true;
       }
 
-      $('.toast-header small b').html(count + " giây");
-      count--;
-    }, 1000);
-  } // sự kiện ấn submit trang contact
+      return false;
+    } //string
 
 
-  $("#sentcontact").on('click', function (event) {
-    event.preventDefault();
-    var fullname = $("#fullnamecontact").val();
-    var email = $("#emailcontact").val();
-    var phone = $("#phonecontact").val();
-    var content = $("#contentcontact").val(); //kiểm tra tính hợp lệ của dữ liệu và báo lỗi
+    function ValidatePhone(phonenumber) {
+      if (/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(phonenumber)) {
+        return true;
+      }
 
-    var checkfullname = fullname.length < 30 && fullname.length > 0 ? true : false;
-    var checkemail = ValidateEmail(email);
-    var checkphone = ValidatePhone(phone);
-    var checkcontent = content.length < 500 ? true : false;
+      return false;
+    } //show message - close message
 
-    if (!checkfullname) {
-      var fullnameError = "";
-      if (fullname.length == 0) fullnameError = 'Vui lòng nhập tên của bạn!';else fullnameError = 'Tên của bạn của bạn quá dài!';
-      ShowMessage(fullnameError);
-    } else if (!checkemail) {
-      var emailError = "Vui lòng nhập đúng địa chỉ email.<br>Ví dụ <b>GiaSu123@gmail.com</b>";
-      ShowMessage(emailError);
-    } else if (!checkphone) {
-      var phoneError = "Vui lòng nhập chính xác số điện thoại của bạn để chúng tôi có thể liên hệ giải quyết nhanh chóng vấn đề bạn gặp phải.<br><i>Số điện thoại gồm 10 số, không có kí tự đặt biệt</i>";
-      ShowMessage(phoneError);
-    } else if (!checkcontent) {
-      var contentError = "Giới hạn tối đa nhập 500 kí tự";
-      ShowMessage(contentError);
-    } else {
-      var _success = "Yêu cầu của bạn đã được thực hiện. Vui lòng chờ điện thoại chúng tôi sẽ liên hệ bạn."; //dữ liệu hợp lệ tiến hành post qua file contact.php
 
+    function ShowMessage(message) {
+      $('.toast-content').html('<p class="toast-content">' + message + '</p>');
+      var toast = $('.toast');
+      toast.show(); //đếm ngược thời gian ẩn
+      //biến đếm thời gian
+
+      var count = 10;
+      var messagertTime = setInterval(function () {
+        if (count === -1) {
+          var toastA = $('.toast');
+          toastA.hide();
+          clearInterval(messagertTime);
+        }
+
+        $('.toast-header small b').html(count + " giây");
+        count--;
+      }, 1000);
+    } // sự kiện ấn submit trang contact
+
+
+    $("#sentcontact").on('click', function (event) {
+      event.preventDefault();
+      var fullname = $("#fullnamecontact").val();
+      var email = $("#emailcontact").val();
+      var phone = $("#phonecontact").val();
+      var content = $("#contentcontact").val(); //kiểm tra tính hợp lệ của dữ liệu và báo lỗi
+
+      var checkfullname = fullname.length < 30 && fullname.length > 0 ? true : false;
+      var checkemail = ValidateEmail(email);
+      var checkphone = ValidatePhone(phone);
+      var checkcontent = content.length < 500 ? true : false;
+
+      if (!checkfullname) {
+        var fullnameError = "";
+        if (fullname.length == 0) fullnameError = 'Vui lòng nhập tên của bạn!';else fullnameError = 'Tên của bạn của bạn quá dài!';
+        ShowMessage(fullnameError);
+      } else if (!checkemail) {
+        var emailError = "Vui lòng nhập đúng địa chỉ email.<br>Ví dụ <b>GiaSu123@gmail.com</b>";
+        ShowMessage(emailError);
+      } else if (!checkphone) {
+        var phoneError = "Vui lòng nhập chính xác số điện thoại của bạn để chúng tôi có thể liên hệ giải quyết nhanh chóng vấn đề bạn gặp phải.<br><i>Số điện thoại gồm 10 số, không có kí tự đặt biệt</i>";
+        ShowMessage(phoneError);
+      } else if (!checkcontent) {
+        var contentError = "Giới hạn tối đa nhập 500 kí tự";
+        ShowMessage(contentError);
+      } else {
+        var _success = "Yêu cầu của bạn đã được thực hiện. Vui lòng chờ điện thoại chúng tôi sẽ liên hệ bạn."; //dữ liệu hợp lệ tiến hành post qua file contact.php
+
+        $.ajax({
+          url: "../api/contactsent/contactsent",
+          type: "post",
+          dataType: "text",
+          data: {
+            fullname: fullname,
+            email: email,
+            phone: phone,
+            content: content
+          },
+          success: function success() {
+            //Làm trông - làm trống thông tin nhập
+            $('#fullnamecontact').val("");
+            $('#emailcontact').val("");
+            $('#phonecontact').val("");
+            $('#contentcontact').val(""); //mở notification - thong bao gửi yêu cầu thành công
+
+            ShowMessage(_success);
+          }
+        });
+      }
+    }); //đóng notification
+
+    $('#closetoast').on('click', function () {
+      var toast = $('.toast');
+      toast.hide();
+    });
+  });
+})();
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!******************************!*\
+  !*** ./resources/js/post.js ***!
+  \******************************/
+(function () {
+  jQuery(document).ready(function ($) {
+    $.extend({
+      getUrlVars: function getUrlVars() {
+        var vars = [],
+            hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+
+        for (var i = 0; i < hashes.length; i++) {
+          hash = hashes[i].split('=');
+          vars.push(hash[0]);
+          vars[hash[0]] = hash[1];
+        }
+
+        return vars;
+      },
+      getUrlVar: function getUrlVar(name) {
+        return $.getUrlVars()[name];
+      }
+    });
+
+    function strimURL() {
+      var urlPage = [];
+
+      if (window.location.href.split("?").length > 1) {
+        urlPage.push(window.location.href.split("/"));
+        return urlPage[0][urlPage[0].length - 1].split("?");
+      }
+
+      return false;
+    } // console.log('http://localhost/Tutor_WebApp/pages/post?namepost=TP.HCM:-Hoan-thanh-thu-tuc-dau-tu-du-an-nha-o-xa-hoi-trong-153-ngay&idpost=5');
+    //kiểm tra nesu url này đang truy vấn đến bài viết thì kiểm thử nếu bài viết trả về tồn tại hoặc không tồn tại bài viết
+    //tách nhau bởi dấu và và dấu bằng ở phần varurl
+    // const urlPage = [];
+    // const varPage = [];
+    // if (window.location.href.split("?").length > 1) {
+    //     urlPage.push(window.location.href.split("?")[0].split("/"));
+    //     varPage.push(window.location.href.split("?")[window.location.href.split("?").length - 1].replace("&", "=").split("="));
+    // } else {
+    //     urlPage.push(window.location.href.split("/"));
+    // }
+    // console.log(urlPage, "url page")
+    // console.log(varPage, "var page")
+    // console.log($.inArray("post", urlPage[0]) != -1, "check post")
+    // if (
+    //     $.inArray("post", urlPage[0]) != -1
+    // ) {
+    //     // console.log($.inArray("idpost", varPage[0]), "idpost")
+    //     // console.log($.inArray("namepost", varPage[0]), "namepost")
+    //     if ($.inArray("idpost", varPage[0]) != -1 &&
+    //         $.inArray("namepost", varPage[0]) != -1
+    //     ) {
+    //         if (
+    //             $.getUrlVar("idpost") != null &&
+    //             $.getUrlVar("namepost") != null
+    //         ) {
+    //             // decodeURIComponent giải mã url bị mã hóa 
+    //             // let namepost = decodeURIComponent($.getUrlVar("namepost"));
+    //             let idpost = $.getUrlVar("idpost");
+    //             let namepost = $.getUrlVar("namepost");
+    //             // console.log("namepost:" + namepost);
+    //             // console.log("idpost:" + idpost);
+    //             $.ajax({
+    //                 url: "../api/news/getpost",
+    //                 type: "post",
+    //                 dataType: "text",
+    //                 data: {
+    //                     idpost,
+    //                     namepost
+    //                 },
+    //                 success: function(data) {
+    //                     // console.log(data, "data 2");
+    //                     data = JSON.parse(data);
+    //                     if (data == null) {
+    //                         window.location = "../pages/errors/404";
+    //                     } else {
+    //                         $(document).attr("title", data.title);
+    //                         $("#post-header h1").html(data.title);
+    //                         $('#post-body-content').html(data.content);
+    //                         $('#post-body-content img').addClass('img-fluid');
+    //                         const timepost = new Date(data.time);
+    //                         $('#post-body-author-time').html(timepost.getDate() + '/' + timepost.getMonth() + '/' + (timepost.getYear() + 1900));
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     } else {
+    //         window.location = "../pages/errors/404";
+    //     }
+    // }
+
+
+    if (strimURL()) {
+      var arrUrl = strimURL();
+
+      if (arrUrl[0] == "post") {
+        var title_url = arrUrl[1];
+
+        if (title_url != "") {
+          $.ajax({
+            url: "../api/news/getpost",
+            type: "post",
+            data: {
+              title_url: title_url
+            },
+            success: function success(data) {
+              // console.log(data, "data 2");
+              // data = JSON.parse(data);
+              if (data == null) {
+                window.location = "../pages/errors/404";
+              } else {
+                $(document).attr("title", data.title);
+                $("#post-header h1").html(data.title);
+                $('#post-body-content').html(data.content);
+                $('#post-body-content img').addClass('img-fluid');
+                var timepost = new Date(data.time);
+                $('#post-body-author-time').html(timepost.getDate() + '/' + (timepost.getMonth() + 1) + '/' + (timepost.getYear() + 1900));
+              }
+            }
+          });
+        } else {
+          // window.location = "../pages/errors/404";
+          console.log('title_url: ', title_url);
+        }
+      }
+    }
+  });
+})();
+})();
+
+// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+(() => {
+/*!******************************!*\
+  !*** ./resources/js/news.js ***!
+  \******************************/
+(function () {
+  jQuery(document).ready(function ($) {
+    'use strict';
+
+    function strimURLN() {
+      var urlPage = [];
+      urlPage.push(window.location.href.split("/"));
+      if (urlPage[0][urlPage[0].length - 1] == "news") return true;
+      return false;
+    }
+
+    if (strimURLN()) {
       $.ajax({
-        url: "../api/contactsent/contactsent",
+        url: "../api/news/getpost",
         type: "post",
-        dataType: "text",
-        data: {
-          fullname: fullname,
-          email: email,
-          phone: phone,
-          content: content
-        },
-        success: function success() {
-          //Làm trông - làm trống thông tin nhập
-          $('#fullnamecontact').val("");
-          $('#emailcontact').val("");
-          $('#phonecontact').val("");
-          $('#contentcontact').val(""); //mở notification - thong bao gửi yêu cầu thành công
-
-          ShowMessage(_success);
+        success: function success(data) {
+          console.log(data, "data news");
         }
       });
     }
-  }); //đóng notification
-
-  $('#closetoast').on('click', function () {
-    var toast = $('.toast');
-    toast.hide();
   });
 })();
 })();

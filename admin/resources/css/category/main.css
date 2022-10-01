@@ -1,0 +1,7 @@
+#remoteCategory {
+    cursor: pointer !important;
+}
+
+#remoteCategory:hover {
+    color: blue !important;
+}

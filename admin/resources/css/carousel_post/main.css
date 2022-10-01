@@ -3,3 +3,18 @@
     height: 450px;
     max-height: 450px;
 }
+
+th {
+    text-align: center !important;
+    /* font-family: bold; */
+}
+
+#remoteblog,
+#remote {
+    cursor: pointer !important;
+}
+
+#remoteblog:hover,
+#remote :hover {
+    color: #3120E0 !important;
+}
