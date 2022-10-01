@@ -38,8 +38,9 @@ $_day_of_week = new DayOfWeek();
 if ($_SERVER["REQUEST_METHOD"] === "POST") :
     if (isset($_POST) && !empty($_POST)) :
         try {
-            $get_tutoring_schedule = $_tutoring_schedule->getTutoringScheduleByTutorId(1, Session::get("tutorId"), $_POST);
+            $get_tutoring_schedule = $_tutoring_schedule->getTutoringScheduleByTutorId([0, 1], Session::get("tutorId"), $_POST);
 
+            // var_dump($get_tutoring_schedule);
             if ($get_tutoring_schedule->data->num_rows > 0) :
 
 ?>
@@ -92,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") :
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $get_schedule = $_tutoring_schedule->GetTutoringSchedule_Tutor(Session::get("tutorId"), $tutoring_schedule["userId"], 1, $_POST);
+                                                        $get_schedule = $_tutoring_schedule->GetTutoringSchedule_Tutor(Session::get("tutorId"), $tutoring_schedule["userId"], [0, 1], $_POST);
                                                         if ($get_schedule) :
                                                             while ($schedule = $get_schedule->fetch_assoc()) :
 
@@ -204,8 +205,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") :
 
                                                                             </div>
                                                                             <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                                                                                <button type="button" class="btn btn-primary btn-modal-save">Lưu</button>
+                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ bỏ</button>
+                                                                                <button type="button" class="btn btn-tutor-detail btn-modal-save">Lưu lại</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>

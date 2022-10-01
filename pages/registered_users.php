@@ -114,10 +114,10 @@ include "../inc/header.php";
                                                             <!--  -->
                                                         </li>
                                                         <li class="py-1 d-inline-flex">
-                                                            <span class="material-symbols-rounded" style="color: <?= $status_approval["status"] === 1 ? "#fff" : "#3e4359" ?>">
+                                                            <span class="material-symbols-rounded" style="color: <?= $status_approval["status"] === 1 ? "#E26A25" : "#E26A25" ?>">
                                                                 work
                                                             </span>
-                                                            <span class="d-block m-l-10 fw-500 "><?= $_register_user["job"] ?></span>
+                                                            <span class="d-block m-l-10 fw-500 "><?= isset($_register_user["job"]) ? $_register_user["job"]  : "Chưa xác định" ?></span>
                                                         </li>
 
 
@@ -400,8 +400,8 @@ include "../inc/header.php";
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                                <button type="button" class="btn btn-primary btn-save">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ bỏ</button>
+                                <button type="button" class="btn btn-tutor-detail btn-save">Lưu lại</button>
                             </div>
                         </div>
                     </div>

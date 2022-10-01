@@ -1,14 +1,34 @@
+<?php
+use Helpers\Util;
+require_once(__DIR__ . "../../../vendor/autoload.php");
+
+?>
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title><?php if (isset($title)) echo $title;
+            else echo "Không tiêu đề" ?></title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+
+   
+    <link rel="stylesheet" href="<?= Util::getRootURL() . '/Tutor_WebApp/public/' . 'css/404.css' ?>">
+</head>
 
 <?php 
-use Helpers\Util;
+
 $filepath  = realpath(dirname(__FILE__));
 
 
 
 $title = "404 NOT FOUND";
-include_once($filepath . "./../../inc/head.php");
+// include_once($filepath . "./../../inc/head.php");
 
 ?>
 
@@ -334,8 +354,8 @@ include_once($filepath . "./../../inc/head.php");
         </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- <script src="<?= Util::getRootURL() . '/Tutor_WebApp/public/' . 'js/animation.js' ?>" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-    <?php include_once($filepath . "../.././inc/script.php") ?>
+    <script src="<?= Util::getRootURL() . '/Tutor_WebApp/public/' . 'js/animation.js' ?>" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <?php //include_once($filepath . "../.././inc/script.php") ?>
 
 </body>
 

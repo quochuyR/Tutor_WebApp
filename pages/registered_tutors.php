@@ -125,7 +125,7 @@ include "../inc/header.php";
 
                                                         <li class=" py-1 d-inline-flex">
 
-                                                            <span class="material-symbols-rounded" style="color: #3e4359">
+                                                            <span class="material-symbols-rounded" style="color: #E26A25">
                                                                 work
                                                             </span>
                                                             <span class="d-block m-l-10 fw-500"><?= isset($_register_user["currentjob"]) ? $_register_user["currentjob"] : "Chưa có thông tin"; ?></span>
@@ -323,8 +323,8 @@ include "../inc/header.php";
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                                <button type="button" class="btn btn-primary btn-register-add-del" data-action="1">Đăng ký</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ bỏ</button>
+                                <button type="button" class="btn btn-tutor-detail btn-register-add-del" data-action="1">Đăng ký</button>
                             </div>
                         </div>
                     </div>
@@ -460,7 +460,7 @@ include "../inc/header.php";
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Trở lại</button>
-                                <button type="button" class="btn btn-primary btn-add-review" data-action="1">Hoàn thành</button>
+                                <button type="button" class="btn btn-tutor-detail btn-add-review" data-action="1">Hoàn thành</button>
                             </div>
                         </div>
                     </div>

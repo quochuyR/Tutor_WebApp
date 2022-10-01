@@ -17,6 +17,9 @@ require_once(__DIR__ . "../../vendor/autoload.php");
 // include_once($filepath . "../../helpers/format.php");
 // include_once($filepath . "../../classes/notifications.php");
 Session::init();
+if(Session::checkLogin()){
+    header("location: index");
+}
 $captcha = '';
 // handling the captcha and checking if it's ok
 $secret = '6Lfw6MkeAAAAAIS-qyaNIm281C8imMz6h1ThadJT';

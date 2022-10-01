@@ -36,8 +36,7 @@ try{
             }
             else{
                 echo 'true';
-            }
-            
+            }     
 
         }
     } catch (Exception $ex) {

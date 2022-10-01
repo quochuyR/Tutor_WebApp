@@ -328,7 +328,7 @@
 
             $('#num_unread_notification').html(data.unseen_notification);
           }
-          else{
+          else {
 
           }
           console.log(data, "noti")
@@ -376,11 +376,35 @@
 
     });
 
-    // load_new_notification();
-    function load_new_notification() {
-      load_unseen_notification();
 
+    function load_new_notification() {
+
+      load_unseen_notification();
       setTimeout(load_new_notification, 10000);
+
+    }
+
+    // Gọi phương thức
+    is_authentication();
+
+    function is_authentication() {
+
+      $.ajax({
+        type: "post",
+        url: "../api/appuser/isauthentication",
+        data: {},
+        cache: false,
+        success: function (data) {
+          if (data.isAuthentication === true) {
+            load_new_notification();
+
+          }
+          console.log(data, "is authentication")
+        },
+        error: function (xhr, status, error) {
+          console.error(xhr);
+        }
+      });
     }
 
 

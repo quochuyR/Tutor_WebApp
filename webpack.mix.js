@@ -18,7 +18,7 @@ const src = {
             'resources/js/contact.js'
         ],
         css: ['resources/css/style.css',
-            'resources/css/404/main.css',
+            //'resources/css/404/main.css',
             'resources/css/footer/main.css',
             'resources/css/login/main.css',
             'resources/css/material-icon/main.css',

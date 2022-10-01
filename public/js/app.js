@@ -405,11 +405,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // do something...
       $('#num_unread_notification').html(0);
       $('.new-notification-list').html('<a href="#" class="d-flex list-group-item list-group-item-action border-0 text-small">Không có thông báo</a>');
-    }); // load_new_notification();
+    });
 
     function load_new_notification() {
       load_unseen_notification();
       setTimeout(load_new_notification, 10000);
+    } // Gọi phương thức
+
+
+    is_authentication();
+
+    function is_authentication() {
+      $.ajax({
+        type: "post",
+        url: "../api/appuser/isauthentication",
+        data: {},
+        cache: false,
+        success: function success(data) {
+          if (data.isAuthentication === true) {
+            load_new_notification();
+          }
+
+          console.log(data, "is authentication");
+        },
+        error: function error(xhr, status, _error6) {
+          console.error(xhr);
+        }
+      });
     }
   }); // validation form
 })();

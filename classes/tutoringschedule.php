@@ -30,12 +30,11 @@ class TutoringSchedule
         $types = "";
         $vars = array();
 
-        if($dayofweekId !== null && $topicId !== null && $timeId !== null){
+        if ($dayofweekId !== null && $topicId !== null && $timeId !== null) {
             $query = "CALL add_schedule_from_registered_user(?, ?, ?, ?, ?)";
             $types = "iiiii";
             $vars = [$status, $registerId, $dayofweekId, $topicId,  $timeId];
-        }
-        else{
+        } else {
             $query = "CALL add_schedule_from_registered_user(?, ?, NULL, NULL, NULL)";
             $types = "ii";
             $vars = [$status, $registerId];
@@ -52,7 +51,7 @@ class TutoringSchedule
 
         return $results ? $results : false;
     }
-    
+
     public function updateTutoringSchedule($Id, $dayofweekId, $timeId, $subjectTopicId)
     {
         $query = "UPDATE `scheduletutors` 
@@ -64,20 +63,41 @@ class TutoringSchedule
     }
 
     // bao gồm phân trang luôn
-    public function getTutoringScheduleByTutorId($status, $tutorId, $request_method)
+    /**
+     * @param array $status Trạng thái duyệt hay chưa duyết
+     * @param string $tutorId Id gia sư
+     * @param array $request_method mảng chứa tham số GET method
+     * @return object Dữ liệu phần trang gồm page, limit, total, data
+     */
+    public function getTutoringScheduleByTutorId($status, $tutorId, $request_method): object
     {
         $types = "";
         $vars = array();
         $query = "SELECT DISTINCT `registeredusers`.`userId`
         FROM `scheduletutors` INNER JOIN `registeredusers` ON `scheduletutors`.`RegisteredId` = `registeredusers`.`id` 
-        WHERE `registeredusers`.`status` = ? AND `registeredusers`.`tutorId` = ?";
+        WHERE `registeredusers`.`tutorId` = ?";
 
-        $vars = array_merge($vars, [$status, $tutorId]);
-        $types .= 'is';
+        // 
+        //  AND 
+        $statusCount = count($status);
+        // create a array with question marks
+        $statusMarks = array_fill(0, $statusCount, '?');
+        $statusMarks =  implode(",", $statusMarks);
+        $dataTypes = str_repeat('i', $statusCount);
+
+        $query .= " AND `registeredusers`.`status` IN ($statusMarks)";
+
+
+        // 
+
+        $vars = array_merge($vars, [$tutorId], $status);
+        $types .= 's' . $dataTypes ; // bao gồm status và tutorId
+
+
         if (isset($request_method['day']) && is_numeric($request_method['day'])) {
             $day = $request_method['day'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`dayofweekId` = ?";
             // bind params
             $types .= 'i';
@@ -86,8 +106,8 @@ class TutoringSchedule
 
         if (isset($request_method['subjectTopic']) && is_numeric($request_method['subjectTopic'])) {
             $subjectTopic = $request_method['subjectTopic'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`topicId` = ?";
             // bind params
             $types .= 'i';
@@ -96,10 +116,11 @@ class TutoringSchedule
 
         // lấy thời gian start and end
         if ((isset($request_method['endTime']) && is_numeric($request_method['endTime']))
-        && (isset($request_method['startTime']) && is_numeric($request_method['startTime']))) {
+            && (isset($request_method['startTime']) && is_numeric($request_method['startTime']))
+        ) {
             $endTime = $request_method['endTime'];
             $startTime = $request_method['startTime'];
-            
+
             $query .= " AND ( `scheduletutors`.`timeId` BETWEEN ? AND ? )";
             // bind params
             $types .= 'ii';
@@ -109,8 +130,8 @@ class TutoringSchedule
 
         else if (isset($request_method['startTime']) && is_numeric($request_method['startTime'])) {
             $startTime = $request_method['startTime'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`timeId` = ?";
             // bind params
             $types .= 'i';
@@ -120,8 +141,8 @@ class TutoringSchedule
 
         else if (isset($request_method['endTime']) && is_numeric($request_method['endTime'])) {
             $endTime = $request_method['endTime'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`timeId` = ?";
             // bind params
             $types .= 'i';
@@ -130,15 +151,15 @@ class TutoringSchedule
 
         if (isset($request_method['uid']) && !empty($request_method['uid'])) {
             $userId = $request_method['uid'];
-            
-            
+
+
             $query .= " AND `registeredusers`.`userId` = ?";
             // bind params
             $types .= 's';
             $vars = array_merge($vars, [$userId]);
         }
 
-        
+
 
         // print_r($query);
         $limit = (isset($request_method['limit'])) ? Format::validation($request_method['limit']) : 3;
@@ -156,7 +177,7 @@ class TutoringSchedule
         // paginator
         // echo $this->query;
         $links = (isset($request_method['links'])) ? Format::validation($request_method['links']) : 3;
-        return $this->paginator->createLinksAjax('pagination justify-content-center' ,$links );
+        return $this->paginator->createLinksAjax('pagination justify-content-center', $links);
     }
 
     // đếm xem có user hay không
@@ -170,8 +191,9 @@ class TutoringSchedule
         return $results ? $results : false;
     }
 
-     // get lịch dạy ứng với người đã đăng ký (chỗ cái bảng)
-     public function GetUserScheduleById($scheduleId){
+    // get lịch dạy ứng với người đã đăng ký (chỗ cái bảng)
+    public function GetUserScheduleById($scheduleId)
+    {
         $query = "SELECT  `scheduletutors`.`id`, `dayofweeks`.`id` as dayofweekId, `dayofweeks`.`day`, `times`.`id` as timeId, `times`.`time`, `subjecttopics`.`topicName`, `subjecttopics`.`id` as subject_topicId
         FROM ((((`scheduletutors`  INNER JOIN `registeredusers` ON`registeredusers`.`id` = `scheduletutors`.`RegisteredId`)
               INNER JOIN `times` ON `scheduletutors`.`timeId` = `times`.`id`)
@@ -183,11 +205,15 @@ class TutoringSchedule
         $results = $this->db->p_statement($query, "i", [$scheduleId]);
 
         return $results ? $results : false;
+    }
 
-
-     }
-
-    // get lịch dạy ứng với người đã đăng ký (chỗ cái bảng)
+    /**
+     * Get lịch dạy ứng với người đã đăng ký (chỗ cái bảng)
+     * @param array $status Trạng thái duyệt hay chưa duyết
+     * @param string $tutorId Id gia sư
+     * @param string $userId Id người dùng
+     * @param array $request_method mảng chứa tham số GET method
+     */
     public function GetTutoringSchedule_Tutor($tutorId, $userId, $status, $request_method)
     {
         $types = "";
@@ -198,13 +224,28 @@ class TutoringSchedule
               INNER JOIN `dayofweeks` ON `scheduletutors`.`dayofweekId` = `dayofweeks`.`id`)
               INNER JOIN `subjecttopics` ON `subjecttopics`.`id` = `scheduletutors`.`topicId`)
              
-        WHERE `registeredusers`.`tutorId` = ? AND `registeredusers`.`userId` = ? AND `registeredusers`.`status` = ?";
-        $vars = array_merge($vars, [$tutorId, $userId, $status]);
-        $types .= 'ssi';
+        WHERE `registeredusers`.`tutorId` = ? AND `registeredusers`.`userId` = ?";
+
+// 
+
+        $statusCount = count($status);
+        // create a array with question marks
+        $statusMarks = array_fill(0, $statusCount, '?');
+        $statusMarks =  implode(",", $statusMarks);
+        $dataTypes = str_repeat('i', $statusCount);
+
+        $query .= " AND `registeredusers`.`status` IN ($statusMarks)";
+
+// 
+
+        $vars = array_merge($vars, [$tutorId, $userId], $status);
+        $types .= 'ss' . $dataTypes; // Bao gồm tutorId, userId, status
+
+
         if (isset($request_method['day']) && is_numeric($request_method['day'])) {
             $day = $request_method['day'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`dayofweekId` = ?";
             // bind params
             $types .= 'i';
@@ -213,8 +254,8 @@ class TutoringSchedule
 
         if (isset($request_method['subjectTopic']) && is_numeric($request_method['subjectTopic'])) {
             $subjectTopic = $request_method['subjectTopic'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`topicId` = ?";
             // bind params
             $types .= 'i';
@@ -223,10 +264,11 @@ class TutoringSchedule
 
         // lấy thời gian start and end
         if ((isset($request_method['endTime']) && is_numeric($request_method['endTime']))
-        && (isset($request_method['startTime']) && is_numeric($request_method['startTime']))) {
+            && (isset($request_method['startTime']) && is_numeric($request_method['startTime']))
+        ) {
             $endTime = $request_method['endTime'];
             $startTime = $request_method['startTime'];
-            
+
             $query .= " AND ( `scheduletutors`.`timeId` BETWEEN ? AND ? )";
             // bind params
             $types .= 'ii';
@@ -236,8 +278,8 @@ class TutoringSchedule
 
         else if (isset($request_method['startTime']) && is_numeric($request_method['startTime'])) {
             $startTime = $request_method['startTime'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`timeId` = ?";
             // bind params
             $types .= 'i';
@@ -247,8 +289,8 @@ class TutoringSchedule
 
         else if (isset($request_method['endTime']) && is_numeric($request_method['endTime'])) {
             $endTime = $request_method['endTime'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`timeId` = ?";
             // bind params
             $types .= 'i';
@@ -277,8 +319,8 @@ class TutoringSchedule
         $types .= 'is';
         if (isset($request_method['day']) && is_numeric($request_method['day'])) {
             $day = $request_method['day'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`dayofweekId` = ?";
             // bind params
             $types .= 'i';
@@ -287,8 +329,8 @@ class TutoringSchedule
 
         if (isset($request_method['subjectTopic']) && is_numeric($request_method['subjectTopic'])) {
             $subjectTopic = $request_method['subjectTopic'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`topicId` = ?";
             // bind params
             $types .= 'i';
@@ -297,10 +339,11 @@ class TutoringSchedule
 
         // lấy thời gian start and end
         if ((isset($request_method['endTime']) && is_numeric($request_method['endTime']))
-        && (isset($request_method['startTime']) && is_numeric($request_method['startTime']))) {
+            && (isset($request_method['startTime']) && is_numeric($request_method['startTime']))
+        ) {
             $endTime = $request_method['endTime'];
             $startTime = $request_method['startTime'];
-            
+
             $query .= " AND ( `scheduletutors`.`timeId` BETWEEN ? AND ? )";
             // bind params
             $types .= 'ii';
@@ -310,8 +353,8 @@ class TutoringSchedule
 
         else if (isset($request_method['startTime']) && is_numeric($request_method['startTime'])) {
             $startTime = $request_method['startTime'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`timeId` = ?";
             // bind params
             $types .= 'i';
@@ -321,8 +364,8 @@ class TutoringSchedule
 
         else if (isset($request_method['endTime']) && is_numeric($request_method['endTime'])) {
             $endTime = $request_method['endTime'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`timeId` = ?";
             // bind params
             $types .= 'i';
@@ -331,15 +374,15 @@ class TutoringSchedule
 
         if (isset($request_method['tuid']) && !empty($request_method['tuid'])) {
             $tutorId = $request_method['tuid'];
-            
-            
+
+
             $query .= " AND `registeredusers`.`tutorId` = ?";
             // bind params
             $types .= 's';
             $vars = array_merge($vars, [$tutorId]);
         }
 
-        
+
 
         // print_r($query);
         $limit = (isset($request_method['limit'])) ? Format::validation($request_method['limit']) : 3;
@@ -387,8 +430,8 @@ class TutoringSchedule
         $types .= 'ssi';
         if (isset($request_method['day']) && is_numeric($request_method['day'])) {
             $day = $request_method['day'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`dayofweekId` = ?";
             // bind params
             $types .= 'i';
@@ -397,8 +440,8 @@ class TutoringSchedule
 
         if (isset($request_method['subjectTopic']) && is_numeric($request_method['subjectTopic'])) {
             $subjectTopic = $request_method['subjectTopic'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`topicId` = ?";
             // bind params
             $types .= 'i';
@@ -407,10 +450,11 @@ class TutoringSchedule
 
         // lấy thời gian start and end
         if ((isset($request_method['endTime']) && is_numeric($request_method['endTime']))
-        && (isset($request_method['startTime']) && is_numeric($request_method['startTime']))) {
+            && (isset($request_method['startTime']) && is_numeric($request_method['startTime']))
+        ) {
             $endTime = $request_method['endTime'];
             $startTime = $request_method['startTime'];
-            
+
             $query .= " AND ( `scheduletutors`.`timeId` BETWEEN ? AND ? )";
             // bind params
             $types .= 'ii';
@@ -420,8 +464,8 @@ class TutoringSchedule
 
         else if (isset($request_method['startTime']) && is_numeric($request_method['startTime'])) {
             $startTime = $request_method['startTime'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`timeId` = ?";
             // bind params
             $types .= 'i';
@@ -431,8 +475,8 @@ class TutoringSchedule
 
         else if (isset($request_method['endTime']) && is_numeric($request_method['endTime'])) {
             $endTime = $request_method['endTime'];
-            
-            
+
+
             $query .= " AND `scheduletutors`.`timeId` = ?";
             // bind params
             $types .= 'i';
@@ -448,7 +492,7 @@ class TutoringSchedule
     /**
      * Đếm xem gia sư đã lên lịch dạy cho người dùng hay chưa
      */
-   
+
     public function count_tutor_has_schedule_for_user($userId, $tutorId, $status)
     {
         $query = "SELECT COUNT(*) AS has_schedule
@@ -458,5 +502,4 @@ class TutoringSchedule
 
         return $results ? $results : false;
     }
-    
 }

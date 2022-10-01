@@ -48,8 +48,8 @@ if ($upload_image && $upload_image["uploaded"] == 1) {
 }
 
 
-$title = "Danh sách gia sư";
-$nav_tutor_active = "active";
+$title = "Cài đặt tài khoản";
+// $nav_tutor_active = "active";
 include "../inc/header.php";
 ?>
 <div id="main" class="container pb-3">
@@ -121,7 +121,7 @@ include "../inc/header.php";
                             </div>
 
 
-                            <img src="<?= isset($person["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $person["imagepath"] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg"; ?>" class="rounded-circle avatar-lg avatar" alt="hình đại diện" value="<?php echo $person['imagepath'] ?>" id="my-image">
+                            <img src="<?= isset($person["imagepath"]) ? Util::getCurrentURL(1) . "public/" . $person["imagepath"] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg"; ?>" class="rounded avatar-lg avatar" alt="hình đại diện" value="<?php echo $person['imagepath'] ?>" id="my-image">
                             <div class="mt-3 h-50 d-flex flex-column pb-5">
 
                                 <h4 class="fw-bold mb-1"><?php echo $person['lastname'] . " " . $person['firstname'] ?></h4>
@@ -444,7 +444,7 @@ include "../inc/header.php";
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                    <button type="button" class="btn btn-primary" id="download">Tải về</button>
+                    <button type="button" class="btn btn-tutor-detail" id="download">Tải về</button>
                 </div>
             </div>
         </div>
@@ -480,7 +480,7 @@ include "../inc/header.php";
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ bỏ</button>
-                    <button type="button" class="btn btn-primary" id="save-change-picture">Lưu</button>
+                    <button type="button" class="btn btn-tutor-detail" id="save-change-picture">Lưu lại</button>
                 </div>
             </div>
         </div>
