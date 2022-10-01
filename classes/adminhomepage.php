@@ -32,7 +32,7 @@ class Adminhomepage
     {
         $statusMsg = '';
         // File upload path
-        $targetDir = "../assets/images/carousel/";
+        $targetDir = "../public/images/carousel/";
         $fileName = '';
         $targetFilePath = '';
         $fileType = '';
@@ -42,15 +42,17 @@ class Adminhomepage
         $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
         $name = $_POST["title"];
         // Allow certain file formats
-        $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'pdf');
+        $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
         if (in_array($fileType, $allowTypes)) {
             // Upload fiile to server
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
                 // Insert image file name into database
-                $insert = $this->db->select("INSERT INTO calrouselimg (id, name, file_name, uploaded_on, status) VALUES (NULL,'" . $name . "','" . $fileName . "', NOW(),0)");
-                if ($insert) {
+                // $insert = $this->db->select("INSERT INTO calrouselimg (id, name, file_name, uploaded_on, status) VALUES (NULL,'" . $name . "','" . $fileName . "', NOW(),0)");
+                $query = "INSERT INTO `calrouselimg` (`id`, `name`, `file_name`, `uploaded_on`, `status`) VALUES (NULL,?, ?,CURRENT_TIMESTAMP() ,0)";
+                $this->db->p_statement($query, "ss", [$name, $fileName]);
+                if ($query) {
                     $statusMsg = "The file " . $fileName . " has been uploaded successfully.";
-                    $insert = '';
+                    $query = '';
                 } else {
                     $statusMsg = "File upload failed, please try again.";
                 }

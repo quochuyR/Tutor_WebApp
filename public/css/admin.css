@@ -4,6 +4,28 @@
     max-height: 450px;
 }
 
+th {
+    text-align: center !important;
+    /* font-family: bold; */
+}
+
+#remoteblog,
+#remote {
+    cursor: pointer !important;
+}
+
+#remoteblog:hover,
+#remote :hover {
+    color: #3120E0 !important;
+}
+#remoteCategory {
+    cursor: pointer !important;
+}
+
+#remoteCategory:hover {
+    color: blue !important;
+}
+
 .material-symbols-rounded {
   font-variation-settings:
   'FILL' 1,
@@ -419,6 +441,16 @@ li+.postion-absolute {
 }
 
 /* end badge */
+#showcontent {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#moreviewbutton:hover,
+#moreviewbutton:hover span {
+    color: #FFCB42 !important;
+    cursor: grab;
+}
 /* This css file is to over write bootstarp css
 --------------------------------------------------------- /
 * Theme Name: Ela Admin Template

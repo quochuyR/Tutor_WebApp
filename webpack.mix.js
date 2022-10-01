@@ -15,7 +15,9 @@ const src = {
             'resources/js/signup.js',
             'resources/js/tutor_details.js',
             'resources/js/tutor_registration_form.js',
-            'resources/js/contact.js'
+            'resources/js/contact.js',
+            'resources/js/post.js',
+            'resources/js/news.js'
         ],
         css: ['resources/css/style.css',
             //'resources/css/404/main.css',
@@ -32,26 +34,36 @@ const src = {
             'resources/css/tutor_registration_form/main.css',
             'resources/css/user_detail/main.css',
             'resources/css/utilities/main.css',
-            'resources/css/contact/main.css'
+            'resources/css/contact/main.css',
+            'resources/css/post/main.css',
+            'resources/css/news/main.css'
         ]
     },
     admin: {
         js: ['admin/resources/js/modules/image_viewer.js',
             'admin/resources/js/main.js',
-            'admin/resources/js/carousel.js',
+            // 'admin/resources/js/carousel.js',
             'admin/resources/js/managersubjects.js',
             'admin/resources/js/page_editpost.js',
             'admin/resources/js/topicmanager.js',
             'admin/resources/js/tutormanagers.js',
             'admin/resources/js/usermanager.js',
-            'admin/resources/js/contact.js'
+            'admin/resources/js/contact.js',
+            'resources/js/post.js',
+            'admin/resources/js/category.js',
+            'admin/resources/js/categorynew.js',
+            'admin/resources/js/categoryedit.js',
+            'admin/resources/js/article.js',
+            'admin/resources/js/articleedit.js'
         ],
         css: ['admin/resources/css/carousel_post/main.css',
+            'admin/resources/css/category/main.css',
             'admin/resources/css/material-icon/main.css',
             'admin/resources/css/print/print.css',
             'admin/resources/css/sliderbar/main.css',
             'admin/resources/css/user_detail/main.css',
             'admin/resources/css/utilities/main.css',
+            'admin/resources/css/contact/main.css',
             'admin/resources/css/style.css'
         ]
     }

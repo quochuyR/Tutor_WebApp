@@ -28,8 +28,9 @@
             <a href="#" class="dropdown-toggle d-inline-flex align-items-center " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="ico ico-home-manager me-3"></span><span class="d-block">Quản lí trang chủ</span></a>
                 <ul class="sub-menu children dropdown-menu">
                     <li class="d-inline-flex align-items-center"><span class="ico ico-image ico-subject me-3"></span><a href="../pages/carousel">Hình ảnh</a></li>
-                    <li class="d-inline-flex align-items-center"><span class="ico ico-post me-3"></span><a href="../pages/page_editpost">Bài viết</a></li>
-                    <li class="d-inline-flex align-items-center"><span class="ico ico-post me-3"></span><a href="../pages/contact">Danh sách liên hệ</a></li>
+                    <li class="d-inline-flex align-items-center"><span class="ico ico-post me-3"></span><a href="../pages/article">Bài viết</a></li>
+                    <li class="d-inline-flex align-items-center"><span class="ico ico-post me-3"></span><a href="../pages/category">Danh mục</a></li>
+                    <li class="d-inline-flex align-items-center"><span class="ico ico-user me-3"></span><a href="../pages/contact">Danh sách liên hệ</a></li>
                 </ul>
             </li>
             <!-- Quản lý tài khoản  -->

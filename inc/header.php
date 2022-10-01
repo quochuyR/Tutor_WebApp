@@ -281,10 +281,10 @@ include "../inc/head.php";
                                 </li>
                                 <li class="nav-item <?php if (isset($nav_tutor_register_form_active)) echo $nav_tutor_register_form_active;
                                                     else echo ""  ?>"><a href="tutor_registration_form" class="nav-link">Trở thành gia sư</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Bài viết</a></li>
+                                <li class="nav-item <?php if (isset($news_active)) echo $news_active;
+                                                    else echo ""  ?>"><a href="news" class="nav-link">Bài viết</a></li>
                                 <li class="nav-item <?php if (isset($contact)) echo $contact;
-                                                    else echo ""
-                                                    ?>"><a href="contact" class="nav-link">Liên hệ</a></li>
+                                                    else echo "" ?>"><a href="contact" class="nav-link">Liên hệ</a></li>
 
                             </ul>
 
