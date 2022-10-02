@@ -76,8 +76,8 @@ $title = "Danh mục";
                                         <th scope="col"></th>
                                         <th scope="col">Trạng thái</th>
                                         <th scope="col">Tên danh mục</th>
+                                        <th scope="col">Vị trí</th>
                                         <th scope="col">Công bố</th>
-                                        <th scope="col">Chưa xuất bản</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
