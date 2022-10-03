@@ -78,8 +78,7 @@ $title = "Danh mục";
                                         <option value="none">Không có</option>
                                         <option value="feature_news">Tin nổi bậc</option>
                                         <option value="feature_1">Tin nổi bậc hàng 1</option>
-                                        <option value="theme_Category_1">Hàng 1 theo chủ đề</option>
-                                        <option value="theme_Category_2">hàng 2 theo chủ đề</option>
+                                        <option value="theme_Category">Hàng 1 theo chủ đề</option>
                                         <option value="hot_news_1">Tin mới - hàng 1</option>
                                         <option value="hot_news_2">Tin mới - hàng 2</option>
                                         <!-- DOM html  -->
