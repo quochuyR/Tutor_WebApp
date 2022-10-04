@@ -28,8 +28,9 @@ try {
     $status = $_POST["status"];
     $id_parent = $_POST["id_parent"];
     $position_show  = $_POST["position_show"];
+    $name_url  = $_POST["name_url"];
 
-    $result = $blog->updatecategory($id, $name, $status, $id_parent,$position_show, $about);
+    $result = $blog->updatecategory($id, $name, $status, $id_parent,$position_show, $about, $name_url);
 
 } catch (Exception $ex) {
     print_r($ex->getMessage());

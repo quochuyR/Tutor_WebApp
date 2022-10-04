@@ -168,22 +168,18 @@ class blogpage
         return $result;
     }
 
-    function insertcategory($name, $status, $id_parent, $position_show, $about)
+    function insertcategory($name, $status, $id_parent, $position_show, $about, $name_url)
     {
         // $status = true;
         // if ($status == 0)
         //     $status = false;
-        $query = "INSERT INTO `kindpost`(`id`, `kindname`, `status`, `id_parent`,`position_show`, `about`) VALUES (null,?,$status,?,?,?)";
-        $result = $this->db->p_statement($query, "ssss", [$name, $id_parent,$position_show, $about]);
+        $query = "INSERT INTO `kindpost`(`id`, `kindname`, `status`, `id_parent`,`position_show`, `about`, `kindname_url`) VALUES (null,?,$status,?,?,?,?)";
+        $result = $this->db->p_statement($query, "sssss", [$name, $id_parent,$position_show, $about, $name_url]);
     }
 
-    function updatecategory($id, $name, $status, $id_parent, $position_show, $about)
+    function updatecategory($id, $name, $status, $id_parent, $position_show, $about, $name_url)
     {
-        // $status = true;
-        // if ($status == 0)
-        //     $status = false;
-        $query = "UPDATE `kindpost` SET `kindname`= ?,`status`= $status,`id_parent`= ?,`position_show`= ?,`about`= ? WHERE `id` = ?";
-        // $query = "INSERT INTO `kindpost`(`id`, `kindname`, `status`, `id_parent`, `about`) VALUES (null,?,,?,?)";
-        $result = $this->db->p_statement($query, "ssssi", [$name, $id_parent, $position_show, $about, $id]);
+        $query = "UPDATE `kindpost` SET `kindname`= ?,`status`= $status,`id_parent`= ?,`position_show`= ?,`about`= ?, `kindname_url` = ? WHERE `id` = ?";
+        $result = $this->db->p_statement($query, "sssssi", [$name, $id_parent, $position_show, $about, $name_url, $id]);
     }
 }

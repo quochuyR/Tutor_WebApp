@@ -51,9 +51,9 @@
                     }
                 },
                 {
-                    "data": null,
+                    "data": "position_show",
                     render: function(data, type, row) {
-                        return `<p class= "text-center" > 0</p> `;
+                        return `<p class= "text-center" >${data}</p> `;
                     }
                 },
                 {
@@ -62,6 +62,7 @@
                         return `<p class= "text-center" > 0</p> `;
                     }
                 },
+
                 {
                     "data": null,
                     render: function(data, type, row) {
