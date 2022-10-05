@@ -38,7 +38,8 @@ $columns = array(
     array('db' => 'id', 'dt' => 'id'),
     array('db' => 'kindname', 'dt' => 'kindname'),
     array('db' => 'status', 'dt' => 'status'),
-    array('db' => 'id_parent', 'dt' => 'id_parent')
+    array('db' => 'id_parent', 'dt' => 'id_parent'),
+    array('db' => 'position_show', 'dt' => 'position_show')
 );
 
 // SQL server connection information

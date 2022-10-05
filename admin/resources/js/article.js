@@ -299,7 +299,8 @@
             str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
             str = str.replace(/Đ/g, "D");
             str = str.replace(/[/]/g, "_");
-            str = str.replace(/['!@#$%^&*().`~\\?,:;"[{\}\]]/g, "_");
+            str = str.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-')
+            str = str.replace(/[`’‘'!@#$%^&*().`~\\?,:;"[{\}\]]/g, "_");
             str = str.replace(/ /g, "-");
             return str;
         }
