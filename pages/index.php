@@ -31,22 +31,20 @@ $arrayImg = array();
 $arrayImg = $db_homepage->loadImageToArray();
 
 $introduction = "active";
-$title = "Trang chủ";
+$title = "Hệ thống gia sư, các khóa học chất lượng";
 include "../inc/header.php";
 ?>
 <!-- carousel silde  -->
-<div id="main" class="container-fluid px-0">
-
-    <section data-aos="zoom-in-up" data-aos-duration="1500">
+<section id="main" class="container-fluid px-0">
+    <section data-aos="zoom-in-up" data-aos-duration="1500" id="carouselSecction">
         <div id="carouselExampleIndicators" class="carousel slide carouselTrangChu" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
-            <div class="carousel-inner">
-                <!-- nếu sau này không thấy hình thì có thể do lỗi sai đường dẫn   -->
-                <?php $db_homepage->ShowImgCarousel($arrayImg); ?>
+            <div class="carousel-inner" id="carousel_image_background">
+
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -58,145 +56,8 @@ include "../inc/header.php";
             </button>
         </div>
     </section>
-    <!-- bieu tuong chat luong day kem  -->
-    <!-- cần chỉnh sửa icon khi thu nhỏ tỉ lệ khung hình -->
-    <section class="container">
-        <div class="container text-center mt-4">
-            <div class="row">
-                <div class="col-4" data-aos="zoom-in-left" data-aos-easing="linear" data-aos-duration="1500">
-                    <div class="row">
-                        <div class="col-12"><img class="rounded-circle" alt="Uy tín" src="https://top1quangnam.com/wp-content/uploads/2021/06/UY-TIN-2.png" width="80" height="80"></div>
-                        <div class="col-lg-12 col-12 ml-1 mt-3">
-                            <h4>Uy tín</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4" data-aos="zoom-in" data-aos-easing="linear" data-aos-duration="1500">
-                    <div class="row">
-                        <div class="col-12"><img class="rounded-circle" alt="Tận tâm" src="http://cityhomes.net.vn/wp-content/uploads/2019/06/icon-tan-tam.png" width="80" height="80"></div>
-                        <div class="col-lg-12 col-12 ml-1 mt-3">
-                            <h4>Tận tâm</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4" data-aos="zoom-in-right" data-aos-easing="linear" data-aos-duration="1500">
-                    <div class="row">
-                        <div class="col-lg-12 col-12"><img class="rounded-circle" alt="Chuyên nghiệp" src="https://iweb.tatthanh.com.vn/pic/3/service/images/thiet-ke-website-quang-cao(21).png" width="80" height="80"></div>
-                        <div class="col-lg-12 col-12 ml-1 mt-3">
-                            <h4>Chuyên nghiệp</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <hr>
-    <!-- Lọc trên web -->
-    <section class="container" data-aos="zoom-in-up" data-aos-duration="1500">
-        <div>
-            <h2 class="text-center m-3">Danh sách gia sư tiêu biểu</h2>
-        </div>
-        <div class="row justify-content-around">
-            <?php
-            $result = $db_homepageTutor->getFilter($_POST);
-            $_POST["limit"] = 8;
-            $tutorOfTopic =  $TTtopic->getFilter($_POST);
-
-            if ($tutorOfTopic->data) :
-                while ($result = $tutorOfTopic->data->fetch_assoc()) :
-            ?>
 
 
-                    <div class="col-lg-3 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
-                        <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
-                            <div class=" card-img-top img-teacher text-center">
-                                <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(1) . "public/" .  $result['imagepath'] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg") ?>" class="rounded" alt="" srcset="">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="fw-600 pt-1 pb-2 limit-text-inline"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h5>
-                                <?php
-                                $subjectTutors = "";
-                                $subjectList = $subjects->getByTutorId($result['id']);
-                                while ($resultSB = $subjectList->fetch_assoc()) :
-                                    $subjectTutors .= $resultSB['subject'] . ', ';
-                                endwhile;
-
-                                $subjectTutors = substr($subjectTutors, 0, strlen(trim($subjectTutors)) - 1);
-                                ?>
-
-                                <div class=" d-flex pb-2">
-                                    <span class="material-symbols-rounded pe-1">
-                                        pin_drop
-                                    </span>
-                                    <span class="description-intro"><?= $result['teachingarea'] . "," . str_replace(["Tỉnh", "Thành phố"], '', $result['currentplace']) ?>
-                                    </span>
-                                </div>
-                                <div class=" d-flex pb-2">
-                                    <span class="material-symbols-rounded pe-1">
-                                        book
-                                    </span>
-                                    <span class="description-intro"><?= $subjectTutors ?></span>
-                                </div>
-                                <div class="text-start description product limit-text mb-5">
-                                    <?= html_entity_decode($result['introduction']) ?>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between pt-1 position-absolute" style="bottom: 1rem;">
-                                    <div class="d-flex flex-row">
-                                        <a href="<?= (isset($result['linkfacebook']) ? $result['linkfacebook'] : "") ?>" class="mx-1 social-list-item text-center border-primary text-primary"><i class="mdi mdi-facebook"></i></i></a>
-                                        <a href="<?= (isset($result['linktwitter']) ? $result['linktwitter'] : "") ?>" class="mx-1 social-list-item text-center border-info text-info"><i class="mdi mdi-twitter"></i></i></a>
-                                    </div>
-                                    <!-- <div class="btn btn-primary">Đăng ký</div> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            <?php
-                endwhile;
-            endif;
-            ?>
-        </div>
-    </section>
-
-    <!-- About Start -->
-    <section class="container-fluid py-6 pt-5 about-start">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 wow zoomIn" data-wow-delay="0.1s" data-aos="zoom-out-right" data-aos-duration="1500">
-                    <!-- Change img -->
-                    <img class="img-fluid about-image-transiton" src="https://giasuongmattroi.com/wp-content/uploads/2018/06/doi-ngu-gia-su-tay-nghe-cao.jpg">
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" data-aos="zoom-out-left" style="text-align: justify;">
-                    <h1 class="mb-4">Giới Thiệu</h1>
-                    <p class="mb-4"><b>Website gia sư</b> là công cụ giúp trung tâm hỗ trợ giải đáp câu hỏi của khách hàng hiệu quả, website giúp truyền tải đầy đủ thông tin của gia sư đến phụ huynh một cách thuận tiện, những thông báo từ lịch học, giá dịch vụ, …. giúp
-                        phụ huynh có thể tiếp nhận nhanh nhất. Ngoài ra, mọi thắc mắc của phụ huynh sẽ được hỗ trợ ngay trên website gia sư.</p>
-                    <div class="row g-3 mb-4">
-                        <div class="col-12 d-flex">
-                            <div class="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
-                                <i class="fa fa-user-tie text-white"></i>
-                            </div>
-                            <div class="ms-4">
-                                <h6>Phụ huynh</h6>
-                                <span>“Website Gia Sư” mang lại thuận tiện trong việc tìm kiếm gia sư tốt cho con của bậc phụ huynh. Tiết kiệm thời gian, chi phí, công sức...</span>
-                            </div>
-                        </div>
-                        <div class="col-12 d-flex">
-                            <div class="flex-shrink-0 btn-lg-square rounded-circle bg-primary">
-                                <i class="fas fa-chalkboard-teacher"></i>
-                            </div>
-                            <div class="ms-4">
-                                <h6>Gia Sư</h6>
-                                <span>"Gia sư"là một công việc khá lí tưởng cho những sinh viên đang trong quá trình học tập tại các trường đại học hoặc đã tốt nghiệp. Đặc biệt những bạn chưa có công việc ổn định hoặc muốn kiếm thêm thu nhập cho bản thân. </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="about-more-link text-center"><a class="btn btn-about rounded-pill  px-5 mt-2" href="#features">Xem thêm</a></div>
-                    <!-- <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">Xem thêm</a> -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- About End -->
-    <!-- About Second strat-->
     <section class="about-second-background container-fluid">
         <div class="container pt-5 about-second">
             <h4 class="text-center">Hãy tìm cho con một gia sư</h4>
@@ -300,11 +161,81 @@ include "../inc/header.php";
         </section>
     </section>
     <!-- Features End -->
+    <!-- danh sach gia su  -->
+    <section class="container" data-aos="zoom-in-up" data-aos-duration="1500">
+        <div>
+            <h2 class="text-center m-3">Danh sách gia sư tiêu biểu</h2>
+        </div>
+        <div class="row justify-content-around">
+            <?php
+            $result = $db_homepageTutor->getFilter($_POST);
+            $_POST["limit"] = 8;
+            $tutorOfTopic =  $TTtopic->getFilter($_POST);
+
+            if ($tutorOfTopic->data) :
+                while ($result = $tutorOfTopic->data->fetch_assoc()) :
+            ?>
+
+
+                    <div class="col-lg-3 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
+                        <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
+                            <div class=" card-img-top img-teacher text-center">
+                                <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(1) . "public/" .  $result['imagepath'] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg") ?>" class="rounded" alt="" srcset="">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="fw-600 pt-1 pb-2 limit-text-inline"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h5>
+                                <?php
+                                $subjectTutors = "";
+                                $subjectList = $subjects->getByTutorId($result['id']);
+                                while ($resultSB = $subjectList->fetch_assoc()) :
+                                    $subjectTutors .= $resultSB['subject'] . ', ';
+                                endwhile;
+
+                                $subjectTutors = substr($subjectTutors, 0, strlen(trim($subjectTutors)) - 1);
+                                ?>
+
+                                <div class=" d-flex pb-2">
+                                    <span class="material-symbols-rounded pe-1">
+                                        pin_drop
+                                    </span>
+                                    <span class="description-intro"><?= $result['teachingarea'] . "," . str_replace(["Tỉnh", "Thành phố"], '', $result['currentplace']) ?>
+                                    </span>
+                                </div>
+                                <div class=" d-flex pb-2">
+                                    <span class="material-symbols-rounded pe-1">
+                                        book
+                                    </span>
+                                    <span class="description-intro"><?= $subjectTutors ?></span>
+                                </div>
+                                <div class="text-start description product limit-text mb-5">
+                                    <?= html_entity_decode($result['introduction']) ?>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between pt-1 position-absolute" style="bottom: 1rem;">
+                                    <div class="d-flex flex-row">
+                                        <a href="<?= (isset($result['linkfacebook']) ? $result['linkfacebook'] : "") ?>" class="mx-1 social-list-item text-center border-primary text-primary"><i class="mdi mdi-facebook"></i></i></a>
+                                        <a href="<?= (isset($result['linktwitter']) ? $result['linktwitter'] : "") ?>" class="mx-1 social-list-item text-center border-info text-info"><i class="mdi mdi-twitter"></i></i></a>
+                                    </div>
+                                    <!-- <div class="btn btn-primary">Đăng ký</div> -->
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+            <?php
+                endwhile;
+            endif;
+            ?>
+        </div>
+    </section>
+    <!-- About Second strat-->
+
     <!-- Form đăng kí tư vấn start  -->
-    <section id="form-register-tutor" class="form-register-tutor  p-3 d-flex justify-content-center" data-aos="zoom-in" data-aos-duration="1000">
-        <form name="form-register">
+    <section id="form-register-tutor" class="form-register-tutor  p-3 d-flex justify-content-center">
+        <form name="form-register" data-aos="zoom-in" data-aos-duration="1000">
             <h3>ĐĂNG KÍ TƯ VẤN MIỄN PHÍ</h3>
             <div class="row mb-3">
+                <input type="hidden" id="token_homepage" value="<?= Session::get("csrf_token") ?>" />
+                <p class="fade" id="REMOTE_ADDR"><?php echo $_SERVER['REMOTE_ADDR'] ?></p>
                 <div class="col-6">
                     <input type="text" class="form-control" id="fullnamecontact" name="name" placeholder="Họ và tên">
                 </div>
@@ -313,20 +244,17 @@ include "../inc/header.php";
                 </div>
             </div>
             <div class="row mb-3">
-                <!-- <div class="col-6">
-                <div id="provinces" class=""></div>
-                </div> -->
                 <div class="col-12">
                     <input type="text" class="form-control" id="emailcontact" name="email" placeholder="Địa chỉ email">
-                    <!-- <select class=" js-data-subjects-ajax select2bs5" name="subject" multiple="multiple"> -->
-
                 </div>
-
             </div>
             <div class="row mb-3">
                 <div class="col-12">
                     <textarea class="form-control" id="contentcontact" name="registercontent" rows="3" placeholder="Nội dung"></textarea>
                 </div>
+            </div>
+            <div class="validate-input m-b-20 d-flex justify-content-center">
+                <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6Lfw6MkeAAAAADmRhvf__Nri7XkH3dVGsR9v64lM"></div>
             </div>
             <div class="text-center">
                 <button class="btn" type="submit" id="sentcontact">GỬI ĐĂNG KÍ TƯ VẤN</button>
@@ -334,6 +262,7 @@ include "../inc/header.php";
         </form>
     </section>
     <!-- Form đăng kí tư vấn End  -->
+    <div class="clearfix"></div>
     <!-- danh gia cua moi nguoi ve trang gia su day kem  -->
     <section style="background-color: #6a41ed; color: #FFFFFF;">
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -371,54 +300,14 @@ include "../inc/header.php";
         </div>
     </section>
     <!-- danh gia cua moi nguoi ve trang gia su day kem End-->
-    <!-- Tro thanh gia su Start -->
-    <section class="trothanhgiasu container-fluid">
-        <div class="text-center">
-            <h2><b>DÀNH CHO GIÁO VIÊN, SINH VIÊN</b></h2>
-            <h3>Trở Thành Gia Sư</h3>
-        </div>
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div data-aos="fade-right" data-aos-duration="1000">
-                        <div class="card">
-                            <div class="row g-0">
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Khác Biệt và Chuyên Nghiệp</h4>
-                                        <p class="card-text">Được đào tạo nghiệp vụ sư phạm, kỹ năng, tâm lý. Dạy có giáo án chuẩn và trả lương theo từng buổi trên ứng dụng BMentor.</p>
-                                        <a href="list_Tutor" class="btn btn-primary">Tìm hiểu thêm</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <img src="../public/images/Homepage/chuyen-gia-gia-su.png" class="img-responsive img-fluid" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div data-aos="fade-left" data-aos-duration="1000">
-                        <div class="card">
-                            <div class="row g-0">
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Đăng Ký Trở Thành Gia Sư</h4>
-                                        <p class="card-text">Hệ thống lớn nhất Việt Nam với hơn 40.000 gia sư. Đăng ký ngay để nâng cao chuyên môn và gia tăng thu nhập.</p>
-                                        <a href="tutor_registration_form" class="btn btn-primary">Đăng kí ngay </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <img src="../public/images/Homepage/chuyen-gia-gia-su.png" class="img-responsive img-fluid" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- bài viết và sự kiện start  -->
+    <section class="container">
+        <h3 class="text-center mb-3"><b>TIN TỨC GIÁO DỤC</b></h3>
+        <div id="block_feature_1_homepage">
+
         </div>
     </section>
-    <!-- Tro thanh gia su End -->
+    <!-- bài viết và sự kiện end  -->
     <!-- start - contact -  toast notification sent request success  -->
     <section class="trothanhgiasu container-fluid">
         <!-- start toast notification sent request success  -->
@@ -437,22 +326,16 @@ include "../inc/header.php";
                 </div>
             </div>
         </div>
-        <!-- end - contact -  toast notification sent request success  -->
     </section>
-    <!-- bài viết và sự kiện start  -->
-    <section class="post-event">
-        đay là list bài viết chuyển động animation
-    </section>
-    <!-- bài viết và sự kiện end  -->
-
-
+    <!-- end - contact -  toast notification sent request success  -->
     <!-- bootstrap 4 -->
     <!-- Smooth Scrolling  -->
     <!-- <script src="js/scroll.js"></script> -->
+</section>
 
-    <?php
+<?php
 
 
-    include "../inc/script.php"
-    ?>
-    <?php include '../inc/footer.php' ?>
+include "../inc/script.php"
+?>
+<?php include '../inc/footer.php' ?>
