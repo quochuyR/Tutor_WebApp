@@ -180,7 +180,7 @@
                                     if (data_PostNews) {
                                         let theme_news = $('#theme_news');
 
-                                        const theme_newsDom = `<h4 class="category_post col-12 col-md-12" id="name_theme_Category_${index + 1}"></h4>
+                                        const theme_newsDom = `<h4 class="category_post col-12 col-md-12 title_name_theme_category" id="name_theme_Category_${index + 1}"></h4>
                                                             <div id="theme_Category_${index + 1}"></div>`;
 
 
@@ -243,7 +243,7 @@
                                                 <img src="${url}public/images/blogpost/${value['nameimage']}" alt="${value['title_url']}">
                                             </a>
                                             <a href="${url}pages/post?${value['title_url']}">
-                                                <h5>${value['title']}</h5>
+                                                <h5 class="limit-text-news">${value['title']}</h5>
                                             </a>
                                             <p><small>${time_ago(value['time'])}</small></p>
                                         </div>`;

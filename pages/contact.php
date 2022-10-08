@@ -38,7 +38,7 @@ include "../inc/header.php";
             <div class="page-wrapper">
                 <div class="row">
                     <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1200">
-                        <div class="card">
+                        <div class="card contact-card">
                             <div class="card-body">
                                 <h4 class="card-title">GIA SƯ DTHU EDUCATION LÀ GÌ?</h4>
                                 <p>Đây là một trong những trang web tìm kiếm gia sư trực tuyến tốt nhất hiện nay. <a href=""><b>DTHU EDUCATION</b></a> có các môn học đa dạng từ lớp 6 đến 12. Đội ngũ <a href="">gia sư chất lượng</a> đáp ứng đủ nhu cầu học tập của cả học sinh và những người đã đi làm muốn trau dồi thêm kiến thức.</p>
@@ -47,7 +47,7 @@ include "../inc/header.php";
                     </div>
 
                     <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1200">
-                        <div class="card" >
+                        <div class="card contact-card" >
                             <div class="card-body">
                                 <h4 class="card-title">HỌC TẬP TỐT HƠN</h4>
                                 <p>Bạn là một bậc phụ huynh mong muốn con mình có thể đạt được kết quả học tập tốt nhất nhưng không biết liên hệ gia sư ở đâu? Thì <b>Gia sư DTHU EDUCATION</b> chính là giải pháp tối ưu cho bạn.</p>
@@ -60,7 +60,7 @@ include "../inc/header.php";
                     <div class="card-body">
                         <div class="row p-3">
                             <div class="col-lg-12">
-                                <form class="form-wrapper">
+                                <form class="form-wrapper contact-card-form">
                                     <h2 class="text-center">Liên hệ</h2>
                                     <input type="hidden" id="token_homepage" value="<?= Session::get("csrf_token") ?>" />
                                     <p class="fade" id="REMOTE_ADDR"><?php echo $_SERVER['REMOTE_ADDR'] ?></p>

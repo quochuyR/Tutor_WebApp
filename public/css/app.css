@@ -2685,12 +2685,12 @@ h6 {
 .about-second .btn {
     padding: 0.7em;
     transition: transform 0.5s;
-    background-color: #000000 !important;
+    background-color: #58B4AE !important;
 }
 
 .about-second .btn:hover {
     transform: scale(1.1);
-    background-color: #79C000 !important;
+    background-color: #3797A4 !important;
 }
 
 
@@ -2772,7 +2772,7 @@ h6 {
 
 .features-title h2 {
     font-weight: 900;
-    font-size: 4em;
+    font-size: 3rem;
     color: #3A4750;
 }
 
@@ -3570,6 +3570,23 @@ li+.postion-absolute {
 .contact-section {
     background-color: #E8DFCA;
 }
+
+.contact-card h4 {
+    font-weight: 600;
+}
+
+.contact-card-form h2 {
+    font-weight: 800;
+}
+
+@media (max-width: 768px) {
+    .contact-card h4 {
+        font-size: 18px;
+    }
+    .contact-card p {
+        font-size: 14px;
+    }
+}
 .post-header {
     width: 100%;
     height: 500px;
@@ -3581,7 +3598,7 @@ li+.postion-absolute {
     width: 100%;
     height: 500px;
     max-height: 500px !important;
-    background-image: url("https://wallpaperaccess.com/full/5163201.jpg");
+    /* background-image: url("https://wallpaperaccess.com/full/5163201.jpg"); */
     background-repeat: no-repeat;
     background-size: cover;
     filter: brightness(50%);
@@ -3589,23 +3606,27 @@ li+.postion-absolute {
     position: absolute;
     top: 0%;
     left: 0%;
+    /* filter: blur(3px); */
 }
 
 .post-header h1 {
+    font-weight: 700;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #fff;
+    font-size: 50px;
 }
 
 #post-body {
     display: block;
-    margin-top: 1.3rem;
+    margin-top: 5rem;
 }
 
 .post-body-content {
     text-align: justify;
+    font-size: 18px;
 }
 
 .post-body-author {
@@ -3626,6 +3647,8 @@ li+.postion-absolute {
 .lienquan h3 span {
     padding: 1px;
     background-color: rgb(255, 243, 243);
+    font-size: 28px;
+    font-weight: 600;
 }
 
 .lienquan h3 {
@@ -3636,22 +3659,73 @@ li+.postion-absolute {
 .post-new {
     margin-bottom: 1rem;
     padding-top: 1rem;
-    height: 5.5rem;
+    height: 7rem;
 }
 
 .post-new img {
     float: left;
     border-radius: 10px;
-    width: 5rem;
-    height: 4rem;
+    width: 13rem;
+    height: 7rem;
     margin-right: 0.5rem;
     object-fit: cover;
 }
 
 .post-new h5 {
+    color: #333;
+    font-size: 18px;
+}
+
+.post-new h5:hover {
+    color: #eb0000;
+}
+
+.post-new h5:active {
+    color: #0312e7;
+}
+
+@media (max-width: 500px) {
+    .post-header .image {
+        display: none;
+    }
+    .post-header h1 {
+        color: #333;
+        font-size: 1.7rem;
+    }
+    .post-header {
+        height: 343px;
+    }
+    #post-body {
+        margin-top: 0.5rem;
+    }
+    .post-body-content {
+        font-size: 14px;
+    }
+    .lienquan h3 span {
+        font-size: 18px;
+    }
+    /* post-body-author */
+    .post-body-author {
+        font-size: 14px;
+    }
+    /* post new   */
+    .post-new {
+        height: 5rem;
+    }
+    .post-new img {
+        width: 8rem;
+        height: 4rem;
+    }
+    .post-new h5 {
+        font-size: 14px;
+    }
+}
+
+
+/* .post-new h5 {
     max-height: 3.2rem;
     overflow: hidden;
-}
+} */
 /* #news_page {
     font-family: 'Playfair Display', serif !important;
 } */
@@ -3705,7 +3779,13 @@ li+.postion-absolute {
     margin-bottom: 0.5rem;
 }
 
+.Bm_Ab_Sub p {
+    color: #333;
+    font-weight: 400;
+}
+
 .Bm_Ab_Sub h4 {
+    color: #333;
     font-size: 1.1rem;
     color: #333 !important;
     text-align: justify;
@@ -3912,7 +3992,7 @@ li+.postion-absolute {
 .category-post h5:hover,
 .tab-news h5:hover,
 .Bm_Ab_Second h4:hover,
-.Bm_Ab_Sub h4:hover {
+.Bm_Ab_Sub p:hover {
     color: #2563eb !important;
 }
 
@@ -3925,9 +4005,36 @@ li+.postion-absolute {
 
 .category-post h5,
 .tab-news h5,
-.Bm_Ab_Second h4,
-.Bm_Ab_Sub h4 {
+.Bm_Ab_Second h4 {
     padding: 5px 0 5px 0 !important;
-    font-weight: 700 !important;
+    font-weight: 500 !important;
     font-family: 'Roboto', sans-serif !important;
+}
+
+#theme_news .title_name_theme_category {
+    font-weight: 700;
+    font-size: 30px;
+}
+
+@media (max-width: 768px) {
+    .Bm_Ab h2 {
+        font-size: 18px;
+    }
+    #theme_news .title_name_theme_category {
+        font-weight: 600;
+        font-size: 20px;
+    }
+    .category-post h5,
+    .tab-news h5,
+    .Bm_Ab_Second h4 {
+        padding: 5px 0 5px 0 !important;
+        font-weight: 300 !important;
+        font-family: 'Roboto', sans-serif !important;
+    }
+    .Bm_Ab_Second h4 {
+        font-size: 16px;
+    }
+    .tab-news h5 {
+        font-size: 16px;
+    }
 }

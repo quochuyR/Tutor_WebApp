@@ -101,6 +101,7 @@
                                 window.location = "../pages/errors/404";
                             } else {
                                 $(document).attr("title", data.title);
+                                $('.post-header .image').css('background-image', 'url(../public/images/blogpost/' + data.nameimage + ')');
                                 $("#post-header h1").html(data.title);
                                 $('#post-body-content').html(data.content);
                                 $('#post-body-content img').addClass('img-fluid');
@@ -110,7 +111,7 @@
                     });
                 } else {
                     // window.location = "../pages/errors/404";
-                    console.log('title_url: ', title_url);
+                    // console.log('title_url: ', title_url);
                 }
 
                 const url = window.location.href.split("pages/")[0];
@@ -126,12 +127,12 @@
                                     return false;
                                 }
                                 if (value['title_url'] != title_url)
-                                    Html += `<div class="post-new col-12 col-md-6">
+                                    Html += `<div class="post-new col-12 col-md-10">
                                             <a href="post?${value['title_url']}">
                                                 <img src="${url}public/images/blogpost/${value['nameimage']}" alt="${value['title_url']}">
                                             </a>
                                             <a href="post?${value['title_url']}">
-                                                <h5 class="limit-text">${value['title']}</h5>
+                                                <h5 class="limit-text-news">${value['title']}</h5>
                                             </a>
                                             <p><small>${time_ago(value['time'])}</small></p>
                                         </div>`;

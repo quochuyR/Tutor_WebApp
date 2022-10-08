@@ -1,3 +1,20 @@
 .contact-section {
     background-color: #E8DFCA;
 }
+
+.contact-card h4 {
+    font-weight: 600;
+}
+
+.contact-card-form h2 {
+    font-weight: 800;
+}
+
+@media (max-width: 768px) {
+    .contact-card h4 {
+        font-size: 18px;
+    }
+    .contact-card p {
+        font-size: 14px;
+    }
+}

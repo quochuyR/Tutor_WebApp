@@ -30,7 +30,7 @@ include "../inc/header.php";
 <!-- start header post  -->
 <section id="post-header" class="post-header text-center">
     <!-- <img src="https://wallpaperaccess.com/full/5163201.jpg" alt=""> -->
-    <div class="image" data-aos="fade-down" data-aos-duration="3000"></div>
+    <div class="image" data-aos="fade-down" data-aos-duration="3500"></div>
     <h1></h1>
 </section>
 <!-- end header post  -->
@@ -48,11 +48,10 @@ include "../inc/header.php";
                     <img src="https://i.pinimg.com/736x/0c/26/42/0c26420099a513e1a2c163801e76aada.jpg" alt="Tên bài báo">
                 </a>
                 <a href="#">
-                    <h5>Tên bài báo mới nhất Tên bài báo mới nhấtTên bài báo mới nhấtTên bài báo mới nhấtTên bài báo mới nhấtTên bài báo mới nhất</h5>
+                    <h5 class="limit-text">Tên bài báo mới nhất Tên bài báo mới nhấtTên bài báo mới nhấtTên bài báo mới nhấtTên bài báo mới nhấtTên bài báo mới nhất</h5>
                 </a>
             </div>
         </div>
-
     </div>
 </section>
 

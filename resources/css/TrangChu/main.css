@@ -105,12 +105,12 @@
 .about-second .btn {
     padding: 0.7em;
     transition: transform 0.5s;
-    background-color: #000000 !important;
+    background-color: #58B4AE !important;
 }
 
 .about-second .btn:hover {
     transform: scale(1.1);
-    background-color: #79C000 !important;
+    background-color: #3797A4 !important;
 }
 
 
@@ -192,7 +192,7 @@
 
 .features-title h2 {
     font-weight: 900;
-    font-size: 4em;
+    font-size: 3rem;
     color: #3A4750;
 }
 

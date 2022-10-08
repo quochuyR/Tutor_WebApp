@@ -3110,6 +3110,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                 window.location = "../pages/errors/404";
               } else {
                 $(document).attr("title", data.title);
+                $('.post-header .image').css('background-image', 'url(../public/images/blogpost/' + data.nameimage + ')');
                 $("#post-header h1").html(data.title);
                 $('#post-body-content').html(data.content);
                 $('#post-body-content img').addClass('img-fluid');
@@ -3117,9 +3118,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               }
             }
           });
-        } else {
-          // window.location = "../pages/errors/404";
-          console.log('title_url: ', title_url);
+        } else {// window.location = "../pages/errors/404";
+          // console.log('title_url: ', title_url);
         }
 
         var url = window.location.href.split("pages/")[0];
@@ -3135,7 +3135,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                   return false;
                 }
 
-                if (value['title_url'] != title_url) Html += "<div class=\"post-new col-12 col-md-6\">\n                                            <a href=\"post?".concat(value['title_url'], "\">\n                                                <img src=\"").concat(url, "public/images/blogpost/").concat(value['nameimage'], "\" alt=\"").concat(value['title_url'], "\">\n                                            </a>\n                                            <a href=\"post?").concat(value['title_url'], "\">\n                                                <h5 class=\"limit-text\">").concat(value['title'], "</h5>\n                                            </a>\n                                            <p><small>").concat(time_ago(value['time']), "</small></p>\n                                        </div>");
+                if (value['title_url'] != title_url) Html += "<div class=\"post-new col-12 col-md-10\">\n                                            <a href=\"post?".concat(value['title_url'], "\">\n                                                <img src=\"").concat(url, "public/images/blogpost/").concat(value['nameimage'], "\" alt=\"").concat(value['title_url'], "\">\n                                            </a>\n                                            <a href=\"post?").concat(value['title_url'], "\">\n                                                <h5 class=\"limit-text-news\">").concat(value['title'], "</h5>\n                                            </a>\n                                            <p><small>").concat(time_ago(value['time']), "</small></p>\n                                        </div>");
               });
               var hot_newsDom = $('#lienquan-post');
               hot_newsDom.html(Html);
