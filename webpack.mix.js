@@ -17,7 +17,8 @@ const src = {
             'resources/js/tutor_registration_form.js',
             'resources/js/contact.js',
             'resources/js/post.js',
-            'resources/js/news.js'
+            'resources/js/news.js',
+            'resources/js/homepage.js'
         ],
         css: ['resources/css/style.css',
             //'resources/css/404/main.css',

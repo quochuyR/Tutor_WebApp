@@ -35,20 +35,54 @@ class news
     }
 
     //truy danh sách thông tin liên hiện
-    public function select($id)
+    public function selectAritcleByCategory($category)
     {
-        $query  = "SELECT * FROM `blogs` where `id` = ? AND `status` == true";
-        $result = $this->db->p_statement($query, "i", [$id]);
-        return $result->fetch_array();
+        $queryCategoryStatus = "SELECT `kindname` FROM `kindpost` WHERE `kindname` = ? AND `status` = true";
+        $statusCategory  = $this->db->p_statement($queryCategoryStatus, "s", [$category]);
+        if ($statusCategory->num_rows > 0) {
+            $query  = "SELECT * FROM `blogs` where `kind` = ? AND `status` = true ORDER BY `time` DESC";
+            $result = $this->db->p_statement($query, "s", [$category]);
+            return $result;
+        }
+        return false;
     }
 
-    public
-    
-    //select table kindpost
-    function selectAllKind()
+    //truy danh sách thông tin liên hiện
+    public function selectAritcleByTime()
     {
-        $query  = "SELECT * FROM `kindpost`";
+        $query  = "SELECT * FROM `blogs` where `status` = true ORDER BY `time` DESC";
         $result = $this->db->select($query);
+        return $result;
+    }
+
+    //select table kindpost
+    public function selectallcategories()
+    {
+        $query  = "SELECT *, (SELECT COUNT(title)  FROM `blogs` WHERE `kind` = kindname) AS NUMBER FROM `kindpost` WHERE `status` = true  ORDER BY `id` DESC";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
+    //truy vấn theo vị trí
+    public function selectCategoryByPosition($position)
+    {
+        $query  = "SELECT *, (SELECT COUNT(title)  FROM `blogs` WHERE `kind` = kindname) AS NUMBER FROM `kindpost` WHERE `status` = true AND `position_show` = ? ORDER BY `id` DESC";
+        $result = $this->db->p_statement($query, "s", [$position]);
+        return $result;
+    }
+
+    //truy vấn theo vị trí
+    public function selectCategoryByUrl($kindnameUrl)
+    {
+        $query  = "SELECT `kindname` FROM `kindpost` WHERE `kindname_url` = ?";
+        $result = $this->db->p_statement($query, "s", [$kindnameUrl]);
+        return $result;
+    }
+
+    public function selectAritcleByCategory_url($kindnameurl)
+    {
+        $query = "SELECT * FROM `blogs` where `kind` = (SELECT `kindname` FROM `kindpost` WHERE `kindname_url` = ? AND `status` = true) AND `status` = true ORDER BY `time` DESC";
+        $result = $this->db->p_statement($query, "s", [$kindnameurl]);
         return $result;
     }
 }

@@ -287,7 +287,8 @@
       str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
       str = str.replace(/Đ/g, "D");
       str = str.replace(/[/]/g, "_");
-      str = str.replace(/['!@#$%^&*().`~\\?,:;"[{\}\]]/g, "_");
+      str = str.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-');
+      str = str.replace(/[`’‘'!@#$%^&*().`~\\?,:;"[{\}\]]/g, "_");
       str = str.replace(/ /g, "-");
       return str;
     }
@@ -601,9 +602,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           }
         }
       }, {
-        "data": null,
+        "data": "position_show",
         render: function render(data, type, row) {
-          return "<p class= \"text-center\" > 0</p> ";
+          return "<p class= \"text-center\" >".concat(data, "</p> ");
         }
       }, {
         "data": null,
@@ -791,6 +792,29 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
 
       return false;
+    } //xoa dau tiếng việt - thay thế dấu cách thành gạch nối
+
+
+    function xoa_dau(str) {
+      str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+      str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+      str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+      str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+      str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+      str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+      str = str.replace(/đ/g, "d");
+      str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+      str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+      str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+      str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+      str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+      str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+      str = str.replace(/Đ/g, "D");
+      str = str.replace(/[/]/g, "_");
+      str = str.replace(/['!@#$%^&*().`~\\?,:;"[{\}\]]/g, "_"); // str = str.replace(/['.*+?^${}()|[\]\\]/g, "_");
+
+      str = str.replace(/ /g, "-");
+      return str;
     }
 
     function updatecategory() {
@@ -801,7 +825,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         ;
         var status = $('#statusEditCategory').val();
         var position_show = $('#eidtPosition_show').val();
-        var parentCategory = $('#parentEditCategory').val(); // console.log('id: ' + id)
+        var parentCategory = $('#parentEditCategory').val();
+        var name_url = xoa_dau(name); // console.log(name_url, 'nameurl');
+        // console.log('id: ' + id)
         // console.log('name: ' + name)
         // console.log('about: ' + about)
         // console.log('status: ' + status)
@@ -817,10 +843,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             about: about,
             status: status,
             id_parent: parentCategory,
-            position_show: position_show
+            position_show: position_show,
+            name_url: name_url
           },
-          success: function success(data) {
-            console.log(data, 'updatecategory');
+          success: function success(data) {// console.log(data, 'updatecategory');
           }
         });
       }
@@ -956,6 +982,29 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           });
         }
       });
+    } //xoa dau tiếng việt - thay thế dấu cách thành gạch nối
+
+
+    function xoa_dau(str) {
+      str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+      str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+      str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+      str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+      str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+      str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+      str = str.replace(/đ/g, "d");
+      str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+      str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+      str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+      str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+      str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+      str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+      str = str.replace(/Đ/g, "D");
+      str = str.replace(/[/]/g, "_");
+      str = str.replace(/['!@#$%^&*().`~\\?,:;"[{\}\]]/g, "_"); // str = str.replace(/['.*+?^${}()|[\]\\]/g, "_");
+
+      str = str.replace(/ /g, "-");
+      return str;
     }
 
     LoadCategoryParent();
@@ -978,6 +1027,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var position_show = $('#position_show').val();
         var status = $('#statusCategory').val();
         var parentCategory = $('#parentCategory').val();
+        var name_url = xoa_dau(name);
         $.ajax({
           type: "post",
           url: "../api/category/insertcategory",
@@ -986,7 +1036,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             about: about,
             status: status,
             id_parent: parentCategory,
-            position_show: position_show
+            position_show: position_show,
+            name_url: name_url
           }
         }).done(function (data) {
           alert('Thêm danh mục thành công');
@@ -2946,6 +2997,8 @@ __webpack_require__.r(__webpack_exports__);
   \******************************/
 /***/ (() => {
 
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
 (function () {
   jQuery(document).ready(function ($) {
     $.extend({
@@ -2976,67 +3029,66 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return false;
-    } // console.log('http://localhost/Tutor_WebApp/pages/post?namepost=TP.HCM:-Hoan-thanh-thu-tuc-dau-tu-du-an-nha-o-xa-hoi-trong-153-ngay&idpost=5');
-    //kiểm tra nesu url này đang truy vấn đến bài viết thì kiểm thử nếu bài viết trả về tồn tại hoặc không tồn tại bài viết
-    //tách nhau bởi dấu và và dấu bằng ở phần varurl
-    // const urlPage = [];
-    // const varPage = [];
-    // if (window.location.href.split("?").length > 1) {
-    //     urlPage.push(window.location.href.split("?")[0].split("/"));
-    //     varPage.push(window.location.href.split("?")[window.location.href.split("?").length - 1].replace("&", "=").split("="));
-    // } else {
-    //     urlPage.push(window.location.href.split("/"));
-    // }
-    // console.log(urlPage, "url page")
-    // console.log(varPage, "var page")
-    // console.log($.inArray("post", urlPage[0]) != -1, "check post")
-    // if (
-    //     $.inArray("post", urlPage[0]) != -1
-    // ) {
-    //     // console.log($.inArray("idpost", varPage[0]), "idpost")
-    //     // console.log($.inArray("namepost", varPage[0]), "namepost")
-    //     if ($.inArray("idpost", varPage[0]) != -1 &&
-    //         $.inArray("namepost", varPage[0]) != -1
-    //     ) {
-    //         if (
-    //             $.getUrlVar("idpost") != null &&
-    //             $.getUrlVar("namepost") != null
-    //         ) {
-    //             // decodeURIComponent giải mã url bị mã hóa 
-    //             // let namepost = decodeURIComponent($.getUrlVar("namepost"));
-    //             let idpost = $.getUrlVar("idpost");
-    //             let namepost = $.getUrlVar("namepost");
-    //             // console.log("namepost:" + namepost);
-    //             // console.log("idpost:" + idpost);
-    //             $.ajax({
-    //                 url: "../api/news/getpost",
-    //                 type: "post",
-    //                 dataType: "text",
-    //                 data: {
-    //                     idpost,
-    //                     namepost
-    //                 },
-    //                 success: function(data) {
-    //                     // console.log(data, "data 2");
-    //                     data = JSON.parse(data);
-    //                     if (data == null) {
-    //                         window.location = "../pages/errors/404";
-    //                     } else {
-    //                         $(document).attr("title", data.title);
-    //                         $("#post-header h1").html(data.title);
-    //                         $('#post-body-content').html(data.content);
-    //                         $('#post-body-content img').addClass('img-fluid');
-    //                         const timepost = new Date(data.time);
-    //                         $('#post-body-author-time').html(timepost.getDate() + '/' + timepost.getMonth() + '/' + (timepost.getYear() + 1900));
-    //                     }
-    //                 }
-    //             });
-    //         }
-    //     } else {
-    //         window.location = "../pages/errors/404";
-    //     }
-    // }
+    }
 
+    function time_ago(time) {
+      switch (_typeof(time)) {
+        case 'number':
+          break;
+
+        case 'string':
+          time = +new Date(time);
+          break;
+
+        case 'object':
+          if (time.constructor === Date) time = time.getTime();
+          break;
+
+        default:
+          time = +new Date();
+      }
+
+      var time_formats = [[60, 'giây', 1], // 60
+      [120, '1 phút trước', '1 phút trước từ giờ'], // 60*2
+      [3600, 'phút', 60], // 60*60, 60
+      [7200, '1 giờ trước', '1 giờ trước từ giờ'], // 60*60*2
+      [86400, 'giờ', 3600], // 60*60*24, 60*60
+      [172800, 'Ngày hôm qua', 'ngày mai'], // 60*60*24*2
+      [604800, 'ngày', 86400], // 60*60*24*7, 60*60*24
+      [1209600, 'Tuần trước', 'Tuần tới'], // 60*60*24*7*4*2
+      [2419200, 'Tuần', 604800], // 60*60*24*7*4, 60*60*24*7
+      [4838400, 'Tháng trước', 'Tháng tới'], // 60*60*24*7*4*2
+      [29030400, 'tháng', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
+      [58060800, 'Năm ngoái', 'Năm sau'], // 60*60*24*7*4*12*2
+      [2903040000, 'năm', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
+      [5806080000, 'Last century', 'Next century'], // 60*60*24*7*4*12*100*2
+      [58060800000, 'centuries', 2903040000] // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
+      ];
+      var seconds = (+new Date() - time) / 1000,
+          token = 'trước',
+          list_choice = 1;
+
+      if (seconds == 0) {
+        return 'Vừa xong';
+      }
+
+      if (seconds < 0) {
+        seconds = Math.abs(seconds);
+        token = 'từ giờ';
+        list_choice = 2;
+      }
+
+      var i = 0,
+          format;
+
+      while (format = time_formats[i++]) {
+        if (seconds < format[0]) {
+          if (typeof format[2] == 'string') return format[list_choice];else return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
+        }
+      }
+
+      return time;
+    }
 
     if (strimURL()) {
       var arrUrl = strimURL();
@@ -3061,8 +3113,7 @@ __webpack_require__.r(__webpack_exports__);
                 $("#post-header h1").html(data.title);
                 $('#post-body-content').html(data.content);
                 $('#post-body-content img').addClass('img-fluid');
-                var timepost = new Date(data.time);
-                $('#post-body-author-time').html(timepost.getDate() + '/' + (timepost.getMonth() + 1) + '/' + (timepost.getYear() + 1900));
+                $('#post-body-author-time').html(time_ago(data.time));
               }
             }
           });
@@ -3070,6 +3121,27 @@ __webpack_require__.r(__webpack_exports__);
           // window.location = "../pages/errors/404";
           console.log('title_url: ', title_url);
         }
+
+        var url = window.location.href.split("pages/")[0];
+        $.ajax({
+          url: "../api/news/getPostByTime",
+          type: "post",
+          success: function success(data_PostNews) {
+            if (data_PostNews) {
+              // console.log(data_PostNews, 'datasdfs')
+              var Html = "";
+              $.each(data_PostNews, function (index, value) {
+                if (index == 5) {
+                  return false;
+                }
+
+                if (value['title_url'] != title_url) Html += "<div class=\"post-new col-12 col-md-6\">\n                                            <a href=\"post?".concat(value['title_url'], "\">\n                                                <img src=\"").concat(url, "public/images/blogpost/").concat(value['nameimage'], "\" alt=\"").concat(value['title_url'], "\">\n                                            </a>\n                                            <a href=\"post?").concat(value['title_url'], "\">\n                                                <h5 class=\"limit-text\">").concat(value['title'], "</h5>\n                                            </a>\n                                            <p><small>").concat(time_ago(value['time']), "</small></p>\n                                        </div>");
+              });
+              var hot_newsDom = $('#lienquan-post');
+              hot_newsDom.html(Html);
+            }
+          }
+        });
       }
     }
   });

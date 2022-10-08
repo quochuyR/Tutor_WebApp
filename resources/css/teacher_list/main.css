@@ -1,14 +1,14 @@
-#tutors .row>*{
+#tutors .row>* {
     padding-left: 0.275rem !important;
     padding-right: 0.275rem !important;
-
 }
 
 #filter-subject::-webkit-scrollbar {
     width: 5px;
-  }
+}
+
 #filter-subject::-webkit-scrollbar-thumb {
-  background: #94c1bc !important; 
+    background: #94c1bc !important;
 }
 
 .wrapper {
@@ -24,6 +24,7 @@
 .views {
     font-size: 0.85rem
 }
+
 
 /* .btn {
     color: #666;
@@ -123,7 +124,6 @@ label {
     font-size: 0.8rem;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-
 }
 
 .tick input {
@@ -201,7 +201,6 @@ div.text-muted {
     position: sticky;
     position: -webkit-sticky;
     top: 0;
-
 }
 
 .category {
@@ -265,7 +264,6 @@ div.text-muted {
     padding-left: 30px;
     margin: 0;
     float: right;
-  
 }
 
 .card-tutor:hover {
@@ -275,6 +273,7 @@ div.text-muted {
     z-index: 2;
 }
 
+
 /* .card-body {
     padding: 0.5rem
 } */
@@ -283,11 +282,12 @@ div.text-muted {
     display: block;
     font-size: 0.925rem;
     font-weight: 500;
-    white-space: nowrap; 
-    width: 100%; 
+    white-space: nowrap;
+    width: 100%;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
+
 
 /* .card-body .description.product {
     font-size: 0.925rem;
@@ -321,13 +321,12 @@ h6 {
     background-color: #0f766e !important
 }
 
-.btn{
+.btn {
     border-radius: 5px !important;
     padding: 0.5rem !important;
-    
 }
 
-.img-teacher > img {
+.img-teacher>img {
     width: inherit !important;
     height: 189px;
     object-fit: cover;
@@ -337,12 +336,12 @@ h6 {
     clear: both
 }
 
+
 /* .btn.btn-success {
     visibility: hidden
 } */
 
 @media(min-width:992px) {
-
     .filter,
     #mobile-filter {
         display: none
@@ -350,7 +349,6 @@ h6 {
 }
 
 @media(min-width:768px) and (max-width:991px) {
-
     .radio,
     .checkbox {
         padding: 6px 10px;
@@ -358,7 +356,6 @@ h6 {
         float: left;
         margin: 5px 5px 5px 0px
     }
-
     .filter,
     #mobile-filter {
         display: none
@@ -369,16 +366,13 @@ h6 {
     #sidebar {
         width: 35%
     }
-
     #tutors {
         width: 65%
     }
-
     .filter,
     #mobile-filter {
         display: none
     }
-
     .h3+.ml-auto {
         margin: 0
     }
@@ -388,29 +382,23 @@ h6 {
     .wrapper {
         padding: 10px
     }
-
     .h3 {
         font-size: 1rem;
     }
-
     #sidebar {
         display: none
     }
-
     #tutors {
         width: 100%;
         float: none
     }
-
     #tutors {
         padding: 0
     }
-
     .clear {
         float: left;
         width: 80%
     }
-
     .btn.btn-success {
         visibility: visible;
         margin: 10px 0px;
@@ -418,16 +406,12 @@ h6 {
         padding: 0.2rem 0.1rem;
         width: 20%
     }
-
     .green-label-filter {
         width: fit-content;
-        
     }
-
     .btn.text-success {
         padding: 0
     }
-
     .content,
     #mobile-filter {
         clear: both
@@ -435,12 +419,10 @@ h6 {
 }
 
 @media only screen and (min-width: 576px) {
-
-    .card-tutor{
+    .card-tutor {
         min-height: 441px;
     }
 }
-
 
 .subject-active {
     background-color: #35a79c !important;
@@ -453,23 +435,26 @@ h6 {
     box-shadow: 0 2px 12px rgb(0 0 0 / 12%);
 }
 
+
 /* .img-teacher{
     width: 100%;
     height: 5rem;
 } */
+
+
 /* .content{
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
     overflow: visible;
 } */
+
 .limit-text {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* number of lines to show */
-            line-clamp: 3; 
+    -webkit-line-clamp: 3;
+    /* number of lines to show */
+    line-clamp: 3;
     -webkit-box-orient: vertical;
- }
-
- 
+}

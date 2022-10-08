@@ -32,7 +32,7 @@ include "../inc/header.php";
         <div class="row g-0 d-flex justify-content-center">
             <div class="col-xl-8 col-lg-8 col-md-9 col-11 text-center">
                 <!-- <p class="blue-text">Just answer a few questions<br> so that we can personalize the right experience for you.</p> -->
-                <div class="card py-3">
+                <div class="py-3">
                     <div class="card-body">
                         <h3 class="card-title fw-700 mb-4">Đăng kí dạy kèm</h3>
 

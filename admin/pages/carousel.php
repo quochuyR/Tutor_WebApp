@@ -121,7 +121,7 @@ if (isset($_GET['idDelete'])) {
                                         if ($query->num_rows > 0) {
                                             while ($row = $query->fetch_assoc()) {
                                                 $id = $row['id'];
-                                                $imageURL = '../public/images/carousel/' . $row["file_name"];
+                                                $imageURL = '../../public/images/carousel/' . $row["file_name"];
                                                 $imageName = $row["name"];
                                                 $status = $row["status"];
                                                 //dùng để ẩn hoặc hiện hình này ở trang chủ
@@ -137,7 +137,7 @@ if (isset($_GET['idDelete'])) {
                                                         <div class="card-body">
                                                             <h5 class="card-title" name="imageName"><?php echo $imageName; ?></h5>
                                                             <div class="d-flex justify-content-around">
-                                                                <a href="?imageid=<?php echo $id; ?>&status=<?php echo $changeStatus; ?>" class="btn btn-success"><?php echo $txt ?></a>
+                                                                <a href="?imageid=<?php echo $id; ?>&status=<?php echo $changeStatus;?>" class="btn btn-success"><?php echo $txt ?></a>
                                                                 <a href="?idDelete=<?php echo $id; ?>" class="btn btn-danger">Xóa</a>
                                                             </div>
                                                         </div>

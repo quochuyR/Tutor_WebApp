@@ -34,7 +34,7 @@ try {
         
 
         /* Location */
-        $location = "../../public/images/blogpost/" . $filename;
+        $location = "../../../public/images/blogpost/" . $filename;
         $imageFileType = pathinfo($location, PATHINFO_EXTENSION);
         // $imageFileType = strtolower($imageFileType);
 

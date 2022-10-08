@@ -40,6 +40,10 @@
         // sự kiện ấn submit trang contact
         $("#sentcontact").on('click', function(event) {
             event.preventDefault();
+            const token_homepage = $('#token_homepage').val();
+            const g_recaptcha_response = $('#g-recaptcha-response').val();
+            const REMOTE_ADDR = $('#REMOTE_ADDR').html();
+
             let fullname = $("#fullnamecontact").val();
             let email = $("#emailcontact").val();
             let phone = $("#phonecontact").val();
@@ -63,36 +67,58 @@
             } else if (!checkphone) {
                 let phoneError = "Vui lòng nhập chính xác số điện thoại của bạn để chúng tôi có thể liên hệ giải quyết nhanh chóng vấn đề bạn gặp phải.<br><i>Số điện thoại gồm 10 số, không có kí tự đặt biệt</i>";
                 ShowMessage(phoneError);
+            } else if (checkcontent.length <= 20) {
+                let contentError = "Vui lòng nhập ít nhất 20 kí tự";
+                ShowMessage(contentError);
             } else if (!checkcontent) {
                 let contentError = "Giới hạn tối đa nhập 500 kí tự";
                 ShowMessage(contentError);
+            } else if (g_recaptcha_response == '') {
+                let error = "Vui lòng xác thực không phải máy"
+                ShowMessage(error);
             } else {
-                let success = "Yêu cầu của bạn đã được thực hiện. Vui lòng chờ điện thoại chúng tôi sẽ liên hệ bạn.";
-
-                //dữ liệu hợp lệ tiến hành post qua file contact.php
                 $.ajax({
-                    url: "../api/contactsent/contactsent",
+                    url: "../api/contactsent/verifyRobot",
                     type: "post",
-                    dataType: "text",
                     data: {
-                        fullname: fullname,
-                        email: email,
-                        phone: phone,
-                        content: content
+                        token_homepage,
+                        g_recaptcha_response,
+                        REMOTE_ADDR
                     },
-                    success: function() {
-                        //Làm trông - làm trống thông tin nhập
-                        $('#fullnamecontact').val("");
-                        $('#emailcontact').val("");
-                        $('#phonecontact').val("");
-                        $('#contentcontact').val("");
+                    success: function(data) {
+                        if (data) {
+                            let success = "Yêu cầu của bạn đã được thực hiện. Vui lòng chờ điện thoại chúng tôi sẽ liên hệ bạn.";
+                            //dữ liệu hợp lệ tiến hành post qua file contact.php
+                            $.ajax({
+                                url: "../api/contactsent/contactsent",
+                                type: "post",
+                                dataType: "text",
+                                data: {
+                                    fullname: fullname,
+                                    email: email,
+                                    phone: phone,
+                                    content: content
+                                },
+                                success: function() {
+                                    //Làm trông - làm trống thông tin nhập
+                                    $('#fullnamecontact').val("");
+                                    $('#emailcontact').val("");
+                                    $('#phonecontact').val("");
+                                    $('#contentcontact').val("");
 
-                        //mở notification - thong bao gửi yêu cầu thành công
-                        ShowMessage(success);
+                                    //mở notification - thong bao gửi yêu cầu thành công
+                                    ShowMessage(success);
+                                    grecaptcha.reset()
+                                }
+                            });
+                        }
                     }
                 });
-
             }
+
+
+
+
         })
 
         //đóng notification
