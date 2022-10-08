@@ -177,7 +177,7 @@ include "../inc/header.php";
         <div class="row justify-content-around">
             <?php
             $result = $db_homepageTutor->getFilter($_POST);
-            $_POST["limit"] = 12;
+            $_POST["limit"] = 8;
             $tutorOfTopic =  $TTtopic->getFilter($_POST);
 
             if ($tutorOfTopic->data) :
@@ -185,7 +185,7 @@ include "../inc/header.php";
             ?>
 
 
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-6 offset-md-0 offset-sm-1 pt-md-0">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 offset-md-0 offset-sm-1 pt-md-0">
                         <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
                             <div class=" card-img-top img-teacher text-center">
                                 <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(1) . "public/" .  $result['imagepath'] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg") ?>" class="rounded" alt="" srcset="">
@@ -240,7 +240,7 @@ include "../inc/header.php";
     <section class="pt-5">
         <div class="block-content bg-gradient-blue" id="vision">
             <div class="container d-flex justify-content-center">
-                <div class="card block-card-about-bl" data-aos="fade-up">
+                <div class="card block-card-about-bl" data-aos="fade-up" data-aos-duration="1500">
                     <div class="row">
                         <div class="col-md-7 col-sm-12 col-xs-12 image-half-block about-bg1"></div>
                         <div class="col-md-5 col-sm-12 col-xs-12 text-half-block">
@@ -257,7 +257,7 @@ include "../inc/header.php";
         </div>
         <div class="block-content bg-gradient-pink" id="ketnoi">
             <div class="container d-flex justify-content-center">
-                <div class="card block-card-about-bl" data-aos="fade-down">
+                <div class="card block-card-about-bl" data-aos="fade-down" data-aos-duration="1500">
                     <div class="row">
                         <div class="col-md-5 col-sm-12 col-xs-12 text-half-block col-md-pull-7">
                             <h2>KẾT NỐI DẠY VÀ HỌC</h2>
@@ -273,7 +273,7 @@ include "../inc/header.php";
         </div>
         <div class="block-content bg-gradient-blue" id="featuresabout">
             <div class="container d-flex justify-content-center">
-                <div class="card block-card-about-bl" data-aos="fade-up">
+                <div class="card block-card-about-bl" data-aos="fade-up" data-aos-duration="1500">
                     <div class="row">
                         <div class="col-md-7 col-sm-12 col-xs-12 image-half-block about-bg3"></div>
                         <div class="col-md-5 col-sm-12 col-xs-12 text-half-block">
@@ -289,7 +289,7 @@ include "../inc/header.php";
         </div>
         <div class="block-content bg-gradient-pink" id="quality">
             <div class="container d-flex justify-content-center">
-                <div class="card block-card-about-bl" data-aos="fade-down">
+                <div class="card block-card-about-bl" data-aos="fade-down" data-aos-duration="1500">
                     <div class="row">
                         <div class="col-md-5 col-sm-12 col-xs-12 text-half-block col-md-pull-7">
                             <h2>ĐÁNH GIÁ CHẤT LƯỢNG KHÁCH QUAN</h2>
@@ -305,7 +305,7 @@ include "../inc/header.php";
         </div>
         <div class="block-content bg-gradient-blue" id="alldemand">
             <div class="container d-flex justify-content-center">
-                <div class="card block-card-about-bl" data-aos="fade-up">
+                <div class="card block-card-about-bl" data-aos="fade-up" data-aos-duration="1500">
                     <div class="row">
                         <div class="col-md-7 col-sm-12 col-xs-12 image-half-block about-bg5"></div>
                         <div class="col-md-5 col-sm-12 col-xs-12 text-half-block">
@@ -328,6 +328,49 @@ include "../inc/header.php";
     </section>
     <!-- About bl  End  -->
     <div class="clearfix"></div>
+    <!-- tùy chọn thành gia sư - xem danh sách gia sư start  -->
+    <section class="trothanhgiasu container-fluid">
+        <div class="text-center">
+            <h2><b>DÀNH CHO GIÁO VIÊN, SINH VIÊN</b></h2>
+            <h3>Trở Thành Gia Sư</h3>
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div data-aos="fade-down" data-aos-duration="1000">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Khác Biệt và Chuyên Nghiệp</h4>
+                                        <p class="card-text">Được đào tạo nghiệp vụ sư phạm, kỹ năng, tâm lý. Dạy có giáo án chuẩn và trả lương theo từng buổi trên ứng dụng BMentor.</p>
+                                        <a href="list_Tutor" class="btn btn-primary">Tìm hiểu thêm</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div data-aos="fade-up" data-aos-duration="1000">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Đăng Ký Trở Thành Gia Sư</h4>
+                                        <p class="card-text">Hệ thống lớn nhất Việt Nam với hơn 40.000 gia sư. Đăng ký ngay để nâng cao chuyên môn và gia tăng thu nhập.</p>
+                                        <a href="tutor_registration_form" class="btn btn-primary">Đăng kí ngay </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- tùy chọn thành gia sư - xem danh sách gia sư end  -->
+
     <!-- Form đăng kí tư vấn start  -->
     <section id="form-register-tutor" class="form-register-tutor  p-3 d-flex justify-content-center">
         <form name="form-register" data-aos="zoom-in" data-aos-duration="1600">
