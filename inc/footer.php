@@ -3,7 +3,10 @@
 namespace Inc;
 ?>
 <!-- FOOTER -->
-<footer class="text-center text-lg-start text-dark" style="background-color: #ECEFF1">
+
+<!-- <footer class="row g-0 m-0 w-100 py-4 px-2 flex-shrink-0"> -->
+<div class="clearfix"></div>
+<footer class="text-center text-lg-start text-dark pt-4" style="background-color: #ECEFF1">
     <!-- Section: Social media -->
     <section class="d-flex justify-content-between p-4 text-white" style="background-color: #45B8AC">
         <!-- Left -->
@@ -11,7 +14,6 @@ namespace Inc;
             <span>Kết nối với chúng tôi trên các mạng xã hội:</span>
         </div>
         <!-- Left -->
-
         <!-- Right -->
         <div>
             <a href="" class="text-white me-4">
@@ -36,7 +38,6 @@ namespace Inc;
         <!-- Right -->
     </section>
     <!-- Section: Social media -->
-
     <!-- Section: Links  -->
     <section class="">
         <div class="container text-center text-md-start mt-5">
@@ -53,7 +54,6 @@ namespace Inc;
                     <p>Ươm mầm tri thức.</p>
                 </div>
                 <!-- Grid column -->
-
                 <!-- Grid column -->
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                     <!-- Links -->
@@ -70,7 +70,6 @@ namespace Inc;
                     </p>
                 </div>
                 <!-- Grid column -->
-
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <!-- Links -->
@@ -104,23 +103,15 @@ namespace Inc;
         </div>
     </section>
     <!-- Section: Links  -->
-
-    <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
         <p>
             <a class="text-dark" href="https://mdbootstrap.com/">GIA SƯ DTHU EDUCATION &trade;</a>
         </p>
         Sản phẩm từ Khoa Sư Phạm Toán - Tin DTHU
-
     </div>
-    <!-- Copyright -->
 </footer>
-<!-- <footer class="row g-0 m-0 w-100 py-4 px-2 flex-shrink-0">
-
-
-
-    <div class="container py-4"> -->
-<!-- <div class="row g-0 ">
+<!-- <div class="container py-4">
+        <div class="row g-0 ">
             <div class="col-lg-4 col-md-6 px-2 pt-2">
                 <h5 class="h1 text-white">Gia Sư Online</h5>
                 <p class="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
@@ -158,8 +149,8 @@ namespace Inc;
                     </div>
                 </div>
             </div>
-        </div> -->
-<!-- </div>
+        </div>
+    </div>
 </footer> -->
 </div>
 

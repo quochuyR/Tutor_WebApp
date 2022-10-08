@@ -1,185 +1,279 @@
-    /* bài báo nổi bật */
-    
-    .Bm_ {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        display: block;
-    }
-    
-    .Bm_I {
-        height: auto;
-        width: auto;
-    }
-    
-    .Bm_I img {
-        height: 20rem;
-        width: 100%;
-        object-fit: cover;
-        border-radius: 15px;
-    }
-    
-    .Bm_Ab {
-        margin-top: 1rem;
-    }
-    /* bài báo con  */
-    
-    .Bm_I_Sub {
-        height: 7.3rem;
-        width: 100%;
-    }
-    
-    .Bm_I_Sub img {
-        height: 7.3rem;
-        width: 100%;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-    
-    .Bm_Ab_Sub {
-        margin-bottom: 0.5rem;
-    }
-    /* Bài báo theo chủ đề - Bm_Second */
-    
-    .category_post {
-        margin: 0.5rem;
-        padding: 0.5rem;
-        border-left: 0.6rem solid rgb(255, 0, 0);
-    }
-    
-    .Bm_Second {
-        height: 7.3rem;
-        width: 100%;
-    }
-    
-    .Bm_I_Second img {
-        float: left;
-        margin-right: 1rem;
-        height: 7.3rem;
-        width: 30%;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-    
-    .Bm_Ab_Second {
-        margin-bottom: 0.5rem;
-    }
-    /* tab-news  */
-    
-    .tab-content {
-        /* border-left: 1px solid #8c97a266; */
-    }
-    
-    .tab-news {
-        margin: 0;
-        padding-top: 1rem;
-        height: auto;
-        width: 100%;
-        border-bottom: 1px solid #3333338b;
-    }
-    
-    .tab-news img {
-        float: left;
-        border-radius: 10px;
-        width: 5rem;
-        height: 4rem;
-        margin-right: 0.5rem;
-        object-fit: cover;
-    }
-    
-    .tab-news h5 {
-        max-height: 3.2rem;
-        overflow: hidden;
-    }
-    
-    .tab-news p {
-        padding: 0.5rem;
-        font-size: 0.8rem;
-    }
-    
-    .tab-news small {
-        font-style: italic;
-    }
-    /* block-news-catogory  */
-    
-    .block-news-catogory {
-        background-color: #d2daff47;
-        padding: 0.7rem;
-        border-radius: 0px 0px 10px 10px;
-        text-align: justify;
-    }
-    /* tab-news-catogory */
-    
-    .tab-news-catogory {
-        border-left: 5px solid #ff0404;
-        padding-left: 0.5rem;
-        margin-bottom: 1rem;
-        margin-top: 1rem;
-        position: relative;
-        width: 100%;
-    }
-    
-    .tab-news-catogory span {
-        background-color: rgb(241, 241, 241);
-        padding-right: 10px;
-    }
-    
-    .tab-news-catogory::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 0.5em;
-        border-bottom: 5px solid #ff0404;
-        z-index: -1;
-    }
-    /* read More */
-    
-    .readMore span {
-        padding: 5px;
-        border-right: 5px solid #E9DAC1;
-        border-bottom: 5px solid #E9DAC1;
-        transition: 0.3s;
-        transition-timing-function: cubic-bezier(.29, 1.01, 1, -0.68);
-    }
-    
-    .readMore span:hover {
-        background-color: #54BAB9;
-        border-left: 5px solid #E9DAC1;
-        border-top: 5px solid #E9DAC1;
-        border-right: 5px solid #54BAB9;
-        border-bottom: 5px solid #54BAB9;
-        color: #fff;
-        font-style: bold;
-        border-radius: 10px 0px 10px 0px;
-    }
-    /* tab news catogory post*/
-    
-    .category-post {
-        padding-top: 0.5rem;
-        height: auto;
-        width: 100%;
-    }
-    
-    .category-post img {
-        border-radius: 10px;
-        width: 100%;
-        height: 10rem;
-        object-fit: cover;
-    }
-    
-    .category-post h5 {
-        padding-top: 0.5rem;
-        max-height: 3.2rem;
-        overflow: hidden;
-    }
-    
-    .category-post p {
-        padding-right: 1rem;
-        padding-top: 1rem;
-        font-size: 0.8rem;
-    }
-    
-    .category-post small {
-        font-style: italic;
-    }
+/* #news_page {
+    font-family: 'Playfair Display', serif !important;
+} */
+
+
+/* bài báo nổi bật */
+
+.Bm_ {
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.Bm_I {
+    height: auto;
+    width: auto;
+}
+
+.Bm_I img {
+    height: 20rem;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.Bm_Ab {
+    margin-top: 1rem;
+}
+
+.Bm_Ab h2 {
+    font-size: 2rem;
+    color: #333 !important;
+    text-align: justify;
+}
+
+
+/* bài báo con  */
+
+.Bm_I_Sub {
+    height: 7.3rem;
+    width: 100%;
+}
+
+.Bm_I_Sub img {
+    height: 7.3rem;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.Bm_Ab_Sub {
+    margin-bottom: 0.5rem;
+}
+
+.Bm_Ab_Sub h4 {
+    font-size: 1.1rem;
+    color: #333 !important;
+    text-align: justify;
+}
+
+
+/* Bài báo theo chủ đề - Bm_Second */
+
+.category_post {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border-left: 0.6rem solid #10b981;
+    color: #2dd4bf !important;
+    margin-bottom: 1.5rem;
+}
+
+.Bm_Second {
+    height: 7.3rem;
+    width: 100%;
+}
+
+.Bm_I_Second img {
+    float: left;
+    margin-right: 1rem;
+    height: 7.3rem;
+    width: 30%;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.Bm_Ab_Second {
+    margin-bottom: 0.5rem;
+}
+
+.Bm_Ab_Second h4 {
+    font-size: 1.3rem;
+    color: #333 !important;
+    text-align: justify;
+}
+
+.Bm_Ab_Second p {
+    font-size: 0.9rem;
+    color: #333 !important;
+    text-align: justify;
+}
+
+.Bm_Ab_Second i {
+    color: #52525b !important;
+}
+
+
+/* tab-news  */
+
+
+/* .tab-content {
+    border-left: 1px solid #8c97a266;
+} */
+
+.tab-news {
+    margin: 0;
+    padding-top: 1rem;
+    height: auto;
+    width: 100%;
+    /* border-bottom: 1px solid #3333338b; */
+}
+
+.tab-news img {
+    float: left;
+    border-radius: 3px;
+    width: 5rem;
+    height: 4rem;
+    margin-right: 0.5rem;
+    object-fit: cover;
+}
+
+.tab-news h5 {
+    max-height: 3.2rem;
+    font-size: 1.1rem;
+    color: #333 !important;
+    text-align: justify;
+    overflow: hidden;
+}
+
+.tab-news p {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    color: #333 !important;
+    text-align: justify;
+}
+
+.tab-news small {
+    font-style: italic;
+}
+
+
+/* block-news-catogory  */
+
+.block-news-catogory {
+    background-color: #d2daff47;
+    padding: 0.7rem;
+    border-radius: 0px 0px 10px 10px;
+    text-align: justify;
+}
+
+
+/* tab-news-catogory */
+
+.tab-news-catogory {
+    border-left: 5px solid #ff0404;
+    padding-left: 0.5rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    position: relative;
+    width: 100%;
+}
+
+.tab-news-catogory span {
+    background-color: #f1f1f1;
+    padding-right: 10px;
+}
+
+.tab-news-catogory::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.5em;
+    border-bottom: 5px solid #ff0404;
+    z-index: -1;
+}
+
+
+/* read More */
+
+.readMore span {
+    padding: 5px;
+    border-right: 5px solid #E9DAC1;
+    border-bottom: 5px solid #E9DAC1;
+    transition: 0.3s;
+    transition-timing-function: cubic-bezier(.29, 1.01, 1, -0.68);
+}
+
+.readMore span:hover {
+    background-color: #54BAB9;
+    border-left: 5px solid #E9DAC1;
+    border-top: 5px solid #E9DAC1;
+    border-right: 5px solid #54BAB9;
+    border-bottom: 5px solid #54BAB9;
+    color: #fff;
+    font-style: bold;
+    border-radius: 10px 0px 10px 0px;
+}
+
+
+/* tab news catogory post*/
+
+.category-post {
+    padding-top: 0.5rem;
+    height: auto;
+    width: 100%;
+}
+
+.category-post img {
+    border-radius: 10px;
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+}
+
+.category-post h5 {
+    padding-top: 0.5rem;
+    max-height: 3.2rem;
+    overflow: hidden;
+}
+
+.category-post p {
+    padding-right: 1rem;
+    padding-top: 1rem;
+    font-size: 0.8rem;
+    color: #333 !important;
+    text-align: justify;
+}
+
+.category-post small {
+    font-style: italic;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.limit-text-news {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.Bm_Ab h2:hover,
+.category-post h5:hover,
+.tab-news h5:hover,
+.Bm_Ab_Second h4:hover,
+.Bm_Ab_Sub h4:hover {
+    color: #2563eb !important;
+}
+
+.Bm_Ab h2 {
+    padding: 5px 0 5px 0 !important;
+    font-style: bold !important;
+    font-weight: 900;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.category-post h5,
+.tab-news h5,
+.Bm_Ab_Second h4,
+.Bm_Ab_Sub h4 {
+    padding: 5px 0 5px 0 !important;
+    font-weight: 700 !important;
+    font-family: 'Roboto', sans-serif !important;
+}

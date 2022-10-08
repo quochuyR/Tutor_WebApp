@@ -12,8 +12,8 @@ require_once($filepath . "../../vendor/autoload.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="gia sư online, web gia sư, web gia sư online, website gia sư online, website gia sư, tìm gia sư,tìm khóa học,gia sư công nghệ,gia sư,gia sư tiếng anh,gia sư toán,gia sư Đồng Tháp"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="gia sư online, web gia sư, web gia sư online, website gia sư online, website gia sư, tìm gia sư,tìm khóa học,gia sư công nghệ,gia sư,gia sư tiếng anh,gia sư toán,gia sư Đồng Tháp" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <meta content="INDEX,FOLLOW" name="robots" />
     <meta name="copyright" content="Dự án website gia sư trường Đại học Đồng Tháp" />
@@ -45,6 +45,7 @@ require_once($filepath . "../../vendor/autoload.php");
     <title><?php if (isset($title)) echo $title;
             else echo "Không tiêu đề" ?></title>
 
+    <link rel="icon" type="image/x-icon" href="../public/images/icons/iconicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />

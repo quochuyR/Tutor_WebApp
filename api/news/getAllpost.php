@@ -14,11 +14,14 @@ Session::init();
 try {
     $news = new news();
 
-    $result = $news->selectBlog($title_url);
+    $result = $news->selectallcategories();
 
     if ($result !== false) {
         $postArray = array();
-        $postArray = $result->fetch_array();
+        // $postArray = $result->fetch_array();
+        while ($row = $result->fetch_assoc()) {
+            array_push($postArray, $row);
+        }
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($postArray);
     } else {

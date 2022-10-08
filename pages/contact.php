@@ -32,50 +32,67 @@ include "../inc/header.php";
 ?>
 
 <!-- start body page  -->
-<section class="container-md  bg-light contact-section d-flex justify-content-around" style="border-left: 6px solid #D3DEDC; border-right: 6px solid #D3DEDC;">
-    <div class="p-3 w-80">
-        <div class="page-wrapper">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h4>Who we are</h4>
-                    <p>Markedia is a personal blog for handcrafted, cameramade photography content, fashion styles from independent creatives around the world.</p>
-                </div>
+<section class="contact-section d-flex justify-content-around" data-aos="zoom-in" data-aos-duration="500">
+    <div class="container p-3">
+        <div class="container">
+            <div class="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1200">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">GIA SƯ DTHU EDUCATION LÀ GÌ?</h4>
+                                <p>Đây là một trong những trang web tìm kiếm gia sư trực tuyến tốt nhất hiện nay. <a href=""><b>DTHU EDUCATION</b></a> có các môn học đa dạng từ lớp 6 đến 12. Đội ngũ <a href="">gia sư chất lượng</a> đáp ứng đủ nhu cầu học tập của cả học sinh và những người đã đi làm muốn trau dồi thêm kiến thức.</p>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="col-lg-6">
-                    <h4>How we help?</h4>
-                    <p>If you&rsquo;d like to write for us, <a href="#">advertise with us</a> or just say hello, fill out the form below and we’ll get back to you as soon as possible.</p>
-                </div>
-            </div><!-- end row -->
+                    <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1200">
+                        <div class="card" >
+                            <div class="card-body">
+                                <h4 class="card-title">HỌC TẬP TỐT HƠN</h4>
+                                <p>Bạn là một bậc phụ huynh mong muốn con mình có thể đạt được kết quả học tập tốt nhất nhưng không biết liên hệ gia sư ở đâu? Thì <b>Gia sư DTHU EDUCATION</b> chính là giải pháp tối ưu cho bạn.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end row -->
 
-            <hr class="invis">
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <form class="form-wrapper">
-                        <h2 class="text-center">Liên hệ</h2>
-                        <div class="mb-3">
-                            <label for="fullname" class="form-label">Họ và tên</label>
-                            <input type="text" id="fullnamecontact" class="form-control" name="name" placeholder="Họ và tên">
+                <div class="card card-detail mt-3" data-aos="zoom-in-down" data-aos-duration="2000">
+                    <div class="card-body">
+                        <div class="row p-3">
+                            <div class="col-lg-12">
+                                <form class="form-wrapper">
+                                    <h2 class="text-center">Liên hệ</h2>
+                                    <input type="hidden" id="token_homepage" value="<?= Session::get("csrf_token") ?>" />
+                                    <p class="fade" id="REMOTE_ADDR"><?php echo $_SERVER['REMOTE_ADDR'] ?></p>
+                                    <div class="mb-3">
+                                        <label for="fullname" class="fw-600 form-label">Họ và tên</label>
+                                        <input type="text" id="fullnamecontact" class="form-control" name="name" placeholder="Họ và tên">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="fw-600 form-label">Email</label>
+                                        <input type="email" id="emailcontact" class="form-control" name="email" placeholder="Địa chỉ email">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="fw-600 form-label">Số điện thoại</label>
+                                        <input type="text" id="phonecontact" class="form-control" name="phone" placeholder="Số điện thoại">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="content" class="fw-600 form-label">Nội dung</label>
+                                        <textarea class="form-control" id="contentcontact" rows="4" placeholder="Nội dung"></textarea>
+                                    </div>
+                                    <div class="validate-input m-b-20 d-flex justify-content-center mb-3">
+                                        <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6Lfw6MkeAAAAADmRhvf__Nri7XkH3dVGsR9v64lM"></div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" id="sentcontact" class="fw-600 btn btn-tutor-detail m-1 p-1">Gửi tư vấn <i class="fas fa-paper-plane"></i></button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" id="emailcontact" class="form-control" name="email" placeholder="Địa chỉ email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Số điện thoại</label>
-                            <input type="text" id="phonecontact" class="form-control" name="phone" placeholder="Số điện thoại">
-                        </div>
-                        <div class="mb-3">
-                            <label for="content" class="form-label">Nội dung</label>
-                            <textarea class="form-control" id="contentcontact"  rows="4"  placeholder="Nội dung"></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" id="sentcontact" class="btn btn-tutor-detail m-1 p-1">Gửi tư vấn <i class="fas fa-paper-plane"></i></button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div><!-- end page-wrapper -->
+            </div><!-- end page-wrapper -->
+        </div>
         <!-- start toast notification sent request success  -->
         <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
             <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -93,14 +110,13 @@ include "../inc/header.php";
             </div>
         </div>
         <!-- end toast notification sent request success  -->
-
     </div><!-- end container -->
 
 </section>
 
 <!-- bootstrap 4 -->
 <!-- Smooth Scrolling  -->
-<!-- <script src="js/scroll.js"></script> -->
+<!-- <sript src="js/scroll.js"></sript> -->
 
 <?php
 

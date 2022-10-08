@@ -85,10 +85,20 @@
     padding-bottom: 100px;
 }
 
+.about-second h4 {
+    font-weight: 600;
+    color: #ABD9FF;
+}
+
+.about-second h2 {
+    font-weight: 900;
+    color: #FF9494;
+}
+
 .about-second-background {
     /* background-image: url('https://static.vecteezy.com/system/resources/previews/004/554/612/non_2x/abstract-blue-wave-set-on-transparent-background-illustration-free-vector.jpg');
     background-size: cover; */
-    background-image: url("../../public/images/background/background-1a.png");
+    /* background-image: url("../../public/images/background/background-1a.png"); */
     background-size: cover;
 }
 
@@ -122,11 +132,79 @@
 }
 
 
+/* about gioi thieu  start */
+
+.block-content {
+    padding-top: 20px;
+    padding-bottom: 25px;
+}
+
+.image-half-block {
+    /* width: 100%;
+    height: 380px; */
+    /* min-height: 360px !important; */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.block-card-about-bl {
+    border-bottom-right-radius: 20px !important;
+    width: 80% !important;
+}
+
+.text-half-block {
+    color: #000;
+    display: inline;
+    vertical-align: middle;
+    float: none;
+    padding: 50px !important;
+    text-align: left;
+}
+
+.about-bg1 {
+    background-image: url(../../public/images/background/bg-1.jpg);
+}
+
+.about-bg2 {
+    background-image: url(../../public/images/background/bg-2.jpg);
+}
+
+.about-bg3 {
+    background-image: url(../../public/images/background/bg-3.png);
+}
+
+.about-bg4 {
+    background-image: url(../../public/images/background/bg-4.gif);
+}
+
+.about-bg5 {
+    background-image: url(../../public/images/background/bg-5.jpg);
+}
+
+
+/* about gioi thieu  end */
+
+
 /* features */
+
+.features-title h2 {
+    font-weight: 900;
+    font-size: 4em;
+    color: #3A4750;
+}
 
 .features-text {
     text-align: justify !important;
     font-size: 0.9em;
+}
+
+.features-title h6 {
+    font-weight: 700;
+    font-size: 1.3em;
+    color: #01D28E;
 }
 
 #features {
@@ -135,16 +213,18 @@
 }
 
 .features-background {
-    background-image: url("../../public/images/background/background-1b.png");
+    /* background-image: url("../../public/images/background/background-1b.png"); */
     background-size: cover;
+    background-color: #FFF5E4;
 }
 
 
 /* form register tutor */
 
-.form-register-tutor {
+
+/* .form-register-tutor {
     background-image: url("../../public/images/background/background-white.png");
-}
+} */
 
 .form-register-tutor form {
     margin-top: 50px;
@@ -175,6 +255,39 @@
     background-color: #79C000;
     color: #fff;
     transform: scale(1.03);
+}
+
+.ykienkhachhang p {
+    font-weight: 300;
+}
+
+.ykienkhachhang h2 {
+    font-weight: 700;
+}
+
+.tutor_feature {
+    font-weight: 700;
+    padding: 40px 0 25px 0;
+    color: #5F9DF7;
+    font-size: 2.3em
+}
+
+.block_feature_1_homepage_text {
+    font-weight: 700;
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+#block_feature_1_homepage a {
+    color: #333;
+}
+
+#block_feature_1_homepage p {
+    padding-top: 15px;
+}
+
+#block_feature_1_homepage a:hover {
+    color: rgb(255, 0, 0);
 }
 
 

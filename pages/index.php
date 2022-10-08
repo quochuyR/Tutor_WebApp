@@ -34,7 +34,7 @@ $introduction = "active";
 $title = "Hệ thống gia sư, các khóa học chất lượng";
 include "../inc/header.php";
 ?>
-<!-- carousel silde  -->
+<!-- carousel silde  start-->
 <section id="main" class="container-fluid px-0">
     <section data-aos="zoom-in-up" data-aos-duration="1500" id="carouselSecction">
         <div id="carouselExampleIndicators" class="carousel slide carouselTrangChu" data-bs-ride="carousel">
@@ -56,46 +56,56 @@ include "../inc/header.php";
             </button>
         </div>
     </section>
+    <!-- carousel silde  end-->
 
-
+    <!-- About Second start  -->
     <section class="about-second-background container-fluid">
         <div class="container pt-5 about-second">
             <h4 class="text-center">Hãy tìm cho con một gia sư</h4>
             <h2 class="text-center">Gia Sư - Trợ lý học tập đích thực</h2>
             <div class="row justify-content-around pt-5" data-aos="zoom-in" data-aos-duration="1500">
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card card-second" style="width: 18rem">
-                        <img src="../public/images/Homepage/gia-su-chat-luong.png" class="card-img-top rounded" alt="...">
-                        <div class="card-body">
-                            <p class="card-title text-center"><b>GIA SƯ CHẤT LƯỢNG CAO</b></p>
-                            <p class="card-text card-second-text">Được tuyển chọn từ hơn 40.000 gia sư từ các trường đại học hàng đầu Việt Nam, các gia sư còn trải qua quá trình đào tạo và kiểm tra nghiêm khắc.</p>
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <div class="d-flex justify-content-center">
+                        <div class="card card-second " style="width: 18rem">
+                            <img src="../public/images/Homepage/gia-su-chat-luong.png" class="card-img-top rounded" alt="...">
+                            <div class="card-body">
+                                <p class="card-title text-center"><b>GIA SƯ CHẤT LƯỢNG CAO</b></p>
+                                <p class="card-text card-second-text">Được tuyển chọn từ hơn 40.000 gia sư từ các trường đại học hàng đầu Việt Nam, các gia sư còn trải qua quá trình đào tạo và kiểm tra nghiêm khắc.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 pt-5" data-aos="zoom-in" data-aos-duration="1500">
-                    <div class="card card-second" style="width:  18rem">
-                        <img src="../public/images/Homepage/Hoc-tap-ca-nhan-hoa.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-title text-center"><b>HỌC TẬP CÁ NHÂN HOÁ</b></p>
-                            <p class="card-text card-second-text">Không chỉ cá nhân hoá lộ trình học mà mỗi học sinh đều được xác định phong cách học riêng và giảng dạy theo phương pháp phù hợp nhất với phong cách đó.</p>
+                    <div class="d-flex justify-content-center">
+                        <div class="card card-second" style="width:  18rem">
+                            <img src="../public/images/Homepage/Hoc-tap-ca-nhan-hoa.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-title text-center"><b>HỌC TẬP CÁ NHÂN HOÁ</b></p>
+                                <p class="card-text card-second-text">Không chỉ cá nhân hoá lộ trình học mà mỗi học sinh đều được xác định phong cách học riêng và giảng dạy theo phương pháp phù hợp nhất với phong cách đó.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-3 col-md-6 col-sm-12" data-aos="zoom-in" data-aos-duration="1500">
-                    <div class="card card-second" style="width:  18rem">
-                        <img src="../public/images/Homepage/gia-su-chuyen-mon.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-title text-center"><b>GIÁO VIÊN CHUYÊN MÔN</b></p>
-                            <p class="card-text card-second-text">Mỗi lớp gia sư sẽ có một giáo viên giỏi giám sát và đảm bảo chất lượng dạy và học. Giáo viên chuyên môn sẽ lên lộ trình, theo dõi và trao đổi cùng gia sư và phụ huynh.</p>
+                    <div class="d-flex justify-content-center">
+                        <div class="card card-second" style="width:  18rem">
+                            <img src="../public/images/Homepage/gia-su-chuyen-mon.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-title text-center"><b>GIÁO VIÊN CHUYÊN MÔN</b></p>
+                                <p class="card-text card-second-text">Mỗi lớp gia sư sẽ có một giáo viên giỏi giám sát và đảm bảo chất lượng dạy và học. Giáo viên chuyên môn sẽ lên lộ trình, theo dõi và trao đổi cùng gia sư và phụ huynh.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 pt-5" data-aos="zoom-in" data-aos-duration="1500">
-                    <div class="card card-second" style="width: 18rem">
-                        <img src="../public/images/Homepage/Huong-dan-quan-tri-web.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-title text-center"><b>WEBSITE QUẢN LÝ</b></p>
-                            <p class="card-text card-second-text">Website Gia Sư giúp phụ huynh dễ dàng theo dõi được nội dung học từng buổi học, đọc báo cáo học tập và nhận xét của gia sư, của cô giáo tổ chuyên môn.</p>
+                    <div class="d-flex justify-content-center">
+                        <div class="card card-second" style="width: 18rem">
+                            <img src="../public/images/Homepage/Huong-dan-quan-tri-web.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <p class="card-title text-center"><b>WEBSITE QUẢN LÝ</b></p>
+                                <p class="card-text card-second-text">Website Gia Sư giúp phụ huynh dễ dàng theo dõi được nội dung học từng buổi học, đọc báo cáo học tập và nhận xét của gia sư, của cô giáo tổ chuyên môn.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,14 +122,14 @@ include "../inc/header.php";
         <section id="features" class="container pt-5 pb-5">
             <div class="container">
                 <div class="row g-5">
-                    <div class="col-lg-5 wow fadeInUp align-self-center" data-wow-delay="0.1s">
+                    <div class="features-title col-lg-5 wow fadeInUp align-self-center" data-wow-delay="0.1s">
                         <h2 class="mb-4">TẠI SAO CHỌN GIA SƯ TRÊN WEBSITE?</h2>
                         <p>Lý do để hơn 3000+ phụ huynh toàn quốc lựa chọn Gia Sư giúp con học tốt và cảm thấy hiệu quả hơn bất kỳ hình thức học tập nào khác.</p>
                     </div>
                     <div class="col-lg-7">
                         <div class="row g-5">
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="d-flex align-items-center mb-3">
+                            <div class="col-sm-6 wow fadeIn features-title" data-wow-delay="0.1s">
+                                <div class="d-flex align-items-center mb-3 ">
                                     <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
                                         <i class="fa fa-cubes text-white"></i>
                                     </div>
@@ -127,7 +137,7 @@ include "../inc/header.php";
                                 </div>
                                 <span class="features-text">Khác với học gia sư tự do, gia sư sẽ được quản lý chất lượng và định hướng bởi tổ giáo viên giỏi.</span>
                             </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.2s">
+                            <div class="col-sm-6 wow fadeIn features-title" data-wow-delay="0.2s">
                                 <div class="d-flex align-items-center mb-3">
                                     <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
                                         <i class="fa fa-percent text-white"></i>
@@ -136,7 +146,7 @@ include "../inc/header.php";
                                 </div>
                                 <span class="features-text">Học sinh được học theo đúng phong cách của mình nên tiếp thu nhanh hơn, hứng thú hơn. Kho bài giảng được nghiên cứu, giúp học dễ hiểu và hiệu quả hơn.</span>
                             </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
+                            <div class="col-sm-6 wow fadeIn features-title" data-wow-delay="0.3s">
                                 <div class="d-flex align-items-center mb-3">
                                     <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
                                         <i class="fa fa-smile-beam text-white"></i>
@@ -145,7 +155,7 @@ include "../inc/header.php";
                                 </div>
                                 <span class="features-text">Website Gia Sư giúp phụ huynh theo dõi được từng buổi học, xem biểu đồ phát triển của con.</span>
                             </div>
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
+                            <div class="col-sm-6 wow fadeIn features-title" data-wow-delay="0.5s">
                                 <div class="d-flex align-items-center mb-3">
                                     <div class="flex-shrink-0 btn-square bg-primary rounded-circle me-3">
                                         <i class="fa fa-user-tie text-white"></i>
@@ -163,13 +173,11 @@ include "../inc/header.php";
     <!-- Features End -->
     <!-- danh sach gia su  -->
     <section class="container" data-aos="zoom-in-up" data-aos-duration="1500">
-        <div>
-            <h2 class="text-center m-3">Danh sách gia sư tiêu biểu</h2>
-        </div>
+        <h2 class="tutor_feature text-center m-3">GIA SƯ NỔI BẬT</h2>
         <div class="row justify-content-around">
             <?php
             $result = $db_homepageTutor->getFilter($_POST);
-            $_POST["limit"] = 8;
+            $_POST["limit"] = 12;
             $tutorOfTopic =  $TTtopic->getFilter($_POST);
 
             if ($tutorOfTopic->data) :
@@ -177,7 +185,7 @@ include "../inc/header.php";
             ?>
 
 
-                    <div class="col-lg-3 col-md-6 col-sm-10 offset-md-0 offset-sm-1 pt-md-0">
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-6 offset-md-0 offset-sm-1 pt-md-0">
                         <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
                             <div class=" card-img-top img-teacher text-center">
                                 <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(1) . "public/" .  $result['imagepath'] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg") ?>" class="rounded" alt="" srcset="">
@@ -228,10 +236,101 @@ include "../inc/header.php";
         </div>
     </section>
     <!-- About Second strat-->
-
+    <!-- About bl  start -->
+    <section class="pt-5">
+        <div class="block-content bg-gradient-blue" id="vision">
+            <div class="container d-flex justify-content-center">
+                <div class="card block-card-about-bl" data-aos="fade-up">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-12 col-xs-12 image-half-block about-bg1"></div>
+                        <div class="col-md-5 col-sm-12 col-xs-12 text-half-block">
+                            <h2>SỨ MỆNH GIÁO DỤC</h2>
+                            <p>Nền kinh tế Việt Nam đang vươn lên mạnh mẽ. Để đáp ứng được nhu cầu lao động chất lượng cao
+                                thì cải cách giáo dục phải được ưu tiên lên hàng đầu. Hưởng ứng lời kêu gọi xã hội hóa giáo dục của chính phủ,
+                                Chúng tôi, những con người DTHU EDUCATION đang ngày đêm góp sức mình trong việc nâng cao chất lượng giáo dục tại Việt Nam.
+                                Chúng tôi tự hào gọi đó là một <i>"Sứ mệnh giáo dục"</i>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block-content bg-gradient-pink" id="ketnoi">
+            <div class="container d-flex justify-content-center">
+                <div class="card block-card-about-bl" data-aos="fade-down">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 col-xs-12 text-half-block col-md-pull-7">
+                            <h2>KẾT NỐI DẠY VÀ HỌC</h2>
+                            <p>Hướng đi của chúng tôi đó là <i>"Kết nối nhu cầu học tập của người học tới những giáo viên,
+                                    gia sư, chuyên gia, và trung tâm uy tín"</i>. Việc này có ý nghĩa to lớn trong việc tiết kiệm chi phí
+                                thời gian tìm kiếm cũng như tạo ra một nền tảng đánh giá chất lượng khách quan bởi cộng đồng.
+                            </p>
+                        </div>
+                        <div class="col-md-7 col-sm-12 col-xs-12 image-half-block about-bg2 col-md-push-5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block-content bg-gradient-blue" id="featuresabout">
+            <div class="container d-flex justify-content-center">
+                <div class="card block-card-about-bl" data-aos="fade-up">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-12 col-xs-12 image-half-block about-bg3"></div>
+                        <div class="col-md-5 col-sm-12 col-xs-12 text-half-block">
+                            <h2>NHANH, ĐƠN GIẢN, TIẾT KIỆM</h2>
+                            <p>Sử dụng thành tựu công nghệ thời đại 4.0, chúng tôi tạo ra nền tảng mà người học và người dạy
+                                được <i>"kết nối trực tiếp"</i> rất nhanh và chính xác theo đúng những nhu cầu học đã đăng lên.
+                                Đặc biệt, các giáo viên sẽ đưa ra các mức giá hợp lý nhất như bạn mong muốn.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block-content bg-gradient-pink" id="quality">
+            <div class="container d-flex justify-content-center">
+                <div class="card block-card-about-bl" data-aos="fade-down">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 col-xs-12 text-half-block col-md-pull-7">
+                            <h2>ĐÁNH GIÁ CHẤT LƯỢNG KHÁCH QUAN</h2>
+                            <p>Chúng tôi hiểu rằng <i>"chất lượng dạy học luôn phải đặt lên hàng đầu"</i> bên cạnh chi phí phải chăng.
+                                Vì vậy chúng tôi đã tạo ra nền tảng cho phép học viên được đánh giá chất lượng dạy &amp; học. Những thông tin này
+                                là vô cùng hữu ích cho những người học tiếp theo.
+                            </p>
+                        </div>
+                        <div class="col-md-7 col-sm-12 col-xs-12 image-half-block about-bg4 col-md-push-5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block-content bg-gradient-blue" id="alldemand">
+            <div class="container d-flex justify-content-center">
+                <div class="card block-card-about-bl" data-aos="fade-up">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-12 col-xs-12 image-half-block about-bg5"></div>
+                        <div class="col-md-5 col-sm-12 col-xs-12 text-half-block">
+                            <h2>ĐÁP ỨNG MỌI NHU CẦU HỌC TẬP CỦA BẠN</h2>
+                            <p>Giờ đây bạn không phải vất vả tìm kiếm nữa, bởi tất cả mọi nhu cầu học tập của bạn
+                                đều rất sẵn sàng trên DTHU EDUCATION. Chúng tôi có thể giúp bạn:
+                            </p>
+                            <ul style="font-size:16px;">
+                                <li>Tìm gia sư, tìm giáo viên dạy kèm</li>
+                                <li>Tìm khóa học trung tâm</li>
+                                <li>Tư vấn giáo dục</li>
+                                <li>Hoạt động giáo dục trải nghiệm</li>
+                            </ul>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About bl  End  -->
+    <div class="clearfix"></div>
     <!-- Form đăng kí tư vấn start  -->
     <section id="form-register-tutor" class="form-register-tutor  p-3 d-flex justify-content-center">
-        <form name="form-register" data-aos="zoom-in" data-aos-duration="1000">
+        <form name="form-register" data-aos="zoom-in" data-aos-duration="1600">
             <h3>ĐĂNG KÍ TƯ VẤN MIỄN PHÍ</h3>
             <div class="row mb-3">
                 <input type="hidden" id="token_homepage" value="<?= Session::get("csrf_token") ?>" />
@@ -266,8 +365,10 @@ include "../inc/header.php";
     <!-- danh gia cua moi nguoi ve trang gia su day kem  -->
     <section style="background-color: #6a41ed; color: #FFFFFF;">
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <p class="text-center pt-5">Ý KIẾN KHÁCH HÀNG</p>
-            <h2 class="text-center">Phụ Huynh và Học Viên Nói Gì?</h2>
+            <div class="ykienkhachhang">
+                <p class="text-center pt-5">Ý KIẾN KHÁCH HÀNG</p>
+                <h2 class="text-center">Phụ Huynh và Học Viên Nói Gì?</h2>
+            </div>
             <div class="carousel-inner pt-5">
                 <div class="carousel-item active" data-bs-interval="4000">
                     <div class="row d-block w-100 ">
@@ -302,7 +403,7 @@ include "../inc/header.php";
     <!-- danh gia cua moi nguoi ve trang gia su day kem End-->
     <!-- bài viết và sự kiện start  -->
     <section class="container">
-        <h3 class="text-center mb-3"><b>TIN TỨC GIÁO DỤC</b></h3>
+        <h3 class="block_feature_1_homepage_text text-center mb-3"><b>TIN TỨC GIÁO DỤC</b></h3>
         <div id="block_feature_1_homepage">
 
         </div>

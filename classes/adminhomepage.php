@@ -32,7 +32,7 @@ class Adminhomepage
     {
         $statusMsg = '';
         // File upload path
-        $targetDir = "../public/images/carousel/";
+        $targetDir = "../../public/images/carousel/";
         $fileName = '';
         $targetFilePath = '';
         $fileType = '';
@@ -78,6 +78,11 @@ class Adminhomepage
 
     function Delete($idDelete)
     {
+        $query_select = "SELECT `file_name` FROM `calrouselimg` WHERE `id` = ?";
+        $result_select_By_ID = $this->db->p_statement($query_select,"i",[$idDelete]);
+        $url_file_delete = "../../public/images/carousel/".$result_select_By_ID->fetch_assoc()['file_name'];
+        print_r ($url_file_delete);
+        unlink($url_file_delete);
         $query = "DELETE FROM calrouselimg WHERE id = ?";
         $result = $this->db->p_statement($query, "i", [$idDelete]);
     }

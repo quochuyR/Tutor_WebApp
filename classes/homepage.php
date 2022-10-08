@@ -35,7 +35,7 @@ class HomePage
                 $obj = [
                     "id" => $item["id"], "name" => $item["name"],
                     "file_name" => $item["file_name"], "uploaded_on" => $item["uploaded_on"],
-                    "status" => $item["status"], "imageURL" => '../admin/public/images/carousel/' . $item["file_name"]
+                    "status" => $item["status"], "imageURL" => '../public/images/carousel/' . $item["file_name"]
                 ];
                 //sau này đường dẫn này có thể bị sai
                 array_push($ListImgUrl, $obj);
@@ -78,8 +78,12 @@ class HomePage
             }
         }
     }
+
 }
 #truy van thong tin gia su
 
 #demo link danh gia cua phu huynh
 $link = 'https://pdp.edu.vn/wp-content/uploads/2021/01/hinh-anh-girl-xinh-toc-ngan-de-thuong.jpg';
+
+
+    
