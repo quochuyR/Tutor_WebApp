@@ -58,12 +58,15 @@ include "../inc/header.php";
                     $subjectTutors = substr($subjectTutors, 0, strlen(trim($subjectTutors)) - 1);
                     ?>
                     <div class="col-10" style="margin: auto; ">
-                        <div class="tab-news" style="border-bottom: 0px;" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
-                            <img src="<?= (isset($result['imagepath']) ? Util::getCurrentURL(1) . "public/" .  $result['imagepath'] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg") ?>">
-                            <a href="<?= "tutor_details?id=" . $result['id']?>"><h5><?= $result['lastname'] . ' ' . $result['firstname'] ?></h5></a>
+                        <div class="tab-news tab-new-tutor card mb-3" style="border-bottom: 0px;" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
+                            <div class="card-body">
+                                <img style="border-radius: 50%;     width: 55px;" src="<?= (isset($result['imagepath']) ? Util::getCurrentURL(1) . "public/" .  $result['imagepath'] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg") ?>">
+                                <a href="<?= "tutor_details?id=" . $result['id'] ?>">
+                                    <h5><?= $result['lastname'] . ' ' . $result['firstname'] ?></h5>
+                                </a>
+                                <p class="description product limit-text-new" >Môn học: <?= $subjectTutors ?></p>
+                            </div>
 
-                            <p>Môn học: <small class="description product limit-text"><?= $subjectTutors ?></small></p>
-                            
                         </div>
                     </div>
             <?php

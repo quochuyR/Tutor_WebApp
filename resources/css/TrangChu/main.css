@@ -148,6 +148,11 @@
     background-size: cover;
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    transition-duration: 1s;
+}
+
+.image-half-block:hover {
+    transform: scale(1.1);
 }
 
 .block-card-about-bl {
@@ -318,6 +323,15 @@
     /* form register tutor */
     .form-register-tutor form {
         width: 90%;
+    }
+    .card-body-tutor_index h5 {
+        font-size: 13px !important;
+    }
+    .card-body-tutor_index span {
+        font-size: 10px !important;
+    }
+    .card-image-tutor_index img {
+        height: 107px!important;
     }
 }
 

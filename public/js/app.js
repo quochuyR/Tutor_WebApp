@@ -3888,8 +3888,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       var urlPage = [];
 
       if (window.location.href.split("?").length > 1) {
-        if (window.location.href.split("/")[window.location.href.split("/").length - 1].split('?')[0] == "news_readmore") urlPage.push(window.location.href.split("/"));
-        return urlPage[0][urlPage[0].length - 1].split("?");
+        if (window.location.href.split("/")[window.location.href.split("/").length - 1].split('?')[0] == "news_readmore") {
+          urlPage.push(window.location.href.split("/"));
+          console.log(urlPage[0], 'news_readmore');
+          return urlPage[0][urlPage[0].length - 1].split("?");
+        }
+
+        return false;
       }
 
       return false;

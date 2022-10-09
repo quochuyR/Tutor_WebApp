@@ -35,7 +35,7 @@ $title = "Hệ thống gia sư, các khóa học chất lượng";
 include "../inc/header.php";
 ?>
 <!-- carousel silde  start-->
-<section id="main" class="container-fluid px-0">
+<section id="main" class="container-fluid px-0 pb-3">
     <section data-aos="zoom-in-up" data-aos-duration="1500" id="carouselSecction">
         <div id="carouselExampleIndicators" class="carousel slide carouselTrangChu" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -187,10 +187,10 @@ include "../inc/header.php";
 
                     <div class="col-lg-3 col-md-6 col-sm-6 col-6 offset-md-0 offset-sm-1 pt-md-0">
                         <div class="card card-tutor" onclick=" location.href ='  <?= "tutor_details?id=" . $result['id']  ?> '; ">
-                            <div class=" card-img-top img-teacher text-center">
+                            <div class=" card-img-top img-teacher text-center card-image-tutor_index">
                                 <img src=" <?= (isset($result['imagepath']) ? Util::getCurrentURL(1) . "public/" .  $result['imagepath'] : Util::getCurrentURL(1) . "public/images/avatar5-default.jpg") ?>" class="rounded" alt="" srcset="">
                             </div>
-                            <div class="card-body">
+                            <div class="card-body card-body-tutor_index">
                                 <h5 class="fw-600 pt-1 pb-2 limit-text-inline"><?= $result['lastname'] . ' ' . $result['firstname'] ?></h5>
                                 <?php
                                 $subjectTutors = "";
@@ -330,10 +330,10 @@ include "../inc/header.php";
     <div class="clearfix"></div>
     <!-- tùy chọn thành gia sư - xem danh sách gia sư start  -->
     <section class="trothanhgiasu container-fluid">
-        <div class="text-center">
+        <!-- <div class="text-center">
             <h2><b>DÀNH CHO GIÁO VIÊN, SINH VIÊN</b></h2>
             <h3>Trở Thành Gia Sư</h3>
-        </div>
+        </div> -->
         <div class="container mt-5">
             <div class="row">
                 <div class="col-sm-6">

@@ -2728,6 +2728,11 @@ h6 {
     background-size: cover;
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    transition-duration: 1s;
+}
+
+.image-half-block:hover {
+    transform: scale(1.1);
 }
 
 .block-card-about-bl {
@@ -2898,6 +2903,15 @@ h6 {
     /* form register tutor */
     .form-register-tutor form {
         width: 90%;
+    }
+    .card-body-tutor_index h5 {
+        font-size: 13px !important;
+    }
+    .card-body-tutor_index span {
+        font-size: 10px !important;
+    }
+    .card-image-tutor_index img {
+        height: 107px!important;
     }
 }
 
@@ -3727,7 +3741,7 @@ li+.postion-absolute {
     overflow: hidden;
 } */
 /* #news_page {
-    font-family: 'Playfair Display', serif !important;
+font-family: 'Playfair Display', serif !important;
 } */
 
 
@@ -3748,6 +3762,11 @@ li+.postion-absolute {
     width: 100%;
     object-fit: cover;
     border-radius: 3px;
+    transition-duration: 1s;
+}
+
+.Bm_I img:hover {
+    transform: scale(1.1);
 }
 
 .Bm_Ab {
@@ -3766,6 +3785,11 @@ li+.postion-absolute {
 .Bm_I_Sub {
     height: 7.3rem;
     width: 100%;
+    transition-duration: 1s;
+}
+
+.Bm_I_Sub:hover {
+    transform: scale(1.1);
 }
 
 .Bm_I_Sub img {
@@ -3773,6 +3797,7 @@ li+.postion-absolute {
     width: 100%;
     object-fit: cover;
     border-radius: 3px;
+    padding-bottom: 3px;
 }
 
 .Bm_Ab_Sub {
@@ -3805,6 +3830,11 @@ li+.postion-absolute {
 .Bm_Second {
     height: 7.3rem;
     width: 100%;
+    transition-duration: 0.5s;
+}
+
+.Bm_Second:hover {
+    transform: translateY(-10px) scale(1.1);
 }
 
 .Bm_I_Second img {
@@ -3814,6 +3844,7 @@ li+.postion-absolute {
     width: 30%;
     object-fit: cover;
     border-radius: 3px;
+    transition-duration: 1s;
 }
 
 .Bm_Ab_Second {
@@ -3841,7 +3872,7 @@ li+.postion-absolute {
 
 
 /* .tab-content {
-    border-left: 1px solid #8c97a266;
+border-left: 1px solid #8c97a266;
 } */
 
 .tab-news {
@@ -3947,6 +3978,7 @@ li+.postion-absolute {
     padding-top: 0.5rem;
     height: auto;
     width: 100%;
+    /* transition-duration: 1s; */
 }
 
 .category-post img {
@@ -4014,6 +4046,14 @@ li+.postion-absolute {
 #theme_news .title_name_theme_category {
     font-weight: 700;
     font-size: 30px;
+}
+
+.tab-new-tutor {
+    padding: 0 !important;
+}
+
+.tab-new-tutor p {
+    padding: 0 !important;
 }
 
 @media (max-width: 768px) {
