@@ -421,7 +421,7 @@
               console.log(data['content']);
               tinyMCE.get('textareaArticle').setContent(data['content']); // img.attr('src', 'https://us.123rf.com/450wm/antonbrand/antonbrand1105/antonbrand110500035/9529928-illustration-of-a-instant-camera-isolated-on-white.jpg?ver=6')
 
-              img.attr('src', "../public/images/blogpost/".concat(data['nameimage']));
+              img.attr('src', "../../public/images/blogpost/".concat(data['nameimage']));
               img.attr('alt', data['nameimage']);
             }
           });

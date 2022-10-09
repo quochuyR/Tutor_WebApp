@@ -6,7 +6,7 @@ namespace Inc;
 
 <!-- <footer class="row g-0 m-0 w-100 py-4 px-2 flex-shrink-0"> -->
 <div class="clearfix"></div>
-<footer class="text-center text-lg-start text-dark pt-4" style="background-color: #ECEFF1">
+<footer class="text-center text-lg-start text-dark" style="background-color: #ECEFF1">
     <!-- Section: Social media -->
     <section class="d-flex justify-content-between p-4 text-white" style="background-color: #45B8AC">
         <!-- Left -->
