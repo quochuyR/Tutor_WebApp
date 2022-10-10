@@ -339,10 +339,14 @@
                         status: status
                     },
                     success: function(data) {
-                        console.log(data, "status");
+                        // console.log(data, "status");
                         // ModalNotify("show", "Lưu bài viết thành công");
                         // $("#titlepost").val("");
                         // tinyMCE.get('mytextareapost').setContent("");
+                        $.ajax({
+                            type: "post",
+                            url: "../api/article/insertreadmost",
+                        });
                     }
                 });
                 //imagepost

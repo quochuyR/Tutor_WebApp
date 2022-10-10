@@ -322,9 +322,14 @@
             status: status
           },
           success: function success(data) {
-            console.log(data, "status"); // ModalNotify("show", "Lưu bài viết thành công");
+            // console.log(data, "status");
+            // ModalNotify("show", "Lưu bài viết thành công");
             // $("#titlepost").val("");
             // tinyMCE.get('mytextareapost').setContent("");
+            $.ajax({
+              type: "post",
+              url: "../api/article/insertreadmost"
+            });
           }
         }); //imagepost
 
@@ -3104,7 +3109,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               title_url: title_url
             },
             success: function success(data) {
-              // console.log(data, "data 2");
+              // console.log(data, title_url);
               // data = JSON.parse(data);
               if (data == null) {
                 window.location = "../pages/errors/404";

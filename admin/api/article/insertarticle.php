@@ -37,9 +37,11 @@ try {
         $content = ($_POST["content"]);
         $nameimage = Format::validation($_POST["nameimage"]);
         $status = Format::validation($_POST["status"]);
-        $result = $blog->countArticle();
-        $title_url .= $result->fetch_assoc()['NUMBER'];
-        
+        // $result = $blog->countArticle();
+        // $title_url .= $result->fetch_assoc()['NUMBER'];
+        $title_url .= '-' .rand(1000, 9999);
+
+        //thêm bài viết mới
         $blog->insertArticle($title, $title_url,  $nameimage,  $content,  $kind, $status);
     }
 } catch (Exception $ex) {

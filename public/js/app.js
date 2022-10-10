@@ -3627,7 +3627,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               title_url: title_url
             },
             success: function success(data) {
-              // console.log(data, "data 2");
+              // console.log(data, title_url);
               // data = JSON.parse(data);
               if (data == null) {
                 window.location = "../pages/errors/404";
@@ -3877,6 +3877,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               Html += "<div class=\"tab-news\">\n                                            <a href=\"".concat(url, "pages/post?").concat(value['title_url'], "\">\n                                                <img src=\"").concat(url, "public/images/blogpost/").concat(value['nameimage'], "\" alt=\"").concat(value['title_url'], "\">\n                                            </a>\n                                            <a href=\"").concat(url, "pages/post?").concat(value['title_url'], "\">\n                                                <h5 class=\"limit-text-news\">").concat(value['title'], "</h5>\n                                            </a>\n                                            <p><small>").concat(time_ago(value['time']), "</small></p>\n                                        </div>");
             });
             var hot_newsDom = $('#hot_news');
+            hot_newsDom.html(Html);
+          }
+        }
+      }); //read most
+
+      $.ajax({
+        url: "../api/news/getblogsreadmost",
+        type: "post",
+        success: function success(data_PostNews) {
+          if (data_PostNews) {
+            // console.log(data_PostNews, 'datasdfs')
+            var Html = "";
+            $.each(data_PostNews, function (index, value) {
+              if (index == 7) {
+                return false;
+              }
+
+              Html += "<div class=\"tab-news\">\n                                            <a href=\"".concat(url, "pages/post?").concat(value['title_url'], "\">\n                                                <img src=\"").concat(url, "public/images/blogpost/").concat(value['nameimage'], "\" alt=\"").concat(value['title_url'], "\">\n                                            </a>\n                                            <a href=\"").concat(url, "pages/post?").concat(value['title_url'], "\">\n                                                <h5 class=\"limit-text-news\">").concat(value['title'], "</h5>\n                                            </a>\n                                            <p><small>").concat(time_ago(value['time']), "</small></p>\n                                        </div>");
+            });
+            var hot_newsDom = $('#Tab_hots');
             hot_newsDom.html(Html);
           }
         }

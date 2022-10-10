@@ -85,4 +85,10 @@ class news
         $result = $this->db->p_statement($query, "s", [$kindnameurl]);
         return $result;
     }
+
+    public function selectReadmost(){
+        $query = "SELECT * FROM `readmost` INNER JOIN `blogs` ON `readmost`.`id_blogs`=`blogs`.`id` ORDER BY `readmost`.`count` DESC";
+        $result = $this->db->select($query);
+        return $result;
+    }
 }
