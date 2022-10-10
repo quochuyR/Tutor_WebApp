@@ -94,7 +94,7 @@
                             title_url
                         },
                         success: function(data) {
-                            // console.log(data, "data 2");
+                            // console.log(data, title_url);
                             // data = JSON.parse(data);
 
                             if (data == null) {

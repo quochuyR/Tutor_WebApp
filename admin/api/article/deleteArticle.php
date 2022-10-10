@@ -28,6 +28,7 @@ try {
     $id = $_POST['id'];
     foreach ($id as $value) {
         $result = $blog->deleteArticle($value);
+        $result_2 = $blog->deleteReadmost($value);
     }
 } catch (Exception $ex) {
     print_r($ex->getMessage());

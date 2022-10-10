@@ -28,7 +28,7 @@ class blogpage
     public function getArticle($title_url)
     {
         $query  = "SELECT * FROM `blogs` WHERE `title_url` =  ?";
-        $result = $this->db->p_statement($query,'s', [$title_url]);
+        $result = $this->db->p_statement($query, 's', [$title_url]);
         return $result;
     }
 
@@ -52,7 +52,7 @@ class blogpage
     function getStatusArticle($id)
     {
         $query  = "SELECT status FROM `blogs` where `id` = ?";
-        $result = $this->db->p_statement($query,"i", [$id]);
+        $result = $this->db->p_statement($query, "i", [$id]);
         return $result;
     }
 
@@ -78,50 +78,13 @@ class blogpage
         $result = $this->db->p_statement($query, "sssssi", [$kind, $title, $title_url, $content, $nameimage, $id]);
     }
 
-    public function countArticle(){
+    public function countArticle()
+    {
         $query = "SELECT COUNT(`id`) AS NUMBER FROM `blogs`";
         $result = $this->db->select($query);
         return $result;
     }
 
-    // //truy danh sách thông tin liên hiện
-    // public function queryAllBlogs()
-    // {
-    //     $query  = "SELECT * FROM `blogs`";
-    //     $result = $this->db->select($query);
-    //     return $result;
-    // }
-
-    //truy danh sách thông tin liên hiện
-    // public function select($id)
-    // {
-    //     $query  = "SELECT * FROM `blogs` where `id` = $id";
-    //     $result = $this->db->select($query);
-    //     return $result->fetch_array();
-    // }
-
-    // //thể loại bài Viết
-    // //Thêm thể loại bài Viết
-    // function insertKindPost($kind)
-    // {
-    //     $query = "INSERT INTO `kindpost`(`id`, `kindname`) VALUES (null,?)";
-
-    //     $result = $this->db->p_statement($query, "s", [$kind]);
-    // }
-    // //update kindpost
-    // function updateKindPost($kindId, $kindName)
-    // {
-    //     $query = "UPDATE `kindpost` SET `kindname`=? WHERE `id` = ?";
-
-    //     $result = $this->db->p_statement($query, "si", [$kindName, $kindId]);
-    // }
-    // // delete kindpost
-    // function DeleteKindPost($kindId)
-    // {
-    //     $query = "DELETE FROM `kindpost` WHERE `id` = ?";
-
-    //     $result = $this->db->p_statement($query, "i", [$kindId]);
-    // }
     //select table kindpost
     function selectAllKind()
     {
@@ -174,12 +137,40 @@ class blogpage
         // if ($status == 0)
         //     $status = false;
         $query = "INSERT INTO `kindpost`(`id`, `kindname`, `status`, `id_parent`,`position_show`, `about`, `kindname_url`) VALUES (null,?,$status,?,?,?,?)";
-        $result = $this->db->p_statement($query, "sssss", [$name, $id_parent,$position_show, $about, $name_url]);
+        $result = $this->db->p_statement($query, "sssss", [$name, $id_parent, $position_show, $about, $name_url]);
     }
 
     function updatecategory($id, $name, $status, $id_parent, $position_show, $about, $name_url)
     {
         $query = "UPDATE `kindpost` SET `kindname`= ?,`status`= $status,`id_parent`= ?,`position_show`= ?,`about`= ?, `kindname_url` = ? WHERE `id` = ?";
         $result = $this->db->p_statement($query, "sssssi", [$name, $id_parent, $position_show, $about, $name_url, $id]);
+    }
+    // count readmost article
+    public function create_readmost()
+    {
+        $query_createReadmost = "INSERT INTO `readmost`(`id`, `count`, `id_blogs`, `title_url_blogs`) VALUES (null,0,(SELECT `id` FROM `blogs` order by `time` DESC LIMIT 1),(SELECT `title_url` FROM `blogs` order by `time` DESC LIMIT 1))";
+        $result_create_readmost = $this->db->select($query_createReadmost);
+    }
+    //update title url
+    public function edit_readmost($id, $title_url)
+    {
+        $query = "UPDATE `readmost` SET `title_url_blogs`=? WHERE `id_blogs`=?";
+        $result = $this->db->p_statement($query, "si", [$title_url, $id]);
+    }
+    // delete read most
+    public function deleteReadmost($id_blog)
+    {
+        $query = "DELETE FROM `readmost` WHERE `id_blogs` = ?";
+        $result = $this->db->p_statement($query, "i", [$id_blog]);
+    }
+    // //count read blog 
+    public function countRead($title_url)
+    {
+        $query_number = "SELECT `count`  FROM `readmost` WHERE `title_url_blogs` = ?";
+        $result_number = $this->db->p_statement($query_number, "s", [$title_url]);
+        $result_number =  $result_number->fetch_assoc()['count'];
+        $result_number = $result_number + 1;
+        $query = "UPDATE `readmost` SET `count`=? WHERE  `title_url_blogs` = ?";
+        $result = $this->db->p_statement($query, "is", [$result_number, $title_url]);
     }
 }

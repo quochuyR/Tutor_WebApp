@@ -253,6 +253,33 @@
                     }
                 }
             });
+            //read most
+            $.ajax({
+                url: "../api/news/getblogsreadmost",
+                type: "post",
+                success: function(data_PostNews) {
+                    if (data_PostNews) {
+                        // console.log(data_PostNews, 'datasdfs')
+                        let Html = "";
+                        $.each(data_PostNews, function(index, value) {
+                            if (index == 7) {
+                                return false;
+                            }
+                            Html += `<div class="tab-news">
+                                            <a href="${url}pages/post?${value['title_url']}">
+                                                <img src="${url}public/images/blogpost/${value['nameimage']}" alt="${value['title_url']}">
+                                            </a>
+                                            <a href="${url}pages/post?${value['title_url']}">
+                                                <h5 class="limit-text-news">${value['title']}</h5>
+                                            </a>
+                                            <p><small>${time_ago(value['time'])}</small></p>
+                                        </div>`;
+                        })
+                        let hot_newsDom = $('#Tab_hots');
+                        hot_newsDom.html(Html);
+                    }
+                }
+            });
         }
 
 
